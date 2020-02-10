@@ -4,7 +4,8 @@
   "description": "HarcMap",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run:devel": "node app.js",
+    "run:prod": "node app.js"
   },
   "repository": {
     "type": "git",
