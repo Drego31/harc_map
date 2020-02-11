@@ -1,5 +1,8 @@
 {
-  "extends": "standard",
+  "extends": [
+    "plugin:vue/essential",
+    "standard"
+  ],
   "rules": {
     "no-undef": "off",
     "eqeqeq": "warn",
@@ -9,6 +12,8 @@
     "comma-dangle": [
       "error",
       "always-multiline"
-    ]
+    ],
+    "indent": ["error", 2],
+    "vue/html-indent": ["error", 2]
   }
 }
