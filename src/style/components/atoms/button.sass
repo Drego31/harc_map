@@ -1,0 +1,22 @@
+.a-button
+  @extend %font-14
+  width: 150px
+  height: 32px
+  padding: 2px 15px
+  margin: 5px
+  cursor: pointer
+  background-color: $Tundora
+  color: $White
+  border: solid 1px $Tundora
+  outline: none
+
+  &:hover
+    background-color: $White
+    color: $Tundora
+    border: solid 1px
+
+  &:disabled
+    background-color: rgba($Tundora, 0.38)
+    color: $Tundora
+    border: solid 1px rgba($Tundora, 0.38)
+    cursor: not-allowed
