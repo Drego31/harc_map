@@ -1,4 +1,4 @@
 import './some'
-import './index'
+import './style'
 
 console.log((() => 'xxxx')())
