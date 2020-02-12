@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Products from 'components/pages/products'
+import PSignIn from 'components/pages/sign-in'
+import PSignUp from 'components/pages/sign-up'
+import PMap from 'components/pages/map'
 
 Vue.use(Router)
 
@@ -10,9 +12,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'products',
-      component: Products,
-      showCart: true,
+      name: 'sign-in',
+      component: PSignIn,
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: PSignUp,
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: PMap,
     },
   ],
 })
