@@ -7,10 +7,15 @@ function resolve (dir) {
 
 module.exports = {
   mode: 'development',
-  entry: './js/index.js',
+  entry: './src/index.js',
   output: {
     filename: './app.min.js',
     path: resolve('./public'),
+  },
+  devServer: {
+    contentBase: resolve('./public'),
+    compress: true,
+    port: 8000,
   },
   module: {
     rules: [
