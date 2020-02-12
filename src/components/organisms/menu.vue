@@ -1,7 +1,9 @@
 <template>
-  <div class="o-menu">
+  <div class="o-menu" :class="isOpen ? 'f-open' : ''">
     <div class="f-text-right">
-      <arrow-left-icon :size="32"/>
+      <a-button-icon @click="toggle()">
+        <arrow-left-icon :size="32"/>
+      </a-button-icon>
     </div>
     <div
       v-for="(route, key) in links"
@@ -11,6 +13,7 @@
       <router-link
         class="a-link f-menu"
         :to="route.path"
+        @click.native="toggle()"
       >
         {{ route.label }}
       </router-link>
@@ -19,17 +22,20 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import ArrowLeftIcon from 'icons/ArrowLeft'
+import AButtonIcon from 'components/atoms/button/icon'
 
 export default {
   name: 'o-menu',
   components: {
+    AButtonIcon,
     ArrowLeftIcon,
   },
   data: () => ({
     links: [
       {
-        path: '/sign-in',
+        path: '/',
         label: 'Sign in',
       },
       {
@@ -42,5 +48,15 @@ export default {
       },
     ],
   }),
+  computed: {
+    ...mapGetters('menu', [
+      'isOpen',
+    ]),
+  },
+  methods: {
+    ...mapMutations('menu', [
+      'toggle',
+    ]),
+  },
 }
 </script>
