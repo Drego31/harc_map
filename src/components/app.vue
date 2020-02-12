@@ -2,8 +2,6 @@
   <div id="app">
     <o-header/>
     <div class="o-content">
-      <div v-if="showCart">
-      </div>
       <router-view/>
     </div>
   </div>
