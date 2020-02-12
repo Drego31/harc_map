@@ -1,31 +1,51 @@
 <template>
   <t-page>
-    sign up
-    <router-link to="/">Back</router-link>
-    <div>
-      name: {{ name }}
-    </div>
-    <div>
+    <form>
+      <h1>Sign Up:</h1>
+      <p>Patrol name: {{patrolName}}</p>
       <a-input
-        v-model="name"
-        placeholder="Type name"
+        v-model="patrolName"
+        placeholder="Type patrol name"
       />
-    </div>
+      <p>Email: {{ email }}</p>
+      <a-input
+        v-model="email"
+        placeholder="Type your email"
+      />
+      <p>Password: {{ password }}</p>
+      <a-input
+        v-model="password"
+        placeholder="Type your password"
+      />
+      <p>Repeat password: {{ passwordRepeat }}</p>
+      <a-input
+        v-model="passwordRepeat"
+        placeholder="Repeat your password"
+      />
+      <a-button> Wyślij </a-button>
+      <a-button> Wróć</a-button>
+      <router-link to="/">Back</router-link>
+    </form>
   </t-page>
 </template>
 
 <script>
 import TPage from 'components/templates/page'
 import AInput from 'components/atoms/input'
+import AButton from '../atoms/button'
 
 export default {
   name: 'p-sign-up',
   components: {
+    AButton,
     AInput,
     TPage,
   },
   data: () => ({
-    name: '',
+    email: '',
+    patrolName: '',
+    password: '',
+    passwordRepeat: '',
   }),
 }
 </script>
