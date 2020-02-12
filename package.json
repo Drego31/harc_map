@@ -4,8 +4,7 @@
   "description": "HarcMap",
   "main": "src/index.js",
   "scripts": {
-    "run:devel": "node app.js",
-    "run:prod": "node app.js",
+    "run:dev": "node app.js",
     "start": "npx webpack --watch --config webpack.dev.js",
     "build": "npx webpack --config webpack.prod.js"
   },
@@ -20,6 +19,7 @@
   },
   "homepage": "https://github.com/Drego31/harc_map#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "vue": "^2.6.11"
   },
   "devDependencies": {
