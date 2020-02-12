@@ -1,6 +1,6 @@
 <template>
   <div class="m-article" @click="goToArticle">
-    <div class="a-img f-article" :style="`background-image: url('${img}');`">
+    <div class="a-img f-article">
     </div>
     <div class="f-pt-2 f-pb-3 f-px-2">
       <div class="a-title f-dark">
@@ -19,10 +19,6 @@ export default {
   props: {
     id: {
       type: Number,
-      required: true,
-    },
-    img: {
-      type: String,
       required: true,
     },
     title: {

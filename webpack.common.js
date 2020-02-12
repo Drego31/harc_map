@@ -7,10 +7,15 @@ function resolve (dir) {
 
 module.exports = {
   mode: 'development',
-  entry: './js/index.js',
+  entry: './src/index.js',
   output: {
     filename: './app.min.js',
     path: resolve('./public'),
+  },
+  devServer: {
+    contentBase: resolve('./public'),
+    compress: true,
+    port: 8000,
   },
   module: {
     rules: [
@@ -35,6 +40,13 @@ module.exports = {
         ],
       },
       {
+        test: /\.(css)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
+      {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000',
       },
@@ -51,10 +63,11 @@ module.exports = {
   resolve: {
     alias: {
       vue: 'vue/dist/vue.esm.js',
+      icons: resolve('./node_modules/vue-material-design-icons'),
       src: resolve('./src'),
       components: resolve('./src/components'),
     },
-    extensions: ['.vue', '.sass', '.js'],
+    extensions: ['.vue', '.sass', '.js', '.css'],
   },
   plugins: [
     new VueLoaderPlugin(),
