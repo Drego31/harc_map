@@ -1,6 +1,6 @@
 import { logical } from 'src/utils/logical'
 
-const vModel = {
+const vueModel = {
   get () {
     return this.value
   },
@@ -72,7 +72,7 @@ const minimizeIfMobile = () => {
 }
 
 export {
-  vModel,
+  vueModel,
   vuexVModel,
   mapVuexVModel,
   blockWhenIsLoading,
