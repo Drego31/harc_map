@@ -1,9 +1,14 @@
 <template>
   <div class="o-menu">
-    <div class="m-nav">
+    <div class="f-text-right">
+      <arrow-left-icon :size="32"/>
+    </div>
+    <div
+      v-for="(route, key) in links"
+      :key="key"
+      class="f-p-1"
+    >
       <router-link
-        v-for="(route, key) in links"
-        :key="key"
         class="a-link f-menu"
         :to="route.path"
       >
@@ -14,21 +19,26 @@
 </template>
 
 <script>
+import ArrowLeftIcon from 'icons/ArrowLeft'
+
 export default {
   name: 'o-menu',
+  components: {
+    ArrowLeftIcon,
+  },
   data: () => ({
     links: [
       {
-        path: '/',
-        label: 'Home',
+        path: '/sign-in',
+        label: 'Sign in',
       },
       {
-        path: '/about',
+        path: '/sign-up',
         label: 'About',
       },
       {
-        path: '/contact',
-        label: 'Contact',
+        path: '/map',
+        label: 'Map',
       },
     ],
   }),
