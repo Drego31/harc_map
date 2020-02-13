@@ -7,31 +7,34 @@ import { map } from 'src/map'
 import { Fill, RegularShape, Stroke, Style } from 'ol/style'
 
 export function createFeatures (list) {
-  const stroke = new Stroke({
-    color: 'black',
-    width: 2,
-  })
-  const fill = new Fill({ color: 'red' })
+  for (const { lat, lon, type } of list) {
+    const stroke = new Stroke({
+      color: 'black',
+      width: 2,
+    })
+    const fill = new Fill({ color: 'red' })
+    const position = Projection.fromLonLat([lon, lat])
 
-  const feature = new Feature({
-    geometry: new Point(Projection.fromLonLat([18.5133, 54.4922])),
-  })
+    const feature = new Feature({
+      geometry: new Point(position),
+    })
+    console.log({ type })
+    feature.setStyle(new Style({
+      image: new RegularShape({
+        fill: fill,
+        stroke: stroke,
+        points: 20,
+        radius: 10,
+        angle: 20,
+      }),
+    }))
 
-  feature.setStyle(new Style({
-    image: new RegularShape({
-      fill: fill,
-      stroke: stroke,
-      points: 4,
-      radius: 10,
-      angle: Math.PI / 4,
-    }),
-  }))
+    map.features.list.push(feature)
+  }
 
   const layer = new VectorLayer({
     source: new VectorSource({
-      features: [
-        feature,
-      ],
+      features: map.features.list,
     }),
   })
   map.realMap.addLayer(layer)
