@@ -1,9 +1,9 @@
 <template>
   <t-page>
     <div>
-      {{this.user}}
+      {{ this.user }}
       <h1>Sign Up:</h1>
-      <p>Patrol name: {{user.patrolName}}</p>
+      <p>Patrol name: {{ user.patrolName }}</p>
       <a-input
         v-model="user.patrolName"
         placeholder="Type patrol name"
@@ -36,9 +36,9 @@
 </template>
 
 <script>
-import TPage from 'components/templates/page'
-import AInput from 'components/atoms/input'
-import AButton from '../atoms/button'
+import TPage from 'templates/page'
+import AInput from 'atoms/input'
+import AButton from 'atoms/button'
 
 export default {
   name: 'p-sign-up',
