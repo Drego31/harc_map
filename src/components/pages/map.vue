@@ -1,16 +1,17 @@
 <template>
   <t-page class="f-map">
-    map
-    <router-link to="/">Back</router-link>
+    <o-map/>
   </t-page>
 </template>
 
 <script>
 import TPage from 'components/templates/page'
+import OMap from 'components/organisms/map'
 
 export default {
   name: 'p-map',
   components: {
+    OMap,
     TPage,
   },
 }
