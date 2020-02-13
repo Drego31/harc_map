@@ -7,13 +7,13 @@ function resolve (dir) {
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: 'src/index.js',
   output: {
-    filename: './app.min.js',
-    path: resolve('./public'),
+    filename: 'app.min.js',
+    path: resolve('public'),
   },
   devServer: {
-    contentBase: resolve('./public'),
+    contentBase: resolve('public'),
     compress: true,
     port: 8000,
   },
@@ -63,9 +63,21 @@ module.exports = {
   resolve: {
     alias: {
       vue: 'vue/dist/vue.esm.js',
-      icons: resolve('./node_modules/vue-material-design-icons'),
-      src: resolve('./src'),
-      components: resolve('./src/components'),
+      icons: resolve('node_modules/vue-material-design-icons'),
+      src: resolve('src'),
+      api: resolve('src/api'),
+      map: resolve('src/map'),
+      store: resolve('src/store'),
+      utils: resolve('src/utils'),
+
+      components: resolve('src/components'),
+      atoms: resolve('src/components/atoms'),
+      extends: resolve('src/components/extends'),
+      mixins: resolve('src/components/mixins'),
+      molecules: resolve('src/components/molecules'),
+      organisms: resolve('src/components/organisms'),
+      pages: resolve('src/components/pages'),
+      templates: resolve('src/components/templates'),
     },
     extensions: ['.vue', '.sass', '.js', '.css'],
   },
