@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Drego31/harc_map#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "ol": "^6.2.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
