@@ -6,8 +6,6 @@ export const map = {
   create: config => createMap(config),
   features: {
     list: [],
-    create: ({ list }) => {
-      createFeatures(list)
-    },
+    create: config => createFeatures(config),
   },
 }

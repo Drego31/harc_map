@@ -5,7 +5,7 @@
 <script>
 import { map } from 'src/map'
 
-const features = [
+const points = [
   {
     lat: 54.51728,
     lon: 18.51465,
@@ -54,7 +54,7 @@ export default {
       maxZoom: 19,
     })
     map.features.create({
-      list: features,
+      list: points,
     })
   },
 }

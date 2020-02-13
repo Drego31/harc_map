@@ -6,7 +6,7 @@ import * as Projection from 'ol/proj'
 import { map } from 'src/map'
 import { Fill, RegularShape, Stroke, Style } from 'ol/style'
 
-export function createFeatures (list) {
+export function createFeatures ({ list }) {
   for (const { lat, lon, type } of list) {
     const stroke = new Stroke({
       color: 'black',
