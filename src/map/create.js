@@ -6,7 +6,15 @@ import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
 import { map } from 'src/map/index'
 
-export function createMap ({ elementId, lat = 0, lon = 0, zoom = 2 }) {
+export function createMap (config) {
+  const {
+    elementId,
+    lat = 0,
+    lon = 0,
+    zoom = 2,
+    maxZoom = 19,
+  } = config
+
   if (!elementId) {
     throw new Error('elementId is necessary for map')
   }
@@ -21,6 +29,7 @@ export function createMap ({ elementId, lat = 0, lon = 0, zoom = 2 }) {
     view: new View({
       center: olProj.fromLonLat([lon, lat]),
       zoom,
+      maxZoom,
     }),
   })
 }

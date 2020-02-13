@@ -24,7 +24,7 @@ export function createFeatures (list) {
         fill: fill,
         stroke: stroke,
         points: 20,
-        radius: 10,
+        radius: 7,
         angle: 20,
       }),
     }))
