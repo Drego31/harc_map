@@ -4,22 +4,23 @@ import View from 'ol/View'
 import * as olProj from 'ol/proj'
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
+import { map } from 'src/map/index'
 
-export function createMap (name) {
-  if (!name) {
-    console.error('Error: `name` for map is necessary')
-    return
+export function createMap ({ elementId, lat = 0, lon = 0, zoom = 2 }) {
+  if (!elementId) {
+    throw new Error('elementId is necessary for map')
   }
-  window.map = new Map({
+
+  map.realMap = new Map({
     layers: [
       new TileLayer({
         source: new OSM(),
       }),
     ],
-    target: name,
+    target: elementId,
     view: new View({
-      center: olProj.fromLonLat([18.5133, 54.4922]),
-      zoom: 12,
+      center: olProj.fromLonLat([lon, lat]),
+      zoom,
     }),
   })
 }

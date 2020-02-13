@@ -6,7 +6,7 @@
 
 <script>
 import TPage from 'components/templates/page'
-import { createMap } from 'src/utils/map'
+import { map } from 'src/map'
 
 export default {
   name: 'p-map',
@@ -14,7 +14,12 @@ export default {
     TPage,
   },
   mounted () {
-    createMap('o-map')
+    map.create({
+      elementId: 'o-map',
+      lat: 54.4922,
+      lon: 18.5133,
+      zoom: 12,
+    })
   },
 }
 </script>
