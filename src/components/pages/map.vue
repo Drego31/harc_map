@@ -14,7 +14,7 @@ export default {
     TPage,
   },
   mounted () {
-    createMap()
+    createMap('o-map')
   },
 }
 </script>
