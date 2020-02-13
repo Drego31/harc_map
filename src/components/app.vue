@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <o-header/>
-    <div class="o-content">
+    <div class="f-relative f-flex-1">
       <router-view/>
     </div>
     <o-menu/>
