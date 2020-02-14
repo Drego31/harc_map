@@ -1,11 +1,7 @@
 <template>
   <t-page>
     <div class="a-title">Logowanie</div>
-    <div class="f-pb-1">
-      <a-input placeholder="e-mail" />
-      <a-input placeholder="hasło" />
-      <a-button>Dalej</a-button>
-    </div>
+    <o-form-sign-in/>
     <a-button>Przypomnij hasło</a-button>
     <a-button>Zarejestruj</a-button>
   </t-page>
@@ -13,14 +9,14 @@
 
 <script>
 import TPage from 'templates/page'
-import AInput from 'atoms/input'
+import OFormSignIn from 'organisms/form/sign-in'
 import AButton from 'atoms/button'
 
 export default {
   name: 'p-sign-in',
   components: {
     AButton,
-    AInput,
+    OFormSignIn,
     TPage,
   },
 }

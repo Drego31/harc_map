@@ -1,4 +1,4 @@
-import { mockApi } from './mock-api'
+import { mockApi } from './mock'
 
 const realApi = {
   example () {

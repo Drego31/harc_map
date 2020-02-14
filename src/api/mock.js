@@ -1,4 +1,4 @@
-import { getMockPoints } from 'api/mocks/get-points'
+import { getMockPoints } from 'api/mockMethods/get-points'
 
 function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
   return new Promise(resolve => {
@@ -11,5 +11,11 @@ function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
 export const mockApi = {
   getPoints () {
     return makeDelayFakeAnswer(getMockPoints)
+  },
+  signIn (data) {
+    return makeDelayFakeAnswer(() => {
+      console.log(data)
+      return 'OK'
+    }, 1000)
   },
 }
