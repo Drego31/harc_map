@@ -1,8 +1,6 @@
 <template>
   <t-page>
-    sign in
-    <router-link to="/sign-up">Sign up</router-link>
-    <router-link to="/map">Map</router-link>
+    <div class="a-title">Logowanie</div>
   </t-page>
 </template>
 
