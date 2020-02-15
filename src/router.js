@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import PSignIn from 'components/pages/sign-in'
 import PSignUp from 'components/pages/sign-up'
+import PRemindPassword from 'components/pages/remind-password'
 import PMap from 'components/pages/map'
 
 Vue.use(Router)
@@ -24,6 +25,11 @@ export default new Router({
       path: '/map',
       name: 'map',
       component: PMap,
+    },
+    {
+      path: '/remind-password',
+      name: 'remind-password',
+      component: PRemindPassword,
     },
   ],
 })
