@@ -2,11 +2,12 @@ html
   overflow-y: hidden
 
 body
-  @extend %font-12
+  @extend .f-text-16
   font-family: Arial, serif
+  color: $Tundora
   margin: 0
   padding: 0
-  +fill(absolute)
+  @extend %fill-absolute
 
 *
   box-sizing: border-box
