@@ -3,12 +3,5 @@
 		"port": 3030,
 		"key": "./config/cert.key",
 		"cert": "./config/cert.pem"
-	},
-	"database" : {
-		"port" : 27017,
-		"host" : "mongo0.mydevil.net",
-		"db" : "mo14503_harcmap",
-		"user" : "mo14503_harcmap",
-		"password" : "s1ezvBAAv9u4obG8evNk"
 	}
 }
