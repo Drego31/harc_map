@@ -3,7 +3,7 @@
     <div class="a-title">Logowanie</div>
     <o-form-sign-in/>
     <a-button>Przypomnij hasło</a-button>
-    <a-button>Zarejestruj</a-button>
+    <a-button @click="$router.push('/sign-up')">Zarejestruj</a-button>
   </t-page>
 </template>
 

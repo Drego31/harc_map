@@ -1,41 +1,44 @@
 <template>
   <div class="f-pb-1">
-    <a-input
-      v-model="values.email"
-      placeholder="e-mail"
-      type="email"
-      :disabled="blockForm"
-    />
-    <a-input
-      v-model="values.password"
-      placeholder="hasło"
-      type="password"
-      :disabled="blockForm"
-    />
-    <a-input
-      v-model="repeatedPassword"
-      placeholder="powtórz hasło"
-      type="password"
-      :disabled="blockForm"
-    />
-    <a-input
-      v-model="values.patrolName"
-      placeholder="nazwa patrolu"
-      type="email"
-      :disabled="blockForm"
-    />
-    <a-input
-      v-model="values.eventCode"
-      placeholder="kod wydarzenia"
-      type="email"
-      :disabled="blockForm"
-    />
-    <a-button-submit
-      :message="message"
-      :disabled="blockForm"
-      :is-sending="isSending"
-      @click="signUp()"
-    />
+    <div v-if="!formSend">
+      <a-input
+        v-model="values.email"
+        placeholder="e-mail"
+        type="email"
+        :disabled="blockForm"
+      />
+      <a-input
+        v-model="values.password"
+        placeholder="hasło"
+        type="password"
+        :disabled="blockForm"
+      />
+      <a-input
+        v-model="repeatedPassword"
+        placeholder="powtórz hasło"
+        type="password"
+        :disabled="blockForm"
+      />
+      <a-input
+        v-model="values.patrolName"
+        placeholder="nazwa patrolu"
+        :disabled="blockForm"
+      />
+      <a-input
+        v-model="values.eventCode"
+        placeholder="kod wydarzenia"
+        :disabled="blockForm"
+      />
+      <a-button-submit
+        :message="message"
+        :disabled="blockForm"
+        :is-sending="isSending"
+        @click="signUp()"
+      />
+    </div>
+    <p v-else>
+      Konto utoworzono pomyślnie - kliknij w link aktywacyjny na swojej skrzynce mailowej.
+    </p>
   </div>
 </template>
 
@@ -75,9 +78,8 @@ export default {
       return validEmail && validPassword && validPatrolName && validEventCode
     },
     onSignUp () {
-      this.setMessage('Konto utoworzono pomyślnie - kliknij w link aktywacyjny na swojej skrzynce mailowej')
+      this.setMessage('Zostałeś zarejestrowany')
         .then(() => {
-          // this.$router.push('/')
           this.formSend = true
         })
       this.isSending = false
