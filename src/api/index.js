@@ -14,6 +14,28 @@ const realApi = {
   //       })
   //   })
   // },
+  // signIn ({ email, password }) {
+  //   return new Promise((resolve, reject) => {
+  //     fetch('/user/login', {
+  //       method: 'POST',
+  //       body: JSON.stringify({
+  //         user: email,
+  //         password,
+  //       }),
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         if (data.user === email) {
+  //           resolve({ eventId: data.eventId })
+  //         } else {
+  //           reject(new Error('E-mail or password is wrong'))
+  //         }
+  //       })
+  //       .catch(() => {
+  //         console.error(new Error('Error: Something went wrong'))
+  //       })
+  //   })
+  // },
 }
 
 export const api = {
