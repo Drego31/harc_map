@@ -18,4 +18,10 @@ export const mockApi = {
       return 'OK'
     }, 1000)
   },
+  signUp (data) {
+    return makeDelayFakeAnswer(() => {
+      console.log(data)
+      return 'OK'
+    }, 1000)
+  },
 }
