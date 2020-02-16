@@ -8,7 +8,7 @@
 
 <script>
 import TPage from 'templates/page'
-import AButton from 'atoms//button'
+import AButton from 'atoms/button'
 import ORemindPassword from 'organisms/form/remind-password'
 
 export default {

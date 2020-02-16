@@ -21,11 +21,11 @@
 import AButtonSubmit from 'atoms/button/submit'
 import AInput from 'atoms/input'
 import { api } from 'api/index'
-import { formMixin } from 'mixins/form'
+import { mixins } from 'mixins/base'
 
 export default {
   name: 'remind-password.vue',
-  mixins: [formMixin],
+  mixins: [mixins.form],
   components: {
     AButtonSubmit,
     AInput,
