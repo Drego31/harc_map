@@ -4,7 +4,7 @@ import { createFeatures } from 'src/map/createFeatures'
 export const map = {
   realMap: null,
   create: config => createMap(config),
-  features: {
+  points: {
     list: [],
     create: config => createFeatures(config),
   },
