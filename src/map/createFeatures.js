@@ -7,7 +7,11 @@ import { map } from 'src/map'
 import { Fill, RegularShape, Stroke, Style } from 'ol/style'
 
 export function createFeatures ({ list }) {
-  for (const { lat, lon, type } of list) {
+  for (const point of list) {
+    const lat = point.position.latitude
+    const lon = point.position.longitude
+    const type = point.type
+
     const stroke = new Stroke({
       color: 'black',
       width: 2,
@@ -29,12 +33,12 @@ export function createFeatures ({ list }) {
       }),
     }))
 
-    map.features.list.push(feature)
+    map.points.list.push(feature)
   }
 
   const layer = new VectorLayer({
     source: new VectorSource({
-      features: map.features.list,
+      features: map.points.list,
     }),
   })
   map.realMap.addLayer(layer)
