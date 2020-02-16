@@ -45,6 +45,10 @@ const router = new Router({
 export default router
 
 router.beforeEach((to, from, next) => {
+  redirectIfNotAuth(to, next)
+})
+
+function redirectIfNotAuth (to, next) {
   if (to.meta.requiredAuth === true) {
     const isLogin = store.getters['user/isLogin'] === true
 
@@ -52,4 +56,4 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-})
+}
