@@ -19,7 +19,7 @@ export const mockApi = {
   signIn ({ email, password }) {
     return makeDelayFakeAnswer(() => ({
       eventId: '111',
-    }), 1000)
+    }), 500)
   },
   signUp (data) {
     return makeDelayFakeAnswer(() => {
