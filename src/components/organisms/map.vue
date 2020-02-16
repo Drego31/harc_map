@@ -4,23 +4,26 @@
 
 <script>
 import { map } from 'map'
-import { api } from 'api'
+import { MapPoint } from 'src/structures/map-point'
 
 export default {
   name: 'o-map',
   mounted () {
-    map.create({
-      elementId: 'o-map',
-      lat: 54.4922,
-      lon: 18.5133,
-      zoom: 12,
-      maxZoom: 19,
-    })
-    api.getPoints().then(points => {
-      map.features.create({
-        list: points,
+    this.$store.dispatch('event/download')
+      .then(appEvent => {
+        const position = appEvent.defaultPosition
+
+        map.create({
+          elementId: 'o-map',
+          lat: position.latitude,
+          lon: position.longitude,
+          zoom: appEvent.defaultZoom,
+          maxZoom: 19,
+        })
+        map.points.create({
+          list: appEvent.points.map(point => new MapPoint(point)),
+        })
       })
-    })
   },
 }
 </script>
