@@ -30,25 +30,27 @@
       type="email"
       :disabled="blockForm"
     />
-    <a-button
-      @click="signUp()"
+    <a-button-submit
+      :message="message"
       :disabled="blockForm"
-    >
-      {{ isSending ? 'Sprawdzamy...' : (message ? message : 'Dalej') }}
-    </a-button>
+      :is-sending="isSending"
+      @click="signUp()"
+    />
   </div>
 </template>
 
 <script>
 import AInput from 'atoms/input'
-import AButton from 'atoms/button'
 import { api } from 'api/index'
+import AButtonSubmit from 'atoms/button/submit'
+import { mixins } from 'mixins/base'
 
 export default {
   name: 'o-form-sign-in',
+  mixins: [mixins.form],
   components: {
+    AButtonSubmit,
     AInput,
-    AButton,
   },
   data: () => ({
     values: {
@@ -61,6 +63,7 @@ export default {
     blockForm: false,
     isSending: false,
     message: '',
+    formSend: false,
   }),
   methods: {
     checkValues () {
@@ -71,29 +74,12 @@ export default {
       const validEventCode = eventCode === '111'
       return validEmail && validPassword && validPatrolName && validEventCode
     },
-    setMessage (text) {
-      return new Promise(resolve => {
-        this.message = text
-        setTimeout(() => {
-          this.message = ''
-          this.blockForm = false
-          resolve()
-        }, 2000)
-      })
-    },
     onSignUp () {
       this.setMessage('Konto utoworzono pomyślnie - kliknij w link aktywacyjny na swojej skrzynce mailowej')
         .then(() => {
-          this.$router.push('/')
+          // this.$router.push('/')
+          this.formSend = true
         })
-      this.isSending = false
-    },
-    onError () {
-      this.setMessage('Spróbuj ponownie...')
-      this.isSending = false
-    },
-    onInvalidValues () {
-      this.setMessage('Błędne dane')
       this.isSending = false
     },
     signUp () {
