@@ -1,6 +1,6 @@
 import { AppEvent } from 'src/structures/app-event'
 
-export function getMockEventById () {
+export function getEventByIdMock () {
   return new AppEvent({
     eventId: '111',
     name: 'Event',

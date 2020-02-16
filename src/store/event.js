@@ -19,9 +19,10 @@ export default {
     setEvent: (state, data) => {
       Object.assign(state, { ...data })
     },
+    setId: (state, payload) => (state.eventId = payload),
   },
   actions: {
-    download (context, eventId) {
+    download (context, eventId = context.state.eventId) {
       return new Promise(resolve => {
         api.getEventById(eventId)
           .then(data => {
