@@ -1,31 +1,22 @@
 <template>
   <t-page>
-    sign up
-    <router-link to="/">Back</router-link>
-    <div>
-      name: {{ name }}
-    </div>
-    <div>
-      <a-input
-        v-model="name"
-        placeholder="Type name"
-      />
-    </div>
+    <div class="a-title">Zarejestruj się</div>
+    <o-form-sign-up/>
+    <a-button @click="$router.push('/')">Wróć do logowania</a-button>
   </t-page>
 </template>
 
 <script>
-import TPage from 'components/templates/page'
-import AInput from 'components/atoms/input'
+import TPage from 'templates/page'
+import OFormSignUp from 'organisms/form/sign-up'
+import AButton from 'atoms/button'
 
 export default {
   name: 'p-sign-up',
   components: {
-    AInput,
+    AButton,
+    OFormSignUp,
     TPage,
   },
-  data: () => ({
-    name: '',
-  }),
 }
 </script>
