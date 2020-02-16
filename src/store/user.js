@@ -12,7 +12,10 @@ export default {
   mutations: {
     setEmail: (state, payload) => (state.email = payload),
     setTeamName: (state, payload) => (state.teamName = payload),
+    signOut: state => {
+      state.email = ''
+      state.teamName = ''
+    },
   },
-  actions: {
-  },
+  actions: {},
 }
