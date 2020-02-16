@@ -31,6 +31,15 @@ const router = new Router({
       },
     },
     {
+      path: '/remind-password',
+      name: 'remind-password',
+      component: PRemindPassword,
+      meta: {
+        beforeLogin: true,
+        requiredAuth: false,
+      },
+    },
+    {
       path: '/map',
       name: 'map',
       component: PMap,
@@ -42,11 +51,6 @@ const router = new Router({
     {
       path: '*',
       redirect: '/',
-    },
-    {
-      path: '/remind-password',
-      name: 'remind-password',
-      component: PRemindPassword,
     },
   ],
 })
