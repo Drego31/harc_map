@@ -47,9 +47,10 @@ export default {
       return this.values.email.length >= 5 && this.values.password.length >= 6
     },
     onSignIn ({ eventId }) {
+      this.$store.commit('event/setId', eventId)
+      this.$store.commit('user/setEmail', this.values.email)
       this.setMessage('Zostałeś zalogowany!')
         .then(() => {
-          this.$store.commit('event/setId', eventId)
           this.$router.push('/map')
         })
       this.isSending = false

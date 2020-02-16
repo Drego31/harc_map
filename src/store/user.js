@@ -7,7 +7,7 @@ export default {
   getters: {
     email: state => state.email,
     teamName: state => state.teamName,
-    isLoggin: state => state.email !== '',
+    isLogin: state => state.email !== '',
   },
   mutations: {
     setEmail: (state, payload) => (state.email = payload),
