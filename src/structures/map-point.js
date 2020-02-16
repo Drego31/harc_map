@@ -8,7 +8,7 @@ export class MapPoint {
     },
     type,
   }) {
-    this.id = pointId
+    this.pointId = pointId
     this.name = name
     this.position = {
       longitude,

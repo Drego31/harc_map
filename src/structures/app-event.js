@@ -9,11 +9,11 @@ export class AppEvent {
     default_zoom = 2,
     points = [],
   }) {
-    this.id = eventId
+    this.eventId = eventId
     this.name = name
     this.defaultPosition = {
-      longitude: default_position.latitude,
-      latitude: default_position.longitude,
+      latitude: default_position.latitude,
+      longitude: default_position.longitude,
     }
     // eslint-disable-next-line camelcase
     this.defaultZoom = default_zoom
