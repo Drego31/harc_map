@@ -50,6 +50,7 @@ export default {
       this.setMessage('Zostałeś zalogowany!')
         .then(() => {
           this.$store.commit('event/setId', eventId)
+          this.$store.commit('user/setEmail', this.values.email)
           this.$router.push('/map')
         })
       this.isSending = false
