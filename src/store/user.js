@@ -10,8 +10,8 @@ export default {
     isLoggin: state => state.email !== '',
   },
   mutations: {
-    email: (state, payload) => (state.email = payload),
-    teamName: (state, payload) => (state.teamName = payload),
+    setEmail: (state, payload) => (state.email = payload),
+    setTeamName: (state, payload) => (state.teamName = payload),
   },
   actions: {
   },
