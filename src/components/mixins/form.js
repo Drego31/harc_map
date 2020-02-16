@@ -7,7 +7,7 @@ export const formMixin = {
           this.message = ''
           this.blockForm = false
           resolve()
-        }, 2000)
+        }, 1500)
       })
     },
     onError () {

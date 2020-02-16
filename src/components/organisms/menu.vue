@@ -35,14 +35,6 @@ export default {
   data: () => ({
     links: [
       {
-        path: '/',
-        label: 'Sign in',
-      },
-      {
-        path: '/sign-up',
-        label: 'About',
-      },
-      {
         path: '/map',
         label: 'Map',
       },

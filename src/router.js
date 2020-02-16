@@ -16,6 +16,7 @@ const router = new Router({
       name: 'sign-in',
       component: PSignIn,
       meta: {
+        beforeLogin: true,
         requiredAuth: false,
       },
     },
@@ -24,6 +25,7 @@ const router = new Router({
       name: 'sign-up',
       component: PSignUp,
       meta: {
+        beforeLogin: true,
         requiredAuth: false,
       },
     },
@@ -32,6 +34,7 @@ const router = new Router({
       name: 'map',
       component: PMap,
       meta: {
+        beforeLogin: false,
         requiredAuth: true,
       },
     },
@@ -46,14 +49,22 @@ export default router
 
 router.beforeEach((to, from, next) => {
   redirectIfNotAuth(to, next)
+  store.commit('menu/close')
 })
 
 function redirectIfNotAuth (to, next) {
-  if (to.meta.requiredAuth === true) {
-    const isLogin = store.getters['user/isLogin'] === true
+  const isLogin = store.getters['user/isLogin'] === true
 
-    next(isLogin ? undefined : '/')
+  if (isLogin) {
+    if (to.meta.beforeLogin) {
+      next('/map')
+      return
+    }
   } else {
-    next()
+    if (to.meta.requiredAuth === true) {
+      next('/')
+      return
+    }
   }
+  next()
 }
