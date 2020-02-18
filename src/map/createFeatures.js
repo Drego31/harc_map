@@ -17,6 +17,31 @@ const getFill = (type) => {
   return new Fill({ color: MAP_POINTS[type.toString()].fillColor })
 }
 
+const getShape = (type, fill, stroke) => {
+  const STAR_SHAPE = 4
+  if (type === STAR_SHAPE) {
+    return new Style({
+      image: new RegularShape({
+        fill: fill,
+        stroke: stroke,
+        points: 5,
+        radius: 10,
+        radius2: 4,
+        angle: 0,
+      }),
+    })
+  }
+  return new Style({
+    image: new RegularShape({
+      fill: fill,
+      stroke: stroke,
+      points: 20,
+      radius: 7,
+      angle: 20,
+    }),
+  })
+}
+
 export function createFeatures ({ list }) {
   for (const point of list) {
     const lat = point.position.latitude
@@ -31,16 +56,8 @@ export function createFeatures ({ list }) {
     const feature = new Feature({
       geometry: new Point(position),
     })
-    // console.log({ type })
-    feature.setStyle(new Style({
-      image: new RegularShape({
-        fill: fill,
-        stroke: stroke,
-        points: 20,
-        radius: 7,
-        angle: 20,
-      }),
-    }))
+    console.log({ type })
+    feature.setStyle(getShape(type, fill, stroke))
 
     map.points.list.push(feature)
   }
