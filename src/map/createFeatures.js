@@ -9,25 +9,31 @@ import { MAP_POINTS } from '../utils/macros/mapPointTypes'
 
 const getStroke = (type, width = 2) => {
   return new Stroke({
-    color: MAP_POINTS[type.toString()].strokeColor,
+    color: MAP_POINTS[type].strokeColor,
     width,
   })
 }
 const getFill = (type) => {
-  return new Fill({ color: MAP_POINTS[type.toString()].fillColor })
+  return new Fill({ color: MAP_POINTS[type].fillColor })
 }
 
-const getShape = (type, fill, stroke) => {
+const getFinalPoints = (type, fill, stroke) => {
   const STAR_SHAPE = 4
+  const POINT_VALUES = {
+    points: 20,
+    radius: 7,
+    angle: 20,
+  }
   if (type === STAR_SHAPE) {
+    POINT_VALUES.points = 5
+    POINT_VALUES.radius = 10
+    POINT_VALUES.radius2 = 4
+    POINT_VALUES.angle = 0
     return new Style({
       image: new RegularShape({
         fill: fill,
         stroke: stroke,
-        points: 5,
-        radius: 10,
-        radius2: 4,
-        angle: 0,
+        ...POINT_VALUES,
       }),
     })
   }
@@ -35,9 +41,7 @@ const getShape = (type, fill, stroke) => {
     image: new RegularShape({
       fill: fill,
       stroke: stroke,
-      points: 20,
-      radius: 7,
-      angle: 20,
+      ...POINT_VALUES,
     }),
   })
 }
@@ -56,7 +60,7 @@ export function createFeatures ({ list }) {
     const feature = new Feature({
       geometry: new Point(position),
     })
-    feature.setStyle(getShape(type, fill, stroke))
+    feature.setStyle(getFinalPoints(type, fill, stroke))
 
     map.points.list.push(feature)
   }
