@@ -14,7 +14,7 @@
       "always-multiline"
     ],
     "quote-props": [
-      0
+      "error", "consistent"
     ],
     "indent": [
       "error",
