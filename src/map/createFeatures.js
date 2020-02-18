@@ -20,6 +20,8 @@ const getFill = (type) => {
 const getFinalPoints = (type, fill, stroke) => {
   const STAR_SHAPE = 4
   const POINT_VALUES = {
+    fill,
+    stroke,
     points: 20,
     radius: 7,
     angle: 20,
@@ -29,20 +31,9 @@ const getFinalPoints = (type, fill, stroke) => {
     POINT_VALUES.radius = 10
     POINT_VALUES.radius2 = 4
     POINT_VALUES.angle = 0
-    return new Style({
-      image: new RegularShape({
-        fill: fill,
-        stroke: stroke,
-        ...POINT_VALUES,
-      }),
-    })
   }
   return new Style({
-    image: new RegularShape({
-      fill: fill,
-      stroke: stroke,
-      ...POINT_VALUES,
-    }),
+    image: new RegularShape(POINT_VALUES),
   })
 }
 
