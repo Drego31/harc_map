@@ -56,7 +56,6 @@ export function createFeatures ({ list }) {
     const feature = new Feature({
       geometry: new Point(position),
     })
-    console.log({ type })
     feature.setStyle(getShape(type, fill, stroke))
 
     map.points.list.push(feature)
