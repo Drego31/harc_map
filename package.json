@@ -6,8 +6,8 @@
   "scripts": {
     "build:dev": "webpack-dev-server --config webpack.dev.js",
     "build:prod": "npx webpack --config webpack.prod.js",
-    "run:dev": "node app.js",
-    "run:prod": "node app.js",
+    "run:dev": "NODE_ENV=development node app.js",
+    "run:prod": "NODE_ENV=production node app.js",
     "start": "npm run run:dev & npm run build:dev"
   },
   "repository": {
