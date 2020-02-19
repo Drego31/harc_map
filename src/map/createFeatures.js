@@ -5,6 +5,39 @@ import Point from 'ol/geom/Point'
 import * as Projection from 'ol/proj'
 import { map } from 'src/map'
 import { Fill, RegularShape, Stroke, Style } from 'ol/style'
+import { MAP_POINTS } from '../utils/macros/mapPointTypes'
+
+const getStroke = (type, width = 2) => {
+  return new Stroke({
+    color: MAP_POINTS[type].strokeColor,
+    width,
+  })
+}
+const getFill = (type) => {
+  return new Fill({ color: MAP_POINTS[type].fillColor })
+}
+
+const getFinalPoints = (type, fill, stroke) => {
+  const starShape = 4
+  const pointValues = {
+    fill,
+    stroke,
+    points: 20,
+    radius: 7,
+    angle: 20,
+  }
+  if (type === starShape) {
+    Object.assign(pointValues, {
+      points: 5,
+      radius: 10,
+      radius2: 4,
+      angle: 0,
+    })
+  }
+  return new Style({
+    image: new RegularShape(pointValues),
+  })
+}
 
 export function createFeatures ({ list }) {
   for (const point of list) {
@@ -12,26 +45,15 @@ export function createFeatures ({ list }) {
     const lon = point.position.longitude
     const type = point.type
 
-    const stroke = new Stroke({
-      color: 'black',
-      width: 2,
-    })
-    const fill = new Fill({ color: 'red' })
+    const stroke = getStroke(type)
+    const fill = getFill(type)
+
     const position = Projection.fromLonLat([lon, lat])
 
     const feature = new Feature({
       geometry: new Point(position),
     })
-    console.log({ type })
-    feature.setStyle(new Style({
-      image: new RegularShape({
-        fill: fill,
-        stroke: stroke,
-        points: 20,
-        radius: 7,
-        angle: 20,
-      }),
-    }))
+    feature.setStyle(getFinalPoints(type, fill, stroke))
 
     map.points.list.push(feature)
   }
