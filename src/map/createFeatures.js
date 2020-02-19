@@ -27,10 +27,12 @@ const getFinalPoints = (type, fill, stroke) => {
     angle: 20,
   }
   if (type === STAR_SHAPE) {
-    POINT_VALUES.points = 5
-    POINT_VALUES.radius = 10
-    POINT_VALUES.radius2 = 4
-    POINT_VALUES.angle = 0
+    Object.assign(POINT_VALUES, {
+      points: 5,
+      radius: 10,
+      radius2: 4,
+      angle: 0,
+    })
   }
   return new Style({
     image: new RegularShape(POINT_VALUES),
