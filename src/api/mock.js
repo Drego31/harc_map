@@ -21,15 +21,13 @@ export const mockApi = {
       eventId: '111',
     }), 500)
   },
-  signUp (data) {
+  signUp ({ email, password, patrolName, eventCode }) {
     return makeDelayFakeAnswer(() => {
-      console.log(data)
-      return 'OK'
+      console.log(email)
     }, 1000)
   },
-  remindPassword (data) {
+  remindPassword () {
     return makeDelayFakeAnswer(() => {
-      console.log(data)
       return 'OK'
     }, 1000)
   },

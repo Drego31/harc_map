@@ -36,6 +36,30 @@ const realApi = {
   //       })
   //   })
   // },
+  // signUp ({ email, password, patrolName, eventCode }) {
+  //   return new Promise((resolve, reject) => {
+  //     fetch('/user', {
+  //       method: 'POST',
+  //       body: JSON.stringify({
+  //         user: email,
+  //         password,
+  //         teamName: patrolName,
+  //         eventId: eventCode,
+  //       }),
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         if (data.user === email) {
+  //           resolve('Konto utworzono pomyślnie')
+  //         } else {
+  //           reject(new Error('Wystąpił błąd przy rejestracji'))
+  //         }
+  //       })
+  //       .catch(() => {
+  //         console.error(new Error('Error: Something went wrong'))
+  //       })
+  //   })
+  // },
 }
 
 export const api = {
