@@ -26,7 +26,12 @@ const realApi = {
   //       .then(response => response.json())
   //       .then(data => {
   //         if (data.user === email) {
-  //           resolve({ eventId: data.eventId })
+  //           resolve({
+  //             eventId: data.eventId,
+  //             patrolName: data.teamName,
+  //             patrolScore: data.score,
+  //             email: data.user,
+  //           })
   //         } else {
   //           reject(new Error('E-mail or password is wrong'))
   //         }
@@ -50,7 +55,7 @@ const realApi = {
   //       .then(response => response.json())
   //       .then(data => {
   //         if (data.user === email) {
-  //           resolve('Konto utworzono pomyślnie')
+  //           resolve()
   //         } else {
   //           reject(new Error('Wystąpił błąd przy rejestracji'))
   //         }
