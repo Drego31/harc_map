@@ -31,4 +31,9 @@ export const mockApi = {
       return 'OK'
     }, 1000)
   },
+  signOut () {
+    return makeDelayFakeAnswer(() => {
+      this.$store.commit('user/signOut')
+    }, 1000)
+  },
 }

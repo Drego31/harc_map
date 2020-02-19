@@ -86,6 +86,24 @@ const realApi = {
   //       })
   //   })
   // },
+  // signOut ({ email }) {
+  //   return new Promise((resolve, reject) => {
+  //     fetch('/user/login', {
+  //       method: 'DELETE',
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         if (data.user === email) {
+  //           resolve()
+  //         } else {
+  //           reject(new Error('Błąd przy wylogowywaniu'))
+  //         }
+  //       })
+  //       .catch(() => {
+  //         console.error(new Error('Error: Something went wrong'))
+  //       })
+  //   })
+  // },
 }
 
 export const api = {
