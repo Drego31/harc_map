@@ -29,14 +29,14 @@ export const mockApi = {
       email,
     }), 1000)
   },
-  remindPassword ({email}) {
+  remindPassword ({ email }) {
     return makeDelayFakeAnswer(() => ({
       email,
     }), 1000)
   },
   signOut () {
     return makeDelayFakeAnswer(() => {
-      this.$store.commit('user/signOut')
+      return 'email'
     }, 1000)
   },
 }
