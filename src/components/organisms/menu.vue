@@ -54,8 +54,7 @@ export default {
       'toggle',
     ]),
     signOut () {
-      api.signOut()
-        .then(this.onSignOut)
+      api.signOut().then(this.onSignOut)
     },
     onSignOut () {
       this.$store.commit('user/signOut')

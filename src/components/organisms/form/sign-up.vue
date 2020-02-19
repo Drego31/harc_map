@@ -37,7 +37,7 @@
       />
     </div>
     <p v-else>
-      Link aktywacyjny został wysłany na wskazany adres e-mail: {{values.email}}
+      Link aktywacyjny został wysłany na wskazany adres e-mail: {{ values.email }}
     </p>
   </div>
 </template>
