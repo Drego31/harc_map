@@ -18,16 +18,16 @@ const getFill = (type) => {
 }
 
 const getFinalPoints = (type, fill, stroke) => {
-  const STAR_SHAPE = 4
-  const POINT_VALUES = {
+  const starShape = 4
+  const pointValues = {
     fill,
     stroke,
     points: 20,
     radius: 7,
     angle: 20,
   }
-  if (type === STAR_SHAPE) {
-    Object.assign(POINT_VALUES, {
+  if (type === starShape) {
+    Object.assign(pointValues, {
       points: 5,
       radius: 10,
       radius2: 4,
@@ -35,7 +35,7 @@ const getFinalPoints = (type, fill, stroke) => {
     })
   }
   return new Style({
-    image: new RegularShape(POINT_VALUES),
+    image: new RegularShape(pointValues),
   })
 }
 
