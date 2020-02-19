@@ -1,5 +1,6 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const webpack = require('webpack')
 
 function resolve (dir) {
   return path.resolve(__dirname, dir)
@@ -13,6 +14,7 @@ module.exports = {
     path: resolve('public'),
   },
   devServer: {
+    historyApiFallback: true,
     contentBase: resolve('public'),
     compress: true,
     port: 8000,
@@ -83,5 +85,9 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      APP_NAME: JSON.stringify('HarcMap'),
+      VERSION: JSON.stringify('1.0.0'),
+    }),
   ],
 }
