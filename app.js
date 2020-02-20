@@ -16,9 +16,15 @@ const cert = config.app.cert;
  * @description Routing
  */
 // static files
-app.use(express.static('public'));
+app.use(express.static('public', {
+	maxAge: 0
+}));
 // user controller
 app.use('/user', userController);
+// index rewrite
+app.get('*', (req, res) => {
+	res.sendFile(__dirname + '/public/index.html');
+});
 
 // https
 https.createServer({
