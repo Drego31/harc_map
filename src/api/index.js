@@ -9,6 +9,7 @@ const realApi = {
   //       url: '/event',
   //       data: { eventId },
   //     })
+  //       .then(response => response.json())
   //       .then(response => resolve(new AppEvent(response)))
   //       .catch(() => {
   //         console.error(new Error('Error: Something went wrong'))
