@@ -1,5 +1,8 @@
 import { mockApi } from './mock'
 // import { AppEvent } from 'src/structures/event'
+import { request } from 'utils/request'
+
+console.log(request)
 
 const realApi = {
   // getEventById (eventId) {
