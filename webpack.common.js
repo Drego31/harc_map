@@ -2,6 +2,8 @@ const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack')
 
+const indexPath = '/index.html'
+
 function resolve (dir) {
   return path.resolve(__dirname, dir)
 }
@@ -14,10 +16,16 @@ module.exports = {
     path: resolve('public'),
   },
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /\/remind-password/, to: indexPath },
+        { from: /\/sign-up/, to: indexPath },
+      ]
+    },
     contentBase: resolve('public'),
     compress: true,
     port: 8000,
+    https: true,
   },
   module: {
     rules: [
