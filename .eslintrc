@@ -13,7 +13,17 @@
       "error",
       "always-multiline"
     ],
-    "indent": ["error", 2],
-    "vue/html-indent": ["error", 2]
+    "quote-props": [
+      "error",
+      "consistent"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "vue/html-indent": [
+      "error",
+      2
+    ]
   }
 }
