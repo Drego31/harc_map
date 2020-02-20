@@ -1,17 +1,15 @@
 import { mockApi } from './mock'
 // import { AppEvent } from 'src/structures/event'
-import { request } from 'utils/request'
-
-console.log(request)
+// import { request } from 'utils/request'
 
 const realApi = {
   // getEventById (eventId) {
   //   return new Promise((resolve) => {
-  //     fetch('/event?eventId=' + eventId)
-  //       .then(data => data.json())
-  //       .then(response => {
-  //         resolve(new AppEvent(response))
-  //       })
+  //     request.get({
+  //       url: '/event',
+  //       data: { eventId },
+  //     })
+  //       .then(response => resolve(new AppEvent(response)))
   //       .catch(() => {
   //         console.error(new Error('Error: Something went wrong'))
   //       })
