@@ -15,9 +15,15 @@ const app = express();
  * Routing
  */
 // static files
-app.use(express.static('public'));
+app.use(express.static('public', {
+	maxAge: 0
+}));
 // user controller
 app.use('/user', userController);
+// index rewrite
+app.get('*', (req, res) => {
+	res.sendFile(__dirname + '/public/index.html');
+});
 
 /**
  * Https server startup
