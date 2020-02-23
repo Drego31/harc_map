@@ -1,7 +1,5 @@
 {
-	"app": {
-		"port": 3030,
-		"key": "./config/cert.key",
-		"cert": "./config/cert.pem"
-	}
+	"port" : 3030,
+	"key" : "./config/cert.key",
+	"cert" : "./config/cert.pem"
 }
