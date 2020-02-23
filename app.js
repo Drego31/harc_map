@@ -10,6 +10,20 @@ const userController = require('./controllers/user');
 
 // create express app instance
 const app = express();
+const ENV_DEVELOPMENT = process.env.NODE_ENV === 'development';
+// server port
+const port = config.app.port;
+const key = config.app.key;
+const cert = config.app.cert;
+
+// Access Control Allow Origin for development purpose
+if (ENV_DEVELOPMENT) {
+	app.use(function (req, res, next) {
+		res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+		res.header("Access-Control-Allow-Headers", "*");
+		next();
+	});
+}
 
 /**
  * Routing
