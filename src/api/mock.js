@@ -39,4 +39,9 @@ export const mockApi = {
       return 'email'
     }, 1000)
   },
+  collectPoint ({ email, eventCode, patrolName, pointId }) {
+    return makeDelayFakeAnswer(() => ({
+      email,
+    }), 1000)
+  },
 }
