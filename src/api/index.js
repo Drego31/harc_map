@@ -86,42 +86,42 @@ const realApi = {
   //       })
   //   })
   // },
-  signOut ({ email }) {
-    return new Promise((resolve, reject) => {
-      fetch('/user/login', {
-        method: 'DELETE',
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.user === email) {
-            resolve()
-          } else {
-            reject(new Error('Błąd przy wylogowywaniu'))
-          }
-        })
-        .catch(() => {
-          console.error(new Error('Error: Something went wrong'))
-        })
-    })
-  },
-  collectPoint ({ email, eventCode, patrolName, pointId }) {
-    return new Promise((resolve, reject) => {
-      fetch('/event/collect', {
-        method: 'PUT',
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.user === email) {
-            resolve()
-          } else {
-            reject(new Error('Coś poszło nie tak'))
-          }
-        })
-        .catch(() => {
-          console.error(new Error('Error: Something went wrong'))
-        })
-    })
-  },
+  // signOut ({ email }) {
+  //   return new Promise((resolve, reject) => {
+  //     fetch('/user/login', {
+  //       method: 'DELETE',
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         if (data.user === email) {
+  //           resolve()
+  //         } else {
+  //           reject(new Error('Błąd przy wylogowywaniu'))
+  //         }
+  //       })
+  //       .catch(() => {
+  //         console.error(new Error('Error: Something went wrong'))
+  //       })
+  //   })
+  // },
+  // collectPoint ({ email, eventCode, patrolName, pointId }) {
+  //   return new Promise((resolve, reject) => {
+  //     fetch('/event/collect', {
+  //       method: 'PUT',
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         if (data.user === email) {
+  //           resolve()
+  //         } else {
+  //           reject(new Error('Coś poszło nie tak'))
+  //         }
+  //       })
+  //       .catch(() => {
+  //         console.error(new Error('Error: Something went wrong'))
+  //       })
+  //   })
+  // },
 }
 
 export const api = {
