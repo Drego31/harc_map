@@ -54,11 +54,16 @@ export default {
       'toggle',
     ]),
     signOut () {
-      api.signOut().then(this.onSignOut)
+      api.signOut()
+        .then(this.onSignOut)
+        .catch(this.onError)
     },
     onSignOut () {
       this.$store.commit('user/signOut')
       this.$router.push('/')
+    },
+    onError () {
+      alert('Something went wrong...')
     },
   },
 }
