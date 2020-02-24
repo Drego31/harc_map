@@ -25,8 +25,9 @@ if (ENV_DEVELOPMENT) {
  * Routing
  */
 // static files
+// maxAge - Cache-Control header in milliseconds
 app.use(express.static('public', {
-	maxAge: 0
+	maxAge: ENV_DEVELOPMENT ? 0 : config.cacheValue,
 }));
 // user controller
 app.use('/user', userController);

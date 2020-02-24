@@ -1,5 +1,6 @@
 {
 	"port" : 3030,
 	"key" : "./config/cert.key",
-	"cert" : "./config/cert.pem"
+	"cert" : "./config/cert.pem",
+	"cacheValue" : 600000
 }
