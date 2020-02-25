@@ -1,3 +1,13 @@
+function makeFetch ({ url, config }) {
+  return new Promise((resolve, reject) => {
+    fetch(url, {
+      ...config,
+    })
+      .then(resolve)
+      .catch(reject)
+  })
+}
+
 export const request = {
   host: PRODUCTION ? '' : 'https://localhost:3030',
   dataToPathVariables (data) {
@@ -16,27 +26,51 @@ export const request = {
     const pathVariables = request.dataToPathVariables(data)
     const fullUrl = request.host + url + pathVariables
 
-    return new Promise((resolve, reject) => {
-      fetch(fullUrl, {
+    return makeFetch({
+      url: fullUrl,
+      config: {
         method: 'GET',
         ...config,
-      })
-        .then(resolve)
-        .catch(reject)
+      },
     })
   },
   post ({ url = '/', data = {}, config = {} }) {
     const fullUrl = request.host + url
     const body = JSON.stringify(data)
 
-    return new Promise((resolve, reject) => {
-      fetch(fullUrl, {
+    return makeFetch({
+      url: fullUrl,
+      config: {
         method: 'POST',
         body,
         ...config,
-      })
-        .then(resolve)
-        .catch(reject)
+      },
+    })
+  },
+  put ({ url = '/', data = {}, config = {} }) {
+    const fullUrl = request.host + url
+    const body = JSON.stringify(data)
+
+    return makeFetch({
+      url: fullUrl,
+      config: {
+        method: 'PUT',
+        body,
+        ...config,
+      },
+    })
+  },
+  delete ({ url = '/', data = {}, config = {} }) {
+    const fullUrl = request.host + url
+    const body = JSON.stringify(data)
+
+    return makeFetch({
+      url: fullUrl,
+      config: {
+        method: 'DELETE',
+        body,
+        ...config,
+      },
     })
   },
 }
