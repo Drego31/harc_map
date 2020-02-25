@@ -4,3 +4,4 @@ package-lock.json
 /config/database.config.json
 /config/cert.key
 /config/cert.pem
+/public/app.min.js
