@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import OHeader from 'components/organisms/header'
-import OMenu from 'components/organisms/menu'
+import OHeader from 'organisms/header';
+import OMenu from 'organisms/menu';
 
 export default {
   components: {
     OMenu,
     OHeader,
   },
-}
+};
 </script>

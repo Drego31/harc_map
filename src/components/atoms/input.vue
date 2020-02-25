@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import { mixins } from 'components/mixins/base'
+import { mixins } from 'mixins/base';
 
 export default {
   name: 'a-input',
   mixins: [mixins.vModel],
-}
+};
 </script>

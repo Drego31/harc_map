@@ -1,12 +1,12 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import PSignIn from 'components/pages/sign-in'
-import PSignUp from 'components/pages/sign-up'
-import PRemindPassword from 'components/pages/remind-password'
-import PMap from 'components/pages/map'
-import store from 'store'
+import Vue from 'vue';
+import Router from 'vue-router';
+import PSignIn from 'pages/sign-in';
+import PSignUp from 'pages/sign-up';
+import PRemindPassword from 'pages/remind-password';
+import PMap from 'pages/map';
+import store from 'store';
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
@@ -53,28 +53,28 @@ const router = new Router({
       redirect: '/',
     },
   ],
-})
+});
 
-export default router
+export default router;
 
 router.beforeEach((to, from, next) => {
-  redirectIfNotAuth(to, next)
-  store.commit('menu/close')
-})
+  redirectIfNotAuth(to, next);
+  store.commit('menu/close');
+});
 
 function redirectIfNotAuth (to, next) {
-  const isLogin = store.getters['user/isLogin'] === true
+  const isLogin = store.getters['user/isLogin'] === true;
 
   if (isLogin) {
     if (to.meta.beforeLogin) {
-      next('/map')
-      return
+      next('/map');
+      return;
     }
   } else {
     if (to.meta.requiredAuth === true) {
-      next('/')
-      return
+      next('/');
+      return;
     }
   }
-  next()
+  next();
 }

@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import TPage from 'templates/page'
-import OFormSignUp from 'organisms/form/sign-up'
-import AButton from 'atoms/button'
+import TPage from 'templates/page';
+import OFormSignUp from 'organisms/form/sign-up';
+import AButton from 'atoms/button';
 
 export default {
   name: 'p-sign-up',
@@ -18,5 +18,5 @@ export default {
     OFormSignUp,
     TPage,
   },
-}
+};
 </script>

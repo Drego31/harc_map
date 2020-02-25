@@ -1,5 +1,5 @@
 <template>
-  <div class="m-article" @click="goToArticle">
+  <div @click="goToArticle" class="m-article">
     <div class="a-img f-article">
     </div>
     <div class="f-pt-2 f-pb-3 f-px-2">
@@ -32,8 +32,8 @@ export default {
   },
   methods: {
     goToArticle () {
-      this.$router.push('/article/' + this.id)
+      this.$router.push('/article/' + this.id);
     },
   },
-}
+};
 </script>

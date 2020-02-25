@@ -1,9 +1,9 @@
-const path = require('path')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const webpack = require('webpack')
+const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const webpack = require('webpack');
 
 function resolve (dir) {
-  return path.resolve(__dirname, dir)
+  return path.resolve(__dirname, dir);
 }
 
 module.exports = {
@@ -16,8 +16,11 @@ module.exports = {
   devServer: {
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: '/index.html' },
-      ]
+        {
+          from: /.*/,
+          to: '/index.html',
+        },
+      ],
     },
     contentBase: resolve('public'),
     compress: true,
@@ -77,7 +80,6 @@ module.exports = {
       store: resolve('src/store'),
       utils: resolve('src/utils'),
 
-      components: resolve('src/components'),
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),
       mixins: resolve('src/components/mixins'),
@@ -95,4 +97,4 @@ module.exports = {
       VERSION: JSON.stringify('1.0.0'),
     }),
   ],
-}
+};

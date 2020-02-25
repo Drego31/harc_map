@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import TPage from 'components/templates/page'
-import OMap from 'components/organisms/map'
+import TPage from 'templates/page';
+import OMap from 'organisms/map';
 
 export default {
   name: 'p-map',
@@ -14,5 +14,5 @@ export default {
     OMap,
     TPage,
   },
-}
+};
 </script>

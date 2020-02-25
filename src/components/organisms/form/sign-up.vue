@@ -2,37 +2,37 @@
   <div class="f-pb-1">
     <div v-if="!formSend">
       <a-input
-        v-model="values.email"
+        :disabled="blockForm"
         placeholder="e-mail"
         type="email"
-        :disabled="blockForm"
+        v-model="values.email"
       />
       <a-input
-        v-model="values.password"
+        :disabled="blockForm"
         placeholder="hasło"
         type="password"
-        :disabled="blockForm"
+        v-model="values.password"
       />
       <a-input
-        v-model="repeatedPassword"
+        :disabled="blockForm"
         placeholder="powtórz hasło"
         type="password"
-        :disabled="blockForm"
+        v-model="repeatedPassword"
       />
       <a-input
-        v-model="values.patrolName"
+        :disabled="blockForm"
         placeholder="nazwa patrolu"
-        :disabled="blockForm"
+        v-model="values.patrolName"
       />
       <a-input
-        v-model="values.eventCode"
-        placeholder="kod wydarzenia"
         :disabled="blockForm"
+        placeholder="kod wydarzenia"
+        v-model="values.eventCode"
       />
       <a-button-submit
-        :message="message"
         :disabled="blockForm"
         :is-sending="isSending"
+        :message="message"
         @click="signUp()"
       />
     </div>
@@ -43,10 +43,10 @@
 </template>
 
 <script>
-import AInput from 'atoms/input'
-import { api } from 'api/index'
-import AButtonSubmit from 'atoms/button/submit'
-import { mixins } from 'mixins/base'
+import AInput from 'atoms/input';
+import { api } from 'api/index';
+import AButtonSubmit from 'atoms/button/submit';
+import { mixins } from 'mixins/base';
 
 export default {
   name: 'o-form-sign-in',
@@ -70,31 +70,31 @@ export default {
   }),
   methods: {
     checkValues () {
-      const { email, password, patrolName, eventCode } = this.values
-      const validEmail = email.length >= 5
-      const validPassword = password.length >= 5 && password === this.repeatedPassword
-      const validPatrolName = patrolName.length >= 3
-      const validEventCode = eventCode === '111'
-      return validEmail && validPassword && validPatrolName && validEventCode
+      const { email, password, patrolName, eventCode } = this.values;
+      const validEmail = email.length >= 5;
+      const validPassword = password.length >= 5 && password === this.repeatedPassword;
+      const validPatrolName = patrolName.length >= 3;
+      const validEventCode = eventCode === '111';
+      return validEmail && validPassword && validPatrolName && validEventCode;
     },
     onSignUp () {
       this.setMessage('Zostałeś zarejestrowany')
         .then(() => {
-          this.formSend = true
-        })
-      this.isSending = false
+          this.formSend = true;
+        });
+      this.isSending = false;
     },
     signUp () {
-      this.isSending = true
-      this.blockForm = true
+      this.isSending = true;
+      this.blockForm = true;
       if (this.checkValues()) {
         api.signUp(this.values)
           .then(this.onSignUp)
-          .catch(this.onError)
+          .catch(this.onError);
       } else {
-        this.onInvalidValues()
+        this.onInvalidValues();
       }
     },
   },
-}
+};
 </script>

@@ -15,4 +15,4 @@ export const MAP_POINTS = {
     strokeColor: 'blue',
     fillColor: 'red',
   },
-}
+};
