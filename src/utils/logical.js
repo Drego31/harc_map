@@ -16,4 +16,4 @@ export const logical = {
   isNotArray: value => logical.isArray(value) === false,
   isNotFunction: value => logical.isFunction(value) === false,
   isNotBoolean: value => logical.isBoolean(value) === false,
-}
+};

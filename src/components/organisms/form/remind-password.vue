@@ -2,14 +2,14 @@
   <div class="f-pb-1">
     <div v-if="!formSend">
       <a-input
-        v-model="email"
-        placeholder="e-mail"
         :disabled="blockForm"
+        placeholder="e-mail"
+        v-model="email"
       />
       <a-button-submit
-        :message="message"
         :disabled="blockForm"
         :is-sending="isSending"
+        :message="message"
         @click="remindPassword()"
       />
     </div>
@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import AButtonSubmit from 'atoms/button/submit'
-import AInput from 'atoms/input'
-import { api } from 'api/index'
-import { mixins } from 'mixins/base'
+import AButtonSubmit from 'atoms/button/submit';
+import AInput from 'atoms/input';
+import { api } from 'api/index';
+import { mixins } from 'mixins/base';
 
 export default {
   name: 'remind-password.vue',
@@ -39,26 +39,26 @@ export default {
   }),
   methods: {
     checkValues () {
-      return this.email.length >= 6 && this.email.includes('@')
+      return this.email.length >= 6 && this.email.includes('@');
     },
     remindPassword () {
-      this.isSending = true
-      this.blockForm = true
+      this.isSending = true;
+      this.blockForm = true;
       if (this.checkValues()) {
         api.remindPassword(this.email)
           .then(this.onRemindPassword)
-          .catch(this.onError)
+          .catch(this.onError);
       } else {
-        this.onInvalidValues()
+        this.onInvalidValues();
       }
     },
     onRemindPassword () {
       this.setMessage('Zakończono pomyślnie!')
         .then(() => {
-          this.formSend = true
-        })
-      this.isSending = false
+          this.formSend = true;
+        });
+      this.isSending = false;
     },
   },
-}
+};
 </script>

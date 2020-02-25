@@ -1,10 +1,10 @@
-import 'ol/ol.css'
-import Map from 'ol/Map'
-import View from 'ol/View'
-import * as olProj from 'ol/proj'
-import TileLayer from 'ol/layer/Tile'
-import OSM from 'ol/source/OSM'
-import { map } from 'src/map/index'
+import 'ol/ol.css';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import * as olProj from 'ol/proj';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import { map } from 'src/map/index';
 
 export function createMap (config) {
   const {
@@ -13,10 +13,10 @@ export function createMap (config) {
     lon = 0,
     zoom = 2,
     maxZoom = 19,
-  } = config
+  } = config;
 
   if (!elementId) {
-    throw new Error('elementId is necessary for map')
+    throw new Error('elementId is necessary for map');
   }
 
   map.realMap = new Map({
@@ -31,5 +31,5 @@ export function createMap (config) {
       zoom,
       maxZoom,
     }),
-  })
+  });
 }

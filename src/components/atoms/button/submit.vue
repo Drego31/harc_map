@@ -1,14 +1,14 @@
 <template>
   <a-button
-    @click="$emit('click')"
     :disabled="disabled"
+    @click="$emit('click')"
   >
     {{ isSending ? 'Sprawdzamy...' : (message ? message : 'Dalej') }}
   </a-button>
 </template>
 
 <script>
-import AButton from 'atoms/button'
+import AButton from 'atoms/button';
 
 export default {
   name: 'a-button-submit',
@@ -27,5 +27,5 @@ export default {
       default: false,
     },
   },
-}
+};
 </script>

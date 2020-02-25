@@ -1,5 +1,5 @@
 <template>
-  <button class="a-button" @click="$emit('click')">
+  <button @click="$emit('click')" class="a-button">
     <slot/>
   </button>
 </template>
@@ -7,5 +7,5 @@
 <script>
 export default {
   name: 'a-button',
-}
+};
 </script>
