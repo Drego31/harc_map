@@ -1,4 +1,4 @@
-import { mockApi } from './mock'
+import { mockApi } from './mock';
 // import { AppEvent } from 'src/structures/event'
 // import { request } from 'utils/request'
 
@@ -16,11 +16,11 @@ const realApi = {
   //       })
   //   })
   // },
-}
+};
 
 export const api = {
   ...mockApi,
   ...realApi,
-}
+};
 
-window.api = api
+window.api = api;

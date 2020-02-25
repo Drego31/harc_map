@@ -13,9 +13,9 @@ export default {
     setEmail: (state, payload) => (state.email = payload),
     setTeamName: (state, payload) => (state.teamName = payload),
     signOut: state => {
-      state.email = ''
-      state.teamName = ''
+      state.email = '';
+      state.teamName = '';
     },
   },
   actions: {},
-}
+};

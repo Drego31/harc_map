@@ -1,4 +1,4 @@
-import { AppEvent } from 'src/structures/app-event'
+import { AppEvent } from 'src/structures/app-event';
 
 export default {
   namespaced: true,
@@ -17,7 +17,7 @@ export default {
   },
   mutations: {
     setEvent: (state, data) => {
-      Object.assign(state, { ...data })
+      Object.assign(state, { ...data });
     },
     setId: (state, payload) => (state.eventId = payload),
   },
@@ -26,11 +26,11 @@ export default {
       return new Promise(resolve => {
         api.getEventById(eventId)
           .then(data => {
-            data.points = data.points.map(point => ({ ...point }))
-            context.commit('setEvent', data)
-            resolve(data)
-          })
-      })
+            data.points = data.points.map(point => ({ ...point }));
+            context.commit('setEvent', data);
+            resolve(data);
+          });
+      });
     },
   },
-}
+};

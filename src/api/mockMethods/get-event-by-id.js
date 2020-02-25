@@ -1,4 +1,4 @@
-import { AppEvent } from 'src/structures/app-event'
+import { AppEvent } from 'src/structures/app-event';
 
 export function getEventByIdMock () {
   return new AppEvent({
@@ -74,5 +74,5 @@ export function getEventByIdMock () {
         type: 1,
       },
     ],
-  })
+  });
 }

@@ -1,36 +1,36 @@
-import { getEventByIdMock } from 'api/mockMethods/get-event-by-id'
+import { getEventByIdMock } from 'api/mockMethods/get-event-by-id';
 
 function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve(method())
-    }, timeout)
-  })
+      resolve(method());
+    }, timeout);
+  });
 }
 
 export const mockApi = {
   getEventById (eventId) {
     if (eventId) {
-      return makeDelayFakeAnswer(getEventByIdMock)
+      return makeDelayFakeAnswer(getEventByIdMock);
     } else {
-      return Promise.reject(new Error('eventId is required'))
+      return Promise.reject(new Error('eventId is required'));
     }
   },
   signIn ({ email, password }) {
     return makeDelayFakeAnswer(() => ({
       eventId: '111',
-    }), 500)
+    }), 500);
   },
   signUp (data) {
     return makeDelayFakeAnswer(() => {
-      console.log(data)
-      return 'OK'
-    }, 1000)
+      console.log(data);
+      return 'OK';
+    }, 1000);
   },
   remindPassword (data) {
     return makeDelayFakeAnswer(() => {
-      console.log(data)
-      return 'OK'
-    }, 1000)
+      console.log(data);
+      return 'OK';
+    }, 1000);
   },
-}
+};

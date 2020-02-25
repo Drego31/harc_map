@@ -1,20 +1,20 @@
 export const request = {
   host: PRODUCTION ? '' : 'https://localhost:3030',
   dataToPathVariables (data) {
-    let pathData = ''
+    let pathData = '';
 
     if (Object.keys(data).length > 0) {
-      pathData += '?'
+      pathData += '?';
       pathData += Object
         .entries(data)
         .map(([key, val]) => key + '=' + val)
-        .join('&')
+        .join('&');
     }
-    return pathData
+    return pathData;
   },
   get ({ url = '/', data = {}, config = {} }) {
-    const pathVariables = request.dataToPathVariables(data)
-    const fullUrl = request.host + url + pathVariables
+    const pathVariables = request.dataToPathVariables(data);
+    const fullUrl = request.host + url + pathVariables;
 
     return new Promise((resolve, reject) => {
       fetch(fullUrl, {
@@ -22,12 +22,12 @@ export const request = {
         ...config,
       })
         .then(resolve)
-        .catch(reject)
-    })
+        .catch(reject);
+    });
   },
   post ({ url = '/', data = {}, config = {} }) {
-    const fullUrl = request.host + url
-    const body = JSON.stringify(data)
+    const fullUrl = request.host + url;
+    const body = JSON.stringify(data);
 
     return new Promise((resolve, reject) => {
       fetch(fullUrl, {
@@ -36,9 +36,9 @@ export const request = {
         ...config,
       })
         .then(resolve)
-        .catch(reject)
-    })
+        .catch(reject);
+    });
   },
-}
+};
 
-window.request = request
+window.request = request;

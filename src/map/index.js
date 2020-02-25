@@ -1,5 +1,5 @@
-import { createMap } from 'src/map/create'
-import { createFeatures } from 'src/map/createFeatures'
+import { createMap } from 'src/map/create';
+import { createFeatures } from 'src/map/createFeatures';
 
 export const map = {
   realMap: null,
@@ -8,4 +8,4 @@ export const map = {
     list: [],
     create: config => createFeatures(config),
   },
-}
+};

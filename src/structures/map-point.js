@@ -8,12 +8,12 @@ export class MapPoint {
     },
     type,
   }) {
-    this.pointId = pointId
-    this.name = name
+    this.pointId = pointId;
+    this.name = name;
     this.position = {
       longitude,
       latitude,
-    }
-    this.type = type
+    };
+    this.type = type;
   }
 }
