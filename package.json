@@ -1,5 +1,5 @@
 {
-  "name": "harc_map",
+  "name": "harcmap",
   "version": "1.0.0",
   "description": "HarcMap",
   "main": "src/index.js",
