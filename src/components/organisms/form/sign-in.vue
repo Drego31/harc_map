@@ -1,30 +1,30 @@
 <template>
   <div class="f-pb-1">
     <a-input
-      v-model="values.email"
-      placeholder="e-mail"
       :disabled="blockForm"
+      placeholder="e-mail"
+      v-model="values.email"
     />
     <a-input
-      v-model="values.password"
+      :disabled="blockForm"
       placeholder="hasło"
       type="password"
-      :disabled="blockForm"
+      v-model="values.password"
     />
     <a-button-submit
-      :message="message"
       :disabled="blockForm"
       :is-sending="isSending"
+      :message="message"
       @click="signIn()"
     />
   </div>
 </template>
 
 <script>
-import AInput from 'atoms/input'
-import { api } from 'api/index'
-import AButtonSubmit from 'atoms/button/submit'
-import { mixins } from 'mixins/base'
+import AInput from 'atoms/input';
+import { api } from 'api/index';
+import AButtonSubmit from 'atoms/button/submit';
+import { mixins } from 'mixins/base';
 
 export default {
   name: 'o-form-sign-in',
@@ -44,30 +44,30 @@ export default {
   }),
   methods: {
     checkValues () {
-      return this.values.email.length >= 5 && this.values.password.length >= 6
+      return this.values.email.length >= 5 && this.values.password.length >= 6;
     },
     onSignIn ({ eventId, collectedPoints, email, patrolName }) {
       this.setMessage('Zostałeś zalogowany!')
         .then(() => {
-          this.$store.commit('event/setId', eventId)
-          this.$store.commit('user/setEmail', email)
-          this.$store.commit('user/setCollectedPointsIds', collectedPoints)
-          this.$store.commit('user/setTeamName', patrolName)
-          this.$router.push('/map')
-        })
-      this.isSending = false
+          this.$store.commit('event/setId', eventId);
+          this.$store.commit('user/setEmail', email);
+          this.$store.commit('user/setCollectedPointsIds', collectedPoints);
+          this.$store.commit('user/setTeamName', patrolName);
+          this.$router.push('/map');
+        });
+      this.isSending = false;
     },
     signIn () {
-      this.isSending = true
-      this.blockForm = true
+      this.isSending = true;
+      this.blockForm = true;
       if (this.checkValues()) {
         api.signIn(this.values)
           .then(this.onSignIn)
-          .catch(this.onError)
+          .catch(this.onError);
       } else {
-        this.onInvalidValues()
+        this.onInvalidValues();
       }
     },
   },
-}
+};
 </script>

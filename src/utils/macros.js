@@ -1,2 +1,1 @@
-export const STATES = {
-}
+export const STATES = {};

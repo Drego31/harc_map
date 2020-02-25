@@ -17,10 +17,10 @@ export default {
     setCollectedPointsIds: (state, payload) => (state.collectedPointsIds = payload),
     addCollectedPointId: (state, payload) => (state.collectedPointsIds.push(payload)),
     signOut: state => {
-      state.email = ''
-      state.teamName = ''
-      state.collectedPointsIds = []
+      state.email = '';
+      state.teamName = '';
+      state.collectedPointsIds = [];
     },
   },
   actions: {},
-}
+};

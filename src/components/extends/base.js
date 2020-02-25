@@ -1,13 +1,13 @@
-import { logical } from 'src/utils/logical'
+import { logical } from 'src/utils/logical';
 
 const vueModel = {
   get () {
-    return this.value
+    return this.value;
   },
   set (value) {
-    this.$emit('input', value)
+    this.$emit('input', value);
   },
-}
+};
 
 const vuexVModel = (config = {}) => {
   let {
@@ -19,57 +19,57 @@ const vuexVModel = (config = {}) => {
       get: v => v,
       set: v => v,
     },
-  } = config
+  } = config;
 
   if (!mutation) {
-    mutation = 'set' + getter[0].toUpperCase() + getter.slice(1)
+    mutation = 'set' + getter[0].toUpperCase() + getter.slice(1);
   }
   if (module[module.length - 1] !== '/') {
-    module = module + '/'
+    module = module + '/';
   }
   return {
     get () {
-      return convertMethods.get(this.$store.getters[module + getter])
+      return convertMethods.get(this.$store.getters[module + getter]);
     },
     set (value) {
-      const method = nameOnChangeMethod === '' ? () => undefined : this[nameOnChangeMethod]
+      const method = nameOnChangeMethod === '' ? () => undefined : this[nameOnChangeMethod];
 
-      this.$store.commit(module + mutation, convertMethods.set(value))
+      this.$store.commit(module + mutation, convertMethods.set(value));
       if (logical.isFunction(method)) {
-        method()
+        method();
       }
     },
-  }
-}
+  };
+};
 
 const mapVuexVModel = (module, list = [], config = {}) => {
-  const map = {}
+  const map = {};
   list.forEach((getter) => {
     map[getter] = vuexVModel({
       module,
       getter,
       ...config,
-    })
-  })
-  return map
-}
+    });
+  });
+  return map;
+};
 
 const blockWhenIsLoading = (event, promiseMethod) => {
-  const classList = event.target.classList
+  const classList = event.target.classList;
   if (classList.contains('f-disabled')) {
-    return
+    return;
   }
-  classList.add('f-disabled')
+  classList.add('f-disabled');
 
   promiseMethod()
-    .then(() => classList.remove('f-disabled'))
-}
+    .then(() => classList.remove('f-disabled'));
+};
 
 const minimizeIfMobile = () => {
   if (App.get('app.Window').isMobile()) {
-    window.controller.minimize()
+    window.controller.minimize();
   }
-}
+};
 
 export {
   vueModel,
@@ -77,4 +77,4 @@ export {
   mapVuexVModel,
   blockWhenIsLoading,
   minimizeIfMobile,
-}
+};
