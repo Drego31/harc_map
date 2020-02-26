@@ -14,12 +14,19 @@ export default {
   },
   getters: {
     event: state => new AppEvent(state),
+    getPointById: state => pointId => {
+      return state.points.find(point => point.pointId === pointId);
+    },
   },
   mutations: {
     setEvent: (state, data) => {
       Object.assign(state, { ...data });
     },
     setId: (state, payload) => (state.eventId = payload),
+    updatePoint: (state, data) => {
+      const point = state.points.find(item => item.pointId === data.pointId);
+      Object.assign(point, data);
+    },
   },
   actions: {
     download (context, eventId = context.state.eventId) {
