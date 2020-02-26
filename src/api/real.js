@@ -17,12 +17,12 @@ export const realApi = {
   },
   signIn ({ email, password }) {
     return new Promise((resolve, reject) => {
-      fetch('/user/login', {
-        method: 'POST',
-        body: JSON.stringify({
+      request.post({
+        url: '/user/login',
+        data: {
           user: email,
           password,
-        }),
+        },
       })
         .then(response => response.json())
         .then(data => {
@@ -34,24 +34,24 @@ export const realApi = {
               email: data.user,
             });
           } else {
-            reject(new Error('E-mail or password is wrong'));
+            reject(new Error('E-mail or password is incorrect'));
           }
         })
         .catch(() => {
-          console.error(new Error('Error: Something went wrong'));
+          reject(new Error('Something went wrong'));
         });
     });
   },
   signUp ({ email, password, patrolName, eventCode }) {
     return new Promise((resolve, reject) => {
-      fetch('/user', {
-        method: 'POST',
-        body: JSON.stringify({
+      request.post({
+        url: '/user',
+        data: {
           user: email,
           password,
           teamName: patrolName,
           eventId: eventCode,
-        }),
+        },
       })
         .then(response => response.json())
         .then(data => {
@@ -62,17 +62,15 @@ export const realApi = {
           }
         })
         .catch(() => {
-          console.error(new Error('Error: Something went wrong'));
+          reject(new Error('Error: Something went wrong'));
         });
     });
   },
   remindPassword ({ email }) {
     return new Promise((resolve, reject) => {
-      fetch('/user/remind', {
-        method: 'POST',
-        body: JSON.stringify({
-          user: email,
-        }),
+      request.post({
+        url: '/user/remind',
+        data: { user: email },
       })
         .then(response => response.json())
         .then(data => {
@@ -83,14 +81,14 @@ export const realApi = {
           }
         })
         .catch(() => {
-          console.error(new Error('Error: Something went wrong'));
+          reject(new Error('Error: Something went wrong'));
         });
     });
   },
   signOut ({ email }) {
     return new Promise((resolve, reject) => {
-      fetch('/user/login', {
-        method: 'DELETE',
+      request.delete({
+        url: '/user/login',
       })
         .then(response => response.json())
         .then(data => {
@@ -101,14 +99,14 @@ export const realApi = {
           }
         })
         .catch(() => {
-          console.error(new Error('Error: Something went wrong'));
+          reject(new Error('Error: Something went wrong'));
         });
     });
   },
   collectPoint ({ email, eventCode, patrolName, pointId }) {
     return new Promise((resolve, reject) => {
-      fetch('/event/collect', {
-        method: 'PUT',
+      request.put({
+        url: '/event/collect',
       })
         .then(response => response.json())
         .then(data => {
@@ -119,7 +117,7 @@ export const realApi = {
           }
         })
         .catch(() => {
-          console.error(new Error('Error: Something went wrong'));
+          reject(new Error('Error: Something went wrong'));
         });
     });
   },
