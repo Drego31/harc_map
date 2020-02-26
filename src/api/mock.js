@@ -19,18 +19,21 @@ export const mockApi = {
   signIn ({ email, password }) {
     return makeDelayFakeAnswer(() => ({
       eventId: '111',
+      collectedPointsIds: [1, 2, 5],
+      patrolName: 'HARC',
+      email,
     }), 500);
   },
-  signUp (data) {
-    return makeDelayFakeAnswer(() => {
-      console.log(data);
-      return 'OK';
-    }, 1000);
+  signUp ({ email, password, patrolName, eventCode }) {
+    return makeDelayFakeAnswer();
   },
-  remindPassword (data) {
-    return makeDelayFakeAnswer(() => {
-      console.log(data);
-      return 'OK';
-    }, 1000);
+  remindPassword ({ email }) {
+    return makeDelayFakeAnswer();
+  },
+  signOut () {
+    return makeDelayFakeAnswer();
+  },
+  collectPoint ({ email, eventCode, patrolName, pointId }) {
+    return makeDelayFakeAnswer();
   },
 };

@@ -37,7 +37,7 @@
       />
     </div>
     <p v-else>
-      Konto utoworzono pomyślnie - kliknij w link aktywacyjny na swojej skrzynce mailowej.
+      Link aktywacyjny został wysłany na wskazany adres e-mail: {{ values.email }}
     </p>
   </div>
 </template>

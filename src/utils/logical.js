@@ -3,7 +3,7 @@ export const logical = {
   isString: value => typeof value === 'string',
   isNumber: value => typeof value === 'number',
   isNull: value => value === null,
-  isObject: value => typeof value === 'object' && logical.isNull(value) === false,
+  isObject: value => typeof value === 'object' && logical.isNotNull(value),
   isArray: value => Array.isArray(value),
   isFunction: value => typeof value === 'function',
   isBoolean: value => typeof value === 'boolean',

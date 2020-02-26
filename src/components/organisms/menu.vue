@@ -18,6 +18,7 @@
         {{ route.label }}
       </router-link>
     </div>
+    <a-button @click="signOut()">Sign out</a-button>
   </div>
 </template>
 
@@ -25,10 +26,13 @@
 import { mapGetters, mapMutations } from 'vuex';
 import ArrowLeftIcon from 'icons/ArrowLeft';
 import AButtonIcon from 'atoms/button/icon';
+import AButton from 'atoms/button';
+import { api } from 'api/index';
 
 export default {
   name: 'o-menu',
   components: {
+    AButton,
     AButtonIcon,
     ArrowLeftIcon,
   },
@@ -49,6 +53,18 @@ export default {
     ...mapMutations('menu', [
       'toggle',
     ]),
+    signOut () {
+      api.signOut()
+        .then(this.onSignOut)
+        .catch(this.onError);
+    },
+    onSignOut () {
+      this.$store.commit('user/signOut');
+      this.$router.push('/');
+    },
+    onError () {
+      alert('Something went wrong...');
+    },
   },
 };
 </script>

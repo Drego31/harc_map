@@ -46,11 +46,13 @@ export default {
     checkValues () {
       return this.values.email.length >= 5 && this.values.password.length >= 6;
     },
-    onSignIn ({ eventId }) {
+    onSignIn ({ eventId, collectedPoints, email, patrolName }) {
       this.setMessage('Zostałeś zalogowany!')
         .then(() => {
           this.$store.commit('event/setId', eventId);
-          this.$store.commit('user/setEmail', this.values.email);
+          this.$store.commit('user/setEmail', email);
+          this.$store.commit('user/setCollectedPointsIds', collectedPoints);
+          this.$store.commit('user/setTeamName', patrolName);
           this.$router.push('/map');
         });
       this.isSending = false;
