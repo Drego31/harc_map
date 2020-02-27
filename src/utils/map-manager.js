@@ -17,6 +17,8 @@ export const mapManager = {
 
       map.points.removeByOlUid(olUid);
       api.collectPoint({
+        eventId: store.getters['event/eventId'],
+        email: store.getters['user/email'],
         pointId,
       })
         .then(() => {

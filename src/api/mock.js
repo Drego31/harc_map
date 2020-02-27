@@ -46,7 +46,7 @@ export const mockApi = {
   changePassword () {
     return makeDelayFakeAnswer();
   },
-  collectPoint ({ email, eventCode, patrolName, pointId }) {
+  collectPoint ({ email/* user */, eventId, pointId }) {
     return makeDelayFakeAnswer();
   },
 };
