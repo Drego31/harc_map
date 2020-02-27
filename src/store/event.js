@@ -1,4 +1,5 @@
 import { AppEvent } from 'src/structures/app-event';
+import { arrayUtils } from 'utils/array';
 
 export default {
   namespaced: true,
@@ -27,8 +28,8 @@ export default {
       const point = state.points.find(item => item.pointId === data.pointId);
       Object.assign(point, data);
     },
-    removePoint: (state, pointId) => {
-      state.points = state.points.filter(item => item.pointId !== pointId);
+    removePoint: (state, point) => {
+      arrayUtils.removeItem(state.points, point);
     },
   },
   actions: {

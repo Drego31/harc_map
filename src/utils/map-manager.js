@@ -20,7 +20,7 @@ export const mapManager = {
         pointId,
       })
         .then(() => {
-          store.commit('event/removePoint', pointId);
+          store.commit('event/removePoint', point);
           resolve();
         })
         .catch(errorMessage => {
