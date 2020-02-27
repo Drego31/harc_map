@@ -5,14 +5,32 @@
 const express = require('express');
 const https = require('https');
 const fs = require('fs');
+const expressSession = require('express-session');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+// Configs
 const config = require('./config/system.config');
 const userController = require('./controllers/user');
 
-// create express app instance
+// Create express app instance
 const app = express();
 const ENV_DEVELOPMENT = process.env.NODE_ENV === 'development';
 // Log environment
 console.log(`\u{1F680} App run in \x1b[1m${ENV_DEVELOPMENT ? 'DEVELOPMENT' : 'PRODUCTION'}\x1b[0m mode`);
+
+// Configuration
+app.use(bodyParser.json());
+app.use(cookieParser());
+// Session
+const sessionConfig = config.session;
+if (ENV_DEVELOPMENT) {
+  Object.assign(sessionConfig.cookie, {
+    secure: false,
+    httpOnly: false,
+    sameSite: false,
+  });
+}
+app.use(expressSession(sessionConfig));
 
 // Access Control Allow Origin for development purpose
 if (ENV_DEVELOPMENT) {
