@@ -103,6 +103,25 @@ export const realApi = {
         });
     });
   },
+  changePassword ({ password }) {
+    return new Promise((resolve, reject) => {
+      request.put({
+        url: '/user/remind',
+        data: { password },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.password === password) {
+            resolve();
+          } else {
+            reject(new Error('Próba zmiany hasła nie powiodła się'));
+          }
+        })
+        .catch(() => {
+          reject(new Error('Error: Something went wrong'));
+        });
+    });
+  },
   collectPoint ({ email, eventCode, patrolName, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({
