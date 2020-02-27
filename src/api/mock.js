@@ -1,4 +1,5 @@
 import { getEventByIdMock } from 'api/mockMethods/get-event-by-id';
+import { ErrorMessage } from 'utils/error-message';
 
 function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
   return new Promise(resolve => {
@@ -11,7 +12,7 @@ function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
 // function makeDelayError (timeout = 100) {
 //   return new Promise((resolve, reject) => {
 //     setTimeout(() => {
-//       reject(new Error());
+//       reject(new ErrorMessage('Fake error in mockApi'));
 //     }, 1000);
 //   });
 // }
@@ -21,7 +22,7 @@ export const mockApi = {
     if (eventId) {
       return makeDelayFakeAnswer(getEventByIdMock);
     } else {
-      return Promise.reject(new Error('eventId is required'));
+      return Promise.reject(new ErrorMessage('"eventId" param is required'));
     }
   },
   signIn ({ email, password }) {

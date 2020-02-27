@@ -1,18 +1,23 @@
 import { AppEvent } from 'src/structures/event';
 import { request } from 'utils/request';
+import { ErrorMessage } from 'utils/error-message';
+
+function catchConnectionError (reject) {
+  return function (error) {
+    reject(new ErrorMessage(error));
+  };
+}
 
 export const realApi = {
   getEventById (eventId) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       request.get({
         url: '/event',
         data: { eventId },
       })
         .then(response => response.json())
         .then(response => resolve(new AppEvent(response)))
-        .catch(() => {
-          console.error(new Error('Error: Something went wrong'));
-        });
+        .catch(catchConnectionError(reject));
     });
   },
   signIn ({ email, password }) {
@@ -34,12 +39,10 @@ export const realApi = {
               email: data.user,
             });
           } else {
-            reject(new Error('E-mail or password is incorrect'));
+            reject(new ErrorMessage('E-mail or password is incorrect'));
           }
         })
-        .catch(() => {
-          reject(new Error('Something went wrong'));
-        });
+        .catch(catchConnectionError(reject));
     });
   },
   signUp ({ email, password, patrolName, eventCode }) {
@@ -58,12 +61,10 @@ export const realApi = {
           if (data.user === email) {
             resolve();
           } else {
-            reject(new Error('Wystąpił błąd przy rejestracji'));
+            reject(new ErrorMessage('Sign up went wrong'));
           }
         })
-        .catch(() => {
-          reject(new Error('Error: Something went wrong'));
-        });
+        .catch(catchConnectionError(reject));
     });
   },
   remindPassword ({ email }) {
@@ -77,12 +78,10 @@ export const realApi = {
           if (data.user === email) {
             resolve();
           } else {
-            reject(new Error('Proszę wprowadzić poprawny e-mail'));
+            reject(new ErrorMessage('Wrong e-mail'));
           }
         })
-        .catch(() => {
-          reject(new Error('Error: Something went wrong'));
-        });
+        .catch(catchConnectionError(reject));
     });
   },
   signOut ({ email }) {
@@ -95,12 +94,10 @@ export const realApi = {
           if (data.user === email) {
             resolve();
           } else {
-            reject(new Error('Błąd przy wylogowywaniu'));
+            reject(new ErrorMessage('Sign out went wrong'));
           }
         })
-        .catch(() => {
-          reject(new Error('Error: Something went wrong'));
-        });
+        .catch(catchConnectionError(reject));
     });
   },
   collectPoint ({ email, eventCode, patrolName, pointId }) {
@@ -113,12 +110,10 @@ export const realApi = {
           if (data.user === email) {
             resolve();
           } else {
-            reject(new Error('Coś poszło nie tak'));
+            reject(new ErrorMessage('Something went wrong'));
           }
         })
-        .catch(() => {
-          reject(new Error('Error: Something went wrong'));
-        });
+        .catch(catchConnectionError(reject));
     });
   },
 };
