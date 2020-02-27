@@ -1,5 +1,5 @@
 import { map } from 'map/index';
-import store from 'store';
+import { store } from 'store/index';
 
 export const mapManager = {
   collectPoint (pointId) {
@@ -17,5 +17,3 @@ export const mapManager = {
       });
   },
 };
-
-window._mapManager = mapManager;

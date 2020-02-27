@@ -4,7 +4,7 @@ import PSignIn from 'pages/sign-in';
 import PSignUp from 'pages/sign-up';
 import PRemindPassword from 'pages/remind-password';
 import PMap from 'pages/map';
-import store from 'store';
+import { store } from 'store';
 
 Vue.use(Router);
 

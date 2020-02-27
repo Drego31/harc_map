@@ -6,7 +6,7 @@ import * as Projection from 'ol/proj';
 import { map } from 'src/map';
 import { Fill, RegularShape, Stroke, Style } from 'ol/style';
 import { MAP_POINTS } from '../utils/macros/mapPointTypes';
-import store from 'store';
+import { store } from 'store';
 
 const getStroke = (type, width = 2) => {
   return new Stroke({
