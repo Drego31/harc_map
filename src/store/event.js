@@ -1,5 +1,4 @@
 import { AppEvent } from 'src/structures/app-event';
-import { map } from 'map/index';
 
 export default {
   namespaced: true,
@@ -42,20 +41,6 @@ export default {
             resolve(data);
           });
       });
-    },
-    collectPoint (context, pointId) {
-      const olUid = context.getters.getPointById(pointId).olUid;
-      const feature = map.points.getFeatureByOlUid(olUid);
-      map.points.removeByOlUid(olUid);
-      api.collectPoint({
-        pointId,
-      })
-        .then(() => {
-          context.commit('removePoint', pointId);
-        })
-        .catch(() => {
-          map.points.add(feature);
-        });
     },
   },
 };

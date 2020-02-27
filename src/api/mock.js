@@ -8,6 +8,14 @@ function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
   });
 }
 
+// function makeDelayError (timeout = 100) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       reject(new Error());
+//     }, 1000);
+//   });
+// }
+
 export const mockApi = {
   getEventById (eventId) {
     if (eventId) {
