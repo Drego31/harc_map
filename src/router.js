@@ -5,6 +5,7 @@ import PSignUp from 'pages/sign-up';
 import PRemindPassword from 'pages/remind-password';
 import PMap from 'pages/map';
 import store from 'store';
+import PChangePassword from 'pages/change-password';
 
 Vue.use(Router);
 
@@ -46,6 +47,15 @@ const router = new Router({
       meta: {
         beforeLogin: false,
         requiredAuth: true,
+      },
+    },
+    {
+      path: '/change-password',
+      name: 'change-password',
+      component: PChangePassword,
+      meta: {
+        beforeLogin: true,
+        requiredAuth: false,
       },
     },
     {
