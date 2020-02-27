@@ -103,6 +103,20 @@ export const realApi = {
         });
     });
   },
+  changePassword: function ({ password }) {
+    return new Promise((resolve, reject) => {
+      request.put({
+        url: '/user/remind',
+        data: { password },
+      })
+        .then(() => {
+          resolve();
+        })
+        .catch(() => {
+          reject(new Error('Error: Something went wrong'));
+        });
+    });
+  },
   collectPoint ({ email, eventCode, patrolName, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({

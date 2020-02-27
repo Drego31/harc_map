@@ -33,6 +33,9 @@ export const mockApi = {
   signOut () {
     return makeDelayFakeAnswer();
   },
+  changePassword () {
+    return makeDelayFakeAnswer();
+  },
   collectPoint ({ email, eventCode, patrolName, pointId }) {
     return makeDelayFakeAnswer();
   },
