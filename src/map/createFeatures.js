@@ -58,7 +58,7 @@ export function createFeatures ({ list }) {
     });
     feature.setStyle(getFinalPoints(type, fill, stroke));
 
-    point.ol_uid = feature.ol_uid;
+    point.olUid = feature.ol_uid;
     store.commit('event/updatePoint', point);
     listOfFeatures.push(feature);
   }
