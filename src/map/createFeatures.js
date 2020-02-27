@@ -5,7 +5,7 @@ import Point from 'ol/geom/Point';
 import * as Projection from 'ol/proj';
 import { map } from 'src/map';
 import { Fill, RegularShape, Stroke, Style } from 'ol/style';
-import { MAP_POINTS } from '../utils/macros/mapPointTypes';
+import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { store } from 'store';
 
 const getStroke = (type, width = 2) => {

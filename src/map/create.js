@@ -6,6 +6,7 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { map } from 'src/map/index';
 import { ErrorMessage } from 'utils/error-message';
+import { ERRORS } from 'utils/macros/errors';
 
 export function createMap (config) {
   const {
@@ -17,7 +18,7 @@ export function createMap (config) {
   } = config;
 
   if (!elementId) {
-    const errorMessage = new ErrorMessage('elementId is necessary to create map');
+    const errorMessage = new ErrorMessage(ERRORS.elementIdIsRequiredForMap);
     errorMessage.showMessage('Mapa przestała działać. Proszę zgłosić usterkę do animistratora.');
   }
 

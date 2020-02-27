@@ -1,10 +1,11 @@
 import { AppEvent } from 'src/structures/event';
 import { request } from 'utils/request';
 import { ErrorMessage } from 'utils/error-message';
+import { ERRORS } from 'utils/macros/errors';
 
 function catchConnectionError (reject) {
-  return function (error) {
-    reject(new ErrorMessage(error));
+  return function (fetchError) {
+    reject(new ErrorMessage(fetchError));
   };
 }
 
@@ -39,7 +40,7 @@ export const realApi = {
               email: data.user,
             });
           } else {
-            reject(new ErrorMessage('E-mail or password is incorrect'));
+            reject(new ErrorMessage(ERRORS.signIn));
           }
         })
         .catch(catchConnectionError(reject));
@@ -61,7 +62,7 @@ export const realApi = {
           if (data.user === email) {
             resolve();
           } else {
-            reject(new ErrorMessage('Sign up went wrong'));
+            reject(new ErrorMessage(ERRORS.signUp));
           }
         })
         .catch(catchConnectionError(reject));
@@ -78,7 +79,7 @@ export const realApi = {
           if (data.user === email) {
             resolve();
           } else {
-            reject(new ErrorMessage('Wrong e-mail'));
+            reject(new ErrorMessage(ERRORS.remindPassword));
           }
         })
         .catch(catchConnectionError(reject));
@@ -94,7 +95,7 @@ export const realApi = {
           if (data.user === email) {
             resolve();
           } else {
-            reject(new ErrorMessage('Sign out went wrong'));
+            reject(new ErrorMessage(ERRORS.signOut));
           }
         })
         .catch(catchConnectionError(reject));
@@ -122,7 +123,7 @@ export const realApi = {
           if (data.user === email) {
             resolve();
           } else {
-            reject(new ErrorMessage('Something went wrong'));
+            reject(new ErrorMessage(ERRORS.collectPoint));
           }
         })
         .catch(catchConnectionError(reject));
