@@ -103,19 +103,14 @@ export const realApi = {
         });
     });
   },
-  changePassword ({ password }) {
+  changePassword: function ({ password }) {
     return new Promise((resolve, reject) => {
       request.put({
         url: '/user/remind',
         data: { password },
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.password === password) {
-            resolve();
-          } else {
-            reject(new Error('Próba zmiany hasła nie powiodła się'));
-          }
+        .then(() => {
+          resolve();
         })
         .catch(() => {
           reject(new Error('Error: Something went wrong'));
