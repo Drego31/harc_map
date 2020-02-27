@@ -5,7 +5,8 @@ import Point from 'ol/geom/Point';
 import * as Projection from 'ol/proj';
 import { map } from 'src/map';
 import { Fill, RegularShape, Stroke, Style } from 'ol/style';
-import { MAP_POINTS } from '../utils/macros/mapPointTypes';
+import { MAP_POINTS } from 'utils/macros/map-point-types';
+import { store } from 'store';
 
 const getStroke = (type, width = 2) => {
   return new Stroke({
@@ -40,6 +41,8 @@ const getFinalPoints = (type, fill, stroke) => {
 };
 
 export function createFeatures ({ list }) {
+  const listOfFeatures = [];
+
   for (const point of list) {
     const lat = point.position.latitude;
     const lon = point.position.longitude;
@@ -55,13 +58,16 @@ export function createFeatures ({ list }) {
     });
     feature.setStyle(getFinalPoints(type, fill, stroke));
 
-    map.points.list.push(feature);
+    point.olUid = feature.ol_uid;
+    store.commit('event/updatePoint', point);
+    listOfFeatures.push(feature);
   }
 
   const layer = new VectorLayer({
     source: new VectorSource({
-      features: map.points.list,
+      features: listOfFeatures,
     }),
   });
   map.realMap.addLayer(layer);
+  map.points.layer = layer;
 }

@@ -1,4 +1,6 @@
 import { getEventByIdMock } from 'api/mockMethods/get-event-by-id';
+import { ErrorMessage } from 'utils/error-message';
+import { ERRORS } from 'utils/macros/errors';
 
 function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
   return new Promise(resolve => {
@@ -8,12 +10,20 @@ function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
   });
 }
 
+// function makeDelayError (timeout = 100) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       reject(new ErrorMessage(ERRORS.fakeErrorInMockApi));
+//     }, 1000);
+//   });
+// }
+
 export const mockApi = {
   getEventById (eventId) {
     if (eventId) {
       return makeDelayFakeAnswer(getEventByIdMock);
     } else {
-      return Promise.reject(new Error('eventId is required'));
+      return Promise.reject(new ErrorMessage(ERRORS.eventIdIsRequired));
     }
   },
   signIn ({ email, password }) {

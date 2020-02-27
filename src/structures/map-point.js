@@ -15,5 +15,6 @@ export class MapPoint {
       latitude,
     };
     this.type = type;
+    this.olUid = null;
   }
 }
