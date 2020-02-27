@@ -100,6 +100,18 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
+  changePassword: function ({ password }) {
+    return new Promise((resolve, reject) => {
+      request.put({
+        url: '/user/remind',
+        data: { password },
+      })
+        .then(() => {
+          resolve();
+        })
+        .catch(catchConnectionError(reject));
+    });
+  },
   collectPoint ({ email, eventCode, patrolName, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({
