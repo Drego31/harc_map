@@ -12,7 +12,7 @@ import AButton from 'atoms/button';
 import ORemindPassword from 'organisms/form/remind-password';
 
 export default {
-  name: 'remind-password.vue',
+  name: 'p-remind-password',
   components: {
     AButton,
     TPage,

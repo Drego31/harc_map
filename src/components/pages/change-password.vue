@@ -12,7 +12,7 @@ import AButton from 'atoms/button';
 import OChangePassword from 'organisms/form/change-password';
 
 export default {
-  name: 'change-password.vue',
+  name: 'p-change-password',
   components: {
     AButton,
     TPage,

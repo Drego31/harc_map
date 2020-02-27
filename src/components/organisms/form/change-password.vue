@@ -3,13 +3,13 @@
     <div v-if="!formSend">
       <a-input
         :disabled="blockForm"
-        placeholder="Type your new password"
+        placeholder="Wprowadź nowe hasło"
         v-model="password"
         type="password"
       />
       <a-input
         :disabled="blockForm"
-        placeholder="Repeat your new password"
+        placeholder="Powtórz nowe hasło"
         v-model="repeatedPassword"
         type="password"
       />
@@ -31,7 +31,7 @@ import { api } from 'api/index';
 import { mixins } from 'mixins/base';
 
 export default {
-  name: 'change-password.vue',
+  name: 'o-form-change-password',
   mixins: [mixins.form],
   components: {
     AButtonSubmit,

@@ -24,7 +24,7 @@ import { api } from 'api/index';
 import { mixins } from 'mixins/base';
 
 export default {
-  name: 'remind-password.vue',
+  name: 'o-form-remind-password',
   mixins: [mixins.form],
   components: {
     AButtonSubmit,
