@@ -21,7 +21,10 @@
   },
   "homepage": "https://github.com/Drego31/harc_map#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "mongodb": "^3.5.3",
     "ol": "^6.2.0",
     "vue": "^2.6.11"
