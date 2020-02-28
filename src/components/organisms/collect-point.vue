@@ -25,7 +25,7 @@ export default {
     AInput,
   },
   data: () => ({
-    collectedPointId: '1',
+    collectedPointId: '',
   }),
   computed: {
     ...mapGetters('user', [
@@ -35,6 +35,7 @@ export default {
   methods: {
     collectPoint (pointId) {
       mapManager.collectPoint(pointId)
+        .then(() => this.$router.push('/map'))
         .catch(errorMessage => {
           errorMessage.showMessage(`Niestety punkt o kodzie "${pointId}" już został zebrany.`);
         });
