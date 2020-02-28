@@ -17,6 +17,13 @@
       >
         {{ route.label }}
       </router-link>
+      <router-link
+        :to="route.path"
+        @click.native="toggle()"
+        class="a-link f-menu"
+      >
+        {{ route.label }}
+      </router-link>
     </div>
     <a-button @click="signOut()">Sign out</a-button>
   </div>
@@ -41,6 +48,10 @@ export default {
       {
         path: '/map',
         label: 'Map',
+      },
+      {
+        path: '/collect-point',
+        label: 'Collect Point',
       },
     ],
   }),
