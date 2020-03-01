@@ -6,6 +6,7 @@ import PSignUp from 'pages/sign-up';
 import PRemindPassword from 'pages/remind-password';
 import PMap from 'pages/map';
 import PChangePassword from 'pages/change-password';
+import PCollectPoint from 'pages/collect-point';
 
 Vue.use(Router);
 
@@ -44,6 +45,15 @@ const router = new Router({
       path: '/map',
       name: 'map',
       component: PMap,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
+      },
+    },
+    {
+      path: '/collect-point',
+      name: 'collect-point',
+      component: PCollectPoint,
       meta: {
         onlyBeforeLogin: false,
         requiredAuth: true,

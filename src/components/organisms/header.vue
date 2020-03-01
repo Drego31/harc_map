@@ -9,9 +9,6 @@
     <div class="a-logo f-flex-1">
       HarcMap
     </div>
-    <a-button @click="collectPoint('1')">
-      collect point
-    </a-button>
   </div>
 </template>
 
@@ -19,13 +16,10 @@
 import { mapGetters, mapMutations } from 'vuex';
 import IconMap from 'icons/Menu.vue';
 import AButtonIcon from 'atoms/button/icon';
-import AButton from 'atoms/button';
-import { mapManager } from 'utils/map-manager';
 
 export default {
   name: 'o-header',
   components: {
-    AButton,
     AButtonIcon,
     IconMap,
   },
@@ -38,12 +32,6 @@ export default {
     ...mapMutations('menu', [
       'toggle',
     ]),
-    collectPoint (pointId) {
-      mapManager.collectPoint(pointId)
-        .catch(errorMessage => {
-          errorMessage.showMessage(`Niestety punkt o kodzie "${pointId}" już został zebrany.`);
-        });
-    },
   },
 };
 </script>

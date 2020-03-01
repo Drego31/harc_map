@@ -23,6 +23,7 @@ export const mapManager = {
       })
         .then(() => {
           store.commit('event/removePoint', point);
+          store.commit('user/addCollectedPointId', pointId);
           resolve();
         })
         .catch(errorMessage => {
