@@ -1,13 +1,14 @@
 <template>
   <div
     class="o-footer"
-  > <!--    v-if="isLogin"-->
+    v-if="isLogin"
+  >
     <a-button-icon-footer
-      v-for="icon of icons"
+      v-for="icon of getIcons()"
       :key="icon.label"
       :icon="icon.component"
       :label="icon.label"
-      @click="icon.method()"
+      @click="onClick(icon)"
     />
   </div>
 </template>
@@ -20,46 +21,13 @@ import IconStar from 'icons/Star.vue';
 import IconClock from 'icons/Clock.vue';
 import IconHome from 'icons/Home.vue';
 import AButtonIconFooter from 'atoms/button/icon-footer';
+import { logical } from 'utils/logical';
 
 export default {
   name: 'o-footer',
   components: {
     AButtonIconFooter,
   },
-  data: () => ({
-    icons: [
-      {
-        label: 'Home',
-        component: IconHome,
-        method: () => {
-        },
-      },
-      {
-        label: 'Czasowe',
-        component: IconClock,
-        method: () => {
-        },
-      },
-      {
-        label: 'Punkty',
-        component: IconStar,
-        method: () => {
-        },
-      },
-      {
-        label: 'Mapa',
-        component: IconMap,
-        method: () => {
-        },
-      },
-      {
-        label: 'Menu',
-        component: IconMenu,
-        method: () => {
-        },
-      },
-    ],
-  }),
   computed: {
     ...mapGetters('user', [
       'isLogin',
@@ -69,6 +37,45 @@ export default {
     ...mapMutations('menu', [
       'toggle',
     ]),
+    onClick (icon) {
+      if (logical.isString(icon.path) && icon.path !== '') {
+        this.$router.push(icon.path).catch(() => {
+          this.$store.commit('menu/close');
+        });
+      }
+      if (logical.isFunction(icon.method)) {
+        icon.method();
+      }
+    },
+    getIcons () {
+      return [
+        {
+          label: 'Home',
+          component: IconHome,
+          path: '/collect-point',
+        },
+        {
+          label: 'Czasowe',
+          component: IconClock,
+          path: '/collect-point',
+        },
+        {
+          label: 'Punkty',
+          component: IconStar,
+          path: '/collect-point',
+        },
+        {
+          label: 'Mapa',
+          component: IconMap,
+          path: '/map',
+        },
+        {
+          label: 'Menu',
+          component: IconMenu,
+          method: this.toggle,
+        },
+      ];
+    },
   },
 };
 </script>

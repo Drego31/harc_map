@@ -95,6 +95,10 @@ router.beforeEach((to, from, next) => {
 function redirectIfNotAuth (to, next) {
   const isLogin = store.getters['user/isLogin'] === true;
 
+  if (to === next) {
+    next(false);
+  }
+
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
       next('/map');
