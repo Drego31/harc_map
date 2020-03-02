@@ -4,11 +4,11 @@ export function getEventByIdMock () {
   return new AppEvent({
     eventId: '111',
     name: 'Event',
-    default_position: {
+    defaultPosition: {
       latitude: 54.4922,
       longitude: 18.5133,
     },
-    default_zoom: 12,
+    defaultZoom: 12,
     points: [
       {
         pointId: '1',

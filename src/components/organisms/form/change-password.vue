@@ -3,17 +3,24 @@
     <div v-if="!formSend">
       <a-input
         :disabled="blockForm"
-        placeholder="e-mail"
-        v-model="email"
+        placeholder="Wprowadź nowe hasło"
+        v-model="password"
+        type="password"
+      />
+      <a-input
+        :disabled="blockForm"
+        placeholder="Powtórz nowe hasło"
+        v-model="repeatedPassword"
+        type="password"
       />
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
         :message="message"
-        @click="remindPassword()"
+        @click="changePassword()"
       />
     </div>
-    <p v-else>Link do odzyskania hasła wysłano na podany email.</p>
+    <p v-else>Twoje hasło zostało pomyślnie zmienione</p>
   </div>
 </template>
 
@@ -24,14 +31,15 @@ import { api } from 'api/index';
 import { mixins } from 'mixins/base';
 
 export default {
-  name: 'o-form-remind-password',
+  name: 'o-form-change-password',
   mixins: [mixins.form],
   components: {
     AButtonSubmit,
     AInput,
   },
   data: () => ({
-    email: '',
+    password: '',
+    repeatedPassword: '',
     blockForm: false,
     isSending: false,
     message: '',
@@ -39,20 +47,20 @@ export default {
   }),
   methods: {
     checkValues () {
-      return this.email.length >= 6 && this.email.includes('@');
+      return this.password.length >= 5 && this.password === this.repeatedPassword;
     },
-    remindPassword () {
+    changePassword () {
       this.isSending = true;
       this.blockForm = true;
       if (this.checkValues()) {
-        api.remindPassword(this.email)
-          .then(this.onRemindPassword)
+        api.changePassword(this.password)
+          .then(this.onChangePassword)
           .catch(this.onError);
       } else {
         this.onInvalidValues();
       }
     },
-    onRemindPassword () {
+    onChangePassword () {
       this.setMessage('Zakończono pomyślnie!')
         .then(() => {
           this.formSend = true;

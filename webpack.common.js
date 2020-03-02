@@ -67,6 +67,13 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        options: {
+          'plugins': [
+            ['babel-plugin-transform-builtin-extend', {
+              globals: ['Error'],
+            }],
+          ],
+        },
       },
     ],
   },

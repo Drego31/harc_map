@@ -1,11 +1,8 @@
 import { createMap } from 'src/map/create';
-import { createFeatures } from 'src/map/createFeatures';
+import { points } from 'map/points';
 
 export const map = {
   realMap: null,
   create: config => createMap(config),
-  points: {
-    list: [],
-    create: config => createFeatures(config),
-  },
+  points,
 };

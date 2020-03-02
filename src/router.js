@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import { store } from 'store';
 import PSignIn from 'pages/sign-in';
 import PSignUp from 'pages/sign-up';
 import PRemindPassword from 'pages/remind-password';
 import PMap from 'pages/map';
-import store from 'store';
+import PChangePassword from 'pages/change-password';
+import PCollectPoint from 'pages/collect-point';
 
 Vue.use(Router);
 
@@ -17,7 +19,7 @@ const router = new Router({
       name: 'sign-in',
       component: PSignIn,
       meta: {
-        beforeLogin: true,
+        onlyBeforeLogin: true,
         requiredAuth: false,
       },
     },
@@ -26,7 +28,7 @@ const router = new Router({
       name: 'sign-up',
       component: PSignUp,
       meta: {
-        beforeLogin: true,
+        onlyBeforeLogin: true,
         requiredAuth: false,
       },
     },
@@ -35,7 +37,7 @@ const router = new Router({
       name: 'remind-password',
       component: PRemindPassword,
       meta: {
-        beforeLogin: true,
+        onlyBeforeLogin: true,
         requiredAuth: false,
       },
     },
@@ -44,8 +46,26 @@ const router = new Router({
       name: 'map',
       component: PMap,
       meta: {
-        beforeLogin: false,
+        onlyBeforeLogin: false,
         requiredAuth: true,
+      },
+    },
+    {
+      path: '/collect-point',
+      name: 'collect-point',
+      component: PCollectPoint,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
+      },
+    },
+    {
+      path: '/change-password',
+      name: 'change-password',
+      component: PChangePassword,
+      meta: {
+        onlyBeforeLogin: true,
+        requiredAuth: false,
       },
     },
     {
@@ -66,7 +86,7 @@ function redirectIfNotAuth (to, next) {
   const isLogin = store.getters['user/isLogin'] === true;
 
   if (isLogin) {
-    if (to.meta.beforeLogin) {
+    if (to.meta.onlyBeforeLogin) {
       next('/map');
       return;
     }
