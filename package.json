@@ -27,6 +27,9 @@
     "express-session": "^1.17.0",
     "mongodb": "^3.5.3",
     "ol": "^6.2.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sha3": "^2.1.1",
     "vue": "^2.6.11"
   },
   "devDependencies": {
