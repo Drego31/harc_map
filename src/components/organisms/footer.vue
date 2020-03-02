@@ -2,34 +2,13 @@
   <div
     class="o-footer"
   > <!--    v-if="isLogin"-->
-    <a-button-icon
-      class="f-footer"
-    >
-      <span>
-        <icon-home :size="32"/>
-      </span>
-    </a-button-icon>
-    <a-button-icon
-      class="f-footer"
-    >
-      <icon-clock :size="32"/>
-    </a-button-icon>
-    <a-button-icon
-      class="f-footer"
-    >
-      <icon-star :size="32"/>
-    </a-button-icon>
-    <a-button-icon
-      class="f-footer"
-    >
-      <icon-map :size="32"/>
-    </a-button-icon>
-    <a-button-icon
-      class="f-footer"
-      @click="toggle()"
-    >
-      <icon-menu :size="32"/>
-    </a-button-icon>
+    <a-button-icon-footer
+      v-for="icon of icons"
+      :key="icon.label"
+      :icon="icon.component"
+      :label="icon.label"
+      @click="icon.method()"
+    />
   </div>
 </template>
 
@@ -40,18 +19,47 @@ import IconMenu from 'icons/Menu.vue';
 import IconStar from 'icons/Star.vue';
 import IconClock from 'icons/Clock.vue';
 import IconHome from 'icons/Home.vue';
-import AButtonIcon from 'atoms/button/icon';
+import AButtonIconFooter from 'atoms/button/icon-footer';
 
 export default {
   name: 'o-footer',
   components: {
-    AButtonIcon,
-    IconMap,
-    IconMenu,
-    IconStar,
-    IconClock,
-    IconHome,
+    AButtonIconFooter,
   },
+  data: () => ({
+    icons: [
+      {
+        label: 'Home',
+        component: IconHome,
+        method: () => {
+        },
+      },
+      {
+        label: 'Czasowe',
+        component: IconClock,
+        method: () => {
+        },
+      },
+      {
+        label: 'Punkty',
+        component: IconStar,
+        method: () => {
+        },
+      },
+      {
+        label: 'Mapa',
+        component: IconMap,
+        method: () => {
+        },
+      },
+      {
+        label: 'Menu',
+        component: IconMenu,
+        method: () => {
+        },
+      },
+    ],
+  }),
   computed: {
     ...mapGetters('user', [
       'isLogin',
