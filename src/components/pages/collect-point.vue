@@ -1,5 +1,5 @@
 <template>
-  <t-page>
+  <t-page :title="pageTitle">
     <o-collect-point></o-collect-point>
     <a-button @click="$router.push('/map')">Wróć do mapy</a-button>
   </t-page>
@@ -17,5 +17,8 @@ export default {
     OCollectPoint,
     TPage,
   },
+  data: () => ({
+    pageTitle: 'Zbierz punkt',
+  }),
 };
 </script>

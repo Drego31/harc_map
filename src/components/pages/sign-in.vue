@@ -1,5 +1,5 @@
 <template>
-  <t-page>
+  <t-page :title="pageTitle">
     <div class="a-title">Logowanie</div>
     <o-form-sign-in/>
     <a-button @click="$router.push('/remind-password')">Przypomnij hasło</a-button>
@@ -19,5 +19,8 @@ export default {
     OFormSignIn,
     TPage,
   },
+  data: () => ({
+    pageTitle: 'Logowanie',
+  }),
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <t-page>
+  <t-page :title="pageTitle">
     <div class="a-title">Zarejestruj się</div>
     <o-form-sign-up/>
     <a-button @click="$router.push('/')">Wróć do logowania</a-button>
@@ -18,5 +18,8 @@ export default {
     OFormSignUp,
     TPage,
   },
+  data: () => ({
+    pageTitle: 'Rejestracja',
+  }),
 };
 </script>

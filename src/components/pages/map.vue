@@ -1,5 +1,5 @@
 <template>
-  <t-page class="f-map">
+  <t-page :title="pageTitle" class="f-map">
     <o-map/>
   </t-page>
 </template>
@@ -14,5 +14,8 @@ export default {
     OMap,
     TPage,
   },
+  data: () => ({
+    pageTitle: 'Mapa',
+  }),
 };
 </script>

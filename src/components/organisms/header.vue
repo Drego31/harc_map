@@ -3,8 +3,8 @@
     <div class="a-subtitle">
       {{pageTitle}}
     </div>
-    <div class="a-logo f-flex-1">
-      HarcMap
+    <div class="a-logo">
+      HARCMAP
     </div>
   </div>
 </template>
