@@ -1,4 +1,4 @@
-const tools = require('./validate-tools');
+const tools = require('../vendors/validate-tools');
 
 const ValidateCodes = Object.freeze({
   IS_NOT_EMAIL: 1,
