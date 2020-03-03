@@ -1,12 +1,13 @@
 <template>
   <div class="f-pb-1">
-    <div v-if="!formSend">
+    <div class = "f-flex f-flex-col f-flex-al-cen"  v-if="!formSend">
       <a-input
         :disabled="blockForm"
         placeholder="e-mail"
         v-model="email"
       />
       <a-button-submit
+        class="a-button f-primary"
         :disabled="blockForm"
         :is-sending="isSending"
         :message="message"

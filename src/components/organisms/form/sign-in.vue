@@ -1,5 +1,5 @@
 <template>
-  <div class="f-pb-1">
+  <div class="f-pb-1 f-flex f-flex-col f-flex-al-cen">
     <a-input
       :disabled="blockForm"
       placeholder="e-mail"
@@ -12,6 +12,7 @@
       v-model="values.password"
     />
     <a-button-submit
+      class="a-button f-primary"
       :disabled="blockForm"
       :is-sending="isSending"
       :message="message"

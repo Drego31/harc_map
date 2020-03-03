@@ -6,7 +6,7 @@
       placeholder="Wpisz kod punktu..."
       v-model="collectedPointId"
     />
-    <a-button @click="collectPoint(collectedPointId)">
+    <a-button class="a-button f-primary" @click="collectPoint(collectedPointId)">
       Zbierz punkt
     </a-button>
   </div>
