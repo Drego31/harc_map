@@ -39,81 +39,107 @@ function validatePoint (point) {
   }
 }
 
+function validateEvent (json) {
+  if (tools.isNullOrEmpty(json.eventId)) {
+    throw ValidateCodes.EVENT_ID_IS_EMPTY;
+  }
+  if (tools.isNullOrEmpty(json.name)) {
+    throw ValidateCodes.EVENT_NAME_IS_EMPTY;
+  }
+  if (tools.inNotRange(json.mapPosition.longitude, -180, 180)) {
+    throw ValidateCodes.MAP_POSITION_LONGITUDE_WITHOUT_RANGE;
+  }
+  if (tools.inNotRange(json.mapPosition.latitude, -180, 180)) {
+    throw ValidateCodes.MAP_POSITION_LATITUDE_WITHOUT_RANGE;
+  }
+  if (tools.inNotRange(json.mapZoom, 2, 19)) {
+    throw ValidateCodes.MAP_ZOOM_WITHOUT_RANGE;
+  }
+
+  for (const point of json.points) {
+    validatePoint(point);
+  }
+}
+
 module.exports =
-    {
-      // validate error codes
-      ValidateCodes: ValidateCodes,
+  {
+    // validate error codes
+    ValidateCodes: ValidateCodes,
 
-      validateUserPostRequest: function (json) {
-        if (tools.isNotEmail(json.user)) {
-          throw ValidateCodes.IS_NOT_EMAIL;
-        }
-        if (tools.isShorter(json.password, 8)) {
-          throw ValidateCodes.PASSWORD_TOO_SHORT;
-        }
-        if (tools.hasNotNumber(json.password)) {
-          throw ValidateCodes.PASSWORD_HAS_NOT_NUMBER;
-        }
-        if (tools.isNullOrEmpty(json.teamName)) {
-          throw ValidateCodes.TEAM_NAME_IS_EMPTY;
-        }
-        if (tools.isNullOrEmpty(json.eventId)) {
-          throw ValidateCodes.EVENT_ID_IS_EMPTY;
-        }
-      },
+    validateUserPostRequest: function (json) {
+      if (tools.isNotEmail(json.user)) {
+        throw ValidateCodes.IS_NOT_EMAIL;
+      }
+      if (tools.isShorter(json.password, 8)) {
+        throw ValidateCodes.PASSWORD_TOO_SHORT;
+      }
+      if (tools.hasNotNumber(json.password)) {
+        throw ValidateCodes.PASSWORD_HAS_NOT_NUMBER;
+      }
+      if (tools.isNullOrEmpty(json.teamName)) {
+        throw ValidateCodes.TEAM_NAME_IS_EMPTY;
+      }
+      if (tools.isNullOrEmpty(json.eventId)) {
+        throw ValidateCodes.EVENT_ID_IS_EMPTY;
+      }
+    },
 
-      validateUserRemindPostRequest: function (json) {
-        if (tools.isNotEmail(json.user)) {
-          throw ValidateCodes.IS_NOT_EMAIL;
-        }
-      },
+    validateUserRemindPostRequest: function (json) {
+      if (tools.isNotEmail(json.user)) {
+        throw ValidateCodes.IS_NOT_EMAIL;
+      }
+    },
 
-      validateUserRemindPutRequest: function (json) {
-        if (tools.isShorter(json.password, 8)) {
-          throw ValidateCodes.PASSWORD_TOO_SHORT;
-        }
-        if (tools.hasNotNumber(json.password)) {
-          throw ValidateCodes.PASSWORD_HAS_NOT_NUMBER;
-        }
-      },
+    validateUserRemindPutRequest: function (json) {
+      if (tools.isShorter(json.password, 8)) {
+        throw ValidateCodes.PASSWORD_TOO_SHORT;
+      }
+      if (tools.hasNotNumber(json.password)) {
+        throw ValidateCodes.PASSWORD_HAS_NOT_NUMBER;
+      }
+    },
 
-      validateUserLoginPostRequest: function (json) {
-        if (tools.isNotEmail(json.user)) {
-          throw ValidateCodes.IS_NOT_EMAIL;
-        }
-        if (tools.isShorter(json.password, 8)) {
-          throw ValidateCodes.PASSWORD_TOO_SHORT;
-        }
-        if (tools.hasNotNumber(json.password)) {
-          throw ValidateCodes.PASSWORD_HAS_NOT_NUMBER;
-        }
-      },
+    validateUserLoginPostRequest: function (json) {
+      if (tools.isNotEmail(json.user)) {
+        throw ValidateCodes.IS_NOT_EMAIL;
+      }
+      if (tools.isShorter(json.password, 8)) {
+        throw ValidateCodes.PASSWORD_TOO_SHORT;
+      }
+      if (tools.hasNotNumber(json.password)) {
+        throw ValidateCodes.PASSWORD_HAS_NOT_NUMBER;
+      }
+    },
 
-      validateEventGetRequest: function (json) {
-        if (tools.isNullOrEmpty(json.eventId)) {
-          throw ValidateCodes.EVENT_ID_IS_EMPTY;
-        }
-      },
+    validateUserLoginDeleteRequest: function (json) {
+      if (tools.isNotEmail(json.user)) {
+        throw ValidateCodes.IS_NOT_EMAIL;
+      }
+    },
 
-      validateEventPostRequest: function (json) {
-        if (tools.isNullOrEmpty(json.eventId)) {
-          throw ValidateCodes.EVENT_ID_IS_EMPTY;
-        }
-        if (tools.isNullOrEmpty(json.name)) {
-          throw ValidateCodes.EVENT_NAME_IS_EMPTY;
-        }
-        if (tools.inNotRange(json.mapPosition.longitude, -180, 180)) {
-          throw ValidateCodes.MAP_POSITION_LONGITUDE_WITHOUT_RANGE;
-        }
-        if (tools.inNotRange(json.mapPosition.latitude, -180, 180)) {
-          throw ValidateCodes.MAP_POSITION_LATITUDE_WITHOUT_RANGE;
-        }
-        if (tools.inNotRange(json.mapZoom, 2, 19)) {
-          throw ValidateCodes.MAP_ZOOM_WITHOUT_RANGE;
-        }
+    validateEventGetRequest: function (json) {
+      if (tools.isNullOrEmpty(json.eventId)) {
+        throw ValidateCodes.EVENT_ID_IS_EMPTY;
+      }
+    },
 
-        for (const point of json.points) {
-          validatePoint(point);
-        }
-      },
-    };
+    validateEventPostRequest: function (json) {
+      validateEvent(json);
+    },
+
+    validateEventPutRequest: function (json) {
+      validateEvent(json);
+    },
+
+    validateEventCollectPutRequest: function (json) {
+      if (tools.isNotEmail(json.user)) {
+        throw ValidateCodes.IS_NOT_EMAIL;
+      }
+      if (tools.isNullOrEmpty(json.eventId)) {
+        throw ValidateCodes.EVENT_ID_IS_EMPTY;
+      }
+      if (tools.isNullOrEmpty(json.pointId)) {
+        throw ValidateCodes.POINT_ID_IS_EMPTY;
+      }
+    },
+  };
