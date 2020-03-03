@@ -1,6 +1,6 @@
 <template>
-  <t-page>
-    <div class="a-title">Przypomnij hasło</div>
+  <t-page :title="pageTitle">
+    <div class="a-title">{{pageTitle}}</div>
     <o-remind-password/>
     <a-button @click="$router.push('/')">Wróć do logowania</a-button>
   </t-page>
@@ -18,5 +18,8 @@ export default {
     TPage,
     ORemindPassword,
   },
+  data: () => ({
+    pageTitle: 'Przypomnij hasło',
+  }),
 };
 </script>

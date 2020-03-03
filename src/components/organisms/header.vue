@@ -1,5 +1,8 @@
 <template>
   <div class="o-header">
+    <div class="a-subtitle">
+      {{pageTitle}}
+    </div>
     <div class="a-logo f-flex-1">
       HarcMap
     </div>
@@ -14,6 +17,9 @@ export default {
   computed: {
     ...mapGetters('user', [
       'isLogin',
+    ]),
+    ...mapGetters('menu', [
+      'pageTitle',
     ]),
   },
   methods: {
