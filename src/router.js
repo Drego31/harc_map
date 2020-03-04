@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { store } from 'store';
+import PStart from 'pages/start';
 import PSignIn from 'pages/sign-in';
 import PSignUp from 'pages/sign-up';
 import PRemindPassword from 'pages/remind-password';
@@ -16,6 +17,15 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: 'start',
+      component: PStart,
+      meta: {
+        onlyBeforeLogin: true,
+        requiredAuth: false,
+      },
+    },
+    {
+      path: '/sign-in',
       name: 'sign-in',
       component: PSignIn,
       meta: {
@@ -84,6 +94,10 @@ router.beforeEach((to, from, next) => {
 
 function redirectIfNotAuth (to, next) {
   const isLogin = store.getters['user/isLogin'] === true;
+
+  if (to === next) {
+    next(false);
+  }
 
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
