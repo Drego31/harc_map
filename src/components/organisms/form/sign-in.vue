@@ -2,12 +2,12 @@
   <div class="f-pb-1">
     <a-input
       :disabled="blockForm"
-      placeholder="e-mail"
+      placeholder="E-mail"
       v-model="values.email"
     />
     <a-input
       :disabled="blockForm"
-      placeholder="hasło"
+      placeholder="Hasło"
       type="password"
       v-model="values.password"
     />
