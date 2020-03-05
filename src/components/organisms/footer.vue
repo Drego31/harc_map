@@ -52,7 +52,7 @@ export default {
         {
           label: 'Start',
           component: IconHome,
-          path: '/collect-point',
+          path: '/home',
         },
         {
           label: 'Czasowe',
