@@ -2,7 +2,7 @@
   <div>
     <p>Do tej pory zebrano {{collectedPointsIds.length}} punkty!</p>
     <p>Kod punktu</p>
-    <a-input
+    <m-input
       placeholder="Wpisz kod punktu..."
       v-model="collectedPointId"
     />
@@ -14,7 +14,7 @@
 
 <script>
 import AButton from 'atoms/button';
-import AInput from 'atoms/input';
+import MInput from 'molecules/input';
 import { mapManager } from 'utils/map-manager';
 import { mapGetters } from 'vuex';
 
@@ -22,7 +22,7 @@ export default {
   name: 'o-collect-point',
   components: {
     AButton,
-    AInput,
+    MInput,
   },
   data: () => ({
     collectedPointId: '',

@@ -27,7 +27,7 @@
 import { mixins } from 'mixins/base';
 
 export default {
-  name: 'a-input',
+  name: 'm-input',
   mixins: [mixins.vModel],
   props: {
     placeholder: {

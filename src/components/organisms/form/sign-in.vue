@@ -1,13 +1,13 @@
 <template>
-  <div class="f-pb-1">
-    <a-input
+  <div>
+    <m-input
       :disabled="blockForm"
       placeholder="E-mail"
       v-model="values.email"
       :error="true"
       assist="Some error"
     />
-    <a-input
+    <m-input
       :disabled="blockForm"
       placeholder="Hasło"
       type="password"
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import AInput from 'atoms/input';
+import MInput from 'molecules/input';
 import { api } from 'api/index';
 import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
@@ -33,7 +33,7 @@ export default {
   mixins: [mixins.form],
   components: {
     AButtonSubmit,
-    AInput,
+    MInput,
   },
   data: () => ({
     values: {
