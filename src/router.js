@@ -8,7 +8,7 @@ import PRemindPassword from 'pages/remind-password';
 import PMap from 'pages/map';
 import PChangePassword from 'pages/change-password';
 import PCollectPoint from 'pages/collect-point';
-
+import PHome from 'pages/home';
 Vue.use(Router);
 
 const router = new Router({
@@ -76,6 +76,15 @@ const router = new Router({
       meta: {
         onlyBeforeLogin: true,
         requiredAuth: false,
+      },
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: PHome,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
       },
     },
     {

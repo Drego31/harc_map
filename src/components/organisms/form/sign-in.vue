@@ -54,7 +54,7 @@ export default {
           this.$store.commit('user/setCollectedPointsIds', collectedPointsIds);
           this.$store.commit('user/setTeamName', patrolName);
           this.$store.dispatch('event/download')
-            .then(() => this.$router.push('/map'));
+            .then(() => this.$router.push('/home'));
         });
       this.isSending = false;
     },
