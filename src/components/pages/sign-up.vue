@@ -1,5 +1,5 @@
 <template>
-  <t-page :title="pageTitle">
+  <t-page title="Rejestracja">
     <o-form-sign-up/>
   </t-page>
 </template>
@@ -14,8 +14,5 @@ export default {
     OFormSignUp,
     TPage,
   },
-  data: () => ({
-    pageTitle: 'Rejestracja',
-  }),
 };
 </script>

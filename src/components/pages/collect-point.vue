@@ -1,5 +1,5 @@
 <template>
-  <t-page :title="pageTitle">
+  <t-page title="Zbierz punkt">
     <o-collect-point></o-collect-point>
   </t-page>
 </template>
@@ -14,8 +14,5 @@ export default {
     OCollectPoint,
     TPage,
   },
-  data: () => ({
-    pageTitle: 'Zbierz punkt',
-  }),
 };
 </script>

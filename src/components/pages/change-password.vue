@@ -1,5 +1,5 @@
 <template>
-  <t-page :title="pageTitle">
+  <t-page title="Zmień hasło">
     <o-change-password></o-change-password>
   </t-page>
 </template>
@@ -14,8 +14,5 @@ export default {
     TPage,
     OChangePassword,
   },
-  data: () => ({
-    pageTitle: 'Zmień hasło',
-  }),
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <t-page :title="pageTitle" class="f-text-center">
+  <t-page title="Start" class="f-text-center">
     <div>
       <o-home></o-home>
       <a-button @click="$router.push('/map')">Rozpocznij poszukiwania!</a-button>
@@ -19,8 +19,5 @@ export default {
     TPage,
     OHome,
   },
-  data: () => ({
-    pageTitle: 'Start',
-  }),
 };
 </script>

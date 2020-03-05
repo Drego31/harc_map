@@ -1,5 +1,5 @@
 <template>
-  <t-page :title="pageTitle">
+  <t-page title="Przypomnij hasło">
     <o-remind-password/>
   </t-page>
 </template>
@@ -15,8 +15,5 @@ export default {
     TPage,
     ORemindPassword,
   },
-  data: () => ({
-    pageTitle: 'Przypomnij hasło',
-  }),
 };
 </script>

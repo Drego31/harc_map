@@ -1,5 +1,5 @@
 <template>
-  <t-page :title="pageTitle" class="f-text-center">
+  <t-page title="Zebrane punkty" class="f-text-center">
     <o-collected-points></o-collected-points>
   </t-page>
 </template>
@@ -14,8 +14,5 @@ export default {
     OCollectedPoints,
     TPage,
   },
-  data: () => ({
-    pageTitle: 'Zebrane punkty',
-  }),
 };
 </script>
