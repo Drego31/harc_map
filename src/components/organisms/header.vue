@@ -2,7 +2,7 @@
   <div class="o-header">
     <div
       class="f-flex f-flex-row f-flex-al-center"
-      :style="{visibility: isMainPage ? 'hidden' : 'visible'}"
+      :class="isMainPage ? 'f-hidden' : 'f-visible'"
     >
       <a-button-icon
         class="f-arrow-back"
@@ -20,8 +20,8 @@
       </div>
     </div>
     <div
-      :style="{visibility: isLogin ? 'visible' : 'hidden'}"
       class="f-flex f-flex-row f-flex-al-center"
+      :class="isLogin ? 'f-visible' : 'f-hidden'"
     >
       <icon-arrow-left :size="24"/>
       <div
