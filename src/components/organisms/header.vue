@@ -2,11 +2,11 @@
   <div class="o-header">
     <div
       class="f-flex f-flex-row f-flex-al-center"
-      :style="{visibility: toggleIsMainPage() ? 'hidden' : 'visible'}"
+      :style="{visibility: isMainPage ? 'hidden' : 'visible'}"
     >
       <a-button-icon
         class="f-arrow-back"
-        @click="$router.push(toggleRouterArrowLeftPath())"
+        @click="$router.push(pathBackButton)"
       >
         <icon-star :size="32"/>
       </a-button-icon>
@@ -28,7 +28,7 @@
         class="a-chip"
         @click="$router.push('/collected-points')"
       >
-        {{collectedPointsIds.length}}
+        {{ collectedPointsIds.length }}
       </div>
     </div>
   </div>
@@ -42,10 +42,6 @@ import IconArrowLeft from 'icons/ArrowLeft.vue';
 
 export default {
   name: 'o-header',
-  data: () => ({
-    isMainPage: true,
-    routerArrowLeftPath: '/',
-  }),
   components: {
     AButtonIcon,
     IconArrowLeft,
@@ -59,15 +55,11 @@ export default {
     ...mapGetters('header', [
       'pageTitle',
     ]),
-  },
-  methods: {
-    toggleIsMainPage () {
-      this.isMainPage = this.pageTitle === '' || this.pageTitle === 'Start';
-      return this.isMainPage;
+    isMainPage () {
+      return this.pageTitle === '' || this.pageTitle === 'Start';
     },
-    toggleRouterArrowLeftPath () {
-      this.routerArrowLeftPath = this.isLogin ? '/home' : '/';
-      return this.routerArrowLeftPath;
+    pathBackButton () {
+      return this.isLogin ? '/home' : '/';
     },
   },
 };
