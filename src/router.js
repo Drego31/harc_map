@@ -8,6 +8,8 @@ import PRemindPassword from 'pages/remind-password';
 import PMap from 'pages/map';
 import PChangePassword from 'pages/change-password';
 import PCollectPoint from 'pages/collect-point';
+import PHome from 'pages/home';
+import PCollectedPoints from 'pages/collected-points';
 
 Vue.use(Router);
 
@@ -79,6 +81,24 @@ const router = new Router({
       },
     },
     {
+      path: '/home',
+      name: 'home',
+      component: PHome,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
+      },
+    },
+    {
+      path: '/collected-points',
+      name: 'collected-points',
+      component: PCollectedPoints,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
+      },
+    },
+    {
       path: '*',
       redirect: '/',
     },
@@ -101,7 +121,7 @@ function redirectIfNotAuth (to, next) {
 
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
-      next('/map');
+      next('/home');
       return;
     }
   } else {

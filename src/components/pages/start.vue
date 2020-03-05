@@ -1,5 +1,5 @@
 <template>
-  <t-page class="f-text-center">
+  <t-page title="" class="f-text-center">
     <div class="a-img f-map">
     </div>
     <div>

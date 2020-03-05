@@ -1,9 +1,7 @@
 <template>
-  <t-page>
-    <div class="a-title">Logowanie</div>
+  <t-page title="Logowanie">
     <o-form-sign-in/>
     <a-button @click="$router.push('/remind-password')">Przypomnij hasło</a-button>
-    <a-button @click="$router.push('/sign-up')">Zarejestruj</a-button>
   </t-page>
 </template>
 

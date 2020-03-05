@@ -1,25 +1,66 @@
 <template>
   <div class="o-header">
-    <div class="a-logo f-flex-1">
-      HarcMap
+    <div
+      class="f-flex f-flex-row f-flex-al-center"
+      :class="{ 'f-hidden': isMainPage }"
+    >
+      <a-button-icon
+        class="f-arrow-back"
+        @click="$router.push(pathBackButton)"
+      >
+        <icon-arrow-left :size="32"/>
+      </a-button-icon>
+    </div>
+    <div class="f-flex f-flex-col f-flex-just-end">
+      <div class="a-subtitle">
+        {{ pageTitle }}
+      </div>
+      <div class="a-logo">
+        HARCMAP
+      </div>
+    </div>
+    <div
+      class="f-flex f-flex-row f-flex-al-center"
+      :class="{ 'f-hidden': isLogin === false }"
+    >
+      <icon-star :size="24"/>
+      <div
+        class="a-chip"
+        @click="$router.push('/collected-points')"
+      >
+        {{ collectedPointsIds.length }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
+import IconStar from 'icons/Star.vue';
+import AButtonIcon from 'atoms/button/icon';
+import IconArrowLeft from 'icons/ArrowLeft.vue';
 
 export default {
   name: 'o-header',
+  components: {
+    AButtonIcon,
+    IconArrowLeft,
+    IconStar,
+  },
   computed: {
     ...mapGetters('user', [
       'isLogin',
+      'collectedPointsIds',
     ]),
-  },
-  methods: {
-    ...mapMutations('menu', [
-      'toggle',
+    ...mapGetters('header', [
+      'pageTitle',
     ]),
+    isMainPage () {
+      return this.pageTitle === '' || this.pageTitle === 'Start';
+    },
+    pathBackButton () {
+      return this.isLogin ? '/home' : '/';
+    },
   },
 };
 </script>
