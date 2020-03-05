@@ -31,6 +31,11 @@
       class="a-icon f-input f-error"
       :size="26"
     />
+    <icon-check-bold
+      v-if="correct"
+      class="a-icon f-input f-correct"
+      :size="26"
+    />
     <div
       class="a-assist"
       :class="{ 'f-error': error }"
@@ -45,6 +50,7 @@ import { mixins } from 'mixins/base';
 import IconEye from 'icons/Eye';
 import IconEyeOff from 'icons/EyeOff';
 import IconAlert from 'icons/Alert';
+import IconCheckBold from 'icons/CheckBold';
 
 export default {
   name: 'm-input',
@@ -53,6 +59,7 @@ export default {
     IconEye,
     IconEyeOff,
     IconAlert,
+    IconCheckBold,
   },
   props: {
     placeholder: {
@@ -64,6 +71,10 @@ export default {
       default: '',
     },
     error: {
+      type: Boolean,
+      default: false,
+    },
+    correct: {
       type: Boolean,
       default: false,
     },
@@ -88,6 +99,7 @@ export default {
       return {
         'f-filled': this.vModel !== '',
         'f-error': this.error,
+        'f-correct': this.correct,
         'f-icon': this.error || this.isPassword,
       };
     },
