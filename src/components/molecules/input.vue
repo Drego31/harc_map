@@ -88,6 +88,7 @@ export default {
       return {
         'f-filled': this.vModel !== '',
         'f-error': this.error,
+        'f-icon': this.error || this.isPassword,
       };
     },
     getType () {
