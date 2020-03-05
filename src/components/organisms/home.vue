@@ -4,22 +4,18 @@
       HARC RUN CZY JAKOŚ TAK
     </div>
     <div>
-      <component
-        :is="iconStar"
-        :size="40"
-      />
+      <icon-star :size="40"/>
     </div>
     <div>
-      {{collectedPointsIds.length}}
+      {{ collectedPointsIds.length }}
     </div>
     <div>
-      {{teamName}}
+      {{ teamName }}
     </div>
   </div>
 </template>
 
 <script>
-
 import { mapGetters } from 'vuex';
 import IconStar from 'icons/Star.vue';
 
@@ -28,15 +24,11 @@ export default {
   components: {
     IconStar,
   },
-  data: () => ({
-    iconStar: IconStar,
-  }),
   computed: {
     ...mapGetters('user', [
       'teamName', 'collectedPointsIds',
     ]),
   },
-  methods: {},
 };
 
 </script>
