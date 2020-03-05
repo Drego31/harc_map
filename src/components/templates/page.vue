@@ -14,7 +14,7 @@ export default {
     },
   },
   mounted () {
-    this.$store.commit('menu/setPageTitle', this.title);
+    this.$store.commit('header/setPageTitle', this.title);
   },
 };
 </script>
