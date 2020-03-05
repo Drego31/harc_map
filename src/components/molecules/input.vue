@@ -26,6 +26,11 @@
       :size="26"
       @click="showPassword = false"
     />
+    <icon-alert
+      v-if="error"
+      class="a-icon f-input f-error"
+      :size="26"
+    />
     <div
       class="a-assist"
       :class="{ 'f-error': error }"
@@ -39,6 +44,7 @@
 import { mixins } from 'mixins/base';
 import IconEye from 'icons/Eye';
 import IconEyeOff from 'icons/EyeOff';
+import IconAlert from 'icons/Alert';
 
 export default {
   name: 'm-input',
@@ -46,6 +52,7 @@ export default {
   components: {
     IconEye,
     IconEyeOff,
+    IconAlert,
   },
   props: {
     placeholder: {
