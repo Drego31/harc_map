@@ -1,26 +1,27 @@
 .a-button.f-secondary
+  @extend .f-text-center, .f-text-14
   width: 184px
   height: 36px
-  font-family: Roboto, sans-serif
-  font-style: normal
+  border: 1px solid $Green
+    radius: 20px
+
   font-weight: 500
-  font-size: 14px
   line-height: 16px
-  text-align: center
   letter-spacing: 0.75px
   text-transform: uppercase
-  color: #30B25B
-  margin: 28px 0 0 0
-  border: 1px solid #30B25B
-  box-sizing: border-box
-  border-radius: 20px
+  color: $Green
+
+  margin-top: 14px
+
+
+
 
 
   &:focus
     opacity: 0.76
 
   &:hover
-    background: #006027
+    background: $Dark_Green
 
   &:disabled
     color: rgba(0, 0, 0, 0.38)

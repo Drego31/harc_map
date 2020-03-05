@@ -6,7 +6,7 @@
       placeholder="Wpisz kod punktu..."
       v-model="collectedPointId"
     />
-    <a-button class="a-button f-primary" @click="collectPoint(collectedPointId)">
+    <a-button class="f-primary" @click="collectPoint(collectedPointId)">
       Zbierz punkt
     </a-button>
   </div>
@@ -35,7 +35,7 @@ export default {
   methods: {
     collectPoint (pointId) {
       mapManager.collectPoint(pointId)
-        .then(() => this.$router.push('/map'))
+        .then(() => this.$router.push('/home'))
         .catch(errorMessage => {
           errorMessage.showMessage(`Niestety punkt o kodzie "${pointId}" już został zebrany.`);
         });

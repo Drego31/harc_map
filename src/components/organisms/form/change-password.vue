@@ -14,7 +14,7 @@
         type="password"
       />
       <a-button-submit
-        class ="a-button f-primary"
+        class ="f-primary"
         :disabled="blockForm"
         :is-sending="isSending"
         :message="message"
