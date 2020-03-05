@@ -5,13 +5,12 @@
       :style="{visibility: toggleIsMainPage() ? 'visible' : 'hidden'}"
     >
       <a-button-icon
-        class="f-arrow-back-header f-flex f-flex-row  f-flex-al-end f-flex-just-start"
-        :style="{padding: 0, height:56}"
+        class="f-arrow-back f-flex f-flex-row  f-flex-al-end f-flex-just-start"
         @click="$router.push('/')"
       >
         <component
           :is="icons[0].component"
-          :size="21"
+          :size="32"
         />
       </a-button-icon>
     </div>
