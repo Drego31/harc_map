@@ -8,15 +8,12 @@
         class="f-arrow-back"
         @click="$router.push(toggleRouterArrowLeftPath())"
       >
-        <component
-          :is="icons[0]"
-          :size="32"
-        />
+        <icon-star :size="32"/>
       </a-button-icon>
     </div>
     <div class="f-flex f-flex-col f-flex-just-end">
       <div class="a-subtitle">
-        {{pageTitle}}
+        {{ pageTitle }}
       </div>
       <div class="a-logo">
         HARCMAP
@@ -26,10 +23,7 @@
       :style="{visibility: isLogin ? 'visible' : 'hidden'}"
       class="f-flex f-flex-row f-flex-al-center"
     >
-      <component
-        :is="icons[1]"
-        :size="24"
-      />
+      <icon-arrow-left :size="24"/>
       <div
         class="a-chip"
         @click="$router.push('/collected-points')"
@@ -44,19 +38,19 @@
 import { mapGetters } from 'vuex';
 import IconStar from 'icons/Star.vue';
 import AButtonIcon from 'atoms/button/icon';
-import ArrowLeft from 'icons/ArrowLeft.vue';
+import IconArrowLeft from 'icons/ArrowLeft.vue';
 
 export default {
   name: 'o-header',
   data: () => ({
     isMainPage: true,
     routerArrowLeftPath: '/',
-    icons: [
-      ArrowLeft,
-      IconStar,
-    ],
   }),
-  components: { AButtonIcon },
+  components: {
+    AButtonIcon,
+    IconArrowLeft,
+    IconStar,
+  },
   computed: {
     ...mapGetters('user', [
       'isLogin',
