@@ -2,13 +2,13 @@
   <div class="o-header">
     <div
       class="f-flex f-flex-row f-flex-al-center"
-      :class="isMainPage ? 'f-hidden' : 'f-visible'"
+      :class="{ 'f-hidden': isMainPage }"
     >
       <a-button-icon
         class="f-arrow-back"
         @click="$router.push(pathBackButton)"
       >
-        <icon-star :size="32"/>
+        <icon-arrow-left :size="32"/>
       </a-button-icon>
     </div>
     <div class="f-flex f-flex-col f-flex-just-end">
@@ -21,9 +21,9 @@
     </div>
     <div
       class="f-flex f-flex-row f-flex-al-center"
-      :class="isLogin ? 'f-visible' : 'f-hidden'"
+      :class="{ 'f-hidden': isLogin === false }"
     >
-      <icon-arrow-left :size="24"/>
+      <icon-star :size="24"/>
       <div
         class="a-chip"
         @click="$router.push('/collected-points')"
