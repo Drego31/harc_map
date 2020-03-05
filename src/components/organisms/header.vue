@@ -1,16 +1,20 @@
 <template>
   <div class="o-header">
-    <a-button-icon
-      class="f-arrow-back-header"
+    <div
+      class="f-flex f-flex-row f-flex-al-center"
       :style="{visibility: toggleIsMainPage() ? 'visible' : 'hidden'}"
-      @click="$router.push('/')"
     >
-      <component
-        :is="icons[0].component"
-        class="a-icon"
-        :size="24"
-      />
-    </a-button-icon>
+      <a-button-icon
+        class="f-arrow-back-header f-flex f-flex-row  f-flex-al-end f-flex-just-start"
+        :style="{padding: 0, height:56}"
+        @click="$router.push('/')"
+      >
+        <component
+          :is="icons[0].component"
+          :size="21"
+        />
+      </a-button-icon>
+    </div>
     <div class="f-flex f-flex-col f-flex-just-end">
       <div class="a-subtitle">
         {{pageTitle}}
@@ -21,14 +25,17 @@
     </div>
     <div
       :style="{visibility: isLogin ? 'visible' : 'hidden'}"
-      class="f-flex f-flex-row f-flex-al-center f-mr-16"
+      class="f-flex f-flex-row f-flex-al-center"
     >
       <component
         :is="icons[1].component"
-        class="a-icon"
-        :size="24"
+        :size="20"
       />
-      <div class="a-chip">{{collectedPointsIds.length}}</div>
+      <div
+        class="a-chip"
+        @click="$router.push('/collect-point')"
+      >{{collectedPointsIds.length}}
+      </div>
     </div>
   </div>
 </template>
