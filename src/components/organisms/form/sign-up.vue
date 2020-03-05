@@ -3,30 +3,30 @@
     <div v-if="!formSend">
       <m-input
         :disabled="blockForm"
-        placeholder="e-mail"
+        placeholder="E-mail"
         type="email"
         v-model="values.email"
       />
       <m-input
         :disabled="blockForm"
-        placeholder="hasło"
+        placeholder="Hasło"
         type="password"
         v-model="values.password"
       />
       <m-input
         :disabled="blockForm"
-        placeholder="powtórz hasło"
+        placeholder="Powtórz hasło"
         type="password"
         v-model="repeatedPassword"
       />
       <m-input
         :disabled="blockForm"
-        placeholder="nazwa patrolu"
+        placeholder="Nazwa patrolu"
         v-model="values.patrolName"
       />
       <m-input
         :disabled="blockForm"
-        placeholder="kod wydarzenia"
+        placeholder="Kod wydarzenia"
         v-model="values.eventCode"
       />
       <a-button-submit

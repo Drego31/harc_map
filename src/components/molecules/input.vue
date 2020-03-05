@@ -9,7 +9,7 @@
     />
     <label
       class="a-label f-input"
-      :class="{ 'f-error': error }"
+      :class="{ 'f-correct': correct, 'f-error': error }"
       :for="id"
     >
       {{ placeholder }}
@@ -27,12 +27,12 @@
       @click="showPassword = false"
     />
     <icon-alert
-      v-if="error"
+      v-if="error && isPassword === false"
       class="a-icon f-input f-error"
       :size="26"
     />
     <icon-check-bold
-      v-if="correct"
+      v-if="correct && isPassword === false && error === false"
       class="a-icon f-input f-correct"
       :size="26"
     />
