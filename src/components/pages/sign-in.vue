@@ -1,5 +1,5 @@
 <template>
-  <t-page title="Logowanie">
+  <t-page title="Logowanie" class="f-flex f-flex-col">
     <o-form-sign-in/>
     <a-button class="f-secondary"
               @click="$router.push('/remind-password')"

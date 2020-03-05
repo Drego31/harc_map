@@ -1,6 +1,6 @@
 <template>
   <div class="f-pb-1">
-    <div class = "f-flex f-flex-col f-flex-al-cen"  v-if="!formSend">
+    <div v-if="!formSend" class ="f-flex f-flex-col" >
       <a-input
         :disabled="blockForm"
         placeholder="e-mail"
