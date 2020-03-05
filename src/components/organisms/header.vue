@@ -5,7 +5,7 @@
       :style="{visibility: toggleIsMainPage() ? 'visible' : 'hidden'}"
     >
       <a-button-icon
-        class="f-arrow-back f-flex f-flex-row  f-flex-al-end f-flex-just-start"
+        class="f-arrow-back"
         @click="$router.push('/')"
       >
         <component
@@ -28,19 +28,20 @@
     >
       <component
         :is="icons[1].component"
-        :size="20"
+        :size="24"
       />
       <div
         class="a-chip"
         @click="$router.push('/collect-point')"
-      >{{collectedPointsIds.length}}
+      >
+        {{ collectedPointsIds.length }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import IconStar from 'icons/Star.vue';
 import AButtonIcon from 'atoms/button/icon';
 import ArrowLeft from 'icons/ArrowLeft.vue';
@@ -62,16 +63,14 @@ export default {
   components: { AButtonIcon },
   computed: {
     ...mapGetters('user', [
-      'isLogin', 'collectedPointsIds',
+      'isLogin',
+      'collectedPointsIds',
     ]),
-    ...mapGetters('menu', [
+    ...mapGetters('header', [
       'pageTitle',
     ]),
   },
   methods: {
-    ...mapMutations('menu', [
-      'toggle',
-    ]),
     toggleIsMainPage () {
       this.isMainPage = this.pageTitle !== '';
       return this.isMainPage;
