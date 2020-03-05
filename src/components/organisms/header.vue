@@ -33,7 +33,7 @@
       />
       <div
         class="a-chip"
-        @click="$router.push('/collect-point')"
+        @click="$router.push('/collected-points')"
       >{{collectedPointsIds.length}}
       </div>
     </div>
