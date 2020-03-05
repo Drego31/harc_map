@@ -50,7 +50,7 @@ export default {
     getIcons () {
       return [
         {
-          label: 'Home',
+          label: 'Start',
           component: IconHome,
           path: '/collect-point',
         },
