@@ -2,15 +2,15 @@
   <div class="o-header">
     <div
       class="f-flex f-flex-row f-flex-al-center"
-      :style="{visibility: toggleIsMainPage() ? 'visible' : 'hidden'}"
+      :style="{visibility: toggleIsMainPage() ? 'hidden' : 'visible'}"
     >
       <a-button-icon
         class="f-arrow-back-header f-flex f-flex-row  f-flex-al-end f-flex-just-start"
         :style="{padding: 0, height:56}"
-        @click="$router.push('/')"
+        @click="$router.push(toggleRouterArrowLeftPath())"
       >
         <component
-          :is="icons[0].component"
+          :is="icons[0]"
           :size="21"
         />
       </a-button-icon>
@@ -28,7 +28,7 @@
       class="f-flex f-flex-row f-flex-al-center"
     >
       <component
-        :is="icons[1].component"
+        :is="icons[1]"
         :size="20"
       />
       <div
@@ -50,14 +50,10 @@ export default {
   name: 'o-header',
   data: () => ({
     isMainPage: true,
+    routerArrowLeftPath: '/',
     icons: [
-      {
-        component: ArrowLeft,
-        path: '/',
-      },
-      {
-        component: IconStar,
-      },
+      ArrowLeft,
+      IconStar,
     ],
   }),
   components: { AButtonIcon },
@@ -74,8 +70,12 @@ export default {
       'toggle',
     ]),
     toggleIsMainPage () {
-      this.isMainPage = this.pageTitle !== '';
+      this.isMainPage = this.pageTitle === '' || this.pageTitle === 'Start';
       return this.isMainPage;
+    },
+    toggleRouterArrowLeftPath () {
+      this.routerArrowLeftPath = this.isLogin ? '/home' : '/';
+      return this.routerArrowLeftPath;
     },
   },
 };
