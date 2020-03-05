@@ -1,4 +1,7 @@
 export const formMixin = {
+  data: () => ({
+    _errors: [],
+  }),
   methods: {
     setMessage (text) {
       return new Promise(resolve => {
