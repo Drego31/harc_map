@@ -121,7 +121,7 @@ function redirectIfNotAuth (to, next) {
 
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
-      next('/map');
+      next('/home');
       return;
     }
   } else {
