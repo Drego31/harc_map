@@ -4,8 +4,6 @@
       :disabled="blockForm"
       placeholder="E-mail"
       v-model="values.email"
-      :correct="true"
-      assist="Some error"
     />
     <m-input
       :disabled="blockForm"
