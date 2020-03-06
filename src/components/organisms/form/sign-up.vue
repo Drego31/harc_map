@@ -1,6 +1,7 @@
 <template>
   <div class="f-pb-1">
-    <div v-if="!formSend">
+
+    <div v-if="!formSend" class="f-flex f-flex-col">
       <m-input
         :disabled="blockForm"
         placeholder="E-mail"
@@ -30,6 +31,7 @@
         v-model="values.eventCode"
       />
       <a-button-submit
+        class="f-primary"
         :disabled="blockForm"
         :is-sending="isSending"
         :message="message"

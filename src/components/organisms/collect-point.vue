@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="f-flex f-flex-col">
     <p>Do tej pory zebrano {{collectedPointsIds.length}} punkty!</p>
     <p>Kod punktu</p>
     <m-input
       placeholder="Wpisz kod punktu..."
       v-model="collectedPointId"
     />
-    <a-button @click="collectPoint(collectedPointId)">
+    <a-button class="f-primary" @click="collectPoint(collectedPointId)">
       Zbierz punkt
     </a-button>
   </div>
