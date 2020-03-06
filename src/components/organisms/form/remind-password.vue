@@ -7,7 +7,6 @@
         v-model="email"
       />
       <a-button-submit
-        class="f-primary"
         :disabled="blockForm"
         :is-sending="isSending"
         :message="message"

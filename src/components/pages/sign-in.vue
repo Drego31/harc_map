@@ -1,23 +1,21 @@
 <template>
   <t-page title="Logowanie" class="f-flex f-flex-col">
     <o-form-sign-in/>
-    <a-button class="f-secondary"
-              @click="$router.push('/remind-password')"
-    >
+    <a-button-secondary @click="$router.push('/remind-password')">
       Przypomnij hasło
-    </a-button>
+    </a-button-secondary>
   </t-page>
 </template>
 
 <script>
 import TPage from 'templates/page';
 import OFormSignIn from 'organisms/form/sign-in';
-import AButton from 'atoms/button';
+import AButtonSecondary from 'atoms/button/secondary';
 
 export default {
   name: 'p-sign-in',
   components: {
-    AButton,
+    AButtonSecondary,
     OFormSignIn,
     TPage,
   },

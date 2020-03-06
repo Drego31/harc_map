@@ -12,7 +12,6 @@
       v-model="values.password"
     />
     <a-button-submit
-      class="f-primary"
       :disabled="blockForm"
       :is-sending="isSending"
       :message="message"

@@ -2,6 +2,7 @@
   <a-button
     :disabled="disabled"
     @click="$emit('click')"
+    class="f-primary"
   >
     {{ isSending ? 'Sprawdzamy...' : (message ? message : 'Dalej') }}
   </a-button>
