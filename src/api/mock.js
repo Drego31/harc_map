@@ -29,7 +29,7 @@ export const mockApi = {
   signIn ({ email, password }) {
     return makeDelayFakeAnswer(() => ({
       eventId: '111',
-      collectedPointsIds: [1, 2, 5],
+      collectedPointsIds: ['1', '2', '5'],
       patrolName: 'HARC',
       email,
     }), 500);

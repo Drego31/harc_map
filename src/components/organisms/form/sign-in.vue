@@ -1,13 +1,13 @@
 <template>
-  <div class="f-pb-1">
-    <a-input
+  <div>
+    <m-input
       :disabled="blockForm"
-      placeholder="e-mail"
+      placeholder="E-mail"
       v-model="values.email"
     />
-    <a-input
+    <m-input
       :disabled="blockForm"
-      placeholder="hasło"
+      placeholder="Hasło"
       type="password"
       v-model="values.password"
     />
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import AInput from 'atoms/input';
+import MInput from 'molecules/input';
 import { api } from 'api/index';
 import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
@@ -31,7 +31,7 @@ export default {
   mixins: [mixins.form],
   components: {
     AButtonSubmit,
-    AInput,
+    MInput,
   },
   data: () => ({
     values: {
@@ -46,14 +46,15 @@ export default {
     checkValues () {
       return this.values.email.length >= 5 && this.values.password.length >= 6;
     },
-    onSignIn ({ eventId, collectedPoints, email, patrolName }) {
+    onSignIn ({ eventId, collectedPointsIds, email, patrolName }) {
       this.setMessage('Zostałeś zalogowany!')
         .then(() => {
           this.$store.commit('event/setId', eventId);
           this.$store.commit('user/setEmail', email);
-          this.$store.commit('user/setCollectedPointsIds', collectedPoints);
+          this.$store.commit('user/setCollectedPointsIds', collectedPointsIds);
           this.$store.commit('user/setTeamName', patrolName);
-          this.$router.push('/map');
+          this.$store.dispatch('event/download')
+            .then(() => this.$router.push('/home'));
         });
       this.isSending = false;
     },

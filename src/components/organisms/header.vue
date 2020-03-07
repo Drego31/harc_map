@@ -1,48 +1,65 @@
 <template>
   <div class="o-header">
-    <a-button-icon
-      @click="toggle()"
-      v-if="isLogin"
+    <div
+      class="f-flex f-flex-row f-flex-al-center"
+      :class="{ 'f-hidden': isMainPage }"
     >
-      <icon-map :size="32"/>
-    </a-button-icon>
-    <div class="a-logo f-flex-1">
-      HarcMap
+      <a-button-icon
+        class="f-arrow-back"
+        @click="$router.push(pathBackButton)"
+      >
+        <icon-arrow-left :size="32"/>
+      </a-button-icon>
     </div>
-    <a-button @click="collectPoint('1')">
-      collect point
-    </a-button>
+    <div class="f-flex f-flex-col f-flex-just-end">
+      <div class="a-subtitle">
+        {{ pageTitle }}
+      </div>
+      <div class="a-logo">
+        HARCMAP
+      </div>
+    </div>
+    <div
+      class="f-flex f-flex-row f-flex-al-center"
+      :class="{ 'f-hidden': isLogin === false }"
+    >
+      <icon-star :size="24"/>
+      <div
+        class="a-chip"
+        @click="$router.push('/collected-points')"
+      >
+        {{ collectedPointsIds.length }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
-import IconMap from 'icons/Menu.vue';
+import { mapGetters } from 'vuex';
+import IconStar from 'icons/Star.vue';
 import AButtonIcon from 'atoms/button/icon';
-import AButton from 'atoms/button';
-import { mapManager } from 'utils/map-manager';
+import IconArrowLeft from 'icons/ArrowLeft.vue';
 
 export default {
   name: 'o-header',
   components: {
-    AButton,
     AButtonIcon,
-    IconMap,
+    IconArrowLeft,
+    IconStar,
   },
   computed: {
     ...mapGetters('user', [
       'isLogin',
+      'collectedPointsIds',
     ]),
-  },
-  methods: {
-    ...mapMutations('menu', [
-      'toggle',
+    ...mapGetters('header', [
+      'pageTitle',
     ]),
-    collectPoint (pointId) {
-      mapManager.collectPoint(pointId)
-        .catch(errorMessage => {
-          errorMessage.showMessage(`Niestety punkt o kodzie "${pointId}" już został zebrany.`);
-        });
+    isMainPage () {
+      return this.pageTitle === '' || this.pageTitle === 'Start';
+    },
+    pathBackButton () {
+      return this.isLogin ? '/home' : '/';
     },
   },
 };

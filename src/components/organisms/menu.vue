@@ -12,7 +12,7 @@
     >
       <router-link
         :to="route.path"
-        @click.native="toggle()"
+        @click.native="close()"
         class="a-link f-menu"
       >
         {{ route.label }}
@@ -42,6 +42,10 @@ export default {
         path: '/map',
         label: 'Map',
       },
+      {
+        path: '/collect-point',
+        label: 'Collect Point',
+      },
     ],
   }),
   computed: {
@@ -52,6 +56,7 @@ export default {
   methods: {
     ...mapMutations('menu', [
       'toggle',
+      'close',
     ]),
     signOut () {
       api.signOut()
