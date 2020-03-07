@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const validator = require('./validator');
+const validator = require('../lib/validator');
 // const database = require('../lib/mongodb');
 
 router.post('/', (request, response) => {
