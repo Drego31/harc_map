@@ -7,12 +7,15 @@ const ENV_DEVELOPMENT = process.env.NODE_ENV === 'development';
 logs.init(ENV_DEVELOPMENT);
 
 const express = require('express');
+const passport = require('passport');
 const https = require('https');
 const fs = require('fs');
 const expressSession = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 const utils = require('./lib/utils');
+const passportConfig = require('./lib/passportConfig');
 const appConfig = utils.getSystemConfig().app;
 
 // Controllers
@@ -46,6 +49,12 @@ if (ENV_DEVELOPMENT) {
   });
 }
 app.use(expressSession(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(passportConfig.serializeUser);
+passport.deserializeUser(passportConfig.deserializeUser);
+passportConfig.setStrategy(passport);
 
 /**
  * Routing
@@ -60,7 +69,7 @@ app.use('/user', userController);
 app.use('/event', eventController);
 // index rewrite
 app.get('*', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(path.resolve(__dirname, './public/index.html'));
 });
 
 /**

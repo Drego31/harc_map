@@ -8,14 +8,20 @@ export const mapManager = {
   collectPoint (pointId) {
     return new Promise((resolve, reject) => {
       const point = store.getters['event/getPointById'](pointId);
+      const mapIsDefined = logical.isObject(map.realMap);
+      let feature;
+
       if (logical.isUndefined(point)) {
         const errorMessage = new ErrorMessage(ERRORS.pointWithPointIdDoesntExist(pointId));
         reject(errorMessage);
       }
-      const olUid = point.olUid;
-      const feature = map.points.getFeatureByOlUid(olUid);
 
-      map.points.removeByOlUid(olUid);
+      if (mapIsDefined) {
+        const olUid = point.olUid;
+        feature = map.points.getFeatureByOlUid(olUid);
+        map.points.removeByOlUid(olUid);
+      }
+
       api.collectPoint({
         eventId: store.getters['event/eventId'],
         email: store.getters['user/email'],
@@ -23,10 +29,13 @@ export const mapManager = {
       })
         .then(() => {
           store.commit('event/removePoint', point);
+          store.commit('user/addCollectedPointId', pointId);
           resolve();
         })
         .catch(errorMessage => {
-          map.points.add(feature);
+          if (mapIsDefined) {
+            map.points.add(feature);
+          }
           errorMessage.showMessage('Punkt nie został zebrany przez problem z serwerem. \nSpróbuj ponownie później.');
           reject(errorMessage);
         });

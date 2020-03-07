@@ -1,7 +1,7 @@
 <template>
   <div class="f-pb-1">
     <div v-if="!formSend">
-      <a-input
+      <m-input
         :disabled="blockForm"
         placeholder="e-mail"
         v-model="email"
@@ -19,7 +19,7 @@
 
 <script>
 import AButtonSubmit from 'atoms/button/submit';
-import AInput from 'atoms/input';
+import MInput from 'molecules/input';
 import { api } from 'api/index';
 import { mixins } from 'mixins/base';
 
@@ -28,7 +28,7 @@ export default {
   mixins: [mixins.form],
   components: {
     AButtonSubmit,
-    AInput,
+    MInput,
   },
   data: () => ({
     email: '',
