@@ -4,9 +4,13 @@ const validator = require('../lib/validator');
 // const database = require('../lib/mongodb');
 
 router.post('/', (request, response) => {
+  const error = validator.validate(
+    validator.validateUserPostRequest,
+    request.body);
+
   response.send({
-    user: 'example@example.pl',
-    error: null,
+    user: request.body.user ? request.body.user : null,
+    error: error,
   });
 });
 
