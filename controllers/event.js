@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
-// const database = require('../lib/mongodb');
+const database = require('../lib/mongodb');
+const passport = require('passport');
 
 router.get('/', (request, response) => {
+  const json = request.query;
+  const error = validator.validate(
+    validator.validateEventGetRequest, json);
+
   response.send({
-    eventId: '1234',
+    eventId: json.eventId ? json.eventId : null,
     name: 'Event',
     mapPosition: {
       longitude: 54.23411,
@@ -63,27 +68,40 @@ router.get('/', (request, response) => {
         type: 1,
       },
     ],
+    error: error,
   });
 });
 
 router.post('/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.validateEventPostRequest, json);
+
   response.send({
-    eventId: '1234',
-    error: null,
+    eventId: json.eventId ? json.eventId : null,
+    error: error,
   });
 });
 
 router.put('/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.validateEventPutRequest, json);
+
   response.send({
-    eventId: '1234',
-    error: null,
+    eventId: json.eventId ? json.eventId : null,
+    error: error,
   });
 });
 
 router.put('/collect/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.validateEventCollectPutRequest, json);
+
   response.send({
-    user: 'example@example.com',
-    error: null,
+    user: json.user ? json.user : null,
+    error: error,
   });
 });
 
