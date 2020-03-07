@@ -1,4 +1,4 @@
-export const logical = {
+const logical = {
   isUndefined: value => typeof value === 'undefined',
   isString: value => typeof value === 'string',
   isNumber: value => typeof value === 'number',
@@ -16,4 +16,8 @@ export const logical = {
   isNotArray: value => logical.isArray(value) === false,
   isNotFunction: value => logical.isFunction(value) === false,
   isNotBoolean: value => logical.isBoolean(value) === false,
+};
+
+module.exports = {
+  logical,
 };
