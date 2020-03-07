@@ -1,5 +1,5 @@
-const ValidateCodes = require('./validator').ValidateCodes;
-const validator = require('./validator');
+const ValidateCodes = require('../controllers/validator').ValidateCodes;
+const validator = require('../controllers/validator');
 
 module.exports =
     {
