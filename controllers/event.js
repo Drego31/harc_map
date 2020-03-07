@@ -7,7 +7,7 @@ const passport = require('passport');
 router.get('/', (request, response) => {
   const json = request.query;
   const error = validator.validate(
-    validator.validateEventGetRequest, json);
+    validator.methods.validateEventGetRequest, json);
 
   response.send({
     eventId: json.eventId ? json.eventId : null,
@@ -75,7 +75,7 @@ router.get('/', (request, response) => {
 router.post('/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.validateEventPostRequest, json);
+    validator.methods.validateEventPostRequest, json);
 
   response.send({
     eventId: json.eventId ? json.eventId : null,
@@ -86,7 +86,7 @@ router.post('/', (request, response) => {
 router.put('/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.validateEventPutRequest, json);
+    validator.methods.validateEventPutRequest, json);
 
   response.send({
     eventId: json.eventId ? json.eventId : null,
@@ -97,7 +97,7 @@ router.put('/', (request, response) => {
 router.put('/collect/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.validateEventCollectPutRequest, json);
+    validator.methods.validateEventCollectPutRequest, json);
 
   response.send({
     user: json.user ? json.user : null,

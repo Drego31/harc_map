@@ -7,7 +7,7 @@ const passport = require('passport');
 router.post('/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.validateUserPostRequest, json);
+    validator.methods.validateUserPostRequest, json);
 
   response.send({
     user: json.user ? json.user : null,
@@ -18,7 +18,7 @@ router.post('/', (request, response) => {
 router.post('/remind/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.validateUserRemindPostRequest, json);
+    validator.methods.validateUserRemindPostRequest, json);
 
   response.send({
     user: json.user ? json.user : null,
@@ -29,7 +29,7 @@ router.post('/remind/', (request, response) => {
 router.put('/remind/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.validateUserRemindPutRequest, json);
+    validator.methods.validateUserRemindPutRequest, json);
 
   response.send({
     user: json.user ? json.user : null,
@@ -40,7 +40,7 @@ router.put('/remind/', (request, response) => {
 router.post('/login/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.validateUserLoginPostRequest, json);
+    validator.methods.validateUserLoginPostRequest, json);
 
   response.send({
     user: json.user ? json.user : null,
@@ -54,7 +54,7 @@ router.post('/login/', (request, response) => {
 router.delete('/login/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.validateUserLoginDeleteRequest, json);
+    validator.methods.validateUserLoginDeleteRequest, json);
 
   response.send({
     user: json.user ? json.user : null,
