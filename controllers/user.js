@@ -3,18 +3,6 @@ const router = express.Router();
 const validator = require('./validator');
 // const database = require('../lib/mongodb');
 
-function getJsonRequest (request) {
-  let body = '';
-  request.on('data', chunk => body += chunk);
-  request.on('end', () => {
-    try {
-      return JSON.parse(body);
-    } catch (error) {
-      throw validator.ValidateCodes.IS_NOT_JSON;
-    }
-  });
-}
-
 router.post('/', (request, response) => {
   response.send({
     user: 'example@example.pl',
