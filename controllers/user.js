@@ -1,5 +1,3 @@
-// TODO this is testing code and will be replace in future steps
-
 const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
@@ -7,44 +5,60 @@ const database = require('../lib/mongodb');
 const passport = require('passport');
 
 router.post('/', (request, response) => {
+  const json = request.body;
   const error = validator.validate(
-    validator.validateUserPostRequest,
-    request.body);
+    validator.validateUserPostRequest, json);
 
   response.send({
-    user: request.body.user ? request.body.user : null,
+    user: json.user ? json.user : null,
     error: error,
   });
 });
 
 router.post('/remind/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.validateUserRemindPostRequest, json);
+
   response.send({
-    user: 'example@example.pl',
-    error: null,
+    user: json.user ? json.user : null,
+    error: error,
   });
 });
 
 router.put('/remind/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.validateUserRemindPutRequest, json);
+
   response.send({
-    user: 'example@example.pl',
-    error: null,
+    user: json.user ? json.user : null,
+    error: error,
   });
 });
 
 router.post('/login/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.validateUserLoginPostRequest, json);
+
   response.send({
-    user: 'example@example.pl',
-    teamName: 'example team name',
-    collectedPointsIds: [1, 2, 3],
-    eventId: '1234',
-    error: null,
+    user: json.user ? json.user : null,
+    teamName: 'example team name', // DB
+    collectedPointsIds: [1, 2, 3], // DB
+    eventId: '1234', // DB
+    error: error,
   });
 });
 
 router.delete('/login/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.validateUserLoginDeleteRequest, json);
+
   response.send({
-    user: 'example@example.pl',
-    error: null,
+    user: json.user ? json.user : null,
+    error: error,
   });
 });
 
