@@ -1,7 +1,7 @@
 import { map } from 'map/index';
 import { store } from 'store/index';
 import { ErrorMessage } from 'utils/error-message';
-import { logical } from 'utils/logical';
+import { logical } from 'vendors/logical';
 import { ERRORS } from 'utils/macros/errors';
 
 export const mapManager = {

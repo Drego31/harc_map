@@ -13,7 +13,8 @@ export const formMixin = {
         }, 1500);
       });
     },
-    onError () {
+    onError (error) {
+      console.error(error);
       this.setMessage('Spróbuj ponownie...');
       this.isSending = false;
     },

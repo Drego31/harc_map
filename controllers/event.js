@@ -5,13 +5,14 @@ const validator = require('../lib/validator');
 
 router.get('/', (request, response) => {
   response.send({
+    error: null,
     eventId: '1234',
     name: 'Event',
     mapPosition: {
-      longitude: 54.23411,
-      latitude: 158.21677,
+      latitude: 54.4787,
+      longitude: 18.4735,
     },
-    mapZoom: 12.5,
+    mapZoom: 11,
     points: [
       {
         pointId: '1',
