@@ -27,7 +27,7 @@
       <m-input
         :disabled="blockForm"
         placeholder="Kod wydarzenia"
-        v-model="values.eventCode"
+        v-model="values.eventId"
       />
       <a-button-submit
         :disabled="blockForm"
@@ -60,7 +60,7 @@ export default {
       email: '',
       password: '',
       patrolName: '',
-      eventCode: '',
+      eventId: '',
     },
     repeatedPassword: '',
     blockForm: false,
@@ -70,12 +70,12 @@ export default {
   }),
   methods: {
     checkValues () {
-      const { email, password, patrolName, eventCode } = this.values;
+      const { email, password, patrolName } = this.values;
       const validEmail = email.length >= 5;
       const validPassword = password.length >= 5 && password === this.repeatedPassword;
       const validPatrolName = patrolName.length >= 3;
-      const validEventCode = eventCode === '111';
-      return validEmail && validPassword && validPatrolName && validEventCode;
+      // const validEventCode = eventCode === '111';
+      return validEmail && validPassword && validPatrolName; /* && validEventCode */
     },
     onSignUp () {
       this.setMessage('Zostałeś zarejestrowany')

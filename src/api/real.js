@@ -53,7 +53,7 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  signUp ({ email, password, patrolName, eventCode }) {
+  signUp ({ email, password, patrolName, eventId }) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user',
@@ -61,7 +61,7 @@ export const realApi = {
           user: email,
           password,
           teamName: patrolName,
-          eventId: eventCode,
+          eventId,
         },
       })
         .then(response => response.json())
