@@ -1,18 +1,20 @@
 <template>
-  <a-button
+  <a-button-primary
     :disabled="disabled"
     @click="$emit('click')"
+    class="f-primary"
+    :loading="isSending"
   >
-    {{ isSending ? 'Sprawdzamy...' : (message ? message : 'Dalej') }}
-  </a-button>
+    {{ message ? message : 'Dalej' }}
+  </a-button-primary>
 </template>
 
 <script>
-import AButton from 'atoms/button';
+import AButtonPrimary from 'atoms/button/primary';
 
 export default {
   name: 'a-button-submit',
-  components: { AButton },
+  components: { AButtonPrimary },
   props: {
     isSending: {
       type: Boolean,
