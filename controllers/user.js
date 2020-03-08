@@ -1,5 +1,3 @@
-// TODO this is testing code and will be replace in future steps
-
 const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
