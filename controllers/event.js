@@ -5,6 +5,7 @@ const validator = require('../lib/validator');
 
 router.get('/', (request, response) => {
   response.send({
+    error: null,
     eventId: '1234',
     name: 'Event',
     mapPosition: {

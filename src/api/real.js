@@ -18,7 +18,13 @@ export const realApi = {
         data: { eventId },
       })
         .then(response => response.json())
-        .then(response => resolve(new AppEvent(response)))
+        .then(data => {
+          if (logical.isNull(data.error)) {
+            resolve(new AppEvent(data));
+          } else {
+            reject(new ErrorMessage(ERRORS.getEventById));
+          }
+        })
         .catch(catchConnectionError(reject));
     });
   },
@@ -60,7 +66,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (data.user === email) {
+          if (logical.isNull(data.error)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.signUp));
@@ -77,7 +83,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (data.user === email) {
+          if (logical.isNull(data.error)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.remindPassword));
@@ -93,7 +99,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (data.user === email) {
+          if (logical.isNull(data.error)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.signOut));
@@ -114,14 +120,14 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  collectPoint ({ email, eventCode, patrolName, pointId }) {
+  collectPoint ({ email, eventId, patrolName, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({
         url: '/event/collect',
       })
         .then(response => response.json())
         .then(data => {
-          if (data.user === email) {
+          if (logical.isNull(data.error)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.collectPoint));
