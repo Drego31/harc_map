@@ -3,8 +3,9 @@
     :disabled="disabled"
     @click="$emit('click')"
     class="f-primary"
+    :loading="isSending"
   >
-    {{ isSending ? 'Sprawdzamy...' : (message ? message : 'Dalej') }}
+    {{ message ? message : 'Dalej' }}
   </a-button-primary>
 </template>
 

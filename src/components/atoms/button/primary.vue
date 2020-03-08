@@ -1,11 +1,19 @@
 <template>
-  <button @click="$emit('click')" class="a-button f-primary">
+  <a-button
+    @click="$emit('click')"
+    class="a-button f-primary"
+    :loading="loading"
+  >
     <slot/>
-  </button>
+  </a-button>
 </template>
 
 <script>
+import AButton from 'atoms/button';
+
 export default {
   name: 'a-button-primary',
+  components: { AButton },
+  props: ['loading'],
 };
 </script>
