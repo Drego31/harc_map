@@ -9,10 +9,10 @@ router.get('/', (request, response) => {
     eventId: '1234',
     name: 'Event',
     mapPosition: {
-      latitude: 54.4922,
-      longitude: 18.5133,
+      latitude: 54.4787,
+      longitude: 18.4735,
     },
-    mapZoom: 12.5,
+    mapZoom: 11,
     points: [
       {
         pointId: '1',
