@@ -6,11 +6,11 @@ export default {
   state: {
     eventId: '',
     name: '',
-    defaultPosition: {
+    mapPosition: {
       latitude: 0,
       longitude: 0,
     },
-    defaultZoom: 2,
+    mapZoom: 2,
     points: [],
   },
   getters: {

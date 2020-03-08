@@ -4,17 +4,17 @@ export class AppEvent {
   constructor ({
     eventId = '',
     name = '',
-    defaultPosition = {},
-    defaultZoom = 2,
+    mapPosition = {},
+    mapZoom = 2,
     points = [],
   }) {
     this.eventId = eventId;
     this.name = name;
-    this.defaultPosition = {
-      latitude: defaultPosition.latitude,
-      longitude: defaultPosition.longitude,
+    this.mapPosition = {
+      latitude: mapPosition.latitude,
+      longitude: mapPosition.longitude,
     };
-    this.defaultZoom = defaultZoom;
+    this.mapZoom = mapZoom;
     this.points = points.map(point => new MapPoint(point));
   }
 }

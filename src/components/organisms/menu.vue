@@ -59,7 +59,9 @@ export default {
       'close',
     ]),
     signOut () {
-      api.signOut()
+      api.signOut({
+        email: this.$store.getters['user/email'],
+      })
         .then(this.onSignOut)
         .catch(this.onError);
     },

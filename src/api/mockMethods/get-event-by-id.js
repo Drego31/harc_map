@@ -2,13 +2,13 @@ import { AppEvent } from 'src/structures/app-event';
 
 export function getEventByIdMock () {
   return new AppEvent({
-    eventId: '111',
+    eventId: '1234',
     name: 'Event',
-    defaultPosition: {
+    mapPosition: {
       latitude: 54.4922,
       longitude: 18.5133,
     },
-    defaultZoom: 12,
+    mapZoom: 12,
     points: [
       {
         pointId: '1',
