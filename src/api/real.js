@@ -1,7 +1,8 @@
-import { AppEvent } from 'src/structures/event';
+import { AppEvent } from 'src/structures/app-event';
 import { request } from 'utils/request';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
+import { logical } from 'utils/logical';
 
 function catchConnectionError (reject) {
   return function (fetchError) {
@@ -32,11 +33,11 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (data.user === email) {
+          if (logical.isNull(data.error)) {
             resolve({
               eventId: data.eventId,
               patrolName: data.teamName,
-              collectedPoints: data.collectedPoints,
+              collectedPointsIds: data.collectedPointsIds,
               email: data.user,
             });
           } else {
