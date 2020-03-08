@@ -2,9 +2,49 @@
 
 const express = require('express');
 const router = express.Router();
+const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
 const passport = require('passport');
 
+router.post('/', (request, response) => {
+  response.send({
+    user: 'example@example.pl',
+    error: null,
+  });
+});
+
+router.post('/remind/', (request, response) => {
+  response.send({
+    user: 'example@example.pl',
+    error: null,
+  });
+});
+
+router.put('/remind/', (request, response) => {
+  response.send({
+    user: 'example@example.pl',
+    error: null,
+  });
+});
+
+router.post('/login/', (request, response) => {
+  response.send({
+    user: 'example@example.pl',
+    teamName: 'example team name',
+    collectedPointsIds: [1, 2, 3],
+    eventId: '1234',
+    error: null,
+  });
+});
+
+router.delete('/login/', (request, response) => {
+  response.send({
+    user: 'example@example.pl',
+    error: null,
+  });
+});
+
+/*
 router.get('/', (req, res) => {
   database.read('users').then(result => {
     res.json({isAuthenticated: req.isAuthenticated(), user: req.user});
@@ -60,5 +100,6 @@ router.get('/remove', (req, res) => {
     res.status(404).send(error);
   });
 });
+*/
 
 module.exports = router;

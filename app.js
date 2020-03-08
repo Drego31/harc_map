@@ -20,6 +20,7 @@ const appConfig = utils.getSystemConfig().app;
 
 // Controllers
 const userController = require('./controllers/user');
+const eventController = require('./controllers/event');
 
 // Create express app instance
 const app = express();
@@ -65,6 +66,7 @@ app.use(express.static('public', {
 }));
 // user controller
 app.use('/user', userController);
+app.use('/event', eventController);
 // index rewrite
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './public/index.html'));
