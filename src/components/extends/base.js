@@ -1,4 +1,4 @@
-import { logical } from 'src/utils/logical';
+import { logical } from 'vendors/logical';
 
 const vueModel = {
   get () {

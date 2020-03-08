@@ -2,7 +2,7 @@ import { AppEvent } from 'src/structures/app-event';
 import { request } from 'utils/request';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
-import { logical } from 'utils/logical';
+import { logical } from 'vendors/logical';
 
 function catchConnectionError (reject) {
   return function (fetchError) {
