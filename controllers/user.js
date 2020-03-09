@@ -2,14 +2,124 @@ const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
+const utils = require('../lib/utils');
 const passport = require('passport');
 
-router.post('/', (request, response) => {
-  response.send({
-    user: 'example@example.pl',
+// TODO For tests
+router.get('/', (req, res) => {
+  database.read('users', {}, true).then(result => {
+    res.send(result);
+  }).catch(error => {
+    res.status(404).send(error);
+  });
+});
+
+/**
+ * User Registration
+ */
+router.post('/', (req, res) => {
+  console.log(validator.validateUserPostRequest(req.body));
+  const { user, password, userTeam, eventId } = req.body;
+  // check if user and teamName doesn't already exist
+  database.read('users', { $or: [{ user }, { userTeam }] })
+    .then(result => {
+      // exist
+      if (result) {
+        res.json({
+          user,
+          error: 'user exist',
+        });
+      } else {
+        // user doesn't exist, we can create new
+        database.create('users', [{
+            user,
+            userTeam,
+            password: utils.getSHA(password),
+            userEvents: [eventId],
+            accountType: 'common',
+            accountIsActive: false,
+            activationKey: utils.getRandomString(),
+            accountCreated: Date.now(),
+            collectedPointsIds: [],
+          }])
+          .then(result => {
+            // TODO send mail
+            // added
+            res.json({
+              user,
+              error: null,
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              user,
+              error: error,
+            });
+          });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        user,
+        error: error,
+      });
+    });
+});
+
+/**
+ * User login
+ */
+router.post('/login/', (req, res) => {
+  passport.authenticate('local', (error, userData) => {
+    if (error || !userData) {
+      // failed login
+      res.status(401).json({
+        email: null,
+        error,
+      });
+    } else {
+      req.login(userData, error => {
+        // error with setting session
+        if (error) {
+          res.status(500).json({
+            email: null,
+            error: 'unhandled session error',
+          });
+        } else {
+          const { user, teamName, collectedPointsIds, userEvents } = userData;
+          res.json({
+            user,
+            teamName,
+            collectedPointsIds,
+            eventId: userEvents[0],
+          });
+        }
+      });
+    }
+  })(req, res, next);
+});
+
+/**
+ * User logout
+ */
+router.delete('/login', (req, res) => {
+  const { user } = req.user;
+  req.logout();
+  res.send({
+    user: user,
     error: null,
   });
 });
+
+// TODO remind (activation)
+// TODO remind
+
+// router.post('/', (request, response) => {
+//   response.send({
+//     user: 'example@example.pl',
+//     error: null,
+//   });
+// });
 
 router.post('/remind/', (request, response) => {
   response.send({
@@ -25,22 +135,22 @@ router.put('/remind/', (request, response) => {
   });
 });
 
-router.post('/login/', (request, response) => {
-  response.send({
-    user: 'example@example.pl',
-    teamName: 'example team name',
-    collectedPointsIds: [1, 2, 3],
-    eventId: '1234',
-    error: null,
-  });
-});
+// router.post('/login/', (request, response) => {
+//   response.send({
+//     user: 'example@example.pl',
+//     teamName: 'example team name',
+//     collectedPointsIds: [1, 2, 3],
+//     eventId: '1234',
+//     error: null,
+//   });
+// });
 
-router.delete('/login/', (request, response) => {
-  response.send({
-    user: 'example@example.pl',
-    error: null,
-  });
-});
+// router.delete('/login/', (request, response) => {
+//   response.send({
+//     user: 'example@example.pl',
+//     error: null,
+//   });
+// });
 
 /*
 router.get('/', (req, res) => {
