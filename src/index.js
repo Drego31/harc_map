@@ -2,8 +2,9 @@ import Vue from 'vue';
 import App from './components/app.vue';
 import router from './router';
 import { store } from './store';
+import { styleManager } from 'utils/style-manager';
 
-import './style';
+styleManager.init();
 
 Vue.config.productionTip = false;
 
