@@ -31,14 +31,12 @@
 import { mapGetters, mapMutations } from 'vuex';
 import ArrowLeftIcon from 'icons/ArrowLeft';
 import AButtonIcon from 'atoms/button/icon';
-import AButton from 'atoms/button';
 import { api } from 'api/index';
 import { THEMES } from 'utils/style-manager';
 
 export default {
   name: 'o-menu',
   components: {
-    AButton,
     AButtonIcon,
     ArrowLeftIcon,
   },
