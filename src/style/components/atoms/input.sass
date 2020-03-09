@@ -2,7 +2,7 @@
   @extend .f-text-16
   height: 56px
   line-height: 24px
-  border: 1px solid $Silver_Chalice
+  border: 1px solid $color-border
     radius: 2px
   outline: none
   padding: 15px
@@ -12,7 +12,7 @@
   background-color: transparent
 
   &:disabled
-    background: $Silver_Chalice
+    background: $color-disabled
 
   &:focus, &.f-correct
     padding: 14px
@@ -20,4 +20,9 @@
       bottom: 13px
     border:
       width: 2px
-      color: $Green
+
+  &:focus
+    border-color: $color-primary
+
+  &.f-correct
+    border-color: $color-correct
