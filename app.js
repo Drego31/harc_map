@@ -64,6 +64,9 @@ passportConfig.setStrategy(passport);
 app.use(express.static('public', {
   maxAge: ENV_DEVELOPMENT ? 0 : appConfig.cacheValue,
 }));
+app.use(express.static('vendors', {
+  maxAge: ENV_DEVELOPMENT ? 0 : appConfig.cacheValue,
+}));
 // user controller
 app.use('/user', userController);
 app.use('/event', eventController);

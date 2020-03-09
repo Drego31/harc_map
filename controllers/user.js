@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
  * User Registration
  */
 router.post('/', (req, res) => {
-  console.log(validator.validateUserPostRequest(req.body));
   const { user, password, userTeam, eventId } = req.body;
   // check if user and teamName doesn't already exist
   database.read('users', { $or: [{ user }, { userTeam }] })
@@ -44,6 +43,7 @@ router.post('/', (req, res) => {
           }])
           .then(result => {
             // TODO send mail
+            // TODO error name
             // added
             res.json({
               user,
@@ -51,6 +51,7 @@ router.post('/', (req, res) => {
             });
           })
           .catch(error => {
+            // TODO error name
             res.status(500).json({
               user,
               error: error,
@@ -59,6 +60,7 @@ router.post('/', (req, res) => {
       }
     })
     .catch(error => {
+      // TODO error name
       res.status(500).json({
         user,
         error: error,
@@ -69,10 +71,11 @@ router.post('/', (req, res) => {
 /**
  * User login
  */
-router.post('/login/', (req, res) => {
+router.post('/login', (req, res) => {
   passport.authenticate('local', (error, userData) => {
     if (error || !userData) {
       // failed login
+      // TODO error name
       res.status(401).json({
         email: null,
         error,
@@ -81,6 +84,7 @@ router.post('/login/', (req, res) => {
       req.login(userData, error => {
         // error with setting session
         if (error) {
+          // TODO error name
           res.status(500).json({
             email: null,
             error: 'unhandled session error',
