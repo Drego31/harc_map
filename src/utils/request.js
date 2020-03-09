@@ -2,6 +2,9 @@ function makeFetch ({ url, config }) {
   return new Promise((resolve, reject) => {
     fetch(url, {
       ...config,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then(resolve)
       .catch(reject);
