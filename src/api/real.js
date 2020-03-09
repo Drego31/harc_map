@@ -96,6 +96,7 @@ export const realApi = {
     return new Promise((resolve, reject) => {
       request.delete({
         url: '/user/login',
+        data: { user: email },
       })
         .then(response => response.json())
         .then(data => {
@@ -124,6 +125,7 @@ export const realApi = {
     return new Promise((resolve, reject) => {
       request.put({
         url: '/event/collect',
+        data: { user: email },
       })
         .then(response => response.json())
         .then(data => {
