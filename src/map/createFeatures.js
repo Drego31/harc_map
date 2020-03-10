@@ -44,8 +44,8 @@ export function createFeatures ({ list }) {
   const listOfFeatures = [];
 
   for (const point of list) {
-    const lat = point.position.latitude;
-    const lon = point.position.longitude;
+    const lat = point.latitude;
+    const lon = point.longitude;
     const type = point.type;
 
     const stroke = getStroke(type);

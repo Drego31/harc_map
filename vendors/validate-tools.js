@@ -1,11 +1,5 @@
 
 class ValidateTools {
-  toJson (data) {
-    try { return JSON.parse(data); } catch (error) {
-      throw 'Bad JSON format';
-    }
-  }
-
   hasNumber (data) {
     return /\d/.test(data);
   }

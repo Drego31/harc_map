@@ -1,6 +1,6 @@
 <template>
   <div class="f-pb-1">
-    <div v-if="!formSend">
+    <div v-if="!formSend" class ="f-flex f-flex-col" >
       <m-input
         :disabled="blockForm"
         placeholder="Wprowadź nowe hasło"
