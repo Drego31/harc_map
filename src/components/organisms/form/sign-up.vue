@@ -1,33 +1,34 @@
 <template>
   <div class="f-pb-1">
-    <div v-if="!formSend">
-      <a-input
+
+    <div v-if="!formSend" class="f-flex f-flex-col">
+      <m-input
         :disabled="blockForm"
-        placeholder="e-mail"
+        placeholder="E-mail"
         type="email"
         v-model="values.email"
       />
-      <a-input
+      <m-input
         :disabled="blockForm"
-        placeholder="hasło"
+        placeholder="Hasło"
         type="password"
         v-model="values.password"
       />
-      <a-input
+      <m-input
         :disabled="blockForm"
-        placeholder="powtórz hasło"
+        placeholder="Powtórz hasło"
         type="password"
         v-model="repeatedPassword"
       />
-      <a-input
+      <m-input
         :disabled="blockForm"
-        placeholder="nazwa patrolu"
+        placeholder="Nazwa patrolu"
         v-model="values.patrolName"
       />
-      <a-input
+      <m-input
         :disabled="blockForm"
-        placeholder="kod wydarzenia"
-        v-model="values.eventCode"
+        placeholder="Kod wydarzenia"
+        v-model="values.eventId"
       />
       <a-button-submit
         :disabled="blockForm"
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import AInput from 'atoms/input';
+import MInput from 'molecules/input';
 import { api } from 'api/index';
 import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
@@ -53,14 +54,14 @@ export default {
   mixins: [mixins.form],
   components: {
     AButtonSubmit,
-    AInput,
+    MInput,
   },
   data: () => ({
     values: {
       email: '',
       password: '',
       patrolName: '',
-      eventCode: '',
+      eventId: '',
     },
     repeatedPassword: '',
     blockForm: false,
@@ -70,12 +71,12 @@ export default {
   }),
   methods: {
     checkValues () {
-      const { email, password, patrolName, eventCode } = this.values;
+      const { email, password, patrolName } = this.values;
       const validEmail = email.length >= 5;
       const validPassword = password.length >= 5 && password === this.repeatedPassword;
       const validPatrolName = patrolName.length >= 3;
-      const validEventCode = eventCode === '111';
-      return validEmail && validPassword && validPatrolName && validEventCode;
+      // const validEventCode = eventCode === '111';
+      return validEmail && validPassword && validPatrolName; /* && validEventCode */
     },
     onSignUp () {
       this.setMessage('Zostałeś zarejestrowany')

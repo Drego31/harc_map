@@ -1,10 +1,68 @@
-// TODO this is testing code and will be replace in future steps
-
 const express = require('express');
 const router = express.Router();
+const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
 const passport = require('passport');
 
+router.post('/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validateUserPostRequest, json);
+
+  response.send({
+    user: json.user ? json.user : null,
+    error: error,
+  });
+});
+
+router.post('/remind/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validateUserRemindPostRequest, json);
+
+  response.send({
+    user: json.user ? json.user : null,
+    error: error,
+  });
+});
+
+router.put('/remind/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validateUserRemindPutRequest, json);
+
+  response.send({
+    user: json.user ? json.user : null,
+    error: error,
+  });
+});
+
+router.post('/login/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validateUserLoginPostRequest, json);
+
+  response.send({
+    user: json.user ? json.user : null,
+    teamName: 'example team name', // DB
+    collectedPointsIds: [1, 2, 3], // DB
+    eventId: '1234', // DB
+    error: error,
+  });
+});
+
+router.delete('/login/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validateUserLoginDeleteRequest, json);
+
+  response.send({
+    user: json.user ? json.user : null,
+    error: error,
+  });
+});
+
+/*
 router.get('/', (req, res) => {
   database.read('users').then(result => {
     res.json({isAuthenticated: req.isAuthenticated(), user: req.user});
@@ -60,5 +118,6 @@ router.get('/remove', (req, res) => {
     res.status(404).send(error);
   });
 });
+*/
 
 module.exports = router;

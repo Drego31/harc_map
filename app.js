@@ -20,6 +20,7 @@ const appConfig = utils.getSystemConfig().app;
 
 // Controllers
 const userController = require('./controllers/user');
+const eventController = require('./controllers/event');
 
 // Create express app instance
 const app = express();
@@ -44,6 +45,7 @@ if (ENV_DEVELOPMENT) {
   app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
     res.header('Access-Control-Allow-Headers', '*');
+    res.header('Access-Control-Allow-Methods', '*');
     next();
   });
 }
@@ -65,6 +67,7 @@ app.use(express.static('public', {
 }));
 // user controller
 app.use('/user', userController);
+app.use('/event', eventController);
 // index rewrite
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './public/index.html'));

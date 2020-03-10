@@ -1,4 +1,7 @@
 export const formMixin = {
+  data: () => ({
+    _errors: [],
+  }),
   methods: {
     setMessage (text) {
       return new Promise(resolve => {
@@ -10,7 +13,8 @@ export const formMixin = {
         }, 1500);
       });
     },
-    onError () {
+    onError (error) {
+      console.error(error);
       this.setMessage('Spróbuj ponownie...');
       this.isSending = false;
     },

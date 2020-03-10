@@ -1,5 +1,5 @@
 <template>
-  <t-page class="f-map">
+  <t-page title="Mapa" class="f-map">
     <o-map/>
   </t-page>
 </template>

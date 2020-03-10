@@ -86,6 +86,7 @@ module.exports = {
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
+      vendors: resolve('vendors'),
 
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),

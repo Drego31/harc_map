@@ -2,18 +2,14 @@ export class MapPoint {
   constructor ({
     pointId,
     name,
-    position: {
-      longitude,
-      latitude,
-    },
+    longitude,
+    latitude,
     type,
   }) {
     this.pointId = pointId;
     this.name = name;
-    this.position = {
-      longitude,
-      latitude,
-    };
+    this.longitude = longitude;
+    this.latitude = latitude;
     this.type = type;
     this.olUid = null;
   }

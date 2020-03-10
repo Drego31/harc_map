@@ -21,7 +21,7 @@ import IconStar from 'icons/Star.vue';
 import IconClock from 'icons/Clock.vue';
 import IconHome from 'icons/Home.vue';
 import AButtonIconFooter from 'atoms/button/icon-footer';
-import { logical } from 'utils/logical';
+import { logical } from 'vendors/logical';
 
 export default {
   name: 'o-footer',
@@ -52,7 +52,7 @@ export default {
         {
           label: 'Start',
           component: IconHome,
-          path: '/collect-point',
+          path: '/home',
         },
         {
           label: 'Czasowe',
