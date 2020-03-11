@@ -4,11 +4,17 @@ const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
 const utils = require('../lib/utils');
 const passport = require('passport');
+const mail = require('../lib/mail');
+
+// TODO Walidaca
 
 // TODO For tests
 router.get('/', (req, res) => {
   database.read('users', {}, true).then(result => {
-    res.send(result);
+    res.json({
+      result,
+      logged: req.isAuthenticated(),
+    });
   }).catch(error => {
     res.status(404).send(error);
   });
@@ -19,36 +25,60 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
   const { user, password, userTeam, eventId } = req.body;
-  // check if user and teamName doesn't already exist
-  database.read('users', { $or: [{ user }, { userTeam }] })
+  // check if eventId is correct(exist)
+  database.read('events', { eventId })
     .then(result => {
-      // exist
+      // event exist - user can be creat
       if (result) {
-        res.json({
-          user,
-          error: 'user exist',
-        });
-      } else {
-        // user doesn't exist, we can create new
-        database.create('users', [{
-            user,
-            userTeam,
-            password: utils.getSHA(password),
-            userEvents: [eventId],
-            accountType: 'common',
-            accountIsActive: false,
-            activationKey: utils.getRandomString(),
-            accountCreated: Date.now(),
-            collectedPointsIds: [],
-          }])
+        // check if user and teamName doesn't already exist
+        database.read('users', { $or: [{ user }, { userTeam }] })
           .then(result => {
-            // TODO send mail
-            // TODO error name
-            // added
-            res.json({
-              user,
-              error: null,
-            });
+            // exist
+            if (result) {
+              // TODO error name
+              res.json({
+                user,
+                error: 'user exist',
+              });
+            } else {
+              // user doesn't exist, we can create new
+              const newUserData = {
+                user,
+                userTeam,
+                password: utils.getSHA(password),
+                userEvents: [eventId],
+                accountType: 'common',
+                accountIsActive: false,
+                activationKey: utils.getRandomString(),
+                accountCreated: Date.now(),
+                collectedPointsIds: [],
+              };
+              database.create('users', [newUserData])
+                .then(() => {
+                  mail.accountActivation(user, newUserData.activationKey)
+                    .then(() => {
+                      // TODO error name
+                      // added
+                      res.json({
+                        user,
+                        error: null,
+                      });
+                    })
+                    .catch(error => {
+                      res.json({
+                        user,
+                        error,
+                      });
+                    });
+                })
+                .catch(error => {
+                  // TODO error name
+                  res.status(500).json({
+                    user,
+                    error: error,
+                  });
+                });
+            }
           })
           .catch(error => {
             // TODO error name
@@ -57,13 +87,19 @@ router.post('/', (req, res) => {
               error: error,
             });
           });
+      } else {
+        // TODO error name
+        res.status(401).json({
+          user,
+          error: 'eventId not exist',
+        });
       }
     })
     .catch(error => {
       // TODO error name
       res.status(500).json({
         user,
-        error: error,
+        error,
       });
     });
 });
@@ -71,13 +107,13 @@ router.post('/', (req, res) => {
 /**
  * User login
  */
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
   passport.authenticate('local', (error, userData) => {
     if (error || !userData) {
       // failed login
       // TODO error name
       res.status(401).json({
-        email: null,
+        user: null,
         error,
       });
     } else {
@@ -86,7 +122,7 @@ router.post('/login', (req, res) => {
         if (error) {
           // TODO error name
           res.status(500).json({
-            email: null,
+            user: null,
             error: 'unhandled session error',
           });
         } else {
@@ -115,7 +151,55 @@ router.delete('/login', (req, res) => {
   });
 });
 
-// TODO remind (activation)
+/**
+ * User activation account
+ */
+router.get('/activation/:key', (req, res) => {
+  const { key } = req.params;
+  database.read('users', { activationKey: key })
+    .then(result => {
+      if (result && !result.accountIsActive) {
+        console.log(result);
+        database.update('users', { _id: database.ObjectId(result._id) }, {
+            accountIsActive: true,
+            activationKey: null,
+          })
+          .then(result => {
+            // updated
+            if (result) {
+              res.redirect(302, '/');
+            } else {
+              // TODO error code
+              res.status(500).send({
+                user: null,
+                error: 'undefined server error',
+              });
+            }
+          })
+          .catch(error => {
+            // TODO error code
+            res.status(500).send({
+              user: null,
+              error: error,
+            });
+          });
+      } else {
+        // TODO error code
+        res.status(500).send({
+          user: null,
+          error: 'undefined server error',
+        });
+      }
+    })
+    .catch(error => {
+      // TODO error code
+      res.status(500).json({
+        user: null,
+        error,
+      });
+    });
+});
+
 // TODO remind
 
 // router.post('/', (request, response) => {
