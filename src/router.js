@@ -10,6 +10,7 @@ import PChangePassword from 'pages/change-password';
 import PCollectPoint from 'pages/collect-point';
 import PHome from 'pages/home';
 import PCollectedPoints from 'pages/collected-points';
+import PTemporaryPoints from 'pages/temporary-points';
 
 Vue.use(Router);
 
@@ -93,6 +94,15 @@ const router = new Router({
       path: '/collected-points',
       name: 'collected-points',
       component: PCollectedPoints,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
+      },
+    },
+    {
+      path: '/temporary-points',
+      name: 'temporary-points',
+      component: PTemporaryPoints,
       meta: {
         onlyBeforeLogin: false,
         requiredAuth: true,

@@ -67,7 +67,7 @@ export default {
         {
           label: 'Czasowe',
           component: IconClock,
-          path: '/collect-point',
+          path: '/temporary-points',
         },
         {
           label: 'Zbierz punkt',
