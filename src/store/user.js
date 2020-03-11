@@ -2,23 +2,23 @@ export default {
   namespaced: true,
   state: {
     user: '',
-    teamName: '',
+    userTeam: '',
     collectedPointsIds: [],
   },
   getters: {
     user: state => state.user,
-    teamName: state => state.teamName,
+    userTeam: state => state.userTeam,
     isLogin: state => state.user !== '',
     collectedPointsIds: state => state.collectedPointsIds,
   },
   mutations: {
     setUser: (state, payload) => (state.user = payload),
-    setTeamName: (state, payload) => (state.teamName = payload),
+    setUserTeam: (state, payload) => (state.userTeam = payload),
     setCollectedPointsIds: (state, payload) => (state.collectedPointsIds = payload),
     addCollectedPointId: (state, payload) => (state.collectedPointsIds.push(payload)),
     signOut: state => {
       state.user = '';
-      state.teamName = '';
+      state.userTeam = '';
       state.collectedPointsIds = [];
     },
   },

@@ -23,7 +23,7 @@
       <m-input
         :disabled="blockForm"
         placeholder="Nazwa patrolu"
-        v-model="values.patrolName"
+        v-model="values.userTeam"
       />
       <m-input
         :disabled="blockForm"
@@ -60,7 +60,7 @@ export default {
     values: {
       user: '',
       password: '',
-      patrolName: '',
+      userTeam: '',
       eventId: '',
     },
     repeatedPassword: '',
@@ -71,12 +71,12 @@ export default {
   }),
   methods: {
     checkValues () {
-      const { user, password, patrolName } = this.values;
+      const { user, password, userTeam } = this.values;
       const validEmail = user.length >= 5;
       const validPassword = password.length >= 5 && password === this.repeatedPassword;
-      const validPatrolName = patrolName.length >= 3;
+      const validUserTeam = userTeam.length >= 3;
       // const validEventCode = eventCode === '111';
-      return validEmail && validPassword && validPatrolName; /* && validEventCode */
+      return validEmail && validPassword && validUserTeam; /* && validEventCode */
     },
     onSignUp () {
       this.setMessage('Zostałeś zarejestrowany')

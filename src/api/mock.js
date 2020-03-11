@@ -30,11 +30,11 @@ export const mockApi = {
     return makeDelayFakeAnswer(() => ({
       eventId: '111',
       collectedPointsIds: ['1', '2', '5'],
-      patrolName: 'HARC',
+      userTeam: 'HARC',
       user,
     }), 500);
   },
-  signUp ({ user, password, patrolName, eventCode }) {
+  signUp ({ user, password, useTeam, eventCode }) {
     return makeDelayFakeAnswer();
   },
   remindPassword ({ user }) {

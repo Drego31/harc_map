@@ -10,7 +10,7 @@
       {{ collectedPointsIds.length }}
     </div>
     <div>
-      {{ teamName }}
+      {{ userTeam }}
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     ...mapGetters('user', [
-      'teamName', 'collectedPointsIds',
+      'userTeam', 'collectedPointsIds',
     ]),
   },
 };

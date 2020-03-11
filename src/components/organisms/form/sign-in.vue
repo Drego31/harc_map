@@ -46,11 +46,11 @@ export default {
     checkValues () {
       return this.values.user.length >= 5 && this.values.password.length >= 6;
     },
-    onSignIn ({ eventId, collectedPointsIds, user, patrolName }) {
+    onSignIn ({ eventId, collectedPointsIds, user, userTeam }) {
       this.$store.commit('event/setId', eventId);
       this.$store.commit('user/setUser', user);
       this.$store.commit('user/setCollectedPointsIds', collectedPointsIds);
-      this.$store.commit('user/setTeamName', patrolName);
+      this.$store.commit('user/setUserTeam', userTeam);
       this.$store.dispatch('event/download')
         .then(() => {
           this.$router.push('/home');

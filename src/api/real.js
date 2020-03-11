@@ -42,7 +42,7 @@ export const realApi = {
           if (logical.isNull(data.error)) {
             resolve({
               eventId: data.eventId,
-              patrolName: data.teamName,
+              userTeam: data.teamName,
               collectedPointsIds: data.collectedPointsIds,
               user: data.user,
             });
@@ -53,14 +53,14 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  signUp ({ user, password, patrolName, eventId }) {
+  signUp ({ user, password, userTeam, eventId }) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user',
         data: {
           user,
           password,
-          teamName: patrolName,
+          userTeam,
           eventId,
         },
       })
@@ -121,7 +121,7 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  collectPoint ({ user, eventId, patrolName, pointId }) {
+  collectPoint ({ user, eventId, userTeam, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({
         url: '/event/collect',
