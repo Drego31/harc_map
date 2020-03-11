@@ -1,13 +1,15 @@
 <template>
   <div
     class="o-footer"
-    v-if="isLogin"
   >
     <a-button-icon-footer
       v-for="icon of getIcons()"
       :key="icon.label"
       :icon="icon.component"
       :label="icon.label"
+      :size="icon.big ? 48 : 24"
+      :icon-class="{ 'f-big': icon.big }"
+      :class="{ 'f-big': icon.big }"
       @click="onClick(icon)"
     />
   </div>
@@ -60,9 +62,10 @@ export default {
           path: '/collect-point',
         },
         {
-          label: 'Punkty',
+          label: 'Zbierz punkt',
           component: IconStar,
           path: '/collect-point',
+          big: true,
         },
         {
           label: 'Mapa',
