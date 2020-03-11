@@ -1,5 +1,5 @@
 <template>
-  <div class="f-pb-1 f-flex f-flex-col">
+  <div class="f-flex f-flex-col">
     <m-input
       :disabled="blockForm"
       placeholder="E-mail"
