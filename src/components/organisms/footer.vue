@@ -61,24 +61,20 @@ export default {
     getIcons () {
       return [
         {
-          label: ROUTES.home.label,
-          path: ROUTES.home.path,
+          ...ROUTES.home,
           component: IconHome,
         },
         {
-          label: ROUTES.temporaryPoints.label,
-          path: ROUTES.temporaryPoints.path,
+          ...ROUTES.temporaryPoints,
           component: IconClock,
         },
         {
-          label: ROUTES.collectPoint.label,
-          path: ROUTES.collectPoint.path,
+          ...ROUTES.collectPoint,
           component: IconStar,
           big: true,
         },
         {
-          label: ROUTES.map.label,
-          path: ROUTES.map.path,
+          ...ROUTES.map,
           component: IconMap,
         },
         {

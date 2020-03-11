@@ -43,8 +43,10 @@ export default {
   },
   data: () => ({
     links: [
-      ROUTES.map,
+      ROUTES.home,
+      ROUTES.temporaryPoints,
       ROUTES.collectPoint,
+      ROUTES.map,
     ],
   }),
   computed: {
