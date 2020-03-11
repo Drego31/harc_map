@@ -1,6 +1,7 @@
 <template>
   <div
     class="o-footer"
+    v-if="isLogin"
   >
     <a-button-icon-footer
       v-for="icon of getIcons()"
