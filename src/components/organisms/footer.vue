@@ -25,6 +25,7 @@ import IconClock from 'icons/Clock.vue';
 import IconHome from 'icons/Home.vue';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-footer',
@@ -60,25 +61,21 @@ export default {
     getIcons () {
       return [
         {
-          label: 'Start',
+          ...ROUTES.home,
           component: IconHome,
-          path: '/home',
         },
         {
-          label: 'Czasowe',
+          ...ROUTES.temporaryPoints,
           component: IconClock,
-          path: '/temporary-points',
         },
         {
-          label: 'Zbierz punkt',
+          ...ROUTES.collectPoint,
           component: IconStar,
-          path: '/collect-point',
           big: true,
         },
         {
-          label: 'Mapa',
+          ...ROUTES.map,
           component: IconMap,
-          path: '/map',
         },
         {
           label: 'Menu',

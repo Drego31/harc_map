@@ -31,7 +31,7 @@
       <icon-star :size="24"/>
       <div
         class="a-chip"
-        @click="$router.push('/collected-points')"
+        @click="$router.push(ROUTES.collectedPoints.path)"
       >
         {{ collectedPointsIds.length }}
       </div>
@@ -44,6 +44,7 @@ import { mapGetters } from 'vuex';
 import IconStar from 'icons/Star.vue';
 import AButtonIcon from 'atoms/button/icon';
 import IconArrowLeft from 'icons/ArrowLeft.vue';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-header',
@@ -60,11 +61,12 @@ export default {
     ...mapGetters('header', [
       'pageTitle',
     ]),
+    ROUTES: () => ROUTES,
     isMainPage () {
       return this.pageTitle === '' || this.pageTitle === 'Start';
     },
     pathBackButton () {
-      return this.isLogin ? '/home' : '/';
+      return this.isLogin ? ROUTES.home.path : ROUTES.welcome.path;
     },
   },
 };
