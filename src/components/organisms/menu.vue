@@ -33,6 +33,7 @@ import ArrowLeftIcon from 'icons/ArrowLeft';
 import AButtonIcon from 'atoms/button/icon';
 import { api } from 'api/index';
 import { THEMES } from 'utils/style-manager';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-menu',
@@ -42,14 +43,8 @@ export default {
   },
   data: () => ({
     links: [
-      {
-        path: '/map',
-        label: 'Map',
-      },
-      {
-        path: '/collect-point',
-        label: 'Collect Point',
-      },
+      ROUTES.map,
+      ROUTES.collectPoint,
     ],
   }),
   computed: {
@@ -78,7 +73,7 @@ export default {
     },
     onSignOut () {
       this.$store.commit('user/signOut');
-      this.$router.push('/');
+      this.$router.push(ROUTES.welcome.path);
     },
     onError () {
       alert('Something went wrong...');

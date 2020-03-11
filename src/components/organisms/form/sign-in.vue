@@ -25,6 +25,7 @@ import MInput from 'molecules/input';
 import { api } from 'api/index';
 import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-form-sign-in',
@@ -53,7 +54,7 @@ export default {
       this.$store.commit('user/setTeamName', patrolName);
       this.$store.dispatch('event/download')
         .then(() => {
-          this.$router.push('/home');
+          this.$router.push(ROUTES.home.path);
           this.isSending = false;
         });
     },

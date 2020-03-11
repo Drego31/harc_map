@@ -1,7 +1,7 @@
 <template>
   <t-page title="Logowanie" class="f-flex f-flex-col">
     <o-form-sign-in/>
-    <a-button-secondary @click="$router.push('/remind-password')">
+    <a-button-secondary @click="$router.push(ROUTES.remindPassword.path)">
       Przypomnij hasło
     </a-button-secondary>
   </t-page>
@@ -18,6 +18,9 @@ export default {
     AButtonSecondary,
     OFormSignIn,
     TPage,
+  },
+  computed: {
+    ROUTES: () => ROUTES,
   },
 };
 </script>
