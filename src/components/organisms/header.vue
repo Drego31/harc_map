@@ -12,10 +12,15 @@
       </a-button-icon>
     </div>
     <div class="f-flex f-flex-col f-flex-just-end">
-      <div class="a-subtitle">
-        {{ pageTitle }}
-      </div>
-      <div class="a-logo">
+      <template v-if="pageTitle !== ''">
+        <div class="a-subtitle">
+          {{ pageTitle }}
+        </div>
+        <div class="a-logo">
+          HARCMAP
+        </div>
+      </template>
+      <div v-else class="a-logo f-big">
         HARCMAP
       </div>
     </div>
