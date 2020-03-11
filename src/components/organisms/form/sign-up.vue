@@ -6,7 +6,7 @@
         :disabled="blockForm"
         placeholder="E-mail"
         type="email"
-        v-model="values.email"
+        v-model="values.user"
       />
       <m-input
         :disabled="blockForm"
@@ -38,7 +38,7 @@
       />
     </div>
     <p v-else>
-      Link aktywacyjny został wysłany na wskazany adres e-mail: {{ values.email }}
+      Link aktywacyjny został wysłany na wskazany adres e-mail: {{ values.user }}
     </p>
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
   },
   data: () => ({
     values: {
-      email: '',
+      user: '',
       password: '',
       patrolName: '',
       eventId: '',
@@ -71,8 +71,8 @@ export default {
   }),
   methods: {
     checkValues () {
-      const { email, password, patrolName } = this.values;
-      const validEmail = email.length >= 5;
+      const { user, password, patrolName } = this.values;
+      const validEmail = user.length >= 5;
       const validPassword = password.length >= 5 && password === this.repeatedPassword;
       const validPatrolName = patrolName.length >= 3;
       // const validEventCode = eventCode === '111';

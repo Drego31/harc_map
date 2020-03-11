@@ -28,12 +28,12 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  signIn ({ email, password }) {
+  signIn ({ user, password }) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/login',
         data: {
-          user: email,
+          user,
           password,
         },
       })
@@ -44,7 +44,7 @@ export const realApi = {
               eventId: data.eventId,
               patrolName: data.teamName,
               collectedPointsIds: data.collectedPointsIds,
-              email: data.user,
+              user: data.user,
             });
           } else {
             reject(new ErrorMessage(ERRORS.signIn));
@@ -53,12 +53,12 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  signUp ({ email, password, patrolName, eventId }) {
+  signUp ({ user, password, patrolName, eventId }) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user',
         data: {
-          user: email,
+          user,
           password,
           teamName: patrolName,
           eventId,
@@ -75,11 +75,11 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  remindPassword ({ email }) {
+  remindPassword ({ user }) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/remind',
-        data: { user: email },
+        data: { user },
       })
         .then(response => response.json())
         .then(data => {
@@ -92,11 +92,11 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  signOut ({ email }) {
+  signOut ({ user }) {
     return new Promise((resolve, reject) => {
       request.delete({
         url: '/user/login',
-        data: { user: email },
+        data: { user },
       })
         .then(response => response.json())
         .then(data => {
@@ -121,11 +121,11 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  collectPoint ({ email, eventId, patrolName, pointId }) {
+  collectPoint ({ user, eventId, patrolName, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({
         url: '/event/collect',
-        data: { user: email },
+        data: { user },
       })
         .then(response => response.json())
         .then(data => {

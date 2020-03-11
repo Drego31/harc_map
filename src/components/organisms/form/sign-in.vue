@@ -3,7 +3,7 @@
     <m-input
       :disabled="blockForm"
       placeholder="E-mail"
-      v-model="values.email"
+      v-model="values.user"
     />
     <m-input
       :disabled="blockForm"
@@ -35,7 +35,7 @@ export default {
   },
   data: () => ({
     values: {
-      email: '',
+      user: '',
       password: '',
     },
     blockForm: false,
@@ -44,11 +44,11 @@ export default {
   }),
   methods: {
     checkValues () {
-      return this.values.email.length >= 5 && this.values.password.length >= 6;
+      return this.values.user.length >= 5 && this.values.password.length >= 6;
     },
-    onSignIn ({ eventId, collectedPointsIds, email, patrolName }) {
+    onSignIn ({ eventId, collectedPointsIds, user, patrolName }) {
       this.$store.commit('event/setId', eventId);
-      this.$store.commit('user/setEmail', email);
+      this.$store.commit('user/setUser', user);
       this.$store.commit('user/setCollectedPointsIds', collectedPointsIds);
       this.$store.commit('user/setTeamName', patrolName);
       this.$store.dispatch('event/download')

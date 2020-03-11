@@ -4,7 +4,7 @@
       <m-input
         :disabled="blockForm"
         placeholder="E-mail"
-        v-model="email"
+        v-model="user "
       />
       <a-button-submit
         :disabled="blockForm"
@@ -31,7 +31,7 @@ export default {
     MInput,
   },
   data: () => ({
-    email: '',
+    user: '',
     blockForm: false,
     isSending: false,
     message: '',
@@ -39,13 +39,13 @@ export default {
   }),
   methods: {
     checkValues () {
-      return this.email.length >= 6 && this.email.includes('@');
+      return this.user.length >= 6 && this.user.includes('@');
     },
     remindPassword () {
       this.isSending = true;
       this.blockForm = true;
       if (this.checkValues()) {
-        api.remindPassword(this.email)
+        api.remindPassword(this.user)
           .then(this.onRemindPassword)
           .catch(this.onError);
       } else {
