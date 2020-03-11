@@ -10,7 +10,7 @@
       :label="icon.label"
       :size="icon.big ? 48 : 24"
       :icon-class="{ 'f-big': icon.big }"
-      :class="{ 'f-big': icon.big }"
+      :class="{ 'f-big': icon.big, 'f-selected': isActualPath(icon) }"
       @click="onClick(icon)"
     />
   </div>
@@ -40,6 +40,13 @@ export default {
     ...mapMutations('menu', [
       'toggle',
     ]),
+    isActualPath ({ path = '' }) {
+      if (this.$store.getters['menu/isOpen']) {
+        return path === '';
+      } else {
+        return this.$route.path === path;
+      }
+    },
     onClick (icon) {
       if (logical.isString(icon.path) && icon.path !== '') {
         this.$router.push(icon.path).catch(() => {
