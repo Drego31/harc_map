@@ -3,13 +3,13 @@ html
   background-color: $color-background
 
 body
-  @extend .f-text-16
+  @extend .f-text-16, %fill-absolute
+  margin: 0
+  padding: 0
+  overflow-x: hidden
   font-family: Roboto, sans-serif
   color: $color-text
   background-color: $color-background
-  margin: 0
-  padding: 0
-  @extend %fill-absolute
 
 *
   box-sizing: border-box
