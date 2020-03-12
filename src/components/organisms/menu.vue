@@ -1,10 +1,5 @@
 <template>
   <div :class="isOpen ? 'f-open' : ''" class="o-menu">
-    <div class="f-text-right">
-      <a-button-icon @click="toggle()">
-        <icon-arrow-right :size="32"/>
-      </a-button-icon>
-    </div>
     <router-link
       v-for="(route, key) in links"
       :key="key"
@@ -26,8 +21,6 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import IconArrowRight from 'icons/ArrowRight';
-import AButtonIcon from 'atoms/button/icon';
 import { api } from 'api/index';
 import { THEMES } from 'utils/style-manager';
 import { ROUTES } from 'utils/macros/routes';
@@ -35,8 +28,8 @@ import { ROUTES } from 'utils/macros/routes';
 export default {
   name: 'o-menu',
   components: {
-    AButtonIcon,
-    IconArrowRight,
+    // AButtonIcon,
+    // IconArrowRight,
   },
   data: () => ({
     links: [

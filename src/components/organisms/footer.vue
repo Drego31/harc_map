@@ -23,6 +23,7 @@ import IconMenu from 'icons/Menu.vue';
 import IconStar from 'icons/Star.vue';
 import IconClock from 'icons/Clock.vue';
 import IconHome from 'icons/Home.vue';
+import IconArrowRight from 'icons/ArrowRight';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
 import { ROUTES } from 'utils/macros/routes';
@@ -79,7 +80,7 @@ export default {
         },
         {
           label: 'Menu',
-          component: IconMenu,
+          component: this.$store.getters['menu/isOpen'] ? IconArrowRight : IconMenu,
           method: this.toggle,
         },
       ];
