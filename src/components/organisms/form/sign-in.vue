@@ -11,6 +11,15 @@
       type="password"
       v-model="values.password"
     />
+    <m-textarea
+      placeholder="Blok tekstu"
+      v-model="values.email"
+    />
+    <m-select
+      placeholder="Wydarzenie"
+      v-model="values.eventId"
+      :options="[{label:'RTL trasa HS', value: '1234'}, {label:'RTL trasa W', value: '4321'}]"
+    />
     <a-button-submit
       :disabled="blockForm"
       :is-sending="isSending"
@@ -26,11 +35,15 @@ import { api } from 'api/index';
 import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
 import { ROUTES } from 'utils/macros/routes';
+import MSelect from 'molecules/select';
+import MTextarea from 'molecules/textarea';
 
 export default {
   name: 'o-form-sign-in',
   mixins: [mixins.form],
   components: {
+    MTextarea,
+    MSelect,
     AButtonSubmit,
     MInput,
   },
@@ -38,6 +51,7 @@ export default {
     values: {
       email: '',
       password: '',
+      eventId: '1234',
     },
     blockForm: false,
     isSending: false,
