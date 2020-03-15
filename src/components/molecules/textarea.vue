@@ -4,7 +4,7 @@
       <template v-slot:default="{resize}">
         <textarea
           :id="id"
-          class="a-input f-textarea"
+          class="a-field f-textarea"
           :class="additionalClasses"
           :type="getType"
           @input="resize"
@@ -13,7 +13,7 @@
       </template>
     </m-resize-auto>
     <label
-      class="a-label f-input"
+      class="a-label f-field"
       :class="{ 'f-correct': correct, 'f-error': error }"
       :for="id"
     >

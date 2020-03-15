@@ -1,22 +1,30 @@
 <template>
   <div class="m-input f-relative">
-    <div class="a-input-new">
-      <div>
+    <div
+      class="a-field f-select"
+      :class="{ 'f-filled': label !== '' }"
+    >
+      <div class="f-flex f-flex-row">
         <input
           :id="id"
-          :placeholder="label"
+          class="a-input f-select"
+          ref="input"
+          :value="label"
+          readonly
         />
-        <label
-          class="a-label f-input"
-          :for="id"
-        >
-          {{ placeholder }}
-        </label>
-      </div>
-      <div>
-        <icon-cancel/>
       </div>
     </div>
+    <label
+      class="a-label f-field"
+      :for="id"
+    >
+      {{ placeholder }}
+    </label>
+    <icon-cancel
+      class="a-icon f-input"
+      :size="26"
+      @click="$refs.input.focus()"
+    />
     <div>
       <div
         v-for="option of options"
@@ -27,23 +35,11 @@
       </div>
     </div>
   </div>
-  <!--  <select-->
-  <!--    class="a-select"-->
-  <!--    v-model="vModel"-->
-  <!--    @change="$emit('change')"-->
-  <!--  >-->
-  <!--    <option-->
-  <!--      v-for="option of options"-->
-  <!--      :value="option.value"-->
-  <!--    >-->
-  <!--      {{ option.label }}-->
-  <!--    </option>-->
-  <!--  </select>-->
 </template>
 
 <script>
 import { mixins } from 'mixins/base';
-import IconCancel from 'icons/Cancel';
+import IconCancel from 'icons/ArrowDown';
 
 export default {
   name: 'm-select',
@@ -71,7 +67,8 @@ export default {
   },
   computed: {
     label () {
-      return this.options.find(option => (option.value === this.vModel)).label;
+      const option = this.options.find(option => (option.value === this.vModel));
+      return option ? option.label : '';
     },
   },
   methods: {

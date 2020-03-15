@@ -51,7 +51,7 @@ export default {
     values: {
       email: '',
       password: '',
-      eventId: '1234',
+      eventId: '',
     },
     blockForm: false,
     isSending: false,
