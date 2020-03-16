@@ -26,19 +26,17 @@
       :size="26"
       @click.stop="focusAndToggle"
     />
-    <transition name="fade">
-      <div class="m-options" v-if="optionsAreOpen">
-        <div
-          v-for="option of options"
-          :key="option.value"
-          class="a-option"
-          :class="{ 'f-selected': option.value === vModel }"
-          @click="chooseOption(option)"
-        >
-          {{ option.label }}
-        </div>
+    <div class="m-options" v-if="optionsAreOpen">
+      <div
+        v-for="option of options"
+        :key="option.value"
+        class="a-option"
+        :class="{ 'f-selected': option.value === vModel }"
+        @click="chooseOption(option)"
+      >
+        {{ option.label }}
       </div>
-    </transition>
+    </div>
   </div>
 </template>
 
@@ -103,12 +101,3 @@ export default {
   },
 };
 </script>
-
-<style>
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity 100ms;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
-</style>
