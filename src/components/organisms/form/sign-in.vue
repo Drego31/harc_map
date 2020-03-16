@@ -13,12 +13,12 @@
     />
     <m-textarea
       placeholder="Blok tekstu"
-      v-model="values.email"
+      v-model="values.text"
     />
     <m-select
       placeholder="Wydarzenie"
       v-model="values.eventId"
-      :options="[{label:'RTL trasa HS', value: '1234'}, {label:'RTL trasa W', value: '4321'}]"
+      :options="[{label:'RTL trasa Z', value: '2222'}, {label:'RTL trasa HS', value: '1234'}, {label:'RTL trasa W', value: '4321'}]"
     />
     <a-button-submit
       :disabled="blockForm"
@@ -51,7 +51,8 @@ export default {
     values: {
       email: '',
       password: '',
-      // eventId: '',
+      text: '',
+      eventId: '',
     },
     blockForm: false,
     isSending: false,
