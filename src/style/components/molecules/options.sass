@@ -1,0 +1,14 @@
+.m-options
+  position: absolute
+  left: 0
+  top: calc(100% + 1px)
+  right: 0
+  background-color: $color-background-second
+  border-top: none
+  border-top-left-radius: 0
+  border-top-right-radius: 0
+
+//.a-field
+  &:focus, &:focus-within
+    ~ .m-options
+      visibility: visible

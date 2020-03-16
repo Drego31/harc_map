@@ -3,6 +3,7 @@ import App from './components/app.vue';
 import router from './router';
 import { store } from './store';
 import { styleManager } from 'utils/style-manager';
+import './directives';
 
 styleManager.init();
 
