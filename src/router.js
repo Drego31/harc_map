@@ -10,6 +10,8 @@ import PChangePassword from 'pages/change-password';
 import PCollectPoint from 'pages/collect-point';
 import PHome from 'pages/home';
 import PCollectedPoints from 'pages/collected-points';
+import PTemporaryPoints from 'pages/temporary-points';
+import { ROUTES } from 'utils/macros/routes';
 
 Vue.use(Router);
 
@@ -18,8 +20,8 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'start',
+      path: ROUTES.welcome.path,
+      name: ROUTES.welcome.name,
       component: PStart,
       meta: {
         onlyBeforeLogin: true,
@@ -27,8 +29,8 @@ const router = new Router({
       },
     },
     {
-      path: '/sign-in',
-      name: 'sign-in',
+      path: ROUTES.signIn.path,
+      name: ROUTES.signIn.name,
       component: PSignIn,
       meta: {
         onlyBeforeLogin: true,
@@ -36,8 +38,8 @@ const router = new Router({
       },
     },
     {
-      path: '/sign-up',
-      name: 'sign-up',
+      path: ROUTES.signUp.path,
+      name: ROUTES.signUp.name,
       component: PSignUp,
       meta: {
         onlyBeforeLogin: true,
@@ -45,8 +47,8 @@ const router = new Router({
       },
     },
     {
-      path: '/remind-password',
-      name: 'remind-password',
+      path: ROUTES.remindPassword.path,
+      name: ROUTES.remindPassword.name,
       component: PRemindPassword,
       meta: {
         onlyBeforeLogin: true,
@@ -54,26 +56,8 @@ const router = new Router({
       },
     },
     {
-      path: '/map',
-      name: 'map',
-      component: PMap,
-      meta: {
-        onlyBeforeLogin: false,
-        requiredAuth: true,
-      },
-    },
-    {
-      path: '/collect-point',
-      name: 'collect-point',
-      component: PCollectPoint,
-      meta: {
-        onlyBeforeLogin: false,
-        requiredAuth: true,
-      },
-    },
-    {
-      path: '/change-password',
-      name: 'change-password',
+      path: ROUTES.changePassword.path,
+      name: ROUTES.changePassword.name,
       component: PChangePassword,
       meta: {
         onlyBeforeLogin: true,
@@ -81,8 +65,8 @@ const router = new Router({
       },
     },
     {
-      path: '/home',
-      name: 'home',
+      path: ROUTES.home.path,
+      name: ROUTES.home.name,
       component: PHome,
       meta: {
         onlyBeforeLogin: false,
@@ -90,8 +74,26 @@ const router = new Router({
       },
     },
     {
-      path: '/collected-points',
-      name: 'collected-points',
+      path: ROUTES.temporaryPoints.path,
+      name: ROUTES.temporaryPoints.name,
+      component: PTemporaryPoints,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
+      },
+    },
+    {
+      path: ROUTES.collectPoint.path,
+      name: ROUTES.collectPoint.name,
+      component: PCollectPoint,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
+      },
+    },
+    {
+      path: ROUTES.collectedPoints.path,
+      name: ROUTES.collectedPoints.name,
       component: PCollectedPoints,
       meta: {
         onlyBeforeLogin: false,
@@ -99,8 +101,17 @@ const router = new Router({
       },
     },
     {
+      path: ROUTES.map.path,
+      name: ROUTES.map.name,
+      component: PMap,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: true,
+      },
+    },
+    {
       path: '*',
-      redirect: '/',
+      redirect: ROUTES.welcome.path,
     },
   ],
 });
@@ -121,12 +132,12 @@ function redirectIfNotAuth (to, next) {
 
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
-      next('/home');
+      next(ROUTES.home.path);
       return;
     }
   } else {
     if (to.meta.requiredAuth === true) {
-      next('/');
+      next(ROUTES.welcome.path);
       return;
     }
   }

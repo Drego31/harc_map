@@ -1,5 +1,5 @@
 <template>
-  <div class="f-pb-1 f-flex f-flex-col">
+  <div class="f-flex f-flex-col">
     <m-input
       :disabled="blockForm"
       placeholder="E-mail"
@@ -25,6 +25,7 @@ import MInput from 'molecules/input';
 import { api } from 'api/index';
 import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-form-sign-in',
@@ -53,7 +54,7 @@ export default {
       this.$store.commit('user/setUserTeam', userTeam);
       this.$store.dispatch('event/download')
         .then(() => {
-          this.$router.push('/home');
+          this.$router.push(ROUTES.home.path);
           this.isSending = false;
         });
     },

@@ -17,6 +17,7 @@ import MInput from 'molecules/input';
 import { mapManager } from 'utils/map-manager';
 import { mapGetters } from 'vuex';
 import AButtonPrimary from 'atoms/button/primary';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-collect-point',
@@ -35,7 +36,7 @@ export default {
   methods: {
     collectPoint (pointId) {
       mapManager.collectPoint(pointId)
-        .then(() => this.$router.push('/home'))
+        .then(() => this.$router.push(ROUTES.home.path))
         .catch(errorMessage => {
           errorMessage.showMessage(`Niestety punkt o kodzie "${pointId}" już został zebrany.`);
         });
