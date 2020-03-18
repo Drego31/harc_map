@@ -119,16 +119,16 @@ const router = new Router({
 export default router;
 
 router.beforeEach((to, from, next) => {
+  if (to === from) {
+    next(false);
+  }
+
   redirectIfNotAuth(to, next);
   store.commit('menu/close');
 });
 
 function redirectIfNotAuth (to, next) {
   const isLogin = store.getters['user/isLogin'] === true;
-
-  if (to === next) {
-    next(false);
-  }
 
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
