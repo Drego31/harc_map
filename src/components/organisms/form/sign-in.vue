@@ -56,7 +56,7 @@ export default {
       email: '',
       password: '',
       text: '',
-      eventId: '',
+      eventId: null,
     },
     blockForm: false,
     isSending: false,
