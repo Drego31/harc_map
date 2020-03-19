@@ -15,7 +15,7 @@
   &:disabled
     background: $color-disabled
 
-  &:focus, &:focus-within, &.f-correct
+  &:focus, &:focus-within, &.f-correct, &.f-error
     padding: 14px
       top: 15px
       bottom: 13px
@@ -24,6 +24,9 @@
 
   &:focus, &:focus-within
     border-color: $color-primary
+
+  &.f-error, &.f-correct
+    padding-right: 52px
 
   &.f-correct
     border-color: $color-correct

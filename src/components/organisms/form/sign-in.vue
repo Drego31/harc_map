@@ -4,21 +4,25 @@
       :disabled="blockForm"
       placeholder="E-mail"
       v-model="values.email"
+      :error="true"
     />
     <m-input
       :disabled="blockForm"
       placeholder="Hasło"
       type="password"
       v-model="values.password"
+      :error="true"
     />
     <m-textarea
       placeholder="Blok tekstu"
       v-model="values.text"
+      :correct="true"
     />
     <m-select
       placeholder="Wydarzenie"
       v-model="values.eventId"
       :options="[{label:'RTL trasa Z', value: '2222'}, {label:'RTL trasa HS', value: '1234'}, {label:'RTL trasa W', value: '4321'}]"
+      :correct="true"
     />
     <a-button-submit
       :disabled="blockForm"

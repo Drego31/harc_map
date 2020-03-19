@@ -2,22 +2,25 @@
   <div class="m-input f-relative">
     <div
       class="a-field f-select"
-      :class="{ 'f-filled': label !== '' }"
+      :class="additionalClasses"
       @click="toggleOptions"
       v-click-outside="closeOptions"
     >
       <input
         :id="id"
         class="a-input f-select"
+        :class="additionalClasses"
         ref="input"
         :value="label"
         readonly
         @focusout="closeOptions"
+        @keyup.space="toggleOptions"
       />
     </div>
     <label
       class="a-label f-field"
       :for="id"
+      :class="{ 'f-correct': correct, 'f-error': error }"
     >
       {{ placeholder }}
     </label>
@@ -60,6 +63,14 @@ export default {
       type: String,
       default: '',
     },
+    error: {
+      type: Boolean,
+      default: false,
+    },
+    correct: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
     id: '',
@@ -73,6 +84,13 @@ export default {
     label () {
       const option = this.options.find(option => (option.value === this.vModel));
       return option ? option.label : '';
+    },
+    additionalClasses () {
+      return {
+        'f-filled': this.label !== '',
+        'f-error': this.error,
+        'f-correct': this.correct,
+      };
     },
   },
   methods: {
