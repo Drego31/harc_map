@@ -14,10 +14,10 @@
         :value="label"
         readonly
         @focusout="closeOptions"
-        @keyup.esc="closeOptions"
-        @keyup.enter.space="chooseAndToggleOptions"
-        @keyup.up="optionUp"
-        @keyup.down="optionDown"
+        @keyup.esc.prevent="closeOptions"
+        @keyup.enter.space.prevent="chooseAndToggleOptions"
+        @keyup.up.prevent="optionUp"
+        @keyup.down.prevent="optionDown"
       />
     </div>
     <label
@@ -32,7 +32,12 @@
       :size="26"
       @click.stop="focusAndToggle"
     />
-    <div class="m-options" v-if="optionsAreOpen">
+    <div
+      class="m-options"
+      :class="{ 'f-top': optionsAreOutsideWindow }"
+      v-if="optionsAreOpen"
+      ref="options"
+    >
       <div
         v-for="(option, index) of options"
         :key="option.value"
@@ -79,6 +84,7 @@ export default {
   data: () => ({
     id: '',
     optionsAreOpen: false,
+    optionsAreOutsideWindow: false,
     pointedOption: -1,
   }),
   mounted () {
@@ -125,6 +131,19 @@ export default {
     toggleOptions () {
       this.optionsAreOpen = this.optionsAreOpen === false;
       this.resetPointedOption();
+
+      if (this.optionsAreOpen) {
+        this.$nextTick(() => {
+          const options = this.$refs.options;
+          const optionsProps = options.getBoundingClientRect();
+          const optionsHeight = optionsProps.height;
+          const optionsTop = optionsProps.top;
+          const windowHeight = window.outerHeight;
+          this.optionsAreOutsideWindow = optionsHeight + optionsTop + 8 >= windowHeight;
+        });
+      } else {
+        this.optionsAreOutsideWindow = false;
+      }
     },
     chooseOption ({ value, index }) {
       if (logical.isDefined(index)) {
@@ -146,6 +165,11 @@ export default {
         this.toggleOptions();
       }
     },
+    optionSwitch (index) {
+      if (this.optionsAreOpen === false) {
+        this.chooseOption({ index });
+      }
+    },
     optionUp () {
       if (this.pointedOption - 1 < 0) {
         this.pointedOption = this.options.length - 1;
@@ -153,9 +177,7 @@ export default {
         this.pointedOption -= 1;
       }
 
-      if (this.optionsAreOpen === false) {
-        this.chooseOption({ index: this.pointedOption });
-      }
+      this.optionSwitch(this.pointedOption);
     },
     optionDown () {
       if (this.pointedOption + 1 > this.options.length - 1) {
@@ -164,9 +186,7 @@ export default {
         this.pointedOption += 1;
       }
 
-      if (this.optionsAreOpen === false) {
-        this.chooseOption({ index: this.pointedOption });
-      }
+      this.optionSwitch(this.pointedOption);
     },
   },
 };
