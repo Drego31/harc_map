@@ -1,4 +1,5 @@
 import { getEventByIdMock } from 'api/mockMethods/get-event-by-id';
+import { getCollectedPointsByMock } from 'api/mockMethods/get-collected-points';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 
@@ -29,7 +30,7 @@ export const mockApi = {
   signIn ({ email, password }) {
     return makeDelayFakeAnswer(() => ({
       eventId: '111',
-      collectedPointsIds: ['1', '2', '5'],
+      collectedPointsIds: getCollectedPointsByMock,
       patrolName: 'HARC',
       email,
     }), 500);
