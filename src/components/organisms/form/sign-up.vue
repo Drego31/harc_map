@@ -2,17 +2,25 @@
   <div class="f-pb-1">
 
     <div v-if="!formSend" class="f-flex f-flex-col">
-      <m-input
-        :disabled="blockForm"
-        placeholder="E-mail"
-        type="email"
-        v-model="values.email"
-      />
+      <ValidationProvider
+        name="E-mail"
+        rules="required|email"
+        v-slot="{ errors }"
+      >
+        <m-input
+          :disabled="blockForm"
+          placeholder="E-mail"
+          type="email"
+          :error="errors.length > 0"
+          :assist="errors[0]"
+          v-model.trim="values.email"
+        />
+      </ValidationProvider>
       <m-input
         :disabled="blockForm"
         placeholder="Hasło"
         type="password"
-        v-model="values.password"
+        v-model.trim="values.password"
       />
       <m-input
         :disabled="blockForm"

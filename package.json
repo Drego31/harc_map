@@ -31,10 +31,10 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sha3": "^2.1.1",
-    "vue": "^2.6.11",
-    "vuelidate": "^0.7.5"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
+    "vee-validate": "^3.2.5",
     "@babel/core": "^7.9.0",
     "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.1.0",
