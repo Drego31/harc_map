@@ -16,18 +16,37 @@
           v-model.trim="values.email"
         />
       </ValidationProvider>
-      <m-input
-        :disabled="blockForm"
-        placeholder="Hasło"
-        type="password"
-        v-model.trim="values.password"
-      />
-      <m-input
-        :disabled="blockForm"
-        placeholder="Powtórz hasło"
-        type="password"
-        v-model="repeatedPassword"
-      />
+      <ValidationObserver>
+        <ValidationProvider
+          name="Hasło"
+          rules="required|min:8|max:64"
+          v-slot="{ errors }"
+          vid="password"
+        >
+          <m-input
+            :disabled="blockForm"
+            placeholder="Hasło"
+            type="password"
+            :error="errors.length > 0"
+            :assist="errors[0]"
+            v-model="values.password"
+          />
+        </ValidationProvider>
+        <ValidationProvider
+          name="Hasło"
+          rules="confirmed:password"
+          v-slot="{ errors }"
+        >
+          <m-input
+            :disabled="blockForm"
+            placeholder="Powtórz hasło"
+            type="password"
+            :error="errors.length > 0"
+            :assist="errors[0]"
+            v-model="repeatedPassword"
+          />
+        </ValidationProvider>
+      </ValidationObserver>
       <m-input
         :disabled="blockForm"
         placeholder="Nazwa patrolu"
