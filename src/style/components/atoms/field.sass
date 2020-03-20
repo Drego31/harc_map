@@ -1,0 +1,32 @@
+.a-field
+  @extend .f-text-16
+  height: 56px
+  line-height: 24px
+  border: 1px solid $color-border
+    radius: 2px
+  outline: none
+  padding: 15px
+    top: 16px
+    bottom: 14px
+  margin: 0
+  background-color: transparent
+  color: inherit
+
+  &:disabled
+    background: $color-disabled
+
+  &:focus, &:focus-within, &.f-correct, &.f-error
+    padding: 14px
+      top: 15px
+      bottom: 13px
+    border:
+      width: 2px
+
+  &:focus, &:focus-within
+    border-color: $color-primary
+
+  &.f-error, &.f-correct
+    padding-right: 52px
+
+  &.f-correct
+    border-color: $color-correct
