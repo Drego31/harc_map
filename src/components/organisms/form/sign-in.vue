@@ -57,17 +57,12 @@ export default {
           this.blockForm = false;
         });
     },
-    onError () {
-      this.message = 'Logowanie nie powiodło się - błędny e-mail lub hasło.';
-      this.isSending = false;
-      this.blockForm = false;
-    },
     signIn () {
       this.isSending = true;
       this.blockForm = true;
       api.signIn(this.values)
         .then(this.onSignIn)
-        .catch(this.onError);
+        .catch(this.onErrorOccurs);
     },
   },
 };

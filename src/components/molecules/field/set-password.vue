@@ -1,14 +1,14 @@
 <template>
   <validation-observer>
     <validation-provider
-      :name="labels.password"
+      :name="labels[0]"
       :rules="rules.password"
       v-slot="{ errors }"
       vid="password"
     >
       <m-input
         :disabled="disabled"
-        :placeholder="labels.password"
+        :placeholder="labels[0]"
         type="password"
         :error="errors.length > 0"
         :assist="errors[0]"
@@ -16,13 +16,13 @@
       />
     </validation-provider>
     <validation-provider
-      :name="labels.confirmation"
+      :name="labels[1]"
       :rules="rules.passwordConfirmation"
       v-slot="{ errors }"
     >
       <m-input
         :disabled="disabled"
-        :placeholder="labels.confirmation"
+        :placeholder="labels[1]"
         type="password"
         :error="errors.length > 0"
         :assist="errors[0]"
@@ -41,14 +41,17 @@ export default {
   mixins: [mixins.vModel, mixins.validation],
   components: { MInput },
   data: () => ({
-    labels: {
-      password: 'Hasło',
-      confirmation: 'Powtórz hasło',
-    },
     passwordConfirmation: '',
   }),
   props: {
     disabled: Boolean,
+    labels: {
+      type: Array,
+      default: () => [
+        'Hasło',
+        'Powtórz hasło',
+      ],
+    },
   },
 };
 </script>

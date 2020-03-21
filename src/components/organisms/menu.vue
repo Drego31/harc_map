@@ -64,14 +64,13 @@ export default {
         email: this.$store.getters['user/email'],
       })
         .then(this.onSignOut)
-        .catch(this.onError);
+        .catch(() => {
+          alert('Something went wrong...');
+        });
     },
     onSignOut () {
       this.$store.commit('user/signOut');
       this.$router.push(ROUTES.welcome.path);
-    },
-    onError () {
-      alert('Something went wrong...');
     },
   },
 };
