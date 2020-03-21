@@ -1,60 +1,60 @@
 <template>
-  <div class="f-pb-1">
-    <validation-observer v-slot="{ handleSubmit }">
-      <form
-        v-if="!formSend"
-        class="f-flex f-flex-col"
-        @submit.prevent="handleSubmit(signUp)"
-      >
-        <m-field-email
-          v-model="values.email"
-          :disabled="blockForm"
-        />
-        <m-field-set-password
-          v-model="values.password"
-          :disabled="blockForm"
-        />
-        <m-field-text
-          label="Nazwa patrolu"
-          :rules="rules.userTeam"
-          v-model="values.patrolName"
-          :disabled="blockForm"
-        />
-        <m-field-text
-          label="Kod wydarzenia"
-          :rules="rules.eventId"
-          v-model="values.eventId"
-          :disabled="blockForm"
-        />
-        <a-button-submit
-          :disabled="blockForm"
-          :is-sending="isSending"
-          :message="message"
-        />
-      </form>
-      <div v-else>
-        <div class="f-pb-2 f-bold">Rejestracja przebiegła pomyślnie!</div>
-        <div>
-          Link aktywacyjny został wysłany na wskazany adres e-mail:
-          <span class="f-bold">{{ values.email }}</span>
-        </div>
+  <o-form
+    :is-send="formSend"
+    :on-submit="signUp"
+  >
+    <template slot="form">
+      <m-field-email
+        v-model="values.email"
+        :disabled="blockForm"
+      />
+      <m-field-set-password
+        v-model="values.password"
+        :disabled="blockForm"
+      />
+      <m-field-text
+        label="Nazwa patrolu"
+        :rules="rules.userTeam"
+        v-model="values.patrolName"
+        :disabled="blockForm"
+      />
+      <m-field-text
+        label="Kod wydarzenia"
+        :rules="rules.eventId"
+        v-model="values.eventId"
+        :disabled="blockForm"
+      />
+      <a-button-submit
+        :disabled="blockForm"
+        :is-sending="isSending"
+        :message="message"
+      />
+    </template>
+
+    <template slot="response">
+      <div class="f-pb-2 f-bold">Rejestracja przebiegła pomyślnie!</div>
+      <div>
+        Link aktywacyjny został wysłany na wskazany adres e-mail:
+        <span class="f-bold">{{ values.email }}</span>
       </div>
-    </validation-observer>
-  </div>
+    </template>
+  </o-form>
 </template>
 
 <script>
 import { api } from 'api/index';
-import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
+import AButtonSubmit from 'atoms/button/submit';
 import MFieldEmail from 'molecules/field/email';
 import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
+import OForm from 'organisms/form';
 
 export default {
   name: 'o-form-sign-in',
   mixins: [mixins.form, mixins.validation],
   components: {
+    OForm,
     MFieldText,
     MFieldSetPassword,
     MFieldEmail,
