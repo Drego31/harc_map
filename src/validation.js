@@ -5,8 +5,8 @@ import { messages } from 'vee-validate/dist/locale/pl.json';
 import validateTools from 'vendors/validate-tools';
 
 // Register it globally
-Vue.component('ValidationProvider', ValidationProvider);
-Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('validation-provider', ValidationProvider);
+Vue.component('validation-observer', ValidationObserver);
 
 // Register all rules
 Object.keys(rules).forEach(rule => {
