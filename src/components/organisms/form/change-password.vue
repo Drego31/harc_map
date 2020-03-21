@@ -34,7 +34,6 @@ import { mixins } from 'mixins/base';
 import MFieldSetPassword from 'molecules/field/set-password';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
-import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-form-change-password',
@@ -51,7 +50,6 @@ export default {
     isSending: false,
     formSend: false,
     message: '',
-    ROUTES,
   }),
   methods: {
     onChangePassword () {

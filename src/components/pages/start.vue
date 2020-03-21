@@ -15,7 +15,6 @@
 import TPage from 'templates/page';
 import AButtonPrimary from 'atoms/button/primary';
 import AButtonSecondary from 'atoms/button/secondary';
-import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'p-start',
@@ -23,9 +22,6 @@ export default {
     AButtonSecondary,
     AButtonPrimary,
     TPage,
-  },
-  computed: {
-    ROUTES: () => ROUTES,
   },
 };
 </script>

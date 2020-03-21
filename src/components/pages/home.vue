@@ -13,7 +13,6 @@
 import TPage from 'templates/page';
 import OHome from 'organisms/home';
 import AButtonPrimary from 'atoms/button/primary';
-import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'p-home',
@@ -21,9 +20,6 @@ export default {
     AButtonPrimary,
     TPage,
     OHome,
-  },
-  computed: {
-    ROUTES: () => ROUTES,
   },
 };
 </script>

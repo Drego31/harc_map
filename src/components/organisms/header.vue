@@ -61,7 +61,6 @@ export default {
     ...mapGetters('header', [
       'pageTitle',
     ]),
-    ROUTES: () => ROUTES,
     isMainPage () {
       return this.pageTitle === '' || this.pageTitle === 'Start';
     },

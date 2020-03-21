@@ -53,7 +53,6 @@ import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
-import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-form-sign-in',
@@ -77,7 +76,6 @@ export default {
     isSending: false,
     message: '',
     formSend: false,
-    ROUTES,
   }),
   methods: {
     onSignUp () {
