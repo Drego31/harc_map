@@ -1,14 +1,14 @@
 <template>
   <validation-observer>
     <validation-provider
-      name="Hasło"
-      rules="required|min:8|max:64|hasNumber|hasCapitalize"
+      :name="labels.password"
+      :rules="rules.password"
       v-slot="{ errors }"
       vid="password"
     >
       <m-input
         :disabled="disabled"
-        placeholder="Hasło"
+        :placeholder="labels.password"
         type="password"
         :error="errors.length > 0"
         :assist="errors[0]"
@@ -16,17 +16,17 @@
       />
     </validation-provider>
     <validation-provider
-      name="Powtórz hasło"
-      rules="required|confirmed:password"
+      :name="labels.confirmation"
+      :rules="rules.passwordConfirmation"
       v-slot="{ errors }"
     >
       <m-input
         :disabled="disabled"
-        placeholder="Powtórz hasło"
+        :placeholder="labels.confirmation"
         type="password"
         :error="errors.length > 0"
         :assist="errors[0]"
-        v-model="repeatedPassword"
+        v-model="passwordConfirmation"
       />
     </validation-provider>
   </validation-observer>
@@ -38,17 +38,17 @@ import { mixins } from 'mixins/base';
 
 export default {
   name: 'm-field-set-password',
-  mixins: [mixins.vModel],
+  mixins: [mixins.vModel, mixins.validation],
   components: { MInput },
   data: () => ({
-    repeatedPassword: '',
+    labels: {
+      password: 'Hasło',
+      confirmation: 'Powtórz hasło',
+    },
+    passwordConfirmation: '',
   }),
   props: {
     disabled: Boolean,
-    label: {
-      type: String,
-      default: 'E-mail',
-    },
   },
 };
 </script>

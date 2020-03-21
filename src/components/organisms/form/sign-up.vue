@@ -12,13 +12,13 @@
         />
         <m-field-text
           label="Nazwa patrolu"
-          rules="required|min:4"
+          :rules="rules.userTeam"
           v-model="values.patrolName"
           :disabled="blockForm"
         />
         <m-field-text
           label="Kod wydarzenia"
-          rules="required|length:4"
+          :rules="rules.eventId"
           v-model="values.eventId"
           :disabled="blockForm"
         />
@@ -50,7 +50,7 @@ import MFieldText from 'molecules/field/text';
 
 export default {
   name: 'o-form-sign-in',
-  mixins: [mixins.form],
+  mixins: [mixins.form, mixins.validation],
   components: {
     MFieldText,
     MFieldSetPassword,

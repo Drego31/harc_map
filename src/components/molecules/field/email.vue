@@ -2,7 +2,7 @@
   <validation-observer>
     <validation-provider
       :name="label"
-      rules="required|email"
+      :rules="rules.email"
       v-slot="{ errors }"
     >
       <m-input
@@ -23,7 +23,7 @@ import { mixins } from 'mixins/base';
 
 export default {
   name: 'm-field-email',
-  mixins: [mixins.vModel],
+  mixins: [mixins.vModel, mixins.validation],
   components: { MInput },
   props: {
     disabled: Boolean,

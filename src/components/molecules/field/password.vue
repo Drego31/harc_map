@@ -2,7 +2,7 @@
   <validation-observer>
     <validation-provider
       :name="label"
-      rules="required|min:8|max:64|hasNumber|hasCapitalize"
+      :rules="rules.password"
       v-slot="{ errors }"
       vid="password"
     >
@@ -24,7 +24,7 @@ import { mixins } from 'mixins/base';
 
 export default {
   name: 'm-field-password',
-  mixins: [mixins.vModel],
+  mixins: [mixins.vModel, mixins.validation],
   components: { MInput },
   props: {
     disabled: Boolean,
