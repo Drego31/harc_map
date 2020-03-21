@@ -1,5 +1,5 @@
 <template>
-  <div class="f-flex f-flex-col">
+  <o-form :on-submit="signIn">
     <m-input
       :disabled="blockForm"
       placeholder="E-mail"
@@ -11,13 +11,12 @@
       type="password"
       v-model="values.password"
     />
+    <div class="f-text-center f-text-danger" v-text="message"/>
     <a-button-submit
       :disabled="blockForm"
       :is-sending="isSending"
-      :message="message"
-      @click="signIn()"
     />
-  </div>
+  </o-form>
 </template>
 
 <script>
@@ -26,11 +25,13 @@ import { api } from 'api/index';
 import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
 import { ROUTES } from 'utils/macros/routes';
+import OForm from 'organisms/form';
 
 export default {
   name: 'o-form-sign-in',
   mixins: [mixins.form],
   components: {
+    OForm,
     AButtonSubmit,
     MInput,
   },
@@ -44,9 +45,6 @@ export default {
     message: '',
   }),
   methods: {
-    checkValues () {
-      return this.values.email.length >= 5 && this.values.password.length >= 6;
-    },
     onSignIn ({ eventId, collectedPointsIds, email, patrolName }) {
       this.$store.commit('event/setId', eventId);
       this.$store.commit('user/setEmail', email);
@@ -56,18 +54,20 @@ export default {
         .then(() => {
           this.$router.push(ROUTES.home.path);
           this.isSending = false;
+          this.blockForm = false;
         });
+    },
+    onError () {
+      this.message = 'Logowanie nie powiodło się - błędny e-mail lub hasło.';
+      this.isSending = false;
+      this.blockForm = false;
     },
     signIn () {
       this.isSending = true;
       this.blockForm = true;
-      if (this.checkValues()) {
-        api.signIn(this.values)
-          .then(this.onSignIn)
-          .catch(this.onError);
-      } else {
-        this.onInvalidValues();
-      }
+      api.signIn(this.values)
+        .then(this.onSignIn)
+        .catch(this.onError);
     },
   },
 };

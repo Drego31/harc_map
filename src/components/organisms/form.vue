@@ -2,10 +2,11 @@
   <div class="f-pb-1">
     <validation-observer v-slot="{ handleSubmit }">
       <form
-        v-if="!isSend"
+        v-if="isSend === false"
         class="f-flex f-flex-col"
         @submit.prevent="handleSubmit(onSubmit)"
       >
+        <slot/>
         <slot name="form"/>
       </form>
 
