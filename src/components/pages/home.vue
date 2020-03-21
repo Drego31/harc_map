@@ -2,7 +2,7 @@
   <t-page title="Start" class="f-text-center">
     <div>
       <o-home></o-home>
-      <a-button-primary @click="$router.push('/map')">
+      <a-button-primary @click="$router.push(ROUTES.map.path)">
         Rozpocznij poszukiwania!
       </a-button-primary>
     </div>

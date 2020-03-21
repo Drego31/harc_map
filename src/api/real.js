@@ -75,7 +75,7 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  remindPassword ({ email }) {
+  remindPassword (email) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/remind',
@@ -96,6 +96,7 @@ export const realApi = {
     return new Promise((resolve, reject) => {
       request.delete({
         url: '/user/login',
+        data: { user: email },
       })
         .then(response => response.json())
         .then(data => {
@@ -124,6 +125,7 @@ export const realApi = {
     return new Promise((resolve, reject) => {
       request.put({
         url: '/event/collect',
+        data: { user: email },
       })
         .then(response => response.json())
         .then(data => {

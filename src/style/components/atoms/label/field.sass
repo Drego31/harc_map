@@ -1,0 +1,27 @@
+.a-label.f-field
+  position: absolute
+  top: 17px
+  left: 16px
+  padding: 0 4px
+  line-height: 24px
+  transition-property: all
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1)
+  transition-duration: 200ms
+  background-color: $color-background
+  color: $color-subtext
+
+.a-field
+  &:focus, &:focus-within, &.f-filled
+    ~ .a-label.f-field
+      top: -7px
+      left: 13px
+      font-size: 12px
+      line-height: 16px
+
+  &:focus, &:focus-within
+    ~ .a-label.f-field
+      color: $color-primary
+
+  &:disabled
+    ~ .a-label.f-field
+      color: $color-disabled

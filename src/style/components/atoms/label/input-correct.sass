@@ -1,4 +1,8 @@
-.a-input
-  &:focus, &.f-correct
-    ~ .a-label.f-input.f-correct
-      color: $Green
+.a-field
+  &:focus
+    ~ .a-label.f-field.f-correct
+      color: $color-primary
+
+  &.f-correct
+    ~ .a-label.f-field.f-correct
+      color: $color-correct

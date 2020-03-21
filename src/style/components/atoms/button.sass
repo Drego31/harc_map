@@ -1,18 +1,25 @@
 .a-button
-  @extend .f-text-14
-  min-width: 150px
-  min-height: 32px
-  padding: 2px 15px
-  margin: 5px
-  cursor: pointer
-  background-color: transparent
-  color: $Tundora
-  border: solid 1px $Tundora
-    radius: 3px
+  @extend .f-text-center, .f-text-14
+  min-width: 184px
+  height: 36px
+  border: 1px solid $color-primary
+    radius: 20px
+
+  font-weight: 500
+  line-height: 16px
+  letter-spacing: 0.75px
+  text-transform: uppercase
+  color: transparent
+
+  margin: 14px 0
+  padding: 0 20px
+  align-self: center
   outline: none
 
+  &:hover
+    background: $color-primary-hover
+
   &:disabled
-    background-color: $Silver_Chalice
-    color: $Tundora
-    border: solid 1px $Silver_Chalice
-    cursor: not-allowed
+    opacity: 0.38
+    background: $color-disabled
+    color: $color-text
