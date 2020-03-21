@@ -1,5 +1,8 @@
 <template>
-  <o-form :is-send="formSend" :on-submit="changePassword">
+  <o-form
+    :is-send="formSend"
+    :on-submit="changePassword"
+  >
     <template slot="form">
       <m-field-set-password
         :disabled="blockForm"
@@ -14,7 +17,7 @@
     </template>
 
     <template slot="response">
-      <div class="f-pb-2 f-text-bold">
+      <div class="f-py-2 f-text-bold">
         Twoje hasło zostało zmienione!
       </div>
       <a-button-primary @click="$router.push(ROUTES.signIn.path)">

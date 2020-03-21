@@ -32,11 +32,14 @@
     </template>
 
     <template slot="response">
-      <div class="f-pb-2 f-bold">Rejestracja przebiegła pomyślnie!</div>
-      <div>
+      <div class="f-py-2">
+        <div class="f-pb-2 f-bold">Rejestracja przebiegła pomyślnie!</div>
         Link aktywacyjny został wysłany na wskazany adres e-mail:
         <span class="f-bold">{{ values.email }}</span>
       </div>
+      <a-button-primary @click="$router.push(ROUTES.signIn.path)">
+        Przejdź do logowania
+      </a-button-primary>
     </template>
   </o-form>
 </template>
@@ -49,11 +52,14 @@ import MFieldEmail from 'molecules/field/email';
 import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
+import AButtonPrimary from 'atoms/button/primary';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-form-sign-in',
   mixins: [mixins.form, mixins.validation],
   components: {
+    AButtonPrimary,
     OForm,
     MFieldText,
     MFieldSetPassword,
@@ -71,6 +77,7 @@ export default {
     isSending: false,
     message: '',
     formSend: false,
+    ROUTES,
   }),
   methods: {
     onSignUp () {
