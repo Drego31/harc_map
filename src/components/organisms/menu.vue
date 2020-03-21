@@ -27,10 +27,6 @@ import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-menu',
-  components: {
-    // AButtonIcon,
-    // IconArrowRight,
-  },
   data: () => ({
     links: [
       ROUTES.home,
@@ -38,6 +34,7 @@ export default {
       ROUTES.collectPoint,
       ROUTES.map,
     ],
+    THEMES,
   }),
   computed: {
     ...mapGetters('menu', [
@@ -46,7 +43,6 @@ export default {
     themeName () {
       return this.$store.getters['theme/name'];
     },
-    THEMES: () => THEMES,
   },
   methods: {
     ...mapMutations('menu', [
@@ -64,14 +60,13 @@ export default {
         email: this.$store.getters['user/email'],
       })
         .then(this.onSignOut)
-        .catch(this.onError);
+        .catch(() => {
+          alert('Something went wrong...');
+        });
     },
     onSignOut () {
       this.$store.commit('user/signOut');
       this.$router.push(ROUTES.welcome.path);
-    },
-    onError () {
-      alert('Something went wrong...');
     },
   },
 };

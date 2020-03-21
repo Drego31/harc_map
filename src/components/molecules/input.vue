@@ -5,6 +5,7 @@
       class="a-field"
       :class="additionalClasses"
       :type="getType"
+      :disabled="disabled"
       v-model="vModel"
     />
     <label
@@ -62,6 +63,10 @@ export default {
     IconCheckBold,
   },
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     placeholder: {
       type: String,
       default: '',

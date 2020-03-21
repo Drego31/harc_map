@@ -75,7 +75,7 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  remindPassword ({ email }) {
+  remindPassword (email) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/remind',

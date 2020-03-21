@@ -1,26 +1,17 @@
+
 export const formMixin = {
   data: () => ({
     _errors: [],
+    message: '',
+    isSending: false,
+    blockForm: false,
   }),
   methods: {
-    setMessage (text) {
-      return new Promise(resolve => {
-        this.message = text;
-        setTimeout(() => {
-          this.message = '';
-          this.blockForm = false;
-          resolve();
-        }, 1500);
-      });
-    },
-    onError (error) {
-      console.error(error);
-      this.setMessage('Spróbuj ponownie...');
+    onErrorOccurs (errorMessage) {
+      console.error(errorMessage);
+      this.message = errorMessage.message;
       this.isSending = false;
-    },
-    onInvalidValues () {
-      this.setMessage('Błędne dane');
-      this.isSending = false;
+      this.blockForm = false;
     },
   },
 };

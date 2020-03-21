@@ -15,6 +15,11 @@ export default {
   },
   mounted () {
     this.$store.commit('header/setPageTitle', this.title);
+    if (this.title) {
+      document.title = `${this.title} - ${APP_NAME}`;
+    } else {
+      document.title = APP_NAME;
+    }
   },
 };
 </script>
