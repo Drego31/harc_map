@@ -1,7 +1,11 @@
 <template>
   <div class="f-pb-1">
     <validation-observer v-slot="{ handleSubmit }">
-      <div v-if="!formSend" class="f-flex f-flex-col">
+      <form
+        v-if="!formSend"
+        class="f-flex f-flex-col"
+        @submit.prevent="handleSubmit(signUp)"
+      >
         <m-field-email
           v-model="values.email"
           :disabled="blockForm"
@@ -26,9 +30,8 @@
           :disabled="blockForm"
           :is-sending="isSending"
           :message="message"
-          @click="handleSubmit(signUp)"
         />
-      </div>
+      </form>
       <div v-else>
         <div class="f-pb-2 f-bold">Rejestracja przebiegła pomyślnie!</div>
         <div>
