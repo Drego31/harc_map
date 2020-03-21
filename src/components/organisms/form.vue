@@ -1,18 +1,14 @@
 <template>
-  <div class="f-pb-1">
-    <validation-observer v-slot="{ handleSubmit }">
-      <form
-        v-if="isSend === false"
-        class="f-flex f-flex-col"
-        @submit.prevent="handleSubmit(onSubmit)"
-      >
-        <slot/>
-        <slot name="form"/>
-      </form>
-
+  <validation-observer v-slot="{ handleSubmit }">
+    <form
+      class="f-flex f-flex-col f-pb-1 f-text-center"
+      @submit.prevent="handleSubmit(onSubmit)"
+    >
+      <slot v-if="isSend === false"/>
+      <slot name="form" v-if="isSend === false"/>
       <slot v-else name="response"/>
-    </validation-observer>
-  </div>
+    </form>
+  </validation-observer>
 </template>
 
 <script>

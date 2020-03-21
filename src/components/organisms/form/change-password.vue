@@ -4,7 +4,7 @@
       <m-field-set-password
         :disabled="blockForm"
         v-model="password"
-        :labels="['Wprowadź nowe hasło', 'Powtórz nowe hasło']"
+        :labels="['Nowe hasło', 'Powtórz nowe hasło']"
       />
       <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
@@ -14,7 +14,12 @@
     </template>
 
     <template slot="response">
-      <span class="f-text-bold">Twoje hasło zostało zmienione!</span>
+      <div class="f-pb-2 f-text-bold">
+        Twoje hasło zostało zmienione!
+      </div>
+      <a-button-primary @click="$router.push(ROUTES.signIn.path)">
+        Przejdź do logowania
+      </a-button-primary>
     </template>
   </o-form>
 </template>
@@ -25,11 +30,14 @@ import { api } from 'api/index';
 import { mixins } from 'mixins/base';
 import MFieldSetPassword from 'molecules/field/set-password';
 import OForm from 'organisms/form';
+import AButtonPrimary from 'atoms/button/primary';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-form-change-password',
   mixins: [mixins.form],
   components: {
+    AButtonPrimary,
     OForm,
     MFieldSetPassword,
     AButtonSubmit,
@@ -40,6 +48,7 @@ export default {
     isSending: false,
     formSend: false,
     message: '',
+    ROUTES,
   }),
   methods: {
     onChangePassword () {
