@@ -1,8 +1,8 @@
 import Vue from 'vue';
-import { extend, ValidationProvider, ValidationObserver } from 'vee-validate';
+import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
 import { messages } from 'vee-validate/dist/locale/pl.json';
-// import validateTools from 'vendors/validate-tools'
+import validateTools from 'vendors/validate-tools';
 
 // Register it globally
 Vue.component('ValidationProvider', ValidationProvider);
@@ -16,9 +16,16 @@ Object.keys(rules).forEach(rule => {
   });
 });
 
-extend('password', {
+extend('hasNumber', {
   validate (value) {
-    return '';
+    return validateTools.hasNumber(value);
   },
-  message: '', // assign message
+  message: 'Pole {_field_} powinno zawierać conajmniej jedną cyfrę',
+});
+
+extend('hasCapitalize', {
+  validate (value) {
+    return /[A-Z]/.test(value);
+  },
+  message: 'Pole {_field_} powinno zawierać conajmniej jedną wielką literę',
 });

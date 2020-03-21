@@ -19,7 +19,7 @@
       <ValidationObserver>
         <ValidationProvider
           name="Hasło"
-          rules="required|min:8|max:64"
+          rules="required|min:8|max:64|hasNumber|hasCapitalize"
           v-slot="{ errors }"
           vid="password"
         >
@@ -47,16 +47,32 @@
           />
         </ValidationProvider>
       </ValidationObserver>
-      <m-input
-        :disabled="blockForm"
-        placeholder="Nazwa patrolu"
-        v-model="values.patrolName"
-      />
-      <m-input
-        :disabled="blockForm"
-        placeholder="Kod wydarzenia"
-        v-model="values.eventId"
-      />
+      <ValidationProvider
+        name="E-mail"
+        rules="required"
+        v-slot="{ errors }"
+      >
+        <m-input
+          :disabled="blockForm"
+          placeholder="Nazwa patrolu"
+          :error="errors.length > 0"
+          :assist="errors[0]"
+          v-model="values.patrolName"
+        />
+      </ValidationProvider>
+      <ValidationProvider
+        name="E-mail"
+        rules="required"
+        v-slot="{ errors }"
+      >
+        <m-input
+          :disabled="blockForm"
+          placeholder="Kod wydarzenia"
+          :error="errors.length > 0"
+          :assist="errors[0]"
+          v-model="values.eventId"
+        />
+      </ValidationProvider>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
