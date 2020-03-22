@@ -2,74 +2,74 @@ const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
-const passport = require('passport');
+
+// database.read('events', {
+//   eventId: 'kO6f',
+// }).then(result => {
+//   console.log(result);
+//   response.send(result);
+// }).catch(error => {
+//   console.log('error');
+//   response.status(404).send(error);
+// });
+
+// database.create('events', [{
+//   eventId: 'kO6f',
+//   eventName: 'Event',
+//   defaultZoom: 11,
+//   defaultLongitude: 18.4735,
+//   defaultLatitude: 54.4787,
+// }]).then(result => {
+//   console.log(result);
+//   response.send(result);
+// }).catch(error => {
+//   console.log('error');
+//   response.status(404).send(error);
+// });
+
+// database.remove('event_kO6f', {}).then(result => {
+//   console.log(result);
+//   response.send(result);
+// }).catch(error => {
+//   console.log('error');
+//   response.status(404).send(error);
+// });
 
 router.get('/', (request, response) => {
   const json = request.query;
   const error = validator.validate(
     validator.methods.validateEventGetRequest, json);
 
-  response.send({
+  const responseObject = {
     eventId: json.eventId ? json.eventId : null,
-    name: 'Event',
+    eventName: '',
     mapPosition: {
-      latitude: 54.4787,
-      longitude: 18.4735,
+      latitude: 0,
+      longitude: 0,
     },
-    mapZoom: 11,
-    points: [
-      {
-        pointId: '1',
-        name: 'Point 1',
-        latitude: 54.51728,
-        longitude: 18.51465,
-        type: 3,
-      },
-      {
-        pointId: '2',
-        name: 'Point 2',
-        latitude: 54.51111,
-        longitude: 18.51173,
-        type: 2,
-      },
-      {
-        pointId: '3',
-        name: 'Point 3',
-        latitude: 54.51548,
-        longitude: 18.54418,
-        type: 3,
-      },
-      {
-        pointId: '4',
-        name: 'Point 4',
-        latitude: 54.51851,
-        longitude: 18.55863,
-        type: 2,
-      },
-      {
-        pointId: '5',
-        name: 'Point 5',
-        latitude: 54.49639,
-        longitude: 18.56198,
-        type: 1,
-      },
-      {
-        pointId: '6',
-        name: 'Point 6',
-        latitude: 54.50585,
-        longitude: 18.52872,
-        type: 2,
-      },
-      {
-        pointId: '7',
-        name: 'Point 7',
-        latitude: 54.48899,
-        longitude: 18.49213,
-        type: 1,
-      },
-    ],
+    mapZoom: 0,
+    points: [],
     error: error,
-  });
+  };
+
+  database.read('events', { eventId: json.eventId })
+    .then(result => {
+      responseObject.eventName = result.eventName;
+      responseObject.mapPosition.latitude = result.defaultLatitude;
+      responseObject.mapPosition.longitude = result.defaultLongitude;
+      responseObject.mapZoom = result.defaultZoom;
+      database.readMany('event_' + json.eventId, {})
+        .then(result => {
+          responseObject.points = result;
+          response.send(responseObject);
+        })
+        .catch(error => {
+          response.send(responseObject);
+        });
+    })
+    .catch(error => {
+      response.send(responseObject);
+    });
 });
 
 router.post('/', (request, response) => {
