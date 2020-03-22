@@ -17,7 +17,7 @@ import AButtonPrimary from 'atoms/button/primary';
 import AButtonSecondary from 'atoms/button/secondary';
 
 export default {
-  name: 'p-start',
+  name: 'p-welcome',
   components: {
     AButtonSecondary,
     AButtonPrimary,

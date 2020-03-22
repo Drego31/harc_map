@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { store } from 'store';
-import PStart from 'pages/start';
+import PWelcome from 'pages/welcome';
 import PSignIn from 'pages/sign-in';
 import PSignUp from 'pages/sign-up';
 import PRemindPassword from 'pages/remind-password';
@@ -22,7 +22,7 @@ const router = new Router({
     {
       path: ROUTES.welcome.path,
       name: ROUTES.welcome.name,
-      component: PStart,
+      component: PWelcome,
       meta: {
         onlyBeforeLogin: true,
         requiredAuth: false,
