@@ -20,7 +20,7 @@ import { mapGetters } from 'vuex';
 import IconStar from 'icons/Star.vue';
 
 export default {
-  name: 'o-home',
+  name: 'o-start',
   components: {
     IconStar,
   },

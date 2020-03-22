@@ -36,7 +36,7 @@ export default {
   methods: {
     collectPoint (pointId) {
       mapManager.collectPoint(pointId)
-        .then(() => this.$router.push(ROUTES.home.path))
+        .then(() => this.$router.push(ROUTES.start.path))
         .catch(errorMessage => {
           errorMessage.showMessage(`Niestety punkt o kodzie "${pointId}" już został zebrany.`);
         });

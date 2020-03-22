@@ -8,7 +8,7 @@ import PRemindPassword from 'pages/remind-password';
 import PMap from 'pages/map';
 import PChangePassword from 'pages/change-password';
 import PCollectPoint from 'pages/collect-point';
-import PHome from 'pages/home';
+import PStart from 'pages/start';
 import PCollectedPoints from 'pages/collected-points';
 import PTemporaryPoints from 'pages/temporary-points';
 import { ROUTES } from 'utils/macros/routes';
@@ -65,9 +65,9 @@ const router = new Router({
       },
     },
     {
-      path: ROUTES.home.path,
-      name: ROUTES.home.name,
-      component: PHome,
+      path: ROUTES.start.path,
+      name: ROUTES.start.name,
+      component: PStart,
       meta: {
         onlyBeforeLogin: false,
         requiredAuth: true,
@@ -132,7 +132,7 @@ function redirectIfNotAuth (to, next) {
 
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
-      next(ROUTES.home.path);
+      next(ROUTES.start.path);
       return;
     }
   } else {

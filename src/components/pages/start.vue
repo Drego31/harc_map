@@ -1,7 +1,7 @@
 <template>
   <t-page title="Start" class="f-text-center">
     <div>
-      <o-home></o-home>
+      <o-start></o-start>
       <a-button-primary @click="$router.push(ROUTES.map.path)">
         Rozpocznij poszukiwania!
       </a-button-primary>
@@ -11,15 +11,15 @@
 
 <script>
 import TPage from 'templates/page';
-import OHome from 'organisms/home';
+import OStart from 'organisms/start';
 import AButtonPrimary from 'atoms/button/primary';
 
 export default {
-  name: 'p-home',
+  name: 'p-start',
   components: {
     AButtonPrimary,
     TPage,
-    OHome,
+    OStart,
   },
 };
 </script>

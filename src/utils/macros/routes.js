@@ -24,9 +24,9 @@ export const ROUTES = {
     name: 'change-password',
     label: 'Zmień hasło',
   },
-  home: {
-    path: '/home',
-    name: 'home',
+  start: {
+    path: '/start',
+    name: 'start',
     label: 'Start',
   },
   temporaryPoints: {
