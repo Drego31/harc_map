@@ -1,7 +1,7 @@
 <template>
   <a-button
     @click="$emit('click')"
-    class="a-button f-primary"
+    class="f-primary"
     :loading="loading"
   >
     <slot/>

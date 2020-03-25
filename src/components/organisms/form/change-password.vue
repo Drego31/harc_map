@@ -1,71 +1,67 @@
 <template>
-  <div class="f-pb-1">
-    <div v-if="!formSend" class ="f-flex f-flex-col" >
-      <m-input
+  <o-form
+    :is-send="formSend"
+    :on-submit="changePassword"
+  >
+    <template slot="form">
+      <m-field-set-password
         :disabled="blockForm"
-        placeholder="Wprowadź nowe hasło"
         v-model="password"
-        type="password"
+        :labels="['Nowe hasło', 'Powtórz nowe hasło']"
       />
-      <m-input
-        :disabled="blockForm"
-        placeholder="Powtórz nowe hasło"
-        v-model="repeatedPassword"
-        type="password"
-      />
+      <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
-        :message="message"
-        @click="changePassword()"
       />
-    </div>
-    <p v-else>Twoje hasło zostało pomyślnie zmienione</p>
-  </div>
+    </template>
+
+    <template slot="response">
+      <div class="f-py-2 f-text-bold">
+        Twoje hasło zostało zmienione!
+      </div>
+      <a-button-primary @click="$router.push(ROUTES.signIn.path)">
+        Przejdź do logowania
+      </a-button-primary>
+    </template>
+  </o-form>
 </template>
 
 <script>
 import AButtonSubmit from 'atoms/button/submit';
-import MInput from 'molecules/input';
 import { api } from 'api/index';
 import { mixins } from 'mixins/base';
+import MFieldSetPassword from 'molecules/field/set-password';
+import OForm from 'organisms/form';
+import AButtonPrimary from 'atoms/button/primary';
 
 export default {
   name: 'o-form-change-password',
   mixins: [mixins.form],
   components: {
+    AButtonPrimary,
+    OForm,
+    MFieldSetPassword,
     AButtonSubmit,
-    MInput,
   },
   data: () => ({
     password: '',
-    repeatedPassword: '',
     blockForm: false,
     isSending: false,
-    message: '',
     formSend: false,
+    message: '',
   }),
   methods: {
-    checkValues () {
-      return this.password.length >= 5 && this.password === this.repeatedPassword;
+    onChangePassword () {
+      this.formSend = true;
+      this.isSending = false;
     },
     changePassword () {
       this.isSending = true;
       this.blockForm = true;
-      if (this.checkValues()) {
-        api.changePassword(this.password)
-          .then(this.onChangePassword)
-          .catch(this.onError);
-      } else {
-        this.onInvalidValues();
-      }
-    },
-    onChangePassword () {
-      this.setMessage('Zakończono pomyślnie!')
-        .then(() => {
-          this.formSend = true;
-        });
-      this.isSending = false;
+      api.changePassword(this.password)
+        .then(this.onChangePassword)
+        .catch(this.onErrorOccurs);
     },
   },
 };

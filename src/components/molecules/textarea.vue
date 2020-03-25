@@ -1,13 +1,17 @@
 <template>
   <div class="m-input">
-    <input
-      :id="id"
-      class="a-field"
-      :class="additionalClasses"
-      :type="getType"
-      :disabled="disabled"
-      v-model="vModel"
-    />
+    <m-resize-auto>
+      <template v-slot:default="{resize}">
+        <textarea
+          :id="id"
+          class="a-field f-textarea"
+          :class="additionalClasses"
+          :type="getType"
+          @input="resize"
+          v-model="vModel"
+        />
+      </template>
+    </m-resize-auto>
     <label
       class="a-label f-field"
       :class="{ 'f-correct': correct, 'f-error': error }"
@@ -15,25 +19,13 @@
     >
       {{ placeholder }}
     </label>
-    <icon-eye
-      v-if="isPassword && showPassword === false"
-      class="a-icon f-input"
-      :size="26"
-      @click="showPassword = true"
-    />
-    <icon-eye-off
-      v-if="isPassword && showPassword"
-      class="a-icon f-input"
-      :size="26"
-      @click="showPassword = false"
-    />
     <icon-alert
-      v-if="error && isPassword === false"
+      v-if="error"
       class="a-icon f-input f-error"
       :size="26"
     />
     <icon-check-bold
-      v-if="correct && isPassword === false && error === false"
+      v-if="correct && error === false"
       class="a-icon f-input f-correct"
       :size="26"
     />
@@ -48,25 +40,19 @@
 
 <script>
 import { mixins } from 'mixins/base';
-import IconEye from 'icons/Eye';
-import IconEyeOff from 'icons/EyeOff';
+import MResizeAuto from 'molecules/resize-auto';
 import IconAlert from 'icons/Alert';
 import IconCheckBold from 'icons/CheckBold';
 
 export default {
-  name: 'm-input',
+  name: 'm-textarea',
   mixins: [mixins.vModel],
   components: {
-    IconEye,
-    IconEyeOff,
+    MResizeAuto,
     IconAlert,
     IconCheckBold,
   },
   props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
     placeholder: {
       type: String,
       default: '',
