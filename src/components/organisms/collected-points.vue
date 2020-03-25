@@ -13,7 +13,7 @@
 
 <script>
 import { pointsForDatabase } from '../../../points';
-import { mapGetters } from 'vuex';
+// import { mapGetters } from 'vuex';
 import IconStar from 'icons/Star.vue';
 
 export default {
@@ -45,7 +45,7 @@ export default {
   methods: {
     getCollectedPointsLengthByPointValue (value) {
       // return this.collectedPointsIds.filter(point => point.categoryId === value).length;
-      return this.pointsForDatabase().filter(point => point.categoryId === value).length;
+      return pointsForDatabase().filter(point => point.categoryId === value).length;
     },
   },
 };
