@@ -5,25 +5,85 @@ const database = require('../lib/mongodb');
 const utils = require('../lib/utils');
 const passport = require('passport');
 const mail = require('../lib/mail');
+const systemConfig = require('../config/system.config');
 
-// TODO Walidaca
+// TODO Validation
+// TODO error codes
+// TODO functions for same responses
 
-// TODO For tests
-router.get('/', (req, res) => {
-  database.read('users', {}, true).then(result => {
-    res.json({
-      result,
-      logged: req.isAuthenticated(),
-    });
-  }).catch(error => {
-    res.status(404).send(error);
+/**
+ * User login
+ */
+router.post('/login', (req, res, next) => {
+  console.log(req.isAuthenticated());
+  if (req.isAuthenticated()) {
+    const { _id } = req.user;
+    database.read('users', { _id: database.ObjectId(_id) })
+      .then((userData) => {
+        const { user, userEvents, teamName, collectedPointsIds } = userData;
+        res.send({
+          user,
+          teamName,
+          collectedPointsIds,
+          eventId: userEvents[0],
+          error: null,
+        });
+      })
+      .catch(error => {
+        res.status(500).send({
+          user: null,
+          error,
+        });
+      });
+  } else {
+    passport.authenticate('local', (error, userData) => {
+      if (error || !userData) {
+        // failed login
+        // TODO error name
+        res.status(401).send({
+          user: null,
+          error,
+        });
+      } else {
+        req.login(userData, error => {
+          // error with setting session
+          if (error) {
+            // TODO error name
+            res.status(500).send({
+              user: null,
+              error: 'unhandled session error',
+            });
+          } else {
+            const { user, teamName, collectedPointsIds, userEvents } = userData;
+            res.send({
+              user,
+              teamName,
+              collectedPointsIds,
+              eventId: userEvents[0],
+            });
+          }
+        });
+      }
+    })(req, res, next);
+  }
+});
+
+/**
+ * User logout
+ */
+router.delete('/login', (req, res) => {
+  const { user } = req.user;
+  req.logout();
+  res.send({
+    user: user,
+    error: null,
   });
 });
 
 /**
  * User Registration
  */
-router.post('/', (req, res) => {
+router.post('/registration', (req, res) => {
   const { user, password, userTeam, eventId } = req.body;
   // check if eventId is correct(exist)
   database.read('events', { eventId })
@@ -36,7 +96,7 @@ router.post('/', (req, res) => {
             // exist
             if (result) {
               // TODO error name
-              res.json({
+              res.send({
                 user,
                 error: 'user exist',
               });
@@ -61,13 +121,13 @@ router.post('/', (req, res) => {
                     .then(() => {
                       // TODO error name
                       // added
-                      res.json({
+                      res.send({
                         user,
                         error: null,
                       });
                     })
                     .catch(error => {
-                      res.json({
+                      res.send({
                         user,
                         error,
                       });
@@ -75,7 +135,7 @@ router.post('/', (req, res) => {
                 })
                 .catch(error => {
                   // TODO error name
-                  res.status(500).json({
+                  res.status(500).send({
                     user,
                     error: error,
                   });
@@ -84,14 +144,14 @@ router.post('/', (req, res) => {
           })
           .catch(error => {
             // TODO error name
-            res.status(500).json({
+            res.status(500).send({
               user,
               error: error,
             });
           });
       } else {
         // TODO error name
-        res.status(401).json({
+        res.status(401).send({
           user,
           error: 'eventId not exist',
         });
@@ -99,58 +159,11 @@ router.post('/', (req, res) => {
     })
     .catch(error => {
       // TODO error name
-      res.status(500).json({
+      res.status(500).send({
         user,
         error,
       });
     });
-});
-
-/**
- * User login
- */
-router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (error, userData) => {
-    if (error || !userData) {
-      // failed login
-      // TODO error name
-      res.status(401).json({
-        user: null,
-        error,
-      });
-    } else {
-      req.login(userData, error => {
-        // error with setting session
-        if (error) {
-          // TODO error name
-          res.status(500).json({
-            user: null,
-            error: 'unhandled session error',
-          });
-        } else {
-          const { user, teamName, collectedPointsIds, userEvents } = userData;
-          res.json({
-            user,
-            teamName,
-            collectedPointsIds,
-            eventId: userEvents[0],
-          });
-        }
-      });
-    }
-  })(req, res, next);
-});
-
-/**
- * User logout
- */
-router.delete('/login', (req, res) => {
-  const { user } = req.user;
-  req.logout();
-  res.send({
-    user: user,
-    error: null,
-  });
 });
 
 /**
@@ -195,7 +208,7 @@ router.get('/activation/:key', (req, res) => {
     })
     .catch(error => {
       // TODO error code
-      res.status(500).json({
+      res.status(500).send({
         user: null,
         error,
       });
@@ -203,27 +216,113 @@ router.get('/activation/:key', (req, res) => {
 });
 
 /**
- * Remind password
+ * Forgot password
  * Send email with remind link
  */
 router.post('/remind', (req, res) => {
-  const { user } = req.body;
+  const { email } = req.body;
+  database.read('users', { user: email })
+    .then(() => {
+      const forgotKey = utils.getRandomString();
+      // Update user data with forgot key and forgot timestamp
+      database.update('users', { user: email }, { forgotKey: forgotKey, forgotTimestamp: Date.now() })
+        .then(() => {
+          // send mail with forgot key
+          mail.resetPassword(email, forgotKey)
+            .then(() => {
+              // TODO error name
+              // added
+              res.send({
+                user: email,
+                error: null,
+              });
+            })
+            .catch(() => {
+              res.send({
+                user: email,
+                error: null,
+              });
+            });
+        })
+        .catch(() => {
+          res.send({
+            user: email,
+            error: null,
+          });
+        });
+    })
+    .catch(() => {
+      res.send({
+        user: email,
+        error: null,
+      });
+    });
 });
 
-// TODO remind
+/**
+ * Forgot password
+ * TODO Return HTML if user was ask for change password (not longer then 24h - systemConfig.app.passwordForgotTimeoutInMinutes)
+ */
+router.get('/remind/:key', (req, res) => {
+  const { key } = req.params;
+  database.read('users', { forgotKey: key })
+    .then((result) => {
+      if (result.forgotTimestamp >= Date.now() - (systemConfig.app.passwordForgotTimeoutInMinutes * 60 * 1000)) {
+        res.send({
+          user: null,
+          error: null,
+        });
+      } else {
+        res.status(404).send({
+          user: null,
+          error: null,
+        });
+      }
+    })
+    .catch(() => {
+      res.status(404).send({
+        user: null,
+        error: null,
+      });
+    });
+});
 
-// router.post('/remind/', (request, response) => {
-//   response.send({
-//     user: 'example@example.pl',
-//     error: null,
-//   });
-// });
-
-router.put('/remind/', (request, response) => {
-  response.send({
-    user: 'example@example.pl',
-    error: null,
-  });
+/**
+ * Forgot password
+ * Change password in Database
+ */
+router.put('/remind/:key', (req, res) => {
+  const { password } = req.body;
+  const { key } = req.params;
+  database.read('users', { forgotKey: key })
+    .then((userData) => {
+      if (userData.forgotTimestamp >= Date.now() - (systemConfig.app.passwordForgotTimeoutInMinutes * 60 * 1000)) {
+        database.update('users', { _id: database.ObjectId(userData._id) }, { password: utils.getSHA(password) })
+          .then(() => {
+            res.send({
+              user: null,
+              error: null,
+            });
+          })
+          .catch(() => {
+            res.status(500).send({
+              user: null,
+              error: null,
+            });
+          });
+      } else {
+        res.status(404).send({
+          user: null,
+          error: null,
+        });
+      }
+    })
+    .catch(() => {
+      res.status(404).send({
+        user: null,
+        error: null,
+      });
+    });
 });
 
 module.exports = router;
