@@ -8,6 +8,9 @@
       :key="icon.label"
       :icon="icon.component"
       :label="icon.label"
+      :size="icon.big ? 48 : 24"
+      :icon-class="{ 'f-big': icon.big }"
+      :class="{ 'f-big': icon.big, 'f-selected': isActualPath(icon) }"
       @click="onClick(icon)"
     />
   </div>
@@ -20,8 +23,10 @@ import IconMenu from 'icons/Menu.vue';
 import IconStar from 'icons/Star.vue';
 import IconClock from 'icons/Clock.vue';
 import IconHome from 'icons/Home.vue';
+import IconArrowRight from 'icons/ArrowRight';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'o-footer',
@@ -37,6 +42,13 @@ export default {
     ...mapMutations('menu', [
       'toggle',
     ]),
+    isActualPath ({ path = '' }) {
+      if (this.$store.getters['menu/isOpen']) {
+        return path === '';
+      } else {
+        return this.$route.path === path;
+      }
+    },
     onClick (icon) {
       if (logical.isString(icon.path) && icon.path !== '') {
         this.$router.push(icon.path).catch(() => {
@@ -50,28 +62,25 @@ export default {
     getIcons () {
       return [
         {
-          label: 'Start',
+          ...ROUTES.home,
           component: IconHome,
-          path: '/home',
         },
         {
-          label: 'Czasowe',
+          ...ROUTES.temporaryPoints,
           component: IconClock,
-          path: '/collect-point',
         },
         {
-          label: 'Punkty',
+          ...ROUTES.collectPoint,
           component: IconStar,
-          path: '/collect-point',
+          big: true,
         },
         {
-          label: 'Mapa',
+          ...ROUTES.map,
           component: IconMap,
-          path: '/map',
         },
         {
           label: 'Menu',
-          component: IconMenu,
+          component: this.$store.getters['menu/isOpen'] ? IconArrowRight : IconMenu,
           method: this.toggle,
         },
       ];

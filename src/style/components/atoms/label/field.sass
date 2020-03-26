@@ -1,4 +1,4 @@
-.a-label.f-input
+.a-label.f-field
   position: absolute
   top: 17px
   left: 16px
@@ -10,14 +10,18 @@
   background-color: $color-background
   color: $color-subtext
 
-.a-input
-  &:focus, &.f-filled
-    ~ .a-label.f-input
+.a-field
+  &:focus, &:focus-within, &.f-filled
+    ~ .a-label.f-field
       top: -7px
       left: 13px
       font-size: 12px
       line-height: 16px
 
-  &:focus
-    ~ .a-label.f-input
+  &:focus, &:focus-within
+    ~ .a-label.f-field
       color: $color-primary
+
+  &:disabled
+    ~ .a-label.f-field
+      color: $color-disabled

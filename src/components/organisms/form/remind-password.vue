@@ -1,62 +1,65 @@
 <template>
-  <div class="f-pb-1">
-    <div v-if="!formSend" class ="f-flex f-flex-col" >
-      <m-input
+  <o-form
+    :is-send="formSend"
+    :on-submit="remindPassword"
+  >
+    <template slot="form">
+      <m-field-email
         :disabled="blockForm"
-        placeholder="E-mail"
         v-model="email"
       />
+      <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
-        :message="message"
-        @click="remindPassword()"
       />
-    </div>
-    <p v-else>Link do odzyskania hasła wysłano na podany email.</p>
-  </div>
+    </template>
+
+    <template slot="response">
+      <div class="f-py-2 f-text-bold">
+        Link do odzyskania hasła wysłano na podany email.
+      </div>
+      <a-button-primary @click="$router.push(ROUTES.welcome.path)">
+        Przejdź do startowej
+      </a-button-primary>
+    </template>
+  </o-form>
 </template>
 
 <script>
 import AButtonSubmit from 'atoms/button/submit';
-import MInput from 'molecules/input';
 import { api } from 'api/index';
 import { mixins } from 'mixins/base';
+import OForm from 'organisms/form';
+import MFieldEmail from 'molecules/field/email';
+import AButtonPrimary from 'atoms/button/primary';
 
 export default {
   name: 'o-form-remind-password',
   mixins: [mixins.form],
   components: {
+    AButtonPrimary,
+    MFieldEmail,
+    OForm,
     AButtonSubmit,
-    MInput,
   },
   data: () => ({
     email: '',
     blockForm: false,
     isSending: false,
-    message: '',
     formSend: false,
+    message: '',
   }),
   methods: {
-    checkValues () {
-      return this.email.length >= 6 && this.email.includes('@');
-    },
     remindPassword () {
       this.isSending = true;
       this.blockForm = true;
-      if (this.checkValues()) {
-        api.remindPassword(this.email)
-          .then(this.onRemindPassword)
-          .catch(this.onError);
-      } else {
-        this.onInvalidValues();
-      }
+      api.remindPassword(this.email)
+        .then(this.onRemindPassword)
+        .catch(this.onErrorOccurs);
     },
     onRemindPassword () {
-      this.setMessage('Zakończono pomyślnie!')
-        .then(() => {
-          this.formSend = true;
-        });
+      this.formSend = true;
       this.isSending = false;
     },
   },

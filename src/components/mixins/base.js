@@ -1,5 +1,6 @@
 import { vueModel } from '../extends/base';
 import { formMixin as form } from './form';
+import { validationMixin as validation } from './validation';
 
 const vModel = {
   props: {
@@ -13,4 +14,5 @@ const vModel = {
 export const mixins = {
   vModel,
   form,
+  validation,
 };
