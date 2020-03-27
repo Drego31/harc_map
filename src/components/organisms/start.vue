@@ -1,7 +1,17 @@
 <template>
   <div class="f-flex f-flex-col f-flex-al-center">
     <div class="a-title" v-text="name"/>
-    <canvas id="points" width="150" height="150">
+    <div class="f-pb-2 f-text-bold" v-text="teamName"/>
+    <div class="f-text-14 f-pt-2 f-pb-1 f-text-gray">
+      Zebrane punkty
+    </div>
+
+    <canvas
+      id="points"
+      class="f-pb-2"
+      width="150"
+      height="115"
+    >
       <div>
         <icon-star :size="64"/>
       </div>
@@ -9,7 +19,7 @@
         {{ collectedPointsIds.length }}
       </div>
     </canvas>
-    <div v-text="teamName"/>
+
   </div>
 </template>
 
@@ -58,7 +68,7 @@ export default {
       }
     },
     draw ({ finished = false }) {
-      ++percent;
+      percent += 3;
 
       if (finished) {
         percent = 100;
@@ -80,9 +90,9 @@ export default {
       ctx.fillText(String(this.value), 75, 55);
       ctx.save();
 
-      if (percent < 100) {
+      if (percent < 99) {
         window.requestAnimationFrame(this.draw);
-      } else if (percent === 100) {
+      } else if (percent === 99) {
         this.value++;
         window.requestAnimationFrame(this.draw);
       } else {
