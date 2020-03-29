@@ -11,21 +11,19 @@ const path = require('path');
 // Codes for errorsCodes
 const errorsCodes = validator.ValidateCodes;
 
-// TODO Validation
+// TODO add validation
 
 /**
- * @description Function sending error response and log them
- * @param response {object} - "http" server response object
- * @param httpStatus {number} - HTTP State Code to send
- * @param errorCode {number} - error number
- * @param [errorMsg] {string} - error message
+ * @description User have some time for change password until link to change will be blocked.
+ * Here we check this
+ * @param forgotTimestamp {number} - timestamp of request for change password
+ * @return {boolean} - result of check from desription
+ * @private
  */
-function __sendError (response, httpStatus, errorCode, errorMsg) {
-  response.status(httpStatus).send({
-    user: null,
-    error: errorCode,
-  });
-  if (errorMsg) console.trace(errorMsg);
+function __checkForgotTimeout (forgotTimestamp) {
+  // convert config value of timeout to ms
+  const passwordForgotTimeout = systemConfig.app.passwordForgotTimeoutInMinutes * 60 * 1000;
+  return (forgotTimestamp >= Date.now() - passwordForgotTimeout);
 }
 
 /**
@@ -51,12 +49,12 @@ router.route('/login')
       passport.authenticate('local', (error, userData) => {
         if (error || !userData) {
           // failed login
-          __sendError(res, 401, errorsCodes.UNAUTHORIZED_ACCESS, error);
+          utils.responseError(res, 401, errorsCodes.UNAUTHORIZED_ACCESS, error);
         } else {
           req.login(userData, error => {
             // error with setting session
             if (error) {
-              __sendError(res, 500, errorsCodes.SESSION_ERROR, error);
+              utils.responseError(res, 500, errorsCodes.SESSION_ERROR, error);
             } else {
               const { user, userTeam, collectedPointsIds, userEvents } = userData;
               res.send({
@@ -103,7 +101,7 @@ router.route('/registration')
             .then(result => {
               // exist
               if (result) {
-                __sendError(res, 400, errorsCodes.USER_EXIST);
+                utils.responseError(res, 400, errorsCodes.USER_EXIST);
               } else {
                 // user doesn't exist, we can create new
                 const newUserData = {
@@ -130,23 +128,23 @@ router.route('/registration')
                         });
                       })
                       .catch(error => {
-                        __sendError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
+                        utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
                       });
                   })
                   .catch(error => {
-                    __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+                    utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
                   });
               }
             })
             .catch(error => {
-              __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+              utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
             });
         } else {
-          __sendError(res, 400, errorsCodes.EVENT_ID_NOT_EXIST, error);
+          utils.responseError(res, 400, errorsCodes.EVENT_ID_NOT_EXIST, error);
         }
       })
       .catch(error => {
-        __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+        utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
       });
   });
 
@@ -170,18 +168,18 @@ router.route('/activation/:key')
               if (result) {
                 res.redirect(302, '/');
               } else {
-                __sendError(res, 500, errorsCodes.DATABASE_NO_RESULT_ERROR);
+                utils.responseError(res, 500, errorsCodes.DATABASE_NO_RESULT_ERROR);
               }
             })
             .catch(error => {
-              __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+              utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
             });
         } else {
-          __sendError(res, 401, errorsCodes.ACCOUNT_IS_INACTIVE);
+          utils.responseError(res, 401, errorsCodes.ACCOUNT_IS_INACTIVE);
         }
       })
       .catch(error => {
-        __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+        utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
       });
   });
 
@@ -214,15 +212,15 @@ router.route('/remind')
                 });
               })
               .catch(error => {
-                __sendError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
+                utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
               });
           })
           .catch(error => {
-            __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+            utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
           });
       })
       .catch(error => {
-        __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+        utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
       });
   });
 
@@ -238,7 +236,7 @@ router.route('/remind/:key')
     const { key } = req.params;
     database.read('users', { forgotKey: key })
       .then((result) => {
-        if (result.forgotTimestamp >= Date.now() - (systemConfig.app.passwordForgotTimeoutInMinutes * 60 * 1000)) {
+        if (__checkForgotTimeout(result.forgotTimestamp)) {
           res.sendFile(path.resolve(__dirname, '../public/index.html'));
         } else {
           res.status(404).send();
@@ -257,7 +255,7 @@ router.route('/remind/:key')
     const { key } = req.params;
     database.read('users', { forgotKey: key })
       .then((userData) => {
-        if (userData.forgotTimestamp >= Date.now() - (systemConfig.app.passwordForgotTimeoutInMinutes * 60 * 1000)) {
+        if (__checkForgotTimeout(userData.forgotTimestamp)) {
           const updateData = {
             password: utils.getSHA(password),
             forgotKey: null,
@@ -271,14 +269,14 @@ router.route('/remind/:key')
               });
             })
             .catch(error => {
-              __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+              utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
             });
         } else {
           res.status(404).send();
         }
       })
       .catch(error => {
-        __sendError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+        utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
       });
   });
 
