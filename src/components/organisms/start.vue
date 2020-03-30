@@ -58,43 +58,57 @@ export default {
     }),
   },
   methods: {
+    makeAnimationStep () {
+      window.requestAnimationFrame(this.drawCanvas);
+    },
     runSpecificDrawing () {
       this.value = this.collectedPointsIds.length - 1;
       if (this.valueChanged === true) {
-        window.requestAnimationFrame(this.draw);
+        this.makeAnimationStep();
         this.$store.commit('user/setValueChanged', false);
       } else {
-        this.draw({ finished: true });
+        this.drawCanvas({ finished: true });
       }
     },
-    draw ({ finished = false }) {
-      percent += 3;
-
-      if (finished) {
-        percent = 100;
-      }
-
-      ctx.clearRect(0, 0, 300, 300);
-
+    drawText (text, textColor) {
+      ctx.fillStyle = textColor;
+      ctx.font = '42px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, 75, 55);
+      ctx.save();
+    },
+    drawCircle (circleColor) {
       ctx.lineWidth = 7;
       ctx.lineCap = 'round';
       ctx.beginPath();
       ctx.moveTo(75, 5);
       ctx.arc(75, 55, 50, -Math.PI / 2, (-Math.PI / 2) + (Math.PI * (percent / 50)));
-      ctx.strokeStyle = '#9a28d9';
-      ctx.fillStyle = this.themeName === THEMES.light ? 'black' : 'white';
+      ctx.strokeStyle = circleColor;
       ctx.stroke();
-      ctx.font = '42px Arial';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(String(this.value), 75, 55);
-      ctx.save();
+    },
+    drawCanvas ({ finished = false }) {
+      percent += 3;
+
+      if (finished) {
+        percent = 100;
+        this.value++;
+      }
+
+      ctx.clearRect(0, 0, 300, 300);
+
+      const circleColor = '#9a28d9';
+      this.drawCircle(circleColor);
+
+      const text = String(this.value);
+      const textColor = this.themeName === THEMES.light ? 'black' : 'white';
+      this.drawText(text, textColor);
 
       if (percent < 99) {
-        window.requestAnimationFrame(this.draw);
+        this.makeAnimationStep();
       } else if (percent === 99) {
         this.value++;
-        window.requestAnimationFrame(this.draw);
+        this.makeAnimationStep();
       } else {
         percent = 0;
       }
@@ -105,7 +119,7 @@ export default {
       this.runSpecificDrawing();
     },
     themeName () {
-      this.draw({ finished: true });
+      this.drawCanvas({ finished: true });
     },
   },
 };
