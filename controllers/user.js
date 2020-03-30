@@ -140,7 +140,7 @@ router.route('/registration')
               utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
             });
         } else {
-          utils.responseError(res, 400, errorsCodes.EVENT_ID_NOT_EXIST, error);
+          utils.responseError(res, 400, errorsCodes.EVENT_ID_NOT_EXIST);
         }
       })
       .catch(error => {
