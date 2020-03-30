@@ -2,11 +2,10 @@
  * HarcMap
  */
 const logs = require('./lib/logs');
-const utils = require('./lib/utils');
 // Environment
-const ENV_DEVELOPMENT = utils.envIsDevelopment();
+const ENV_DEVELOPMENT = process.env.NODE_ENV === 'development';
 logs.init(ENV_DEVELOPMENT);
-// Modules
+
 const express = require('express');
 const passport = require('passport');
 const https = require('https');
@@ -15,6 +14,7 @@ const expressSession = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const utils = require('./lib/utils');
 const passportConfig = require('./lib/passportConfig');
 const appConfig = utils.getSystemConfig().app;
 
@@ -63,9 +63,6 @@ passportConfig.setStrategy(passport);
 // static files
 // maxAge - Cache-Control header in milliseconds
 app.use(express.static('public', {
-  maxAge: ENV_DEVELOPMENT ? 0 : appConfig.cacheValue,
-}));
-app.use(express.static('vendors', {
   maxAge: ENV_DEVELOPMENT ? 0 : appConfig.cacheValue,
 }));
 // user controller
