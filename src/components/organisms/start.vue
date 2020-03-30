@@ -58,11 +58,14 @@ export default {
     }),
   },
   methods: {
+    resetValue () {
+      this.value = this.collectedPointsIds.length - 1;
+    },
     makeAnimationStep () {
       window.requestAnimationFrame(this.drawCanvas);
     },
     runSpecificDrawing () {
-      this.value = this.collectedPointsIds.length - 1;
+      this.resetValue();
       if (this.valueChanged === true) {
         this.makeAnimationStep();
         this.$store.commit('user/setValueChanged', false);
@@ -119,7 +122,7 @@ export default {
       this.runSpecificDrawing();
     },
     themeName () {
-      this.drawCanvas({ finished: true });
+      this.runSpecificDrawing();
     },
   },
 };
