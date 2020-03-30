@@ -11,7 +11,7 @@ router.get('/', (request, response) => {
 
   response.send({
     eventId: json.eventId ? json.eventId : null,
-    name: 'Event',
+    name: 'Rajd "Tajna Lilijka"',
     mapPosition: {
       latitude: 54.4787,
       longitude: 18.4735,

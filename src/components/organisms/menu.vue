@@ -29,7 +29,7 @@ export default {
   name: 'o-menu',
   data: () => ({
     links: [
-      ROUTES.home,
+      ROUTES.start,
       ROUTES.temporaryPoints,
       ROUTES.collectPoint,
       ROUTES.map,

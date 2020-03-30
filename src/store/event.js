@@ -15,6 +15,7 @@ export default {
   },
   getters: {
     event: state => new AppEvent(state),
+    name: state => state.name,
     eventId: state => state.eventId,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
