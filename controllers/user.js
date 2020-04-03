@@ -45,6 +45,8 @@ router.route('/login')
         eventId: userEvents[0],
         error: null,
       });
+    } else if (Object.keys(req.body).length === 0) {
+      utils.responseError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
     } else {
       // User data validation
       const requestBodyValidationError = validator.validate(
@@ -112,14 +114,14 @@ router.route('/registration')
       const { user, password, userTeam, eventId } = req.body;
       // check if eventId is correct(exist)
       database.read('events', { eventId })
-        .then(result => {
+        .then(eventResult => {
           // event exist - user can be creat
-          if (result) {
+          if (eventResult) {
             // check if user and userTeam doesn't already exist
             database.read('users', { $or: [{ user }, { userTeam }] })
-              .then(result => {
+              .then(userData => {
                 // exist
-                if (result) {
+                if (userData) {
                   utils.responseError(res, 400, errorsCodes.USER_EXIST);
                 } else {
                   // user doesn't exist, we can create new
@@ -137,18 +139,22 @@ router.route('/registration')
                     collectedPointsIds: [],
                   };
                   database.create('users', [newUserData])
-                    .then(() => {
-                      mail.accountActivation(user, newUserData.activationKey)
-                        .then(() => {
-                          // User created
-                          res.send({
-                            user,
-                            error: null,
+                    .then((result) => {
+                      if (result) {
+                        mail.accountActivation(user, newUserData.activationKey)
+                          .then(() => {
+                            // User created
+                            res.send({
+                              user,
+                              error: null,
+                            });
+                          })
+                          .catch(error => {
+                            utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
                           });
-                        })
-                        .catch(error => {
-                          utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
-                        });
+                      } else {
+                        utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR);
+                      }
                     })
                     .catch(error => {
                       utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
@@ -178,8 +184,8 @@ router.route('/activation/:key')
     // Data from client
     const { key } = req.params;
     database.read('users', { activationKey: key })
-      .then(result => {
-        if (result && !result.accountIsActive) {
+      .then(userData => {
+        if (userData && !userData.accountIsActive) {
           const activationUpdateData = {
             accountIsActive: true,
             activationKey: null,
@@ -197,7 +203,7 @@ router.route('/activation/:key')
               utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
             });
         } else {
-          utils.responseError(res, 401, errorsCodes.ACCOUNT_IS_INACTIVE);
+          utils.responseError(res, 400, errorsCodes.INVALID_URL_KEY);
         }
       })
       .catch(error => {
@@ -219,32 +225,40 @@ router.route('/remind')
     );
     if (!requestBodyValidationError) {
       // Data from client
-      const { email } = req.body;
-      database.read('users', { user: email })
-        .then(() => {
-          const forgotData = {
-            forgotKey: utils.getRandomString(),
-            forgotTimestamp: Date.now(),
-          };
-          // Update user data with forgot key and forgot timestamp
-          database.update('users', { user: email }, forgotData)
-            .then(() => {
-              // Sending mail
-              mail.resetPassword(email, forgotData.forgotKey)
-                .then(() => {
-                  // Email successfully sent
-                  res.send({
-                    user: email,
-                    error: null,
-                  });
-                })
-                .catch(error => {
-                  utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
-                });
-            })
-            .catch(error => {
-              utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
-            });
+      const { user } = req.body;
+      database.read('users', { user })
+        .then((userData) => {
+          if (userData.accountIsActive) {
+            const forgotData = {
+              forgotKey: utils.getRandomString(),
+              forgotTimestamp: Date.now(),
+            };
+            // Update user data with forgot key and forgot timestamp
+            database.update('users', { user }, forgotData)
+              .then((result) => {
+                if (result) {
+                  // Sending mail
+                  mail.resetPassword(user, forgotData.forgotKey)
+                    .then(() => {
+                      // Email successfully sent
+                      res.send({
+                        user,
+                        error: null,
+                      });
+                    })
+                    .catch(error => {
+                      utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
+                    });
+                } else {
+                  utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR);
+                }
+              })
+              .catch(error => {
+                utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+              });
+          } else {
+            utils.responseError(res, 401, errorsCodes.ACCOUNT_IS_INACTIVE);
+          }
         })
         .catch(error => {
           utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
@@ -290,24 +304,28 @@ router.route('/remind/:key')
       const { key } = req.params;
       database.read('users', { forgotKey: key })
         .then((userData) => {
-          if (__checkForgotTimeout(userData.forgotTimestamp)) {
-            const updateData = {
-              password: utils.getSHA(password),
-              forgotKey: null,
-              forgotTimestamp: null,
-            };
-            database.update('users', { _id: database.ObjectId(userData._id) }, updateData)
-              .then(() => {
-                res.send({
-                  user: null,
-                  error: null,
+          if (userData) {
+            if (__checkForgotTimeout(userData.forgotTimestamp)) {
+              const updateData = {
+                password: utils.getSHA(password),
+                forgotKey: null,
+                forgotTimestamp: null,
+              };
+              database.update('users', { _id: database.ObjectId(userData._id) }, updateData)
+                .then(() => {
+                  res.send({
+                    user: null,
+                    error: null,
+                  });
+                })
+                .catch(error => {
+                  utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
                 });
-              })
-              .catch(error => {
-                utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
-              });
+            } else {
+              res.status(404).send();
+            }
           } else {
-            res.status(404).send();
+            utils.responseError(res, 400, errorsCodes.INVALID_URL_KEY);
           }
         })
         .catch(error => {
