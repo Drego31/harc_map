@@ -26,7 +26,7 @@ class ValidateTools {
   }
 
   isNullOrEmpty (data) {
-    return data === '';
+    return ['', undefined, null].includes(data);
   }
 
   inRange (value, start, end) {

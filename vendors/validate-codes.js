@@ -16,6 +16,7 @@ const ValidateCodes = Object.freeze({
   14: 'pointType is incorrect',
   15: 'pointValue is empty',
   100: 'Bad JSON format',
+  1000: 'Problem with database',
 });
 
 // export

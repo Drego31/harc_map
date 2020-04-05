@@ -35,40 +35,98 @@ const database = require('../lib/mongodb');
 //   response.status(404).send(error);
 // });
 
+function randomString (length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+function removeEvents () {
+  database.remove('events', {})
+    .then(result => {
+      console.log(result);
+    }).catch(error => {
+      console.log(error.toString());
+    });
+}
+
+function removeEventPoints () {
+  database.remove('event_kO6f', {})
+    .then(result => {
+      console.log(result);
+    })
+    .catch(error => {
+      console.log(error.toString());
+    });
+}
+
+function loadPoints () {
+  // removeEventPoints();
+  // removeEvents();
+
+  const points = require('../points').pointsForDatabase();
+  const readyPoints = [];
+  for (const index in points) {
+    const point = points[index];
+    point.pointId = randomString(4);
+    point.pointType = 'permanent';
+    point.pointIsActive = true;
+    point.pointName = 'Some point';
+    point.pointTimeout = 0;
+    point.pointCollectionTime = null;
+    readyPoints.push(point);
+  }
+
+  database.create('events', [{
+    eventId: 'kO6f',
+    eventName: 'Event',
+    mapZoom: 11,
+    mapLongitude: 18.4735,
+    mapLatitude: 54.4787,
+  }]).then(result => {
+    console.log(result);
+  }).catch(error => {
+    console.log('error');
+    console.log(error.toString());
+  });
+
+  database.create('event_kO6f', readyPoints)
+    .then(result => {
+      console.log(result);
+    }).catch(error => {
+      console.log('error');
+      console.log(error.toString());
+    });
+}
+
+function databaseErrorResponse (response, responseObject, error) {
+  responseObject.error = validator.ValidateCodes.DATABASE_PROBLEM;
+  responseObject.errorDetails = error.toString();
+  response.send(responseObject);
+}
+
 router.get('/', (request, response) => {
   const json = request.query;
   const error = validator.validate(
     validator.methods.validateEventGetRequest, json);
 
-  const responseObject = {
+  let responseObject = {
     eventId: json.eventId ? json.eventId : null,
-    eventName: '',
-    mapPosition: {
-      latitude: 0,
-      longitude: 0,
-    },
-    mapZoom: 0,
-    points: [],
     error: error,
   };
 
   database.read('events', { eventId: json.eventId })
     .then(result => {
-      responseObject.eventName = result.eventName;
-      responseObject.mapPosition.latitude = result.defaultLatitude;
-      responseObject.mapPosition.longitude = result.defaultLongitude;
-      responseObject.mapZoom = result.defaultZoom;
-      database.readMany('event_' + json.eventId, {})
-        .then(result => {
-          responseObject.points = result;
-          response.send(responseObject);
-        })
-        .catch(error => {
-          response.send(responseObject);
-        });
+      responseObject = Object.assign(responseObject, result);
+      delete responseObject._id;
+      response.send(responseObject);
     })
     .catch(error => {
-      response.send(responseObject);
+      databaseErrorResponse(response, responseObject, error);
     });
 });
 
@@ -77,10 +135,10 @@ router.post('/', (request, response) => {
   const error = validator.validate(
     validator.methods.validateEventPostRequest, json);
 
-  response.send({
+  const responseObject = {
     eventId: json.eventId ? json.eventId : null,
     error: error,
-  });
+  };
 });
 
 router.put('/', (request, response) => {
@@ -92,6 +150,61 @@ router.put('/', (request, response) => {
     eventId: json.eventId ? json.eventId : null,
     error: error,
   });
+});
+
+router.get('/point/', (request, response) => {
+  const json = request.query;
+  const error = validator.validate(
+    validator.methods.validatePointGetRequest, json);
+
+  let responseObject = {
+    error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const filters = {
+    pointId: json.pointId,
+  };
+
+  database.read('event_' + json.eventId, filters)
+    .then(result => {
+      responseObject = Object.assign(responseObject, result);
+      delete responseObject._id;
+      response.send(responseObject);
+    })
+    .catch(error => {
+      databaseErrorResponse(response, responseObject, error);
+    });
+});
+
+router.get('/points/', (request, response) => {
+  const json = request.query;
+  const error = validator.validate(
+    validator.methods.validatePointsGetRequest, json);
+
+  const responseObject = {
+    points: [],
+    error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  database.readMany('event_' + json.eventId, {})
+    .then(result => {
+      result.forEach(e => { delete e._id; });
+      responseObject.points = result;
+      response.send(responseObject);
+    })
+    .catch(error => {
+      databaseErrorResponse(response, responseObject, error);
+    });
 });
 
 router.put('/collect/', (request, response) => {
