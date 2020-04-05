@@ -35,73 +35,73 @@ const database = require('../lib/mongodb');
 //   response.status(404).send(error);
 // });
 
-function randomString (length) {
-  var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
-function removeEvents () {
-  database.remove('events', {})
-    .then(result => {
-      console.log(result);
-    }).catch(error => {
-      console.log(error.toString());
-    });
-}
-
-function removeEventPoints () {
-  database.remove('event_kO6f', {})
-    .then(result => {
-      console.log(result);
-    })
-    .catch(error => {
-      console.log(error.toString());
-    });
-}
-
-function loadPoints () {
-  // removeEventPoints();
-  // removeEvents();
-
-  const points = require('../points').pointsForDatabase();
-  const readyPoints = [];
-  for (const index in points) {
-    const point = points[index];
-    point.pointId = randomString(4);
-    point.pointType = 'permanent';
-    point.pointIsActive = true;
-    point.pointName = 'Some point';
-    point.pointTimeout = 0;
-    point.pointCollectionTime = null;
-    readyPoints.push(point);
-  }
-
-  database.create('events', [{
-    eventId: 'kO6f',
-    eventName: 'Event',
-    mapZoom: 11,
-    mapLongitude: 18.4735,
-    mapLatitude: 54.4787,
-  }]).then(result => {
-    console.log(result);
-  }).catch(error => {
-    console.log('error');
-    console.log(error.toString());
-  });
-
-  database.create('event_kO6f', readyPoints)
-    .then(result => {
-      console.log(result);
-    }).catch(error => {
-      console.log('error');
-      console.log(error.toString());
-    });
-}
+// function randomString (length) {
+//   var result = '';
+//   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//   var charactersLength = characters.length;
+//   for (var i = 0; i < length; i++) {
+//     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//   }
+//   return result;
+// }
+//
+// function removeEvents () {
+//   database.remove('events', {})
+//     .then(result => {
+//       console.log(result);
+//     }).catch(error => {
+//       console.log(error.toString());
+//     });
+// }
+//
+// function removeEventPoints () {
+//   database.remove('event_kO6f', {})
+//     .then(result => {
+//       console.log(result);
+//     })
+//     .catch(error => {
+//       console.log(error.toString());
+//     });
+// }
+//
+// function loadPoints () {
+//   // removeEventPoints();
+//   // removeEvents();
+//
+//   const points = require('../points').pointsForDatabase();
+//   const readyPoints = [];
+//   for (const index in points) {
+//     const point = points[index];
+//     point.pointId = randomString(4);
+//     point.pointType = 'permanent';
+//     point.pointIsActive = true;
+//     point.pointName = 'Some point';
+//     point.pointTimeout = 0;
+//     point.pointCollectionTime = null;
+//     readyPoints.push(point);
+//   }
+//
+//   database.create('events', [{
+//     eventId: 'kO6f',
+//     eventName: 'Event',
+//     mapZoom: 11,
+//     mapLongitude: 18.4735,
+//     mapLatitude: 54.4787,
+//   }]).then(result => {
+//     console.log(result);
+//   }).catch(error => {
+//     console.log('error');
+//     console.log(error.toString());
+//   });
+//
+//   database.create('event_kO6f', readyPoints)
+//     .then(result => {
+//       console.log(result);
+//     }).catch(error => {
+//       console.log('error');
+//       console.log(error.toString());
+//     });
+// }
 
 function databaseErrorResponse (response, responseObject, error) {
   responseObject.error = validator.ValidateCodes.DATABASE_PROBLEM;
@@ -118,6 +118,11 @@ router.get('/', (request, response) => {
     eventId: json.eventId ? json.eventId : null,
     error: error,
   };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
 
   database.read('events', { eventId: json.eventId })
     .then(result => {
@@ -139,6 +144,27 @@ router.post('/', (request, response) => {
     eventId: json.eventId ? json.eventId : null,
     error: error,
   };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const toSave = {
+    eventId: json.eventId,
+    eventName: json.eventName,
+    mapLongitude: json.mapLongitude,
+    mapLatitude: json.mapLatitude,
+    mapZoom: json.mapZoom,
+  };
+
+  database.create('events', [toSave])
+    .then(result => {
+      response.send(responseObject);
+    })
+    .catch(error => {
+      databaseErrorResponse(response, responseObject, error);
+    });
 });
 
 router.put('/', (request, response) => {
@@ -146,10 +172,35 @@ router.put('/', (request, response) => {
   const error = validator.validate(
     validator.methods.validateEventPutRequest, json);
 
-  response.send({
+  const responseObject = {
     eventId: json.eventId ? json.eventId : null,
     error: error,
-  });
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const filter = {
+    eventId: json.eventId,
+  };
+
+  const toUpdate = {
+    eventId: json.eventId,
+    eventName: json.eventName,
+    mapLongitude: json.mapLongitude,
+    mapLatitude: json.mapLatitude,
+    mapZoom: json.mapZoom,
+  };
+
+  database.update('events', filter, { $set: toUpdate })
+    .then(result => {
+      response.send(responseObject);
+    })
+    .catch(error => {
+      databaseErrorResponse(response, responseObject, error);
+    });
 });
 
 router.get('/point/', (request, response) => {
@@ -198,7 +249,7 @@ router.get('/points/', (request, response) => {
 
   database.readMany('event_' + json.eventId, {})
     .then(result => {
-      result.forEach(e => { delete e._id; });
+      result.forEach(point => { delete point._id; });
       responseObject.points = result;
       response.send(responseObject);
     })
