@@ -302,6 +302,45 @@ router.get('/points/', (request, response) => {
     });
 });
 
+router.post('/points/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validatePointsPostRequest, json);
+
+  const responseObject = {
+    eventId: json.eventId ? json.eventId : null,
+    error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const toSave = [];
+  for (const index in json.points) {
+    const point = json.points[index];
+    toSave.push({
+      pointId: point.pointId,
+      pointName: point.pointName,
+      pointLongitude: point.pointLongitude,
+      pointLatitude: point.pointLatitude,
+      pointType: point.pointType,
+      pointValue: point.pointValue,
+      pointShape: point.pointShape,
+      pointIsActive: point.pointIsActive,
+    });
+  }
+
+  database.create('event_' + json.eventId, toSave)
+    .then(result => {
+      response.send(responseObject);
+    })
+    .catch(error => {
+      databaseErrorResponse(response, responseObject, error);
+    });
+});
+
 router.put('/collect/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
