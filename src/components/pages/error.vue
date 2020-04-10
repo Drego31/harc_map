@@ -1,5 +1,5 @@
 <template>
-  <t-page title="" class="f-text-center">
+  <t-page title="Error 404" class="f-text-center">
     <div class="f-text-48 f-pb-2">
       404
     </div>
