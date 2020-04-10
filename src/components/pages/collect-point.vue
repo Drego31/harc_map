@@ -1,7 +1,9 @@
 <template>
   <t-page title="Zbierz punkt">
-    <div class="f-pb-2">
-      E foesig joiseg oijseogi jseoigo jseoij hs ehojseoh jsoier h
+    <div class="f-pt-1 f-pb-4">
+      Aby zebrać punkty udaj się do miejsc oznaczonych na mapie
+      i wpisz kod z koperty do poniższego pola tekstowego.
+      Następnie wciśnij przycisk „Dalej”.
     </div>
     <o-form-collect-point/>
   </t-page>
