@@ -1,9 +1,9 @@
 import { mockApi } from 'api/mock';
-import { realApi } from 'api/real';
+// import { realApi } from 'api/real';
 
 export const api = {
   ...mockApi,
-  ...realApi,
+  // ...realApi,
 };
 
 window.api = api;

@@ -1,5 +1,5 @@
 <template>
-  <validation-observer v-slot="{ handleSubmit }">
+  <validation-observer tag="div" v-slot="{ handleSubmit }">
     <form
       class="f-flex f-flex-col f-pb-1 f-text-center"
       @submit.prevent="handleSubmit(onSubmit)"
