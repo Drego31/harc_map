@@ -72,7 +72,7 @@ const database = require('../lib/mongodb');
 // }
 
 function databaseErrorResponse (response, responseObject, error) {
-  responseObject.error = validator.ValidateCodes.DATABASE_PROBLEM;
+  responseObject.error = validator.ValidateCodes.DATABASE_DATA_ERROR;
   responseObject.errorDetails = error.toString();
   response.send(responseObject);
 }

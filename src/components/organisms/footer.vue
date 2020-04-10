@@ -62,7 +62,7 @@ export default {
     getIcons () {
       return [
         {
-          ...ROUTES.home,
+          ...ROUTES.start,
           component: IconHome,
         },
         {

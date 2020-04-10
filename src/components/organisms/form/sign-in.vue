@@ -52,7 +52,7 @@ export default {
       this.$store.commit('user/setTeamName', patrolName);
       this.$store.dispatch('event/download')
         .then(() => {
-          this.$router.push(ROUTES.home.path);
+          this.$router.push(ROUTES.start.path);
           this.isSending = false;
           this.blockForm = false;
         });
