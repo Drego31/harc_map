@@ -6,7 +6,7 @@
       v-model="collectedPointId"
       :disabled="blockForm"
     />
-    <div class="f-text-center f-text-danger" v-text="message"/>
+    <div class="f-text-danger" v-text="message"/>
     <a-button-submit
       :disabled="blockForm"
       :is-sending="isSending"
