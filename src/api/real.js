@@ -121,11 +121,17 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  collectPoint ({ user, eventId, userTeam, pointId }) {
+
+  collectPoint ({ user, eventId, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({
         url: '/event/collect',
-        data: { user },
+        data: {
+          user,
+          eventId,
+          pointId,
+        },
+
       })
         .then(response => response.json())
         .then(data => {

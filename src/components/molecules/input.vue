@@ -2,13 +2,14 @@
   <div class="m-input">
     <input
       :id="id"
-      class="a-input"
+      class="a-field"
       :class="additionalClasses"
       :type="getType"
+      :disabled="disabled"
       v-model="vModel"
     />
     <label
-      class="a-label f-input"
+      class="a-label f-field"
       :class="{ 'f-correct': correct, 'f-error': error }"
       :for="id"
     >
@@ -62,6 +63,10 @@ export default {
     IconCheckBold,
   },
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     placeholder: {
       type: String,
       default: '',

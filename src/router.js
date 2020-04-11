@@ -1,16 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { store } from 'store';
-import PStart from 'pages/start';
+import PWelcome from 'pages/welcome';
 import PSignIn from 'pages/sign-in';
 import PSignUp from 'pages/sign-up';
 import PRemindPassword from 'pages/remind-password';
 import PMap from 'pages/map';
 import PChangePassword from 'pages/change-password';
 import PCollectPoint from 'pages/collect-point';
-import PHome from 'pages/home';
+import PStart from 'pages/start';
 import PCollectedPoints from 'pages/collected-points';
 import PTemporaryPoints from 'pages/temporary-points';
+import PError from 'pages/error';
 import { ROUTES } from 'utils/macros/routes';
 
 Vue.use(Router);
@@ -22,7 +23,7 @@ const router = new Router({
     {
       path: ROUTES.welcome.path,
       name: ROUTES.welcome.name,
-      component: PStart,
+      component: PWelcome,
       meta: {
         onlyBeforeLogin: true,
         requiredAuth: false,
@@ -65,9 +66,9 @@ const router = new Router({
       },
     },
     {
-      path: ROUTES.home.path,
-      name: ROUTES.home.name,
-      component: PHome,
+      path: ROUTES.start.path,
+      name: ROUTES.start.name,
+      component: PStart,
       meta: {
         onlyBeforeLogin: false,
         requiredAuth: true,
@@ -111,7 +112,12 @@ const router = new Router({
     },
     {
       path: '*',
-      redirect: ROUTES.welcome.path,
+      name: 'error',
+      component: PError,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: false,
+      },
     },
   ],
 });
@@ -132,7 +138,7 @@ function redirectIfNotAuth (to, next) {
 
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
-      next(ROUTES.home.path);
+      next(ROUTES.start.path);
       return;
     }
   } else {

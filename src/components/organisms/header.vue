@@ -61,12 +61,11 @@ export default {
     ...mapGetters('header', [
       'pageTitle',
     ]),
-    ROUTES: () => ROUTES,
     isMainPage () {
       return this.pageTitle === '' || this.pageTitle === 'Start';
     },
     pathBackButton () {
-      return this.isLogin ? ROUTES.home.path : ROUTES.welcome.path;
+      return this.isLogin ? ROUTES.start.path : ROUTES.welcome.path;
     },
   },
 };

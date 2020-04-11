@@ -11,7 +11,6 @@
 import TPage from 'templates/page';
 import OFormSignIn from 'organisms/form/sign-in';
 import AButtonSecondary from 'atoms/button/secondary';
-import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'p-sign-in',
@@ -19,9 +18,6 @@ export default {
     AButtonSecondary,
     OFormSignIn,
     TPage,
-  },
-  computed: {
-    ROUTES: () => ROUTES,
   },
 };
 </script>
