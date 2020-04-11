@@ -42,7 +42,7 @@ export const realApi = {
           if (logical.isNull(data.error)) {
             resolve({
               eventId: data.eventId,
-              userTeam: data.teamName,
+              userTeam: data.userTeam,
               collectedPointsIds: data.collectedPointsIds,
               user: data.user,
             });

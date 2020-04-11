@@ -34,7 +34,7 @@ export const mockApi = {
       user,
     }), 500);
   },
-  signUp ({ user, password, useTeam, eventCode }) {
+  signUp ({ user, password, userTeam, eventId }) {
     return makeDelayFakeAnswer();
   },
   remindPassword ({ user }) {
