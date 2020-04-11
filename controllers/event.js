@@ -318,7 +318,7 @@ router.post('/points/', (request, response) => {
   }
 
   const toSave = [];
-  for (const index in json.points) {
+  Object.keys(json.points).forEach(index => {
     const point = json.points[index];
     toSave.push({
       pointId: point.pointId,
@@ -330,7 +330,7 @@ router.post('/points/', (request, response) => {
       pointShape: point.pointShape,
       pointIsActive: point.pointIsActive,
     });
-  }
+  });
 
   database.create('event_' + json.eventId, toSave)
     .then(() => {
