@@ -1,39 +1,47 @@
 <template>
-  <div>
-    <div class="a-title">
-      Zebrane punkty:
-    </div>
-    <div v-for="point in pointCategories"
-         :key=point.pointValue class="a-label f-point-container.sass">
-      <icon-star :size="24"/>
-      {{point.difficultName}}: {{getCollectedPointsLengthByPointValue(point.pointValue)}}
-    </div>
+  <div class="f-pt-1">
+    <m-list-element
+      v-for="category in pointCategories"
+      :key="category.categoryId"
+      :point="category"
+    >
+      <div>{{ category.name }}</div>
+      <div> Ilość: {{ getCollectedPointsLengthById(category.categoryId) }}</div>
+      <div> Całkowita Wartość: {{ getCollectedPointsValueById(category.categoryId) }}</div>
+    </m-list-element>
   </div>
 </template>
 
 <script>
 import { pointsForDatabase } from '../../../points';
 // import { mapGetters } from 'vuex';
-import IconStar from 'icons/Star.vue';
-
+import MListElement from 'molecules/list-element';
 export default {
+  components: { MListElement },
   name: 'o-collected-points',
-  components: {
-    IconStar,
-  },
+
   data: () => ({
     pointCategories: [
       {
-        difficultName: 'Łatwe',
+        name: 'PIERWSZA KATEGORIA',
+        categoryId: '1',
         pointValue: 1,
+        pointShape: 1,
+        imageColor: 'f-first_category',
       },
       {
-        difficultName: 'Średnie',
+        name: 'DRUGA KATEGORIA',
+        categoryId: '2',
         pointValue: 2,
+        pointShape: 2,
+        imageColor: 'f-second_category',
       },
       {
-        difficultName: 'Trudne',
+        name: 'TRZECIA KATEGORIA',
+        categoryId: '3',
         pointValue: 3,
+        pointShape: 3,
+        imageColor: 'f-third_category',
       },
     ],
   }),
@@ -43,9 +51,24 @@ export default {
     // ]),
   },
   methods: {
-    getCollectedPointsLengthByPointValue (value) {
+    getCategoryById (categoryId) {
+      return this.pointCategories.find(category => category.categoryId === categoryId);
+    },
+    getPoints () {
+      return pointsForDatabase().map(point => {
+        const category = this.getCategoryById(point.categoryId);
+        point.pointValue = category.pointValue;
+      });
+    },
+    getCollectedPointsLengthById (categoryId) {
+      const listOfCollectedPoints = this.collectedPointsIds.map(pointId => this.getPoints().find(point => point.pointId === pointId))
+
       // return this.collectedPointsIds.filter(point => point.categoryId === value).length;
-      return pointsForDatabase().filter(point => point.categoryId === value).length;
+      return this.getPoints().filter(point => point.categoryId === categoryId).length;
+    },
+    getCollectedPointsValueById (categoryId) {
+      const length = this.getPoints().filter(point => point.categoryId === categoryId);
+      return length * this.getCategoryById(categoryId).pointValue;
     },
   },
 };

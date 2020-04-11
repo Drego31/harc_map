@@ -37,8 +37,8 @@ export default {
   },
   data: () => ({
     values: {
-      email: '',
-      password: '',
+      email: 'FORTESTING@wp.pl',
+      password: 'FORtesting11',
     },
     blockForm: false,
     isSending: false,
