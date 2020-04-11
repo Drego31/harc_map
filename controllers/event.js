@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
+const utils = require('../lib/utils');
 
 // function randomString (length) {
 //   var result = '';
@@ -71,10 +72,9 @@ const database = require('../lib/mongodb');
 //     });
 // }
 
-function databaseErrorResponse (response, responseObject, error) {
-  responseObject.error = validator.ValidateCodes.DATABASE_DATA_ERROR;
-  responseObject.errorDetails = error.toString();
-  response.send(responseObject);
+function responseDatabaseError(response, responseObject, error) {
+  const code = validator.DATABASE_DATA_ERROR;
+  utils.responseError(response, 500, code, error, responseObject);
 }
 
 router.get('/', (request, response) => {
@@ -99,7 +99,7 @@ router.get('/', (request, response) => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -127,11 +127,11 @@ router.post('/', (request, response) => {
   };
 
   database.create('events', [toSave])
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -163,11 +163,11 @@ router.put('/', (request, response) => {
   };
 
   database.update('events', filter, { $set: toUpdate })
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -197,7 +197,7 @@ router.get('/point/', (request, response) => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -228,11 +228,11 @@ router.post('/point/', (request, response) => {
   };
 
   database.create('event_' + json.eventId, [toSave])
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -267,11 +267,11 @@ router.put('/point/', (request, response) => {
   };
 
   database.update('event_' + json.eventId, filters, { $set: toUpdate })
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -298,7 +298,7 @@ router.get('/points/', (request, response) => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -333,11 +333,11 @@ router.post('/points/', (request, response) => {
   }
 
   database.create('event_' + json.eventId, toSave)
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
