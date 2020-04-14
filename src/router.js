@@ -11,6 +11,7 @@ import PCollectPoint from 'pages/collect-point';
 import PStart from 'pages/start';
 import PCollectedPoints from 'pages/collected-points';
 import PTemporaryPoints from 'pages/temporary-points';
+import PError from 'pages/error';
 import { ROUTES } from 'utils/macros/routes';
 
 Vue.use(Router);
@@ -111,7 +112,12 @@ const router = new Router({
     },
     {
       path: '*',
-      redirect: ROUTES.welcome.path,
+      name: 'error',
+      component: PError,
+      meta: {
+        onlyBeforeLogin: false,
+        requiredAuth: false,
+      },
     },
   ],
 });

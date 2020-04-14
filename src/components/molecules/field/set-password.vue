@@ -1,7 +1,7 @@
 <template>
   <validation-observer>
     <validation-provider
-      :name="labels[0]"
+      :name="labels[0].toLowerCase()"
       :rules="rules.password"
       v-slot="{ errors }"
       vid="password"
@@ -16,7 +16,7 @@
       />
     </validation-provider>
     <validation-provider
-      :name="labels[1]"
+      :name="labels[1].toLowerCase()"
       :rules="rules.passwordConfirmation"
       v-slot="{ errors }"
     >

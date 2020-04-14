@@ -1,7 +1,7 @@
 <template>
   <validation-observer>
     <validation-provider
-      :name="label"
+      :name="label.toLowerCase()"
       :rules="rules.password"
       v-slot="{ errors }"
       vid="password"

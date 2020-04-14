@@ -2,8 +2,8 @@ export const ERRORS = {
   eventIdIsRequired: '"eventId" param is required',
   getEventById: 'Event data can not be download',
   elementIdIsRequiredForMap: 'elementId is necessary to create map',
-  pointWithPointIdDoesntExist: pointId => `point with pointId: "${pointId}"` +
-    'doesn\'t exist',
+  pointWithPointIdDoesntExist: pointId => `Punkt o kodzie "${pointId}"` +
+    ' nie istnieje.',
   fakeErrorInMockApi: 'Fake error in mockApi',
   signIn: 'Logowanie nie powiodło się - błędny e-mail lub hasło.',
   signUp: 'Sign up went wrong',
