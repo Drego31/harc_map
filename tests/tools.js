@@ -30,7 +30,7 @@ function send (path, config) {
       hostname: 'localhost',
       port: 3030,
       path,
-      headers: config.headers,
+      headers: config.headers || { 'Content-Type': 'application/json' },
       method: config.method,
       rejectUnauthorized: false,
     };
@@ -40,23 +40,27 @@ function send (path, config) {
     // Request instance
     const request = https.request(options, res => {
       let data = '';
+
       res.on('data', (dataChunks) => {
         data += dataChunks;
       });
+
       res.on('end', () => {
         resolve({
           body: __parseBody(data),
           headers: res.headers,
+          statusCode: res.statusCode,
         });
       });
     });
 
     // Handler for request error
-    request.on('error', () => {
+    request.on('error', (error) => {
       console.error(error);
       resolve({
         body: null,
         headers: res.headers,
+        statusCode: res.statusCode,
       });
     });
 
@@ -67,6 +71,13 @@ function send (path, config) {
   });
 }
 
-module.exports = {
+const server = {
   send,
+};
+
+const spc = '        ';
+
+module.exports = {
+  server,
+  spc,
 };
