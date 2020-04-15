@@ -41,7 +41,6 @@ const getFinalPoints = (shape, fill, stroke) => {
 };
 
 export function createFeatures ({ list }) {
-  console.log({ list });
   const listOfFeatures = [];
 
   for (const point of list) {

@@ -42,7 +42,6 @@ export const realApi = {
         .then(response => response.json())
         .then(data => {
           if (hasError(data)) {
-            console.log(data);
             resolve(data.points.map(point => new MapPoint(point)));
           } else {
             reject(new ErrorMessage(ERRORS.getEventById));
