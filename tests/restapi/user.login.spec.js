@@ -11,7 +11,7 @@ const casesMap = [
   {
     // Description in assertion - for easier reading
     description: 'Empty body',
-    // send - BODY of request
+    // send - BODY of request (also array of many BODY to test)
     send: {},
     // expect - BODY of response
     expect: {
@@ -21,15 +21,16 @@ const casesMap = [
     // httpStatus - expect http status of response
     httpStatus: 401,
   },
-  {
-    description: 'Empty body',
-    send: null,
-    expect: {
-      user: null,
-      error: 3007,
-    },
-    httpStatus: 400,
-  },
+  // TODO Add error handle on server bodyParser
+  // {
+  //   description: 'Empty body',
+  //   send: null,
+  //   expect: {
+  //     user: null,
+  //     error: 3007,
+  //   },
+  //   httpStatus: 400,
+  // },
   {
     description: 'Unknown fields',
     send: {
@@ -44,6 +45,75 @@ const casesMap = [
     },
     httpStatus: 400,
   },
+  {
+    description: 'Wrong user field',
+    send: [{
+      user: null,
+    }, {
+      user: { user: 'harc@map.zhp' },
+    }, {
+      user: 'harc@map',
+    }],
+    expect: {
+      user: null,
+      error: 1001,
+    },
+    httpStatus: 400,
+  },
+  {
+    description: 'Wrong password field',
+    send: [{
+      user: 'harc@map.zhp',
+      password: null,
+    }, {
+      user: 'harc@map.zhp',
+      password: {},
+    }],
+    expect: {
+      user: null,
+      error: 1002,
+    },
+    httpStatus: 400,
+  },
+  {
+    description: 'Too short password field',
+    send: [{
+      user: 'harc@map.zhp',
+      password: 'Abcd123',
+    }, {
+      user: 'harc@map.zhp',
+      password: 'Abcdabc',
+    }],
+    expect: {
+      user: null,
+      error: 1002,
+    },
+    httpStatus: 400,
+  },
+  {
+    description: 'Password has no number field',
+    send: {
+      user: 'harc@map.zhp',
+      password: 'Abcdabcadde',
+    },
+    expect: {
+      user: null,
+      error: 1003,
+    },
+    httpStatus: 400,
+  },
+  {
+    description: 'Correct validation of user and password',
+    send: {
+      user: 'harc@map.zhp',
+      password: 'Abcd1234',
+    },
+    expect: {
+      user: null,
+      error: 3006,
+    },
+    httpStatus: 401,
+  },
 ];
 
 const casesMapRebuilded = casesMap.map(item => [item.description, item.send, item.httpStatus, item.expect]);
@@ -51,192 +121,20 @@ const casesMapRebuilded = casesMap.map(item => [item.description, item.send, ite
 describe('Endpoint /user/login', () => {
   describe('POST', () => {
     test.each(casesMapRebuilded)(`%s: %j\n${spc}Expect: %d | %j`, async (desc, send, httpStatus, response) => {
-      let dataToSend;
+      const sendArray = Array.isArray(send) ? send : [send];
 
-      try {
-        dataToSend = JSON.stringify(send);
-      } catch (e) {
-        dataToSend = send;
+      for (const data of sendArray) {
+        // Request
+        const responseObject = await server.send('/user/login', {
+          method: 'POST',
+          body: JSON.stringify(data),
+        });
+
+        // Response
+        expect(responseObject.statusCode).toBe(httpStatus);
+        expect(responseObject.body).toEqual(response);
       }
-
-      // Request
-      const responseObject = await server.send('/user/login', {
-        method: 'POST',
-        body: dataToSend,
-      });
-
-      // Response
-      expect(responseObject.statusCode).toBe(httpStatus);
-      expect(responseObject.body).toEqual(response);
     });
-
-    //
-    // /**
-    //  * @description
-    //  * Testing body structure
-    //  */
-    // test(`For random body data should return: \n${spc}HTTP: 400\n${spc}BODY: { user: null, error: 1001 }`, async () => {
-    //   // Request
-    //   const response = await server.send('/user/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       a: 12345,
-    //       b: 'this is random string',
-    //       c: null,
-    //     }),
-    //   });
-    //
-    //   // Response
-    //   expect(response.statusCode).toBe(400);
-    //   expect(response.body).toEqual({
-    //     user: null,
-    //     error: 1001,
-    //   });
-    // });
-    //
-    // /**
-    //  * @description
-    //  * Testing user filed
-    //  */
-    // test.each([
-    //   {
-    //     user: null,
-    //   },
-    //   {
-    //     user: { user: 'harc@map.zhp' },
-    //   },
-    //   {
-    //     user: 'harc@map',
-    //   },
-    //   {
-    //     user: 'console.log("a")',
-    //   },
-    // ])(`For wrong user field: \n${spc}%j \n${spc}in body data, should return: \n${spc}HTTP: 400\n${spc}BODY: { user: null, error: 1001 }`, async (body) => {
-    //   // Request
-    //   const response = await server.send('/user/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify(body),
-    //   });
-    //
-    //   // Response
-    //   expect(response.statusCode).toBe(400);
-    //   expect(response.body).toEqual({
-    //     user: null,
-    //     error: 1001,
-    //   });
-    // });
-    //
-    // /**
-    //  * @description
-    //  * Testing password filed
-    //  */
-    // test.each([
-    //   {
-    //     user: 'harc@map.zhp',
-    //     password: null,
-    //   },
-    // ])(`For wrong password field: \n${spc}%j \n${spc}in body data, should return: \n${spc}HTTP: 400\n${spc}BODY: { user: null, error: 1000 }`, async (body) => {
-    //   // Request
-    //   const response = await server.send('/user/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify(body),
-    //   });
-    //
-    //   // Response
-    //   expect(response.statusCode).toBe(400);
-    //   expect(response.body).toEqual({
-    //     user: null,
-    //     error: 1000,
-    //   });
-    // });
-    //
-    // test.each([
-    //   {
-    //     user: 'harc@map.zhp',
-    //     password: {},
-    //   },
-    //   {
-    //     user: 'harc@map.zhp',
-    //     password: 'Abcdabcd',
-    //   },
-    // ])(`For wrong password field: \n${spc}%j \n${spc}in body data, should return: \n${spc}HTTP: 400\n${spc}BODY: { user: null, error: 1003 }`, async (body) => {
-    //   // Request
-    //   const response = await server.send('/user/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify(body),
-    //   });
-    //
-    //   // Response
-    //   expect(response.statusCode).toBe(400);
-    //   expect(response.body).toEqual({
-    //     user: null,
-    //     error: 1003,
-    //   });
-    // });
-    //
-    // test.each([
-    //   {
-    //     user: 'harc@map.zhp',
-    //     password: 'Abcd123',
-    //   },
-    // ])(`For wrong password field: \n${spc}%j \n${spc}in body data, should return: \n${spc}HTTP: 400\n${spc}BODY: { user: null, error: 1002 }`, async (body) => {
-    //   // Request
-    //   const response = await server.send('/user/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify(body),
-    //   });
-    //
-    //   // Response
-    //   expect(response.statusCode).toBe(400);
-    //   expect(response.body).toEqual({
-    //     user: null,
-    //     error: 1002,
-    //   });
-    // });
-    //
-    // /**
-    //  * @description
-    //  * Testing correct user and passowrd
-    //  */
-    // test.each([
-    //   {
-    //     user: 'harc@map.zhp1',
-    //     password: 'Abcd1234',
-    //   },
-    // ])(`For correct(validated) user and password field: \n${spc}%j \n${spc}in body data, should return: \n${spc}HTTP: 401\n${spc}BODY: { user: 'harc@map.zhp', error: 3006 }`, async (body) => {
-    //   // Request
-    //   const response = await server.send('/user/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify(body),
-    //   });
-    //
-    //   // Response
-    //   expect(response.statusCode).toBe(401);
-    //   expect(response.body).toEqual({
-    //     user: null,
-    //     error: 3006,
-    //   });
-    // });
-    //
-    // test.each([
-    //   {
-    //     user: 'harc@map.zhp',
-    //     password: 'Abcd1234',
-    //   },
-    // ])(`For correct(validated) user and password field: \n${spc}%j \n${spc}in body data, should return: \n${spc}HTTP: 401\n${spc}BODY: { user: 'harc@map.zhp', error: 3006 }`, async (body) => {
-    //   // Request
-    //   const response = await server.send('/user/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify(body),
-    //   });
-    //
-    //   // Response
-    //   expect(response.statusCode).toBe(401);
-    //   expect(response.body).toEqual({
-    //     user: null,
-    //     error: 3006,
-    //   });
-    // });
 
   });
 });
