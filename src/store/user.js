@@ -25,5 +25,17 @@ export default {
       state.collectedPointsIds = [];
     },
   },
-  actions: {},
+  actions: {
+    signIn (context, { eventId, user, collectedPointsIds, userTeam }) {
+      return new Promise((resolve, reject) => {
+        context.commit('event/setId', eventId, { root: true });
+        context.commit('setUser', user);
+        context.commit('setCollectedPointsIds', collectedPointsIds);
+        context.commit('setUserTeam', userTeam);
+        context.dispatch('event/download', undefined, { root: true })
+          .then(() => resolve())
+          .catch(error => reject(error));
+      });
+    },
+  },
 };

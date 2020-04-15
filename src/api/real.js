@@ -62,12 +62,25 @@ export const realApi = {
         .then(response => response.json())
         .then(data => {
           if (hasError(data)) {
-            resolve({
-              eventId: data.eventId,
-              userTeam: data.userTeam,
-              collectedPointsIds: data.collectedPointsIds,
-              user: data.user,
-            });
+            delete data.error;
+            resolve(data);
+          } else {
+            reject(new ErrorMessage(ERRORS.signIn));
+          }
+        })
+        .catch(catchConnectionError(reject));
+    });
+  },
+  checkYourLoginSession () {
+    return new Promise((resolve, reject) => {
+      request.post({
+        url: '/user/login',
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (hasError(data)) {
+            delete data.error;
+            resolve(data);
           } else {
             reject(new ErrorMessage(ERRORS.signIn));
           }
