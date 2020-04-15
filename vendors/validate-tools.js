@@ -29,7 +29,7 @@ class ValidateTools {
   }
 
   isNullOrEmpty (data) {
-    return data === '';
+    return ['', undefined, null].includes(data);
   }
 
   inRange (value, start, end) {
@@ -46,6 +46,14 @@ class ValidateTools {
 
   notContain (value, array) {
     return !this.contain(value, array);
+  }
+
+  isBoolean (value) {
+    return typeof value === 'boolean';
+  }
+
+  isNotBoolean (value) {
+    return !this.isBoolean(value);
   }
 }
 

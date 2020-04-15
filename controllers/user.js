@@ -103,7 +103,7 @@ router.route('/login')
 /**
  * @description Registration
  */
-router.route('/registration')
+router.route('/')
   .post((req, res) => {
     // User data validation
     const requestBodyValidationError = validator.validate(

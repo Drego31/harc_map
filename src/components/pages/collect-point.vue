@@ -1,17 +1,22 @@
 <template>
   <t-page title="Zbierz punkt">
-    <o-collect-point></o-collect-point>
+    <div class="f-pt-1 f-pb-4">
+      Aby zebrać punkty udaj się do miejsc oznaczonych na mapie
+      i wpisz kod z koperty do poniższego pola tekstowego.
+      Następnie wciśnij przycisk „Dalej”.
+    </div>
+    <o-form-collect-point/>
   </t-page>
 </template>
 
 <script>
 import TPage from 'templates/page';
-import OCollectPoint from 'organisms/collect-point';
+import OFormCollectPoint from 'organisms/form/collect-point';
 
 export default {
   name: 'p-collect-point',
   components: {
-    OCollectPoint,
+    OFormCollectPoint,
     TPage,
   },
 };
