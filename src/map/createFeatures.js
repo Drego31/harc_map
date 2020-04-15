@@ -8,17 +8,17 @@ import { Fill, RegularShape, Stroke, Style } from 'ol/style';
 import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { store } from 'store';
 
-const getStroke = (type, width = 2) => {
+const getStroke = (shape, width = 2) => {
   return new Stroke({
-    color: MAP_POINTS[type].strokeColor,
+    color: MAP_POINTS[shape].strokeColor,
     width,
   });
 };
-const getFill = (type) => {
-  return new Fill({ color: MAP_POINTS[type].fillColor });
+const getFill = (shape) => {
+  return new Fill({ color: MAP_POINTS[shape].fillColor });
 };
 
-const getFinalPoints = (type, fill, stroke) => {
+const getFinalPoints = (shape, fill, stroke) => {
   const starShape = 4;
   const pointValues = {
     fill,
@@ -27,7 +27,7 @@ const getFinalPoints = (type, fill, stroke) => {
     radius: 7,
     angle: 20,
   };
-  if (type === starShape) {
+  if (shape === starShape) {
     Object.assign(pointValues, {
       points: 5,
       radius: 10,
@@ -41,22 +41,23 @@ const getFinalPoints = (type, fill, stroke) => {
 };
 
 export function createFeatures ({ list }) {
+  console.log({ list });
   const listOfFeatures = [];
 
   for (const point of list) {
     const lat = point.latitude;
     const lon = point.longitude;
-    const type = point.type;
+    const shape = point.pointShape;
 
-    const stroke = getStroke(type);
-    const fill = getFill(type);
+    const stroke = getStroke(shape);
+    const fill = getFill(shape);
 
     const position = Projection.fromLonLat([lon, lat]);
 
     const feature = new Feature({
       geometry: new Point(position),
     });
-    feature.setStyle(getFinalPoints(type, fill, stroke));
+    feature.setStyle(getFinalPoints(shape, fill, stroke));
 
     point.olUid = feature.ol_uid;
     store.commit('event/updatePoint', point);

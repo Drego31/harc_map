@@ -1,20 +1,17 @@
-import { MapPoint } from 'src/structures/map-point';
-
 export class AppEvent {
   constructor ({
     eventId = '',
-    name = '',
-    mapPosition = {},
+    eventName = '',
+    mapLatitude,
+    mapLongitude,
     mapZoom = 2,
-    points = [],
   }) {
     this.eventId = eventId;
-    this.name = name;
+    this.name = eventName;
     this.mapPosition = {
-      latitude: mapPosition.latitude,
-      longitude: mapPosition.longitude,
+      latitude: mapLatitude,
+      longitude: mapLongitude,
     };
     this.mapZoom = mapZoom;
-    this.points = points.map(point => new MapPoint(point));
   }
 }

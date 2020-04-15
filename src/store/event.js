@@ -14,7 +14,7 @@ export default {
     points: [],
   },
   getters: {
-    event: state => new AppEvent(state),
+    event: state => state,
     name: state => state.name,
     eventId: state => state.eventId,
     getPointById: state => pointId => {
@@ -37,11 +37,14 @@ export default {
   actions: {
     download (context, eventId = context.state.eventId) {
       return new Promise(resolve => {
+        let event;
         api.getEventById(eventId)
-          .then(data => {
-            data.points = data.points.map(point => ({ ...point }));
-            context.commit('setEvent', data);
-            resolve(data);
+          .then(data => (event = data))
+          .then(api.getPointsByEventId)
+          .then(points => {
+            event.points = points.map(point => ({ ...point }));
+            context.commit('setEvent', event);
+            resolve(event);
           });
       });
     },

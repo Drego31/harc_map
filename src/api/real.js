@@ -3,11 +3,16 @@ import { request } from 'utils/request';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { logical } from 'vendors/logical';
+import { MapPoint } from 'src/structures/map-point';
 
 function catchConnectionError (reject) {
   return function (fetchError) {
     reject(new ErrorMessage(fetchError));
   };
+}
+
+function hasError (data) {
+  return logical.isNull(data.error);
 }
 
 export const realApi = {
@@ -19,8 +24,26 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve(new AppEvent(data));
+          } else {
+            reject(new ErrorMessage(ERRORS.getEventById));
+          }
+        })
+        .catch(catchConnectionError(reject));
+    });
+  },
+  getPointsByEventId ({ eventId }) {
+    return new Promise((resolve, reject) => {
+      request.get({
+        url: '/event/points',
+        data: { eventId },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (hasError(data)) {
+            console.log(data);
+            resolve(data.points.map(point => new MapPoint(point)));
           } else {
             reject(new ErrorMessage(ERRORS.getEventById));
           }
@@ -39,7 +62,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve({
               eventId: data.eventId,
               userTeam: data.userTeam,
@@ -66,7 +89,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.signUp));
@@ -83,7 +106,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.remindPassword));
@@ -100,7 +123,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.signOut));
@@ -135,7 +158,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.collectPoint));

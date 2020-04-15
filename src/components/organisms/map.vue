@@ -4,7 +4,6 @@
 
 <script>
 import { map } from 'map';
-import { MapPoint } from 'src/structures/map-point';
 
 export default {
   name: 'o-map',
@@ -20,7 +19,7 @@ export default {
       maxZoom: 19,
     });
     map.points.create({
-      list: appEvent.points.map(point => new MapPoint(point)),
+      list: appEvent.points,
     });
   },
 };
