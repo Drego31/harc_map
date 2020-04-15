@@ -20,7 +20,8 @@ export const ROUTES = {
     label: 'Przypomnij hasło',
   },
   changePassword: {
-    path: '/change-password',
+    path: '/change-password/',
+    pathWithParam: '/change-password/:key',
     name: 'change-password',
     label: 'Zmień hasło',
   },

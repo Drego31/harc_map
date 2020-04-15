@@ -57,7 +57,7 @@ const router = new Router({
       },
     },
     {
-      path: ROUTES.changePassword.path,
+      path: ROUTES.changePassword.pathWithParam,
       name: ROUTES.changePassword.name,
       component: PChangePassword,
       meta: {
@@ -108,6 +108,12 @@ const router = new Router({
       meta: {
         onlyBeforeLogin: false,
         requiredAuth: true,
+      },
+    },
+    {
+      path: '/user/remind/:key',
+      redirect: to => {
+        return ROUTES.changePassword.path + to.params.key;
       },
     },
     {

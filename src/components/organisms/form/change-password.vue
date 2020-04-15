@@ -59,7 +59,10 @@ export default {
     changePassword () {
       this.isSending = true;
       this.blockForm = true;
-      api.changePassword(this.password)
+      api.changePassword({
+        password: this.password,
+        key: this.$route.params.key,
+      })
         .then(this.onChangePassword)
         .catch(this.onErrorOccurs);
     },

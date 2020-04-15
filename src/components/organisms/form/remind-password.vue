@@ -54,7 +54,7 @@ export default {
     remindPassword () {
       this.isSending = true;
       this.blockForm = true;
-      api.remindPassword(this.user)
+      api.remindPassword({ user: this.user })
         .then(this.onRemindPassword)
         .catch(this.onErrorOccurs);
     },

@@ -79,7 +79,7 @@ export const realApi = {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/remind',
-        data: { user },
+        data: { email: user },
       })
         .then(response => response.json())
         .then(data => {
@@ -109,10 +109,10 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  changePassword: function ({ password }) {
+  changePassword: function ({ password, key }) {
     return new Promise((resolve, reject) => {
       request.put({
-        url: '/user/remind',
+        url: '/user/remind/' + key,
         data: { password },
       })
         .then(() => {
