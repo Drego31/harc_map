@@ -87,7 +87,7 @@ router.route('/login')
 /**
  * @description Registration
  */
-router.route('/registration')
+router.route('/')
   .post((req, res) => {
     // Data from client
     const { user, password, userTeam, eventId } = req.body;
@@ -101,7 +101,7 @@ router.route('/registration')
             .then(result => {
               // exist
               if (result) {
-                utils.responseError(res, 400, errorsCodes.USER_EXIST);
+                utils.responseError(res, 400, errorsCodes.USER_OR_TEAM_EXIST);
               } else {
                 // user doesn't exist, we can create new
                 const newUserData = {
