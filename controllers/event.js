@@ -4,9 +4,14 @@ const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
 const utils = require('../lib/utils');
 
-function responseDatabaseError(response, responseObject, error) {
-  const code = validator.DATABASE_DATA_ERROR;
-  utils.responseError(response, 500, code, error, responseObject);
+function responseDatabaseError (response, responseObject, error) {
+  responseObject.error = validator.ValidateCodes.DATABASE_DATA_ERROR;
+  utils.responseError(response, 500, error, responseObject);
+}
+
+function responseDatabaseNoData (response, responseObject) {
+  responseObject.error = validator.ValidateCodes.DATABASE_NO_RESULT_ERROR;
+  utils.responseError(response, 500, null, responseObject);
 }
 
 router.get('/', (request, response) => {
@@ -26,6 +31,10 @@ router.get('/', (request, response) => {
 
   database.read('events', { eventId: json.eventId })
     .then(result => {
+      if (result === null) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
       responseObject = Object.assign(responseObject, result);
       delete responseObject._id;
       response.send(responseObject);
@@ -124,6 +133,10 @@ router.get('/point/', (request, response) => {
 
   database.read('event_' + json.eventId, filters)
     .then(result => {
+      if (result === null) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
       responseObject = Object.assign(responseObject, result);
       delete responseObject._id;
       response.send(responseObject);
@@ -225,6 +238,10 @@ router.get('/points/', (request, response) => {
 
   database.readMany('event_' + json.eventId, {})
     .then(result => {
+      if (!(result && result.length)) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
       result.forEach(point => { delete point._id; });
       responseObject.points = result;
       response.send(responseObject);
