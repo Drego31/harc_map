@@ -33,6 +33,7 @@ import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldEmail from 'molecules/field/email';
 import AButtonPrimary from 'atoms/button/primary';
+
 export default {
   name: 'o-form-remind-password',
   mixins: [mixins.form],
