@@ -3,7 +3,7 @@
     <m-input
       :disabled="blockForm"
       placeholder="E-mail"
-      v-model="values.email"
+      v-model="values.user"
     />
     <m-input
       :disabled="blockForm"
@@ -26,7 +26,6 @@ import AButtonSubmit from 'atoms/button/submit';
 import { mixins } from 'mixins/base';
 import { ROUTES } from 'utils/macros/routes';
 import OForm from 'organisms/form';
-
 export default {
   name: 'o-form-sign-in',
   mixins: [mixins.form],
@@ -37,7 +36,7 @@ export default {
   },
   data: () => ({
     values: {
-      email: '',
+      user: '',
       password: '',
     },
     blockForm: false,
@@ -45,11 +44,11 @@ export default {
     message: '',
   }),
   methods: {
-    onSignIn ({ eventId, collectedPointsIds, email, patrolName }) {
+    onSignIn ({ eventId, collectedPointsIds, user, userTeam }) {
       this.$store.commit('event/setId', eventId);
-      this.$store.commit('user/setEmail', email);
+      this.$store.commit('user/setUser', user);
       this.$store.commit('user/setCollectedPointsIds', collectedPointsIds);
-      this.$store.commit('user/setTeamName', patrolName);
+      this.$store.commit('user/setUserTeam', userTeam);
       this.$store.dispatch('event/download')
         .then(() => {
           this.$router.push(ROUTES.start.path);

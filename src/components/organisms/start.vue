@@ -1,7 +1,7 @@
 <template>
   <div class="f-flex f-flex-col f-flex-al-center">
     <div class="a-title" v-text="name"/>
-    <div class="f-pb-2 f-text-bold" v-text="teamName"/>
+    <div class="f-pb-2 f-text-bold" v-text="userTeam"/>
     <div class="f-text-14 f-pt-2 f-pb-1 f-text-gray">
       Zebrane punkty
     </div>
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     ...mapGetters('user', [
-      'teamName',
+      'userTeam',
       'collectedPointsIds',
       'valueChanged',
     ]),

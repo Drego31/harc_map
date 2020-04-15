@@ -3,11 +3,16 @@ import { request } from 'utils/request';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { logical } from 'vendors/logical';
+import { MapPoint } from 'src/structures/map-point';
 
 function catchConnectionError (reject) {
   return function (fetchError) {
     reject(new ErrorMessage(fetchError));
   };
+}
+
+function hasError (data) {
+  return logical.isNull(data.error);
 }
 
 export const realApi = {
@@ -19,7 +24,7 @@ export const realApi = {
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve(new AppEvent(data));
           } else {
             reject(new ErrorMessage(ERRORS.getEventById));
@@ -28,23 +33,40 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  signIn ({ email, password }) {
+  getPointsByEventId ({ eventId }) {
+    return new Promise((resolve, reject) => {
+      request.get({
+        url: '/event/points',
+        data: { eventId },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (hasError(data)) {
+            resolve(data.points.map(point => new MapPoint(point)));
+          } else {
+            reject(new ErrorMessage(ERRORS.getEventById));
+          }
+        })
+        .catch(catchConnectionError(reject));
+    });
+  },
+  signIn ({ user, password }) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/login',
         data: {
-          user: email,
+          user,
           password,
         },
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve({
               eventId: data.eventId,
-              patrolName: data.teamName,
+              userTeam: data.userTeam,
               collectedPointsIds: data.collectedPointsIds,
-              email: data.user,
+              user: data.user,
             });
           } else {
             reject(new ErrorMessage(ERRORS.signIn));
@@ -53,20 +75,20 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  signUp ({ email, password, patrolName, eventId }) {
+  signUp ({ user, password, userTeam, eventId }) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user',
         data: {
-          user: email,
+          user,
           password,
-          teamName: patrolName,
+          userTeam,
           eventId,
         },
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.signUp));
@@ -75,15 +97,15 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  remindPassword (email) {
+  remindPassword ({ user }) {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/remind',
-        data: { user: email },
+        data: { email: user }, // TODO: change to { user }
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.remindPassword));
@@ -92,15 +114,15 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  signOut ({ email }) {
+  signOut ({ user }) {
     return new Promise((resolve, reject) => {
       request.delete({
         url: '/user/login',
-        data: { user: email },
+        data: { user },
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.signOut));
@@ -109,10 +131,10 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  changePassword: function ({ password }) {
+  changePassword: function ({ password, key }) {
     return new Promise((resolve, reject) => {
       request.put({
-        url: '/user/remind',
+        url: '/user/remind/' + key,
         data: { password },
       })
         .then(() => {
@@ -121,19 +143,19 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-  collectPoint ({ email, eventId, pointId }) {
+  collectPoint ({ user, eventId, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({
         url: '/event/collect',
         data: {
-          user: email,
+          user,
           eventId,
           pointId,
         },
       })
         .then(response => response.json())
         .then(data => {
-          if (logical.isNull(data.error)) {
+          if (hasError(data)) {
             resolve();
           } else {
             reject(new ErrorMessage(ERRORS.collectPoint));

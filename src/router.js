@@ -57,7 +57,7 @@ const router = new Router({
       },
     },
     {
-      path: ROUTES.changePassword.path,
+      path: ROUTES.changePassword.pathWithParam,
       name: ROUTES.changePassword.name,
       component: PChangePassword,
       meta: {

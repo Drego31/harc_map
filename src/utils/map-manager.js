@@ -24,7 +24,7 @@ export const mapManager = {
 
       api.collectPoint({
         eventId: store.getters['event/eventId'],
-        email: store.getters['user/email'],
+        user: store.getters['user/user'],
         pointId,
       })
         .then(() => {
