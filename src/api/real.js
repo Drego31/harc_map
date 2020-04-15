@@ -102,7 +102,7 @@ export const realApi = {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/remind',
-        data: { email: user },
+        data: { email: user }, // TODO: change to { user }
       })
         .then(response => response.json())
         .then(data => {
@@ -144,7 +144,6 @@ export const realApi = {
         .catch(catchConnectionError(reject));
     });
   },
-
   collectPoint ({ user, eventId, pointId }) {
     return new Promise((resolve, reject) => {
       request.put({
@@ -154,7 +153,6 @@ export const realApi = {
           eventId,
           pointId,
         },
-
       })
         .then(response => response.json())
         .then(data => {
