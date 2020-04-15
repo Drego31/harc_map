@@ -111,12 +111,6 @@ const router = new Router({
       },
     },
     {
-      path: '/user/remind/:key',
-      redirect: to => {
-        return ROUTES.changePassword.path + to.params.key;
-      },
-    },
-    {
       path: '*',
       name: 'error',
       component: PError,
