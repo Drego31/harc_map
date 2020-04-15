@@ -44,11 +44,11 @@ export default {
     message: '',
   }),
   methods: {
-    onSignIn ({ eventId, collectedPointsIds, user, teamName }) {
+    onSignIn ({ eventId, collectedPointsIds, user, userTeam }) {
       this.$store.commit('event/setId', eventId);
       this.$store.commit('user/setUser', user);
       this.$store.commit('user/setCollectedPointsIds', collectedPointsIds);
-      this.$store.commit('user/setUserTeam', teamName);
+      this.$store.commit('user/setUserTeam', userTeam);
       this.$store.dispatch('event/download')
         .then(() => {
           this.$router.push(ROUTES.start.path);
