@@ -1,4 +1,3 @@
-
 class ValidateTools {
   hasNumber (data) {
     return /\d/.test(data);
@@ -22,7 +21,7 @@ class ValidateTools {
   }
 
   isShorter (data, length) {
-    return data.length < length;
+    return (data && data.length) ? data.length < length : true;
   }
 
   isNullOrEmpty (data) {
