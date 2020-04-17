@@ -190,7 +190,7 @@ router.route('/activation/:key')
             accountIsActive: true,
             activationKey: null,
           };
-          database.update('users', { _id: database.ObjectId(result._id) }, activationUpdateData)
+          database.update('users', { _id: database.ObjectId(userData._id) }, activationUpdateData)
             .then(result => {
               // Successfully updated
               if (result) {

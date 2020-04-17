@@ -38,18 +38,18 @@ function send (path, config) {
     const dataToSend = config.body;
 
     // Request instance
-    const request = https.request(options, res => {
+    const request = https.request(options, response => {
       let data = '';
 
-      res.on('data', (dataChunks) => {
+      response.on('data', (dataChunks) => {
         data += dataChunks;
       });
 
-      res.on('end', () => {
+      response.on('end', () => {
         resolve({
           body: __parseBody(data),
-          headers: res.headers,
-          statusCode: res.statusCode,
+          headers: response.headers,
+          statusCode: response.statusCode,
         });
       });
     });
@@ -59,8 +59,8 @@ function send (path, config) {
       console.error(error);
       resolve({
         body: null,
-        headers: res.headers,
-        statusCode: res.statusCode,
+        headers: null,
+        statusCode: 0,
       });
     });
 
@@ -75,9 +75,6 @@ const server = {
   send,
 };
 
-const spc = '        ';
-
 module.exports = {
   server,
-  spc,
 };

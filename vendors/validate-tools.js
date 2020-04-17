@@ -1,8 +1,4 @@
 class ValidateTools {
-  isString (data) {
-    return typeof data === 'string';
-  }
-
   hasNumber (data) {
     return /\d/.test(data);
   }
@@ -25,7 +21,7 @@ class ValidateTools {
   }
 
   isShorter (data, length) {
-    return this.isString(data) ? data.length < length : true;
+    return (data && data.length) ? data.length < length : true;
   }
 
   isNullOrEmpty (data) {

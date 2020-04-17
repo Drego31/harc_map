@@ -120,6 +120,7 @@ const casesMapRebuilded = casesMap.map(item => [item.description, item.send, ite
 
 describe('Endpoint /user/login', () => {
   describe('POST', () => {
+    const spc = '        ';
     test.each(casesMapRebuilded)(`%s: %j\n${spc}Expect: %d | %j`, async (desc, send, httpStatus, response) => {
       const sendArray = Array.isArray(send) ? send : [send];
 
