@@ -111,7 +111,7 @@ router.route('/registration')
                   userEvents: [eventId],
                   accountType: 'common',
                   accountIsActive: false,
-                  activationKey: utils.getRandomString(),
+                  activationKey: utils.generateAccessKey(),
                   forgotKey: null,
                   forgotTimestamp: null,
                   accountCreated: Date.now(),
@@ -196,7 +196,7 @@ router.route('/remind')
     database.read('users', { user: email })
       .then(() => {
         const forgotData = {
-          forgotKey: utils.getRandomString(),
+          forgotKey: utils.generateAccessKey(),
           forgotTimestamp: Date.now(),
         };
         // Update user data with forgot key and forgot timestamp
