@@ -46,7 +46,7 @@ router.route('/login')
         error: null,
       });
     } else if (Object.keys(req.body).length === 0) {
-      utils.responseError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
+      utils.responseUserError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
     } else {
       // User data validation
       const requestBodyValidationError = validator.validate(
@@ -56,12 +56,12 @@ router.route('/login')
         passport.authenticate('local', (error, userData) => {
           if (error || !userData) {
             // failed login
-            utils.responseError(res, 401, error);
+            utils.responseUserError(res, 401, error);
           } else {
             req.login(userData, error => {
               // error with setting session
               if (error) {
-                utils.responseError(res, 500, errorsCodes.SESSION_ERROR, error);
+                utils.responseUserError(res, 500, errorsCodes.SESSION_ERROR, error);
               } else {
                 const { user, userTeam, collectedPointsIds, userEvents } = userData;
                 res.send({
@@ -76,7 +76,7 @@ router.route('/login')
           }
         })(req, res, next);
       } else {
-        utils.responseError(res, 400, requestBodyValidationError);
+        utils.responseUserError(res, 400, requestBodyValidationError);
       }
     }
   })
@@ -122,7 +122,7 @@ router.route('/')
               .then(userData => {
                 // exist
                 if (userData) {
-                  utils.responseError(res, 400, errorsCodes.USER_EXIST);
+                  utils.responseUserError(res, 400, errorsCodes.USER_EXIST);
                 } else {
                   // user doesn't exist, we can create new
                   const newUserData = {
@@ -132,7 +132,7 @@ router.route('/')
                     userEvents: [eventId],
                     accountType: 'common',
                     accountIsActive: false,
-                    activationKey: utils.getRandomString(),
+                    activationKey: utils.generateAccessKey(),
                     forgotKey: null,
                     forgotTimestamp: null,
                     accountCreated: Date.now(),
@@ -150,29 +150,29 @@ router.route('/')
                             });
                           })
                           .catch(error => {
-                            utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
+                            utils.responseUserError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
                           });
                       } else {
-                        utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR);
+                        utils.responseUserError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR);
                       }
                     })
                     .catch(error => {
-                      utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+                      utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
                     });
                 }
               })
               .catch(error => {
-                utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+                utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
               });
           } else {
-            utils.responseError(res, 400, errorsCodes.EVENT_ID_NOT_EXIST);
+            utils.responseUserError(res, 400, errorsCodes.EVENT_ID_NOT_EXIST);
           }
         })
         .catch(error => {
-          utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+          utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
         });
     } else {
-      utils.responseError(res, 400, requestBodyValidationError);
+      utils.responseUserError(res, 400, requestBodyValidationError);
     }
   });
 
@@ -196,18 +196,18 @@ router.route('/activation/:key')
               if (result) {
                 res.redirect(302, '/');
               } else {
-                utils.responseError(res, 500, errorsCodes.DATABASE_NO_RESULT_ERROR);
+                utils.responseUserError(res, 500, errorsCodes.DATABASE_NO_RESULT_ERROR);
               }
             })
             .catch(error => {
-              utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+              utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
             });
         } else {
-          utils.responseError(res, 400, errorsCodes.INVALID_URL_KEY);
+          utils.responseUserError(res, 400, errorsCodes.INVALID_URL_KEY);
         }
       })
       .catch(error => {
-        utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+        utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
       });
   });
 
@@ -230,7 +230,7 @@ router.route('/remind')
         .then((userData) => {
           if (userData.accountIsActive) {
             const forgotData = {
-              forgotKey: utils.getRandomString(),
+              forgotKey: utils.generateAccessKey(),
               forgotTimestamp: Date.now(),
             };
             // Update user data with forgot key and forgot timestamp
@@ -247,24 +247,24 @@ router.route('/remind')
                       });
                     })
                     .catch(error => {
-                      utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
+                      utils.responseUserError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR, error);
                     });
                 } else {
-                  utils.responseError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR);
+                  utils.responseUserError(res, 500, errorsCodes.MAIL_UNKNOWN_ERROR);
                 }
               })
               .catch(error => {
-                utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+                utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
               });
           } else {
-            utils.responseError(res, 401, errorsCodes.ACCOUNT_IS_INACTIVE);
+            utils.responseUserError(res, 401, errorsCodes.ACCOUNT_IS_INACTIVE);
           }
         })
         .catch(error => {
-          utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+          utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
         });
     } else {
-      utils.responseError(res, 400, requestBodyValidationError);
+      utils.responseUserError(res, 400, requestBodyValidationError);
     }
   });
 
@@ -319,20 +319,20 @@ router.route('/remind/:key')
                   });
                 })
                 .catch(error => {
-                  utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+                  utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
                 });
             } else {
               res.status(404).send();
             }
           } else {
-            utils.responseError(res, 400, errorsCodes.INVALID_URL_KEY);
+            utils.responseUserError(res, 400, errorsCodes.INVALID_URL_KEY);
           }
         })
         .catch(error => {
-          utils.responseError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
+          utils.responseUserError(res, 500, errorsCodes.DATABASE_DATA_ERROR, error);
         });
     } else {
-      utils.responseError(res, 400, requestBodyValidationError);
+      utils.responseUserError(res, 400, requestBodyValidationError);
     }
   });
 

@@ -2,79 +2,16 @@ const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
+const utils = require('../lib/utils');
 
-// function randomString (length) {
-//   var result = '';
-//   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//   var charactersLength = characters.length;
-//   for (var i = 0; i < length; i++) {
-//     result += characters.charAt(Math.floor(Math.random() * charactersLength));
-//   }
-//   return result;
-// }
-//
-// function removeEvents () {
-//   database.remove('events', {})
-//     .then(result => {
-//       console.log(result);
-//     }).catch(error => {
-//       console.log(error.toString());
-//     });
-// }
-//
-// function removeEventPoints () {
-//   database.remove('event_kO6f', {})
-//     .then(result => {
-//       console.log(result);
-//     })
-//     .catch(error => {
-//       console.log(error.toString());
-//     });
-// }
-//
-// function loadPoints () {
-//   // removeEventPoints();
-//   // removeEvents();
-//
-//   const points = require('../points').pointsForDatabase();
-//   const readyPoints = [];
-//   for (const index in points) {
-//     const point = points[index];
-//     point.pointId = randomString(4);
-//     point.pointType = 'permanent';
-//     point.pointIsActive = true;
-//     point.pointName = 'Some point';
-//     point.pointTimeout = 0;
-//     point.pointCollectionTime = null;
-//     readyPoints.push(point);
-//   }
-//
-//   database.create('events', [{
-//     eventId: 'kO6f',
-//     eventName: 'Event',
-//     mapZoom: 11,
-//     mapLongitude: 18.4735,
-//     mapLatitude: 54.4787,
-//   }]).then(result => {
-//     console.log(result);
-//   }).catch(error => {
-//     console.log('error');
-//     console.log(error.toString());
-//   });
-//
-//   database.create('event_kO6f', readyPoints)
-//     .then(result => {
-//       console.log(result);
-//     }).catch(error => {
-//       console.log('error');
-//       console.log(error.toString());
-//     });
-// }
-
-function databaseErrorResponse (response, responseObject, error) {
+function responseDatabaseError (response, responseObject, error) {
   responseObject.error = validator.ValidateCodes.DATABASE_DATA_ERROR;
-  responseObject.errorDetails = error.toString();
-  response.send(responseObject);
+  utils.responseError(response, 500, error, responseObject);
+}
+
+function responseDatabaseNoData (response, responseObject) {
+  responseObject.error = validator.ValidateCodes.DATABASE_NO_RESULT_ERROR;
+  utils.responseError(response, 500, null, responseObject);
 }
 
 router.get('/', (request, response) => {
@@ -94,12 +31,16 @@ router.get('/', (request, response) => {
 
   database.read('events', { eventId: json.eventId })
     .then(result => {
+      if (result === null) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
       responseObject = Object.assign(responseObject, result);
       delete responseObject._id;
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -127,11 +68,11 @@ router.post('/', (request, response) => {
   };
 
   database.create('events', [toSave])
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -163,11 +104,11 @@ router.put('/', (request, response) => {
   };
 
   database.update('events', filter, { $set: toUpdate })
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -192,12 +133,16 @@ router.get('/point/', (request, response) => {
 
   database.read('event_' + json.eventId, filters)
     .then(result => {
+      if (result === null) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
       responseObject = Object.assign(responseObject, result);
       delete responseObject._id;
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -228,11 +173,11 @@ router.post('/point/', (request, response) => {
   };
 
   database.create('event_' + json.eventId, [toSave])
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -267,11 +212,11 @@ router.put('/point/', (request, response) => {
   };
 
   database.update('event_' + json.eventId, filters, { $set: toUpdate })
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -293,12 +238,16 @@ router.get('/points/', (request, response) => {
 
   database.readMany('event_' + json.eventId, {})
     .then(result => {
+      if (!(result && result.length)) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
       result.forEach(point => { delete point._id; });
       responseObject.points = result;
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
@@ -318,7 +267,7 @@ router.post('/points/', (request, response) => {
   }
 
   const toSave = [];
-  for (const index in json.points) {
+  Object.keys(json.points).forEach(index => {
     const point = json.points[index];
     toSave.push({
       pointId: point.pointId,
@@ -330,14 +279,14 @@ router.post('/points/', (request, response) => {
       pointShape: point.pointShape,
       pointIsActive: point.pointIsActive,
     });
-  }
+  });
 
   database.create('event_' + json.eventId, toSave)
-    .then(result => {
+    .then(() => {
       response.send(responseObject);
     })
     .catch(error => {
-      databaseErrorResponse(response, responseObject, error);
+      responseDatabaseError(response, responseObject, error);
     });
 });
 
