@@ -9,6 +9,7 @@
     "no-unused-vars": "warn",
     "no-useless-call": "warn",
     "no-useless-escape": "warn",
+    "padded-blocks": "off",
     "semi": [
       "error",
       "always"
