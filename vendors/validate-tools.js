@@ -28,6 +28,10 @@ class ValidateTools {
     return ['', undefined, null].includes(data);
   }
 
+  isUndefined (data) {
+    return data === undefined;
+  }
+
   inRange (value, start, end) {
     return value >= start && value <= end;
   }
