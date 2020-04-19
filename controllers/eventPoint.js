@@ -7,7 +7,7 @@ const utils = require('../lib/utils');
 router.get('/', (request, response) => {
   const json = request.query;
   const error = validator.validate(
-    validator.methods.validateEventGetRequest, json);
+    validator.methods.validatePointGetRequest, json);
 
   let responseObject = {
     eventId: json.eventId ? json.eventId : null,
@@ -19,7 +19,11 @@ router.get('/', (request, response) => {
     return;
   }
 
-  database.read('events', { eventId: json.eventId })
+  const filters = {
+    pointId: json.pointId,
+  };
+
+  database.read('event_' + json.eventId, filters)
     .then(result => {
       if (result === null) {
         utils.responseDatabaseNoData(response, responseObject);
@@ -37,7 +41,7 @@ router.get('/', (request, response) => {
 router.post('/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.methods.validateEventPostRequest, json);
+    validator.methods.validatePointPostRequest, json);
 
   const responseObject = {
     eventId: json.eventId ? json.eventId : null,
@@ -50,14 +54,17 @@ router.post('/', (request, response) => {
   }
 
   const toSave = {
-    eventId: json.eventId,
-    eventName: json.eventName,
-    mapLongitude: json.mapLongitude,
-    mapLatitude: json.mapLatitude,
-    mapZoom: json.mapZoom,
+    pointId: json.point.pointId,
+    pointName: json.point.pointName,
+    pointLongitude: json.point.pointLongitude,
+    pointLatitude: json.point.pointLatitude,
+    pointType: json.point.pointType,
+    pointValue: json.point.pointValue,
+    pointShape: json.point.pointShape,
+    pointIsActive: json.point.pointIsActive,
   };
 
-  database.create('events', [toSave])
+  database.create('event_' + json.eventId, [toSave])
     .then(() => {
       response.send(responseObject);
     })
@@ -69,7 +76,7 @@ router.post('/', (request, response) => {
 router.put('/', (request, response) => {
   const json = request.body;
   const error = validator.validate(
-    validator.methods.validateEventPutRequest, json);
+    validator.methods.validatePointPutRequest, json);
 
   const responseObject = {
     eventId: json.eventId ? json.eventId : null,
@@ -81,19 +88,22 @@ router.put('/', (request, response) => {
     return;
   }
 
-  const filter = {
-    eventId: json.eventId,
+  const filters = {
+    pointId: json.pointId,
   };
 
   const toUpdate = {
-    eventId: json.eventId,
-    eventName: json.eventName,
-    mapLongitude: json.mapLongitude,
-    mapLatitude: json.mapLatitude,
-    mapZoom: json.mapZoom,
+    pointId: json.point.pointId,
+    pointName: json.point.pointName,
+    pointLongitude: json.point.pointLongitude,
+    pointLatitude: json.point.pointLatitude,
+    pointType: json.point.pointType,
+    pointValue: json.point.pointValue,
+    pointShape: json.point.pointShape,
+    pointIsActive: json.point.pointIsActive,
   };
 
-  database.update('events', filter, { $set: toUpdate })
+  database.update('event_' + json.eventId, filters, { $set: toUpdate })
     .then(() => {
       response.send(responseObject);
     })

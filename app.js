@@ -21,6 +21,9 @@ const appConfig = utils.getSystemConfig().app;
 // Controllers
 const userController = require('./controllers/user');
 const eventController = require('./controllers/event');
+const eventCollectController = require('./controllers/eventCollect');
+const eventPointController = require('./controllers/eventPoint');
+const eventPointsController = require('./controllers/eventPoints');
 
 // Create express app instance
 const app = express();
@@ -68,9 +71,14 @@ app.use(express.static('public', {
 app.use(express.static('vendors', {
   maxAge: ENV_DEVELOPMENT ? 0 : appConfig.cacheValue,
 }));
+
 // user controller
 app.use('/user', userController);
 app.use('/event', eventController);
+app.use('/event/collect', eventCollectController);
+app.use('/event/point', eventPointController);
+app.use('/event/points', eventPointsController);
+
 // index rewrite
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './public/index.html'));
