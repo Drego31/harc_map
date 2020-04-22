@@ -5,6 +5,7 @@ import theme from './theme';
 import event from './event';
 import user from './user';
 import header from './header';
+import loader from './loader';
 
 Vue.use(Vuex);
 
@@ -15,5 +16,6 @@ export const store = new Vuex.Store({
     event,
     user,
     header,
+    loader,
   },
 });
