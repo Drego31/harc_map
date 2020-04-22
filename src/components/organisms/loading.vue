@@ -1,14 +1,14 @@
 <template>
   <div class="o-loading">
-    <span class="a-loader">
-      <img class="a-img f-loader f-big" src="/img/zhp.png" alt="logo"/>
-    </span>
+    <a-loader additional-class="f-big"/>
   </div>
 </template>
 
 <script>
+import ALoader from 'atoms/loader';
 
 export default {
   name: 'o-loading',
+  components: { ALoader },
 };
 </script>

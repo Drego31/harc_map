@@ -34,7 +34,8 @@ export default {
       .then(data => this.$store.dispatch('user/signIn', data))
       .then(() => this.$router.push(ROUTES.start.path))
       .then(() => promise.timeout(1000))
-      .then(() => this.$store.commit('loader/setIsLoading', false));
+      .catch(() => undefined)
+      .finally(() => this.$store.commit('loader/setIsLoading', false));
   },
   computed: {
     ...mapGetters('loader', ['isLoading']),
