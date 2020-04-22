@@ -9,7 +9,8 @@
     "run:dev": "NODE_ENV=development node app.js",
     "run:prod": "NODE_ENV=production node app.js",
     "start": "npm run run:dev & npm run build:dev",
-    "start:node": "npm run run:dev & npx webpack --config webpack.dev.js --watch"
+    "start:node": "npm run run:dev & npx webpack --config webpack.dev.js --watch",
+    "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,6 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "vee-validate": "^3.2.5",
     "@babel/core": "^7.9.0",
     "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.1.0",
@@ -50,12 +50,14 @@
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.2.2",
     "import-glob-loader": "^1.1.0",
+    "jest": "^25.2.7",
     "moment": "^2.24.0",
-    "sass": "^1.26.3",
     "nodemailer": "^6.4.6",
+    "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
     "url-loader": "^4.0.0",
+    "vee-validate": "^3.2.5",
     "vue-loader": "^15.9.1",
     "vue-material-design-icons": "^4.4.0",
     "vue-router": "^3.1.6",

@@ -29,7 +29,7 @@ export default {
   name: 'o-menu',
   data: () => ({
     links: [
-      ROUTES.home,
+      ROUTES.start,
       ROUTES.temporaryPoints,
       ROUTES.collectPoint,
       ROUTES.map,
@@ -57,7 +57,7 @@ export default {
     },
     signOut () {
       api.signOut({
-        email: this.$store.getters['user/email'],
+        user: this.$store.getters['user/user'],
       })
         .then(this.onSignOut)
         .catch(() => {

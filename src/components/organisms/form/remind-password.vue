@@ -6,7 +6,7 @@
     <template slot="form">
       <m-field-email
         :disabled="blockForm"
-        v-model="email"
+        v-model="user"
       />
       <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
@@ -44,7 +44,7 @@ export default {
     AButtonSubmit,
   },
   data: () => ({
-    email: '',
+    user: '',
     blockForm: false,
     isSending: false,
     formSend: false,
@@ -54,7 +54,7 @@ export default {
     remindPassword () {
       this.isSending = true;
       this.blockForm = true;
-      api.remindPassword(this.email)
+      api.remindPassword({ user: this.user })
         .then(this.onRemindPassword)
         .catch(this.onErrorOccurs);
     },

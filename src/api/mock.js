@@ -27,18 +27,18 @@ export const mockApi = {
       return Promise.reject(new ErrorMessage(ERRORS.eventIdIsRequired));
     }
   },
-  signIn ({ email, password }) {
+  signIn ({ user, password }) {
     return makeDelayFakeAnswer(() => ({
       eventId: '111',
-      collectedPointsIds: getCollectedPointsByMock,
-      patrolName: 'HARC',
-      email,
+      collectedPointsIds: ['1', '2', '5'],
+      userTeam: 'HARC',
+      user,
     }), 500);
   },
-  signUp ({ email, password, patrolName, eventCode }) {
+  signUp ({ user, password, userTeam, eventId }) {
     return makeDelayFakeAnswer();
   },
-  remindPassword ({ email }) {
+  remindPassword ({ user }) {
     return makeDelayFakeAnswer();
   },
   signOut () {
@@ -47,7 +47,7 @@ export const mockApi = {
   changePassword () {
     return makeDelayFakeAnswer();
   },
-  collectPoint ({ email/* user */, eventId, pointId }) {
+  collectPoint ({ user, eventId, pointId }) {
     return makeDelayFakeAnswer();
   },
 };

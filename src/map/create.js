@@ -4,7 +4,7 @@ import View from 'ol/View';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
-import { map } from 'src/map/index';
+import { map } from 'map/index';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 

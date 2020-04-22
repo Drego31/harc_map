@@ -20,13 +20,14 @@ export const ROUTES = {
     label: 'Przypomnij hasło',
   },
   changePassword: {
-    path: '/change-password',
+    path: '/user/remind/',
+    pathWithParam: '/user/remind/:key',
     name: 'change-password',
     label: 'Zmień hasło',
   },
-  home: {
-    path: '/home',
-    name: 'home',
+  start: {
+    path: '/start',
+    name: 'start',
     label: 'Start',
   },
   temporaryPoints: {

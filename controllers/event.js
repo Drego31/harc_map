@@ -2,74 +2,46 @@ const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
-const passport = require('passport');
+const utils = require('../lib/utils');
+
+function responseDatabaseError (response, responseObject, error) {
+  responseObject.error = validator.ValidateCodes.DATABASE_DATA_ERROR;
+  utils.responseError(response, 500, error, responseObject);
+}
+
+function responseDatabaseNoData (response, responseObject) {
+  responseObject.error = validator.ValidateCodes.DATABASE_NO_RESULT_ERROR;
+  utils.responseError(response, 500, null, responseObject);
+}
 
 router.get('/', (request, response) => {
   const json = request.query;
   const error = validator.validate(
     validator.methods.validateEventGetRequest, json);
 
-  response.send({
+  let responseObject = {
     eventId: json.eventId ? json.eventId : null,
-    name: 'Event',
-    mapPosition: {
-      latitude: 54.4787,
-      longitude: 18.4735,
-    },
-    mapZoom: 11,
-    points: [
-      {
-        pointId: '1',
-        name: 'Point 1',
-        latitude: 54.51728,
-        longitude: 18.51465,
-        type: 3,
-      },
-      {
-        pointId: '2',
-        name: 'Point 2',
-        latitude: 54.51111,
-        longitude: 18.51173,
-        type: 2,
-      },
-      {
-        pointId: '3',
-        name: 'Point 3',
-        latitude: 54.51548,
-        longitude: 18.54418,
-        type: 3,
-      },
-      {
-        pointId: '4',
-        name: 'Point 4',
-        latitude: 54.51851,
-        longitude: 18.55863,
-        type: 2,
-      },
-      {
-        pointId: '5',
-        name: 'Point 5',
-        latitude: 54.49639,
-        longitude: 18.56198,
-        type: 1,
-      },
-      {
-        pointId: '6',
-        name: 'Point 6',
-        latitude: 54.50585,
-        longitude: 18.52872,
-        type: 2,
-      },
-      {
-        pointId: '7',
-        name: 'Point 7',
-        latitude: 54.48899,
-        longitude: 18.49213,
-        type: 1,
-      },
-    ],
     error: error,
-  });
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  database.read('events', { eventId: json.eventId })
+    .then(result => {
+      if (result === null) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
+      responseObject = Object.assign(responseObject, result);
+      delete responseObject._id;
+      response.send(responseObject);
+    })
+    .catch(error => {
+      responseDatabaseError(response, responseObject, error);
+    });
 });
 
 router.post('/', (request, response) => {
@@ -77,10 +49,31 @@ router.post('/', (request, response) => {
   const error = validator.validate(
     validator.methods.validateEventPostRequest, json);
 
-  response.send({
+  const responseObject = {
     eventId: json.eventId ? json.eventId : null,
     error: error,
-  });
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const toSave = {
+    eventId: json.eventId,
+    eventName: json.eventName,
+    mapLongitude: json.mapLongitude,
+    mapLatitude: json.mapLatitude,
+    mapZoom: json.mapZoom,
+  };
+
+  database.create('events', [toSave])
+    .then(() => {
+      response.send(responseObject);
+    })
+    .catch(error => {
+      responseDatabaseError(response, responseObject, error);
+    });
 });
 
 router.put('/', (request, response) => {
@@ -88,10 +81,213 @@ router.put('/', (request, response) => {
   const error = validator.validate(
     validator.methods.validateEventPutRequest, json);
 
-  response.send({
+  const responseObject = {
     eventId: json.eventId ? json.eventId : null,
     error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const filter = {
+    eventId: json.eventId,
+  };
+
+  const toUpdate = {
+    eventId: json.eventId,
+    eventName: json.eventName,
+    mapLongitude: json.mapLongitude,
+    mapLatitude: json.mapLatitude,
+    mapZoom: json.mapZoom,
+  };
+
+  database.update('events', filter, { $set: toUpdate })
+    .then(() => {
+      response.send(responseObject);
+    })
+    .catch(error => {
+      responseDatabaseError(response, responseObject, error);
+    });
+});
+
+router.get('/point/', (request, response) => {
+  const json = request.query;
+  const error = validator.validate(
+    validator.methods.validatePointGetRequest, json);
+
+  let responseObject = {
+    eventId: json.eventId ? json.eventId : null,
+    error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const filters = {
+    pointId: json.pointId,
+  };
+
+  database.read('event_' + json.eventId, filters)
+    .then(result => {
+      if (result === null) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
+      responseObject = Object.assign(responseObject, result);
+      delete responseObject._id;
+      response.send(responseObject);
+    })
+    .catch(error => {
+      responseDatabaseError(response, responseObject, error);
+    });
+});
+
+router.post('/point/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validatePointPostRequest, json);
+
+  const responseObject = {
+    eventId: json.eventId ? json.eventId : null,
+    error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const toSave = {
+    pointId: json.point.pointId,
+    pointName: json.point.pointName,
+    pointLongitude: json.point.pointLongitude,
+    pointLatitude: json.point.pointLatitude,
+    pointType: json.point.pointType,
+    pointValue: json.point.pointValue,
+    pointShape: json.point.pointShape,
+    pointIsActive: json.point.pointIsActive,
+  };
+
+  database.create('event_' + json.eventId, [toSave])
+    .then(() => {
+      response.send(responseObject);
+    })
+    .catch(error => {
+      responseDatabaseError(response, responseObject, error);
+    });
+});
+
+router.put('/point/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validatePointPutRequest, json);
+
+  const responseObject = {
+    eventId: json.eventId ? json.eventId : null,
+    error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const filters = {
+    pointId: json.pointId,
+  };
+
+  const toUpdate = {
+    pointId: json.point.pointId,
+    pointName: json.point.pointName,
+    pointLongitude: json.point.pointLongitude,
+    pointLatitude: json.point.pointLatitude,
+    pointType: json.point.pointType,
+    pointValue: json.point.pointValue,
+    pointShape: json.point.pointShape,
+    pointIsActive: json.point.pointIsActive,
+  };
+
+  database.update('event_' + json.eventId, filters, { $set: toUpdate })
+    .then(() => {
+      response.send(responseObject);
+    })
+    .catch(error => {
+      responseDatabaseError(response, responseObject, error);
+    });
+});
+
+router.get('/points/', (request, response) => {
+  const json = request.query;
+  const error = validator.validate(
+    validator.methods.validatePointsGetRequest, json);
+
+  const responseObject = {
+    eventId: json.eventId ? json.eventId : null,
+    points: [],
+    error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  database.readMany('event_' + json.eventId, {})
+    .then(result => {
+      if (!(result && result.length)) {
+        responseDatabaseNoData(response, responseObject);
+        return;
+      }
+      result.forEach(point => { delete point._id; });
+      responseObject.points = result;
+      response.send(responseObject);
+    })
+    .catch(error => {
+      responseDatabaseError(response, responseObject, error);
+    });
+});
+
+router.post('/points/', (request, response) => {
+  const json = request.body;
+  const error = validator.validate(
+    validator.methods.validatePointsPostRequest, json);
+
+  const responseObject = {
+    eventId: json.eventId ? json.eventId : null,
+    error: error,
+  };
+
+  if (error) {
+    response.send(responseObject);
+    return;
+  }
+
+  const toSave = [];
+  Object.keys(json.points).forEach(index => {
+    const point = json.points[index];
+    toSave.push({
+      pointId: point.pointId,
+      pointName: point.pointName,
+      pointLongitude: point.pointLongitude,
+      pointLatitude: point.pointLatitude,
+      pointType: point.pointType,
+      pointValue: point.pointValue,
+      pointShape: point.pointShape,
+      pointIsActive: point.pointIsActive,
+    });
   });
+
+  database.create('event_' + json.eventId, toSave)
+    .then(() => {
+      response.send(responseObject);
+    })
+    .catch(error => {
+      responseDatabaseError(response, responseObject, error);
+    });
 });
 
 router.put('/collect/', (request, response) => {

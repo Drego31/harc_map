@@ -5,7 +5,7 @@
   >
     <template slot="form">
       <m-field-email
-        v-model="values.email"
+        v-model="values.user"
         :disabled="blockForm"
       />
       <m-field-set-password
@@ -15,7 +15,7 @@
       <m-field-text
         label="Nazwa patrolu"
         :rules="rules.userTeam"
-        v-model="values.patrolName"
+        v-model="values.userTeam"
         :disabled="blockForm"
       />
       <m-field-text
@@ -35,7 +35,7 @@
       <div class="f-py-2">
         <div class="f-pb-2 f-bold">Rejestracja przebiegła pomyślnie!</div>
         Link aktywacyjny został wysłany na wskazany adres e-mail:
-        <span class="f-bold">{{ values.email }}</span>
+        <span class="f-bold">{{ values.user }}</span>
       </div>
       <a-button-primary @click="$router.push(ROUTES.signIn.path)">
         Przejdź do logowania
@@ -53,7 +53,6 @@ import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
-
 export default {
   name: 'o-form-sign-in',
   mixins: [mixins.form, mixins.validation],
@@ -67,9 +66,9 @@ export default {
   },
   data: () => ({
     values: {
-      email: '',
+      user: '',
       password: '',
-      patrolName: '',
+      userTeam: '',
       eventId: '',
     },
     blockForm: false,

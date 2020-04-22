@@ -1,3 +1,5 @@
+import { logical } from 'vendors/logical';
+
 function makeFetch ({ url, config }) {
   return new Promise((resolve, reject) => {
     fetch(url, {
@@ -9,6 +11,12 @@ function makeFetch ({ url, config }) {
       .then(resolve)
       .catch(reject);
   });
+}
+
+function addBodyToConfig (config, data) {
+  if (logical.isDefined(data)) {
+    config.body = JSON.stringify(data);
+  }
 }
 
 export const request = {
@@ -37,41 +45,38 @@ export const request = {
       },
     });
   },
-  post ({ url = '/', data = {}, config = {} }) {
+  post ({ url = '/', data, config = {} }) {
     const fullUrl = request.host + url;
-    const body = JSON.stringify(data);
+    addBodyToConfig(config, data);
 
     return makeFetch({
       url: fullUrl,
       config: {
         method: 'POST',
-        body,
         ...config,
       },
     });
   },
   put ({ url = '/', data = {}, config = {} }) {
     const fullUrl = request.host + url;
-    const body = JSON.stringify(data);
+    addBodyToConfig(config, data);
 
     return makeFetch({
       url: fullUrl,
       config: {
         method: 'PUT',
-        body,
         ...config,
       },
     });
   },
   delete ({ url = '/', data = {}, config = {} }) {
     const fullUrl = request.host + url;
-    const body = JSON.stringify(data);
+    addBodyToConfig(config, data);
 
     return makeFetch({
       url: fullUrl,
       config: {
         method: 'DELETE',
-        body,
         ...config,
       },
     });

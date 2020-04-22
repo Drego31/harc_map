@@ -6,6 +6,7 @@ export const validationMixin = {
       passwordConfirmation: 'required|confirmed:password',
       userTeam: 'required|min:4',
       eventId: 'required|length:4',
+      pointId: 'required|length:4',
     },
   }),
 };

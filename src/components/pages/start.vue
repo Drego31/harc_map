@@ -1,27 +1,25 @@
 <template>
-  <t-page title="" class="f-text-center">
-    <div class="a-img f-map">
-    </div>
+  <t-page title="Start" class="f-text-center">
     <div>
-      <a-button-primary @click="$router.push(ROUTES.signIn.path)">Logowanie</a-button-primary>
-    </div>
-    <div>
-      <a-button-secondary @click="$router.push(ROUTES.signUp.path)">Rejestracja</a-button-secondary>
+      <o-start></o-start>
+      <a-button-primary @click="$router.push(ROUTES.map.path)">
+        Rozpocznij poszukiwania!
+      </a-button-primary>
     </div>
   </t-page>
 </template>
 
 <script>
 import TPage from 'templates/page';
+import OStart from 'organisms/start';
 import AButtonPrimary from 'atoms/button/primary';
-import AButtonSecondary from 'atoms/button/secondary';
 
 export default {
   name: 'p-start',
   components: {
-    AButtonSecondary,
     AButtonPrimary,
     TPage,
+    OStart,
   },
 };
 </script>
