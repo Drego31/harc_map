@@ -6,7 +6,6 @@
     </div>
     <o-footer/>
     <o-menu/>
-    <!--    <o-loading :class="{'f-hide': !isLoading}"/>-->
     <transition name="fade">
       <o-loading v-show="isLoading"/>
     </transition>
