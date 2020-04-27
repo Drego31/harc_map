@@ -27,6 +27,7 @@
               :href="link.path"
               :key="link.path"
               class="a-link"
+              target="_blank"
             >
               {{ link.label }}
             </a>
