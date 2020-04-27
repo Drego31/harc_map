@@ -7,6 +7,7 @@
       nibh, quis varius est accumsan at. Sed pharetra sapien auctor euismod convallis. Duis pretium eros interdum,
       feugiat dolor ac, ultrices ipsum. Fusce efficitur ligula non ultricies scelerisque.
     </p>
+    <p class="f-text-bold">O twórcach</p>
     <div
       v-for="person of creators"
       :key="person.fullName"
