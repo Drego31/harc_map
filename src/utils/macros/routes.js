@@ -4,6 +4,11 @@ export const ROUTES = {
     name: 'welcome',
     label: 'Strona startowa',
   },
+  about: {
+    path: '/about',
+    name: 'about',
+    label: 'O aplikacji i twórcach',
+  },
   signIn: {
     path: '/sign-in',
     name: 'sign-in',
