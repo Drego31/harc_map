@@ -1,39 +1,42 @@
 const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
+const validateCodes = require('../lib/validateCodes');
 const database = require('../lib/mongodb');
 const utils = require('../lib/utils');
+const Endpoint = require('../lib/endpoint');
 
-router.get('/', (request, response) => {
-  const json = request.query;
-  const error = validator.validate(
-    validator.methods.validatePointsGetRequest, json);
+class GetRequestService extends Endpoint {
 
-  const responseObject = {
-    eventId: json.eventId ? json.eventId : null,
-    points: [],
-    error: error,
-  };
+  databasePart () {
+    const json = this.getRequestJson();
+    const pointsCollection = 'event_' + json.eventId;
 
-  if (error) {
-    response.send(responseObject);
-    return;
+    return database.readMany(pointsCollection, {})
+
+      .then(points => {
+        if (!(points && points.length)) {
+          this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
+        }
+
+        points.forEach(point => { delete point._id; });
+        this.responseObject.points = points;
+        this.sendResponse();
+      });
   }
 
-  database.readMany('event_' + json.eventId, {})
-    .then(result => {
-      if (!(result && result.length)) {
-        utils.responseDatabaseNoData(response, responseObject);
-        return;
-      }
-      result.forEach(point => { delete point._id; });
-      responseObject.points = result;
-      response.send(responseObject);
-    })
-    .catch(error => {
-      utils.responseDatabaseError(response, responseObject, error);
-    });
-});
+  endpointService () {
+    const json = this.getRequestJson();
+    this.responseObject.eventId = json.eventId ? json.eventId : null;
+    this.responseObject.points = [];
+    return this.databasePart();
+  }
+
+  getRequestJson () {
+    return this.request.query;
+  }
+
+}
 
 router.post('/', (request, response) => {
   const json = request.body;
@@ -74,4 +77,5 @@ router.post('/', (request, response) => {
     });
 });
 
+router.get('/', (request, response) => new GetRequestService(request, response, validator.methods.validatePointsGetRequest));
 module.exports = router;
