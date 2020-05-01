@@ -68,43 +68,37 @@ class PostRequestService extends Endpoint {
 
 }
 
-router.put('/', (request, response) => {
-  const json = request.body;
-  const error = validator.validate(
-    validator.methods.validateEventPutRequest, json);
+class PutRequestService extends Endpoint {
 
-  const responseObject = {
-    eventId: json.eventId ? json.eventId : null,
-    error: error,
-  };
+  databasePart () {
+    const json = this.getRequestJson();
+    const toUpdate = {
+      eventId: json.eventId,
+      eventName: json.eventName,
+      mapLongitude: json.mapLongitude,
+      mapLatitude: json.mapLatitude,
+      mapZoom: json.mapZoom,
+    };
 
-  if (error) {
-    response.send(responseObject);
-    return;
+    const eventCollection = 'events';
+    const eventFilter = { eventId: json.eventId };
+
+    return database.read(eventCollection, eventFilter)
+
+      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
+      .then(() => database.update(eventCollection, eventFilter, toUpdate))
+      .then(() => this.sendResponse());
   }
 
-  const filter = {
-    eventId: json.eventId,
-  };
+  endpointService () {
+    const json = this.getRequestJson();
+    this.responseObject.eventId = json.eventId ? json.eventId : null;
+    return this.databasePart();
+  }
 
-  const toUpdate = {
-    eventId: json.eventId,
-    eventName: json.eventName,
-    mapLongitude: json.mapLongitude,
-    mapLatitude: json.mapLatitude,
-    mapZoom: json.mapZoom,
-  };
-
-  database.update('events', filter, { $set: toUpdate })
-    .then(() => {
-      response.send(responseObject);
-    })
-    .catch(error => {
-      utils.responseDatabaseError(response, responseObject, error);
-    });
-});
+}
 
 router.get('/', (request, response) => new GetRequestService(request, response, validator.methods.validateEventGetRequest));
 router.post('/', (request, response) => new PostRequestService(request, response, validator.methods.validateEventPostRequest));
-// router.put('/', (request, response) => new PutRequestService(request, response, validator.methods.validatePointPutRequest));
+router.put('/', (request, response) => new PutRequestService(request, response, validator.methods.validateEventPutRequest));
 module.exports = router;
