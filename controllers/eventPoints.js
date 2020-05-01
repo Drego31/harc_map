@@ -3,7 +3,6 @@ const router = express.Router();
 const validator = require('../lib/validator');
 const validateCodes = require('../lib/validateCodes');
 const database = require('../lib/mongodb');
-const utils = require('../lib/utils');
 const Endpoint = require('../lib/endpoint');
 
 class GetRequestService extends Endpoint {
@@ -38,44 +37,57 @@ class GetRequestService extends Endpoint {
 
 }
 
-router.post('/', (request, response) => {
-  const json = request.body;
-  const error = validator.validate(
-    validator.methods.validatePointsPostRequest, json);
+class PostRequestService extends Endpoint {
 
-  const responseObject = {
-    eventId: json.eventId ? json.eventId : null,
-    error: error,
-  };
+  pointsIds (points) {
+    const list = [];
+    Object.keys(points).forEach(index => {
+      list.push(points[index].pointId);
+    });
 
-  if (error) {
-    response.send(responseObject);
-    return;
+    return list;
   }
 
-  const toSave = [];
-  Object.keys(json.points).forEach(index => {
-    const point = json.points[index];
-    toSave.push({
-      pointId: point.pointId,
-      pointName: point.pointName,
-      pointLongitude: point.pointLongitude,
-      pointLatitude: point.pointLatitude,
-      pointType: point.pointType,
-      pointValue: point.pointValue,
-      pointShape: point.pointShape,
-      pointIsActive: point.pointIsActive,
-    });
-  });
+  databasePart () {
+    const json = this.getRequestJson();
+    const toSave = [];
 
-  database.create('event_' + json.eventId, toSave)
-    .then(() => {
-      response.send(responseObject);
-    })
-    .catch(error => {
-      utils.responseDatabaseError(response, responseObject, error);
+    Object.keys(json.points).forEach(index => {
+      const point = json.points[index];
+      toSave.push({
+        pointId: point.pointId,
+        pointType: point.pointType,
+        pointName: point.pointName,
+        pointExpirationTime: point.pointExpirationTime,
+        pointCollectionTime: point.pointCollectionTime,
+        pointLongitude: point.pointLongitude,
+        pointLatitude: point.pointLatitude,
+        pointCategory: point.pointCategory,
+      });
     });
-});
+
+    const pointsCollection = 'event_' + json.eventId;
+    const eventFilter = { eventId: json.eventId };
+    const pointFilter = { pointId: this.pointsIds(json.points) };
+
+    return database.read('events', eventFilter)
+
+      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
+      .then(() => database.read(pointsCollection, pointFilter))
+
+      .then(result => this.makeThrowIf(result !== null, validateCodes.DATABASE_DATA_CONFLICT_ERROR))
+      .then(() => database.create(pointsCollection, toSave))
+      .then(() => this.sendResponse());
+  }
+
+  endpointService () {
+    const json = this.getRequestJson();
+    this.responseObject.eventId = json.eventId ? json.eventId : null;
+    return this.databasePart();
+  }
+
+}
 
 router.get('/', (request, response) => new GetRequestService(request, response, validator.methods.validatePointsGetRequest));
+router.post('/', (request, response) => new PostRequestService(request, response, validator.methods.validatePointsPostRequest));
 module.exports = router;
