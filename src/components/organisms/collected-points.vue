@@ -1,13 +1,13 @@
 <template>
-  <div class="f-pt-1">
+  <div>
     <m-list-element
       v-for="category in pointCategories"
       :key="category.categoryId"
       :point="category"
     >
-      <div>{{ category.name }}</div>
-      <div class="f-text-14"> Ilość: {{ getCollectedPointsLengthById(category.categoryId) }}</div>
-      <div class="f-text-14"> Całkowita Wartość: {{ getCollectedPointsValueById(category.categoryId) }}</div>
+      <div class="f-text-18 f-text-bold">{{ category.name }}</div>
+      <div class="f-text-14 f-line-20"> Ilość: {{ getCollectedPointsLengthById(category.categoryId) }}</div>
+      <div class="f-text-14 f-line-20"> Całkowita Wartość: {{ getCollectedPointsValueById(category.categoryId) }}</div>
     </m-list-element>
   </div>
 </template>
@@ -23,21 +23,21 @@ export default {
   data: () => ({
     pointCategories: [
       {
-        name: 'PIERWSZA KATEGORIA',
+        name: 'Pierwsza kategoria',
         categoryId: 1,
         pointValue: 1,
         pointShape: 1,
         imageColor: 'f-first_category',
       },
       {
-        name: 'DRUGA KATEGORIA',
+        name: 'Druga kategoria',
         categoryId: 2,
         pointValue: 2,
         pointShape: 2,
         imageColor: 'f-second_category',
       },
       {
-        name: 'TRZECIA KATEGORIA',
+        name: 'Trzecia kategoria',
         categoryId: 3,
         pointValue: 3,
         pointShape: 3,

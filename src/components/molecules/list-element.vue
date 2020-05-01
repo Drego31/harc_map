@@ -1,5 +1,5 @@
 <template>
-  <div class="f-flex f-flex-row f-mb-2 f-flex-1 ">
+  <div class="m-list-element">
     <div>
       <icon-star :size="64" class="a-icon" :class="point.imageColor"/>
     </div>
