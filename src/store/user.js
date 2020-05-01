@@ -12,6 +12,9 @@ export default {
     isLogin: state => state.user !== '',
     collectedPointsIds: state => state.collectedPointsIds,
     valueChanged: state => state.valueChanged,
+    collectedPoints (state, getters, rootState, rootGetters) {
+      return getters.collectedPointsIds.map(pointId => rootGetters['event/getPointById'](pointId));
+    },
   },
   mutations: {
     setUser: (state, payload) => (state.user = payload),
@@ -31,6 +34,8 @@ export default {
         context.commit('event/setId', eventId, { root: true });
         context.commit('setUser', user);
         context.commit('setCollectedPointsIds', collectedPointsIds);
+        context.commit('addCollectedPointId', 'nya1');
+        context.commit('addCollectedPointId', 'LCG2');
         context.commit('setUserTeam', userTeam);
         context.dispatch('event/download', undefined, { root: true })
           .then(() => resolve())
