@@ -1,63 +1,65 @@
 const express = require('express');
 const router = express.Router();
 const validator = require('../lib/validator');
+const validateCodes = require('../lib/validateCodes');
 const database = require('../lib/mongodb');
-const utils = require('../lib/utils');
+const Endpoint = require('../lib/endpoint');
 
-function GetRequestDatabasePart (request, response, responseObject) {
+class GetRequestService extends Endpoint {
 
-  const json = request.query;
-  const filters = {
-    pointId: json.pointId,
-  };
+  databasePart () {
+    const json = this.getRequestJson();
+    const pointsCollection = 'event_' + json.eventId;
+    const filters = { pointId: json.pointId };
 
-  const readPoint = database.read('event_' + json.eventId, filters);
-  const readCategories = database.readMany('point_categories', {});
+    // prepare response for client
+    return database.read(pointsCollection, filters)
 
-  // prepare response for client
-  const ready = Promise.all([readPoint, readCategories]);
-  ready.then(result => {
+      .then(point => {
+        if (point === null) {
+          this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
+        }
 
-    const rawPoint = result[0];
-    if (rawPoint === null) {
-      utils.responseDatabaseNoData(response, responseObject);
-      return;
-    }
-
-    const categoryIndex = rawPoint.pointCategory - 1;
-    const category = result[1][categoryIndex];
-    const point = Object.assign(rawPoint, category);
-    delete point.pointCategory;
-    delete point.categoryId;
-    delete point._id;
-
-    responseObject.point = point;
-    response.send(responseObject);
-  });
-
-  ready.catch(error => {
-    utils.responseDatabaseError(response, responseObject, error);
-  });
-}
-
-function GetRequest (request, response) {
-
-  const json = request.query;
-  const error = validator.validate(
-    validator.methods.validatePointGetRequest, json);
-
-  const responseObject = {
-    eventId: json.eventId ? json.eventId : null,
-    point: null,
-    error: error,
-  };
-
-  if (error) {
-    response.send(responseObject);
-    return;
+        delete point._id;
+        this.responseObject.point = point;
+        this.sendResponse();
+      });
   }
 
-  GetRequestDatabasePart(request, response, responseObject);
+  endpointService () {
+    const json = this.getRequestJson();
+    this.responseObject.eventId = json.eventId ? json.eventId : null;
+    this.responseObject.point = null;
+
+    return this.databasePart();
+  }
+
+  getRequestJson () {
+    return this.request.query;
+  }
+
+}
+
+
+
+
+
+
+function Throw (validationCode) {
+  const error = new Error();
+  error.name = 'ValidationError';
+  error.validationCode = validationCode;
+  throw error;
+}
+
+function Catch (response, responseObject, error) {
+  if (error.name === 'MongoError') {
+    utils.responseDatabaseError(response, responseObject, error);
+  }
+  if (error.name === 'ValidationError') {
+    responseObject.error = error.validationCode;
+    utils.status(500).send(response, responseObject);
+  }
 }
 
 function PostRequestDatabasePart (request, response, responseObject) {
@@ -65,21 +67,37 @@ function PostRequestDatabasePart (request, response, responseObject) {
   const json = request.body;
   const toSave = {
     pointId: json.point.pointId,
-    pointName: json.point.pointName,
-    pointLongitude: json.point.pointLongitude,
-    pointLatitude: json.point.pointLatitude,
     pointType: json.point.pointType,
-    pointValue: json.point.pointValue,
-    pointShape: json.point.pointShape,
-    pointIsActive: json.point.pointIsActive,
+    pointName: json.point.pointName,
+    pointExpirationTime: json.pointExpirationTime,
+    pointCollectionTime: json.pointCollectionTime,
+    pointLongitude: json.pointLongitude,
+    pointLatitude: json.pointLatitude,
+    pointCategory: json.pointCategory,
   };
 
-  database.create('event_' + json.eventId, [toSave])
-    .then(() => {
-      response.send(responseObject);
-    })
+  const pointsCollection = 'event_' + json.eventId;
+  const eventFilter = { eventId: json.eventId };
+  const pointFilter = { pointId: json.pointId };
+
+  database.read('events', eventFilter)
+
+    .then(result => (result === null) ? Throw(validateCodes.DATABASE_NO_RESULT_ERROR) : undefined)
+    .then(() => database.read(pointsCollection, pointFilter))
+
+    .then(result => (result !== null) ? Throw(validateCodes.DATABASE_DATA_CONFLICT_ERROR) : undefined)
+    .then(() => database.create(pointsCollection, [toSave]))
+    .then(() => response.send(responseObject))
+
+    // error service
     .catch(error => {
-      utils.responseDatabaseError(response, responseObject, error);
+      if (error.name === 'MongoError') {
+        utils.responseDatabaseError(response, responseObject, error);
+      }
+      if (error.name === 'ValidationError') {
+        responseObject.error = error.validationCode;
+        utils.responseDatabaseNoData(response, responseObject);
+      }
     });
 }
 
@@ -148,7 +166,7 @@ function PutRequest (request, response) {
   PutRequestDatabasePart(request, response, responseObject);
 }
 
-router.get('/', GetRequest);
+router.get('/', (request, response) => new GetRequestService(request, response, validator.methods.validatePointGetRequest));
 router.post('/', PostRequest);
 router.put('/', PutRequest);
 module.exports = router;
