@@ -9,7 +9,7 @@ const systemConfig = require('../config/system.config');
 const path = require('path');
 
 // Codes for errorsCodes
-const errorsCodes = validator.ValidateCodes;
+const errorsCodes = require('../lib/validateCodes');
 
 // TODO add validation
 
