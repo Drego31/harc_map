@@ -1,4 +1,3 @@
-import { AppEvent } from 'src/structures/app-event';
 import { arrayUtils } from 'utils/array';
 
 export default {

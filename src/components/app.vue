@@ -6,6 +6,9 @@
     </div>
     <o-footer/>
     <o-menu/>
+    <transition name="fade">
+      <o-loading v-show="isLoading"/>
+    </transition>
   </div>
 </template>
 
@@ -13,12 +16,18 @@
 import OHeader from 'organisms/header';
 import OMenu from 'organisms/menu';
 import OFooter from 'organisms/footer';
+import OLoading from 'organisms/loading';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    OFooter,
-    OMenu,
     OHeader,
+    OMenu,
+    OFooter,
+    OLoading,
+  },
+  computed: {
+    ...mapGetters(['isLoading']),
   },
 };
 </script>

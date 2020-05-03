@@ -44,12 +44,8 @@ export default {
     message: '',
   }),
   methods: {
-    onSignIn ({ eventId, collectedPointsIds, user, userTeam }) {
-      this.$store.commit('event/setId', eventId);
-      this.$store.commit('user/setUser', user);
-      this.$store.commit('user/setCollectedPointsIds', collectedPointsIds);
-      this.$store.commit('user/setUserTeam', userTeam);
-      this.$store.dispatch('event/download')
+    onSignIn (data) {
+      this.$store.dispatch('user/signIn', data)
         .then(() => {
           this.$router.push(ROUTES.start.path);
           this.isSending = false;
