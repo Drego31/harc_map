@@ -1,11 +1,22 @@
 <template>
   <t-page :title="ROUTES.about.label" class="f-text-center">
-    <div class="f-text-bold">O aplikacji</div>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus molestie condimentum. Morbi dignissim
-      purus blandit tortor lobortis, in laoreet turpis iaculis. Ut id eleifend metus. Aliquam sollicitudin vulputate
-      nibh, quis varius est accumsan at. Sed pharetra sapien auctor euismod convallis. Duis pretium eros interdum,
-      feugiat dolor ac, ultrices ipsum. Fusce efficitur ligula non ultricies scelerisque.
+    <p class="f-text-left">
+      <span>
+        <strong>HarcMap</strong> to aplikacja przeznaczona do przeprowadzania gier terenowych dla harcerzy i nie tylko. Pomysłodawcą
+        projektu jest drużynowy z Hufca ZHP Gdynia
+      </span>
+      <span
+        v-if="showMore === false"
+        class="f-text-bold f-text-underline"
+        @click="showMore = true"
+      >
+        pokaż&nbsp;więcej...
+      </span>
+      <span v-else>
+        Dominik Betka, który jest z zawodu programistą. Zebrał on zespół osób z branży,
+        które chciały pomóc w formie wolontariatu. Poniżej możecie poznać ludzi, którzy poświęcili swój czas na stworzenie
+        tak ciekawego projektu. Dziękuję tym osobą za tą ciężką pracę. <strong>:)</strong>
+      </span>
     </p>
     <p class="f-text-bold">O twórcach</p>
     <div
@@ -13,7 +24,9 @@
       :key="person.fullName"
       class="f-flex f-pb-1"
     >
-      <div v-if="person.photo"><!--PHOTO--></div>
+      <div v-if="person.photo">
+        <img :src="person.photo" alt="person.fullName" width="64" height="64">
+      </div>
       <icon-account-circle :size="64" v-else/>
       <div class="f-flex-1 f-pt-1 f-pl-1 f-text-left">
         <div class="f-text-bold">{{ person.fullName }}</div>
@@ -22,7 +35,7 @@
           <template
             v-for="(link, key) of person.links"
           >
-            <span v-if="key === 1" :key="link.path" class="f-pr-1">,</span>
+            <span v-if="key === 1" :key="key" class="f-pr-1">,</span>
             <a
               :href="link.path"
               :key="link.path"
@@ -49,9 +62,10 @@ export default {
     IconAccountCircle,
   },
   data: () => ({
+    showMore: false,
     creators: [
       {
-        photo: '',
+        photo: 'https://media-exp1.licdn.com/dms/image/C4D03AQHIjyVXDRc_Zg/profile-displayphoto-shrink_200_200/0?e=1594252800&v=beta&t=CA74QtuwKhjbrGYe8nIfIVT_FqTV9zrEVqLDRRBbC5g',
         fullName: 'Dominik Betka',
         responsibilities: 'Lider, Programista front-end',
         links: [
@@ -87,6 +101,12 @@ export default {
         photo: '',
         fullName: 'Magdalena Granke',
         responsibilities: 'UX Designer',
+        links: [],
+      },
+      {
+        photo: '',
+        fullName: 'Adam Dominik',
+        responsibilities: 'Programista front-end',
         links: [],
       },
     ],
