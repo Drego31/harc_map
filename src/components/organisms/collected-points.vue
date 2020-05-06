@@ -27,21 +27,21 @@ export default {
         categoryId: 1,
         pointValue: 1,
         pointShape: 1,
-        imageColor: 'f-first_category',
+        imageColor: 'f-first-category',
       },
       {
         name: 'Druga kategoria',
         categoryId: 2,
         pointValue: 2,
         pointShape: 2,
-        imageColor: 'f-second_category',
+        imageColor: 'f-second-category',
       },
       {
         name: 'Trzecia kategoria',
         categoryId: 3,
         pointValue: 3,
         pointShape: 3,
-        imageColor: 'f-third_category',
+        imageColor: 'f-third-category',
       },
     ],
   }),
@@ -50,7 +50,7 @@ export default {
       'collectedPoints',
     ]),
   },
-  methods: {
+  methods: { // :TODO: Change pointShape to categoryId after refactor points in API
     getCategoryById (categoryId) {
       return this.pointCategories.find(category => category.categoryId === categoryId);
     },
