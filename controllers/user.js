@@ -11,8 +11,6 @@ const path = require('path');
 // Codes for errorsCodes
 const errorsCodes = validator.ValidateCodes;
 
-// TODO add validation
-
 /**
  * @description User have some time for change password until link to change will be blocked.
  * Here we check this
