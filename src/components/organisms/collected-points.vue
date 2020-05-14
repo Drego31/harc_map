@@ -1,29 +1,37 @@
 <template>
-  <div>
-    <m-list-element
+  <div class="o-collected-points-table">
+    <m-collected-points-table-header/>
+    <m-collected-points-table-row
       v-for="category in pointCategories"
       :key="category.categoryId"
       :point="category"
+      @toggle-details="toggleDetails"
     >
-      <div class="f-text-18 f-text-bold">{{ category.name }}</div>
-      <div class="f-text-14 f-line-20"> Ilość: {{ getCollectedPointsLengthById(category.categoryId) }}</div>
-      <div class="f-text-14 f-line-20"> Całkowita Wartość: {{ getCollectedPointsValueById(category.categoryId) }}</div>
-    </m-list-element>
+      <template v-slot:quantity>
+        {{ getCollectedPointsLengthById(category.categoryId) }}
+      </template>
+
+      <template v-slot:value>
+        {{ getCollectedPointsValueById(category.categoryId) }}
+      </template>
+    </m-collected-points-table-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import MListElement from 'molecules/list-element';
-
+// import MListElement from 'molecules/list-element';
+import MCollectedPointsTableRow from 'molecules/collected-points-table-row';
+import MCollectedPointsTableHeader from 'molecules/collected-points-table-header';
 export default {
-  components: { MListElement },
+  // components: { MListElement },
   name: 'o-collected-points',
-
+  components: { MCollectedPointsTableRow, MCollectedPointsTableHeader },
   data: () => ({
     pointCategories: [
       {
         name: 'Pierwsza kategoria',
+        isDetailsOpen: false,
         categoryId: 1,
         pointValue: 1,
         pointShape: 1,
@@ -31,6 +39,7 @@ export default {
       },
       {
         name: 'Druga kategoria',
+        isDetailsOpen: false,
         categoryId: 2,
         pointValue: 2,
         pointShape: 2,
@@ -38,6 +47,7 @@ export default {
       },
       {
         name: 'Trzecia kategoria',
+        isDetailsOpen: false,
         categoryId: 3,
         pointValue: 3,
         pointShape: 3,
@@ -60,6 +70,9 @@ export default {
     getCollectedPointsValueById (categoryId) {
       const length = this.collectedPoints.filter(point => point.pointShape === categoryId).length;
       return length * this.getCategoryById(categoryId).pointValue;
+    },
+    toggleDetails (point) {
+      point.isDetailsOpen = !point.isDetailsOpen;
     },
   },
 };
