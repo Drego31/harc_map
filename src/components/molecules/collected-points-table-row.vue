@@ -15,29 +15,17 @@
     </div>
 
     <transition name="fade">
-      <div
-        v-if="point.isDetailsOpen"
-        class="f-flex f-flex-col f-flex-al-center">
-        <div class="f-text-14 f-text-italic f-line-18"> Nazwa kategorii: {{ point.name }}</div>
-        <div class="f-text-14 f-text-italic f-line-18"> Wartość pojedynczego punktu: {{ point.pointValue }}</div>
-        <a-button @click="toggleDetails(point)" class="a-button-transparent" style="margin: 0">
-          <arrow-up
-            :size="24"
-            class="a-icon"
-            :class="point.imageColor"
-          />
-        </a-button>
-
-      </div>
-
-      <div v-else>
-        <a-button @click="toggleDetails(point)" class="a-button-transparent" style="margin: 0">
-          <arrow-down
-            :size="24"
-            class="a-icon"
-            :class="point.imageColor"
-          />
-        </a-button>
+      <div class="f-flex f-flex-col f-flex-al-center">
+        <template v-if="point.isDetailsOpen">
+          <div class="f-text-14 f-text-italic f-line-18"> Nazwa kategorii: {{ point.name }}</div>
+          <div class="f-text-14 f-text-italic f-line-18"> Wartość pojedynczego punktu: {{ point.pointValue }}</div>
+        </template>
+        <component
+          :is="point.isDetailsOpen ? ArrowUp : ArrowDown"
+          @click="toggleDetails(point)"
+          :size="24"
+          class="a-icon"
+          :class="point.imageColor"/>
       </div>
     </transition>
   </div>
@@ -47,16 +35,16 @@
 import IconStar from 'vue-material-design-icons/Star';
 import ArrowDown from 'vue-material-design-icons/ArrowDown';
 import ArrowUp from 'vue-material-design-icons/ArrowUp';
-import AButton from 'atoms/button';
 
 export default {
   components: {
     IconStar,
-    ArrowDown,
-    ArrowUp,
-    AButton,
   },
   name: 'm-collected-points-table-row',
+  data: () => ({
+    ArrowUp,
+    ArrowDown,
+  }),
   props: {
     point: {
       type: Object,
