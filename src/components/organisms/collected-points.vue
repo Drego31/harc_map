@@ -1,32 +1,70 @@
 <template>
-  <div class="o-collected-points-table">
-    <m-collected-points-table-header/>
-    <m-collected-points-table-row
+  <div>
+    <m-table-row add-class="f-py-1">
+      <template v-slot:cols>
+        <div>
+
+        </div>
+
+        <div class="f-text-bold">
+          Wartość
+        </div>
+
+        <div class="f-text-bold">
+          Ilość
+        </div>
+      </template>
+    </m-table-row>
+
+    <m-table-row
       v-for="category in pointCategories"
       :key="category.categoryId"
+      add-class="f-collected-points"
       :point="category"
       @toggle-details="toggleDetails"
     >
-      <template v-slot:quantity>
-        {{ getCollectedPointsLengthById(category.categoryId) }}
-      </template>
+      <template v-slot:cols>
+        <div>
+          <!--          <icon-star :size="64" class="a-icon" :class="point.imageColor"/>-->
+        </div>
 
-      <template v-slot:value>
-        {{ getCollectedPointsValueById(category.categoryId) }}
+        <div class="f-text-32 f-text-bold">
+          {{ getCollectedPointsLengthById(category.categoryId) }}
+        </div>
+
+        <div class="f-text-32 f-text-bold">
+          {{ getCollectedPointsValueById(category.categoryId) }}
+        </div>
       </template>
-    </m-collected-points-table-row>
+      <template v-slot:details>
+        <template v-if="point.isDetailsOpen">
+          <div class="f-text-14 f-text-italic f-line-18"> Nazwa kategorii: <strong>{{ point.name }}</strong></div>
+          <div class="f-text-14 f-text-italic f-line-18">
+            Wartość pojedynczego punktu:<strong> {{ point.pointValue }}</strong>
+          </div>
+        </template>
+        <component
+          :is="point.isDetailsOpen ? ArrowUp : ArrowDown"
+          @click="$emit('toggle-details', point)"
+          :size="24"
+          class="a-icon"
+          :class="point.imageColor"/>
+      </template>
+    </m-table-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-// import MListElement from 'molecules/list-element';
-import MCollectedPointsTableRow from 'molecules/collected-points-table-row';
+import MTableRow from 'molecules/table-row';
 import MCollectedPointsTableHeader from 'molecules/collected-points-table-header';
+
 export default {
-  // components: { MListElement },
   name: 'o-collected-points',
-  components: { MCollectedPointsTableRow, MCollectedPointsTableHeader },
+  components: {
+    MTableRow,
+    MCollectedPointsTableHeader,
+  },
   data: () => ({
     pointCategories: [
       {
