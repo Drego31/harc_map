@@ -16,54 +16,28 @@
       </template>
     </m-table-row>
 
-    <m-table-row
+    <m-table-row-collected-points
       v-for="category in pointCategories"
       :key="category.categoryId"
-      add-class="f-collected-points"
-      :point="category"
-      @toggle-details="toggleDetails"
-    >
-      <template v-slot:cols>
-        <div>
-          <!--          <icon-star :size="64" class="a-icon" :class="point.imageColor"/>-->
-        </div>
+      :category="category"
+      :quantity="getCollectedPointsLengthById(category.categoryId)"
+      :value="getCollectedPointsValueById(category.categoryId)"
+    />
 
-        <div class="f-text-32 f-text-bold">
-          {{ getCollectedPointsLengthById(category.categoryId) }}
-        </div>
-
-        <div class="f-text-32 f-text-bold">
-          {{ getCollectedPointsValueById(category.categoryId) }}
-        </div>
-      </template>
-      <template v-slot:details>
-        <template v-if="point.isDetailsOpen">
-          <div class="f-text-14 f-text-italic f-line-18"> Nazwa kategorii: <strong>{{ point.name }}</strong></div>
-          <div class="f-text-14 f-text-italic f-line-18">
-            Wartość pojedynczego punktu:<strong> {{ point.pointValue }}</strong>
-          </div>
-        </template>
-        <component
-          :is="point.isDetailsOpen ? ArrowUp : ArrowDown"
-          @click="$emit('toggle-details', point)"
-          :size="24"
-          class="a-icon"
-          :class="point.imageColor"/>
-      </template>
-    </m-table-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import MTableRow from 'molecules/table-row';
-import MCollectedPointsTableHeader from 'molecules/collected-points-table-header';
+import MTableRowCollectedPoints from 'molecules/table-row/collected-points';
 
 export default {
   name: 'o-collected-points',
   components: {
+    MTableRowCollectedPoints,
     MTableRow,
-    MCollectedPointsTableHeader,
+
   },
   data: () => ({
     pointCategories: [

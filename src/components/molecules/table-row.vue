@@ -5,12 +5,22 @@
     </div>
 
     <div class="f-flex f-flex-col f-flex-al-center">
-      <slot name="details"/>
+      <slot name="details" :isOpen="isOpen"/>
+      <component
+        v-if="hasDetails"
+        :is="isOpen ? IconArrowUp : IconArrowDown"
+        @click="toggleDetails()"
+        :size="24"
+        class="a-icon"
+      />
     </div>
   </div>
 </template>
 
 <script>
+
+import IconArrowUp from 'icons/ArrowUp';
+import IconArrowDown from 'icons/ArrowDown';
 
 export default {
   name: 'm-table-row',
@@ -18,6 +28,20 @@ export default {
     addClass: {
       type: String,
       default: '',
+    },
+    hasDetails: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data: () => ({
+    isOpen: false,
+    IconArrowUp,
+    IconArrowDown,
+  }),
+  methods: {
+    toggleDetails () {
+      this.isOpen = this.isOpen === false;
     },
   },
 };
