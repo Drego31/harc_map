@@ -17,8 +17,8 @@
     <transition name="fade">
       <div class="f-flex f-flex-col f-flex-al-center">
         <template v-if="point.isDetailsOpen">
-          <div class="f-text-14 f-text-italic f-line-18"> Nazwa kategorii: {{ point.name }}</div>
-          <div class="f-text-14 f-text-italic f-line-18"> Wartość pojedynczego punktu: {{ point.pointValue }}</div>
+          <div class="f-text-14 f-text-italic f-line-18"> Nazwa kategorii: <strong>{{ point.name }}</strong></div>
+          <div class="f-text-14 f-text-italic f-line-18"> Wartość pojedynczego punktu:<strong> {{ point.pointValue }}</strong></div>
         </template>
         <component
           :is="point.isDetailsOpen ? ArrowUp : ArrowDown"
