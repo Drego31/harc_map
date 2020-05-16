@@ -16,7 +16,7 @@ export default {
   mutations: {
     setUser: (state, payload) => (state.user = payload),
     setUserTeam: (state, payload) => (state.userTeam = payload),
-    setCollectedPointsIds: (state, payload) => (state.collectedPointsIds = payload),
+    setCollectedPointsIds: (state, payload) => (state.collectedPointsIds = payload || []),
     addCollectedPointId: (state, payload) => (state.collectedPointsIds.push(payload)),
     setValueChanged: (state, payload) => (state.valueChanged = payload),
     signOut: state => {
