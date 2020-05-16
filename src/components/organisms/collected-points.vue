@@ -2,9 +2,7 @@
   <div>
     <m-table-row add-class="f-py-1">
       <template v-slot:cols>
-        <div>
-
-        </div>
+        <div/>
 
         <div class="f-text-bold">
           Wartość
