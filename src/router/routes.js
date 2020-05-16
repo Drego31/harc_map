@@ -1,5 +1,6 @@
 import { ROUTES } from 'utils/macros/routes';
 import PWelcome from 'pages/welcome';
+import PAbout from 'pages/about';
 import PSignIn from 'pages/sign-in';
 import PSignUp from 'pages/sign-up';
 import PRemindPassword from 'pages/remind-password';
@@ -16,6 +17,15 @@ export const routes = [
     path: ROUTES.welcome.path,
     name: ROUTES.welcome.name,
     component: PWelcome,
+    meta: {
+      onlyBeforeLogin: true,
+      requiredAuth: false,
+    },
+  },
+  {
+    path: ROUTES.about.path,
+    name: ROUTES.about.name,
+    component: PAbout,
     meta: {
       onlyBeforeLogin: true,
       requiredAuth: false,

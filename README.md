@@ -23,3 +23,22 @@
 2. Open `Project Files` click by right button on `.eslintrc` file and click `Apply ESLint Code Style Rules` option.
 3. You have to get into `Settings/Editor/Code Style/HTML`, find `Do not indent children of` option and add `script` tag there.
 4. Restart IDE
+
+### Local MongoDB database:
+1. To run local database be sure that you already downloaded [Docker](https://www.docker.com/products/docker-desktop)
+2. Next step is run npm script: 
+```
+npm run run:mongodb
+```
+**Attention! It can be necessary to run this command with administrator permission(sudo)**
+
+
+**All initialized data are set from `/config/mongodb/local.js` script.**  
+
+#### To set your own initialization data:
+1. Create script that set this data: `/config/mongodb/[your_folder_name]/local.js`
+2. Run database: 
+```
+docker run -p 27017:27017 -v `pwd`/config/mongodb/[your_folder_name]:/docker-entrypoint-initdb.d mongo
+```
+
