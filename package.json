@@ -11,6 +11,7 @@
     "run:mongodb": "docker run -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
     "start": "npm run run:dev & npm run build:dev",
     "start:node": "npm run run:dev & npx webpack --config webpack.dev.js --watch",
+    "fill-database": "NODE_ENV=development node ./lib/pointsLoader.js",
     "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
   },
   "repository": {
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/Drego31/harc_map#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
