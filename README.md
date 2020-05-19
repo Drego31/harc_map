@@ -30,6 +30,7 @@
 ```
 npm run run:mongodb
 ```
+**Attention! It can be necessary to run this command with administrator permission(sudo)**
 
 
 **All initialized data are set from `/config/mongodb/local.js` script.**  
