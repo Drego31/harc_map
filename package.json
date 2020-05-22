@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@dbetka/utils": "^0.1.0",
     "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-builtin-extend": "^1.1.2",

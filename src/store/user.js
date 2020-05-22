@@ -1,3 +1,5 @@
+import { uCheck } from '@dbetka/utils';
+
 export default {
   namespaced: true,
   state: {
@@ -13,7 +15,14 @@ export default {
     collectedPointsIds: state => state.collectedPointsIds,
     valueChanged: state => state.valueChanged,
     collectedPoints (state, getters, rootState, rootGetters) {
-      return getters.collectedPointsIds.map(pointId => rootGetters['event/getPointById'](pointId));
+      const collectedPoints = [];
+
+      for (const pointId of getters.collectedPointsIds) {
+        const point = rootGetters['event/getPointById'](pointId);
+
+        uCheck.isDefined(point) ? collectedPoints.push(point) : undefined;
+      }
+      return collectedPoints;
     },
   },
   mutations: {
