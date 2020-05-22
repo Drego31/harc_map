@@ -6,11 +6,11 @@
       </div>
 
       <div class="f-text-32 f-text-bold">
-        {{quantity}}
+        {{ quantity }}
       </div>
 
       <div class="f-text-32 f-text-bold">
-        {{value}}
+        {{ value }}
       </div>
 
     </template>
