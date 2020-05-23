@@ -32,7 +32,7 @@ class PutRequestService extends Endpoint {
   }
 
   databasePartUpdatePoint (collection, filter, toUpdate) {
-    toUpdate.pointCollectionTime = new Date().getTime();
+    toUpdate.pointCollectionTime = Date.now();
     return database.update(collection, filter, toUpdate);
   }
 
