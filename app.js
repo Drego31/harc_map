@@ -12,10 +12,12 @@ const passport = require('passport');
 const https = require('https');
 const fs = require('fs');
 const expressSession = require('express-session');
+const MongoStore = require('connect-mongo')(expressSession);
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const passportConfig = require('./lib/passportConfig');
+const connectionString = require('./lib/mongodb').connectionString;
 const appConfig = utils.getSystemConfig().app;
 
 // Controllers
@@ -31,7 +33,7 @@ const app = express();
 
 /**
  * Configuration
-  */
+ */
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -53,7 +55,13 @@ if (ENV_DEVELOPMENT) {
     next();
   });
 }
-app.use(expressSession(sessionConfig));
+app.use(expressSession(Object.assign(sessionConfig, {
+  store: new MongoStore({
+    url: connectionString,
+    // dbName: 'harcmap-sessions',
+  }),
+})));
+// console.log(sessionConfig);
 app.use(passport.initialize());
 app.use(passport.session());
 
