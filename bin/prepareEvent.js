@@ -1,5 +1,5 @@
-const database = require('./mongodb');
-const utils = require('./utils');
+const database = require('../lib/mongodb');
+const utils = require('../lib/utils');
 
 function removePointCategories () {
   return database.remove('point_categories', { categoryId: { $in: [1, 2, 3] } })
@@ -102,7 +102,7 @@ function createEventPoints () {
     });
 }
 
-function removeAndCreatePoints () {
+function prepareEvent () {
   removePointCategories()
     .then(removeEventPoints)
     .then(removeEvents)
@@ -119,4 +119,4 @@ function removeAndCreatePoints () {
  * Call the function remove all data of points and events from database
  * and write example event and points for this from file PROJECT_DIR/points.js.
  */
-removeAndCreatePoints();
+prepareEvent();
