@@ -8,29 +8,29 @@ db = db.getSiblingDB('harcmap');
 db.events.insert({
   'eventId': 'ab12',
   'eventName': 'HarcEvent',
-  'mapZoom': 11,
+  'mapZoom': NumberInt(11),
   'mapLongitude': 18.4735,
   'mapLatitude': 54.4787,
 });
 
 db.point_categories.insertMany([{
-  'categoryId': 1,
-  'pointValue': 1,
-  'pointShape': 1,
+  'categoryId': NumberInt(1),
+  'pointValue': NumberInt(1),
+  'pointShape': NumberInt(1),
 }, {
-  'categoryId': 2,
-  'pointValue': 2,
-  'pointShape': 2,
+  'categoryId': NumberInt(2),
+  'pointValue': NumberInt(2),
+  'pointShape': NumberInt(2),
 }, {
-  'categoryId': 3,
-  'pointValue': 3,
-  'pointShape': 3,
+  'categoryId': NumberInt(3),
+  'pointValue': NumberInt(3),
+  'pointShape': NumberInt(3),
 }]);
 
 db.event_ab12.insertMany([{
   'pointLatitude': 54.5309,
   'pointLongitude': 18.4889,
-  'pointCategory': 1,
+  'pointCategory': NumberInt(1),
   'pointId': '4lwg',
   'pointType': 'permanent',
   'pointName': 'Some point',
@@ -39,7 +39,7 @@ db.event_ab12.insertMany([{
 }, {
   'pointLatitude': 54.51857,
   'pointLongitude': 18.55864,
-  'pointCategory': 1,
+  'pointCategory': NumberInt(1),
   'pointId': 'QFpj',
   'pointType': 'permanent',
   'pointName': 'Some point',
@@ -48,7 +48,7 @@ db.event_ab12.insertMany([{
 }, {
   'pointLatitude': 54.4839,
   'pointLongitude': 18.555,
-  'pointCategory': 2,
+  'pointCategory': NumberInt(2),
   'pointId': 'WpTo',
   'pointType': 'permanent',
   'pointName': 'Some point',
@@ -57,7 +57,7 @@ db.event_ab12.insertMany([{
 }, {
   'pointLatitude': 54.4671,
   'pointLongitude': 18.5581,
-  'pointCategory': 3,
+  'pointCategory': NumberInt(3),
   'pointId': '3gvy',
   'pointType': 'permanent',
   'pointName': 'Some point',
