@@ -7,6 +7,7 @@
     "no-undef": "off",
     "eqeqeq": "warn",
     "no-unused-vars": "warn",
+    "no-unused-expressions": "off",
     "no-useless-call": "warn",
     "no-useless-escape": "warn",
     "padded-blocks": "off",

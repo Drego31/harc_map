@@ -1,4 +1,5 @@
 import { getEventByIdMock } from 'api/mockMethods/get-event-by-id';
+// import { getCollectedPointsByMock } from 'api/mockMethods/get-collected-points';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 
