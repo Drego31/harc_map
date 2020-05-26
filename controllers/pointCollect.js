@@ -7,8 +7,40 @@ const Endpoint = require('../lib/endpoint');
 
 class PutRequestService extends Endpoint {
 
+  databasePartValidateEvent (event) {
+    this.makeThrowIf(event === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+  }
+
+  databasePartValidatePoint (point) {
+    this.makeThrowIf(point === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+  }
+
+  databasePartValidateUser (user) {
+    const json = this.getRequestJson();
+    if (user === null) {
+      this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
+    }
+    if (user.collectedPointsIds.includes(json.pointId)) {
+      this.makeThrow(validateCodes.DATABASE_DATA_CONFLICT_ERROR);
+    }
+  }
+
+  databasePartUpdateUser (collection, filter, toUpdate) {
+    const json = this.getRequestJson();
+    toUpdate.collectedPointsIds.push(json.pointId);
+    return database.update(collection, filter, toUpdate);
+  }
+
+  databasePartUpdatePoint (collection, filter, toUpdate) {
+    toUpdate.pointCollectionTime = Date.now();
+    return database.update(collection, filter, toUpdate);
+  }
+
   databasePart () {
     const json = this.getRequestJson();
+    let pointToUpdate = null;
+    let userToUpdate = null;
+
     const userCollection = 'users';
     const eventCollection = 'events';
     const pointsCollection = 'event_' + json.eventId;
@@ -18,24 +50,22 @@ class PutRequestService extends Endpoint {
     const userFilter = { user: json.user };
 
     return database.read(eventCollection, eventFilter)
+      .then(event => this.databasePartValidateEvent(event))
 
-      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
       .then(() => database.read(pointsCollection, pointFilter))
-
-      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
-      .then(() => database.read(userCollection, userFilter))
-
-      .then(user => {
-        if (user === null) {
-          this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
-        }
-        if (user.collectedPointsIds.includes(json.pointId)) {
-          this.makeThrow(validateCodes.DATABASE_DATA_CONFLICT_ERROR);
-        }
-        user.collectedPointsIds.push(json.pointId);
-        return database.update(userCollection, userFilter, user);
+      .then(point => {
+        this.databasePartValidatePoint(point);
+        pointToUpdate = point;
       })
 
+      .then(() => database.read(userCollection, userFilter))
+      .then(user => {
+        this.databasePartValidateUser(user);
+        userToUpdate = user;
+      })
+
+      .then(() => this.databasePartUpdateUser(userCollection, userFilter, userToUpdate))
+      .then(() => this.databasePartUpdatePoint(pointsCollection, pointFilter, pointToUpdate))
       .then(() => this.sendResponse());
   }
 
