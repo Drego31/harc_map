@@ -192,7 +192,7 @@ router.route('/activation/:key')
             .then(result => {
               // Successfully updated
               if (result) {
-                res.redirect(302, '/');
+                res.redirect(302, '/sign-in');
               } else {
                 utils.responseUserError(res, 200, errorsCodes.DATABASE_NO_RESULT_ERROR);
               }
