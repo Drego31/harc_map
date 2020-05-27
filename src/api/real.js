@@ -114,7 +114,7 @@ export const realApi = {
     return new Promise((resolve, reject) => {
       request.post({
         url: '/user/remind',
-        data: { email: user }, // TODO: change to { user }
+        data: { user },
       })
         .then(response => response.json())
         .then(data => {

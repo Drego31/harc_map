@@ -201,7 +201,7 @@ router.route('/activation/:key')
               utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
             });
         } else {
-          utils.responseUserError(res, 400, errorsCodes.INVALID_URL_KEY);
+          res.sendFile(path.resolve(__dirname, '../public/index.html'));
         }
       })
       .catch(error => {
@@ -281,11 +281,11 @@ router.route('/remind/:key')
         if (__checkForgotTimeout(result.forgotTimestamp)) {
           res.sendFile(path.resolve(__dirname, '../public/index.html'));
         } else {
-          res.status(404).send();
+          res.redirect(302, req.originalUrl + '/404');
         }
       })
       .catch(() => {
-        res.status(404).send();
+        res.redirect(302, req.originalUrl + '/404');
       });
   })
   /**
