@@ -5,6 +5,11 @@ export default {
   state: {
     eventId: '',
     name: '',
+    mapDefaultPosition: {
+      latitude: 0,
+      longitude: 0,
+    },
+    mapDefaultZoom: 2,
     mapPosition: {
       latitude: 0,
       longitude: 0,
@@ -23,6 +28,12 @@ export default {
   mutations: {
     setEvent: (state, data) => {
       Object.assign(state, { ...data });
+      state.mapDefaultPosition = { ...data.mapPosition };
+      state.mapDefaultZoom = data.mapZoom;
+    },
+    setDefaultValues: (state) => {
+      state.mapPosition = { ...state.mapDefaultPosition };
+      state.mapZoom = state.mapDefaultZoom;
     },
     setId: (state, payload) => (state.eventId = payload),
     updatePoint: (state, data) => {
@@ -31,6 +42,9 @@ export default {
     },
     removePoint: (state, point) => {
       arrayUtils.removeItem(state.points, point);
+    },
+    setMapPosition: (state, mapPosition) => {
+      state.mapPosition = mapPosition;
     },
   },
   actions: {
