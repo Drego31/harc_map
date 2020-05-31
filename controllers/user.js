@@ -201,7 +201,7 @@ router.route('/activation/:key')
               utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
             });
         } else {
-          res.sendFile(path.resolve(__dirname, '../public/index.html'));
+          res.redirect(302, '/404');
         }
       })
       .catch(error => {
@@ -281,11 +281,11 @@ router.route('/remind/:key')
         if (__checkForgotTimeout(result.forgotTimestamp)) {
           res.sendFile(path.resolve(__dirname, '../public/index.html'));
         } else {
-          res.redirect(302, req.originalUrl + '/404');
+          res.redirect(302, '/404');
         }
       })
       .catch(() => {
-        res.redirect(302, req.originalUrl + '/404');
+        res.redirect(302, '/404');
       });
   })
   /**
