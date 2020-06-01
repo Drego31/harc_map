@@ -3,10 +3,15 @@ const router = express.Router();
 const validator = require('../lib/validator');
 const validateCodes = require('../lib/validateCodes');
 const database = require('../lib/mongodb');
-const utils = require('../lib/utils');
 const Endpoint = require('../lib/endpoint');
 
 class GetRequestService extends Endpoint {
+
+  validatePermissions () {
+    const json = this.getRequestJson();
+    const events = this.session.userEvents;
+    return events.includes(json.eventId);
+  }
 
   databasePart () {
     const json = this.getRequestJson();
