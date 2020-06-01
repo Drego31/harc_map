@@ -7,7 +7,7 @@ export const ROUTES = {
   about: {
     path: '/about',
     name: 'about',
-    label: 'O aplikacji i twórcach',
+    label: 'O nas',
   },
   signIn: {
     path: '/sign-in',
