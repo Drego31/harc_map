@@ -30,14 +30,6 @@ export default {
         const isFromThisTimeGap = moment(point.pointCollectionTime).isBefore(lastGapTime);
         const isNotMyCollectedPoint = rootGetters['user/collectedPointsIds'].includes(point.pointId) === false;
 
-        console.log(rootGetters['user/collectedPointsIds'], point.pointId);
-
-        console.log({
-          collectionTimeIsNull,
-          isFromThisTimeGap,
-          isNotMyCollectedPoint,
-        });
-
         return (collectionTimeIsNull || isFromThisTimeGap) && isNotMyCollectedPoint;
       });
     },
