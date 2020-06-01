@@ -60,6 +60,7 @@ export default {
         api.getEventById(eventId)
           .then(data => (event = data))
           .then(api.getPointsByEventId)
+          // TODO: Download categories here
           .then(points => {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);
