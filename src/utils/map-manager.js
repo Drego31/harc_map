@@ -1,4 +1,4 @@
-import { map } from 'map/index';
+// import { map } from 'map/index';
 import { store } from 'store/index';
 import { ErrorMessage } from 'utils/error-message';
 import { logical } from 'vendors/logical';

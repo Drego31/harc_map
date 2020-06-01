@@ -36,7 +36,7 @@ export default {
       state.user = '';
       state.userTeam = '';
       state.collectedPointsIds = [];
-      autoUpdate.stop()
+      autoUpdate.stop();
     },
   },
   actions: {
@@ -48,8 +48,8 @@ export default {
         context.commit('setUserTeam', userTeam);
         context.dispatch('event/download', undefined, { root: true })
           .then(() => {
-            autoUpdate.run()
-            resolve()
+            autoUpdate.run();
+            resolve();
           })
           .catch(error => reject(error));
       });

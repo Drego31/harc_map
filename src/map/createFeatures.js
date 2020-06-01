@@ -46,11 +46,11 @@ export function createFeatures ({ list = [] }) {
   const listOfFeatures = [];
 
   if (mapIsNotDefined) {
-    console.error(new Error('Map is undefined'))
+    console.error(new Error('Map is undefined'));
     return false;
   }
 
-  map.points.destroyAll()
+  map.points.destroyAll();
 
   for (const point of list) {
     const lat = point.pointLatitude;

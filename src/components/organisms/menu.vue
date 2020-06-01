@@ -33,7 +33,7 @@ export default {
       ROUTES.temporaryPoints,
       ROUTES.collectPoint,
       ROUTES.map,
-      ROUTES.about
+      ROUTES.about,
     ],
     THEMES,
   }),

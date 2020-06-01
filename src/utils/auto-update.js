@@ -1,6 +1,6 @@
 import { store } from 'store';
 import { map } from 'map';
-import { uCheck } from '@dbetka/utils'
+import { uCheck } from '@dbetka/utils';
 
 const intervalTime = 60 * 1000; // 60s
 let intervalID = null;
@@ -26,6 +26,6 @@ export const autoUpdate = {
   },
   stop () {
     clearInterval(intervalID);
-    intervalID = null
-  }
-}
+    intervalID = null;
+  },
+};
