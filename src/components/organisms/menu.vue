@@ -10,11 +10,11 @@
     >
       {{ route.label }}
     </router-link>
-    <a class="a-link f-menu" @click="signOut()">
-      Sign out
-    </a>
     <a class="a-link f-menu" @click="toggleTheme()">
       {{ themeName === THEMES.light ? 'Ciemny tryb' : 'Jasny tryb' }}
+    </a>
+    <a class="a-link f-menu" @click="signOut()">
+      Wyloguj
     </a>
   </div>
 </template>
@@ -33,6 +33,7 @@ export default {
       ROUTES.temporaryPoints,
       ROUTES.collectPoint,
       ROUTES.map,
+      ROUTES.about
     ],
     THEMES,
   }),

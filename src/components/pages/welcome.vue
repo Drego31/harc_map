@@ -2,11 +2,11 @@
   <t-page title="" class="f-text-center">
     <div class="a-img f-map">
     </div>
-    <div>
-      <a-button-primary @click="$router.push(ROUTES.signIn.path)">Logowanie</a-button-primary>
-    </div>
-    <div>
-      <a-button-secondary @click="$router.push(ROUTES.signUp.path)">Rejestracja</a-button-secondary>
+    <div
+      v-for="route of links"
+      :key="route.name"
+    >
+      <a-button-primary @click="$router.push(route.path)">{{ route.label }}</a-button-primary>
     </div>
   </t-page>
 </template>
@@ -15,6 +15,7 @@
 import TPage from 'templates/page';
 import AButtonPrimary from 'atoms/button/primary';
 import AButtonSecondary from 'atoms/button/secondary';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   name: 'p-welcome',
@@ -23,5 +24,12 @@ export default {
     AButtonPrimary,
     TPage,
   },
+  data: () => ({
+    links: [
+      ROUTES.signIn,
+      ROUTES.signUp,
+      ROUTES.about,
+    ]
+  }),
 };
 </script>
