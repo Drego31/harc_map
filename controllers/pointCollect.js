@@ -66,7 +66,10 @@ class PutRequestService extends Endpoint {
 
       .then(() => this.databasePartUpdateUser(userCollection, userFilter, userToUpdate))
       .then(() => this.databasePartUpdatePoint(pointsCollection, pointFilter, pointToUpdate))
-      .then(() => this.sendResponse());
+      .then(() => {
+        this.responseObject.pointCollectionTime = pointToUpdate.pointCollectionTime;
+        this.sendResponse();
+      });
   }
 
   endpointService () {
