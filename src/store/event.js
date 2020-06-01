@@ -43,6 +43,12 @@ export default {
       const point = state.points.find(item => item.pointId === data.pointId);
       Object.assign(point, data);
     },
+    updateListOfPoints: (state, list = []) => {
+      for (const newPoint of list) {
+        const point = state.points.find(item => item.pointId === newPoint.pointId);
+        Object.assign(point, newPoint);
+      }
+    },
     removePoint: (state, point) => {
       arrayUtils.removeItem(state.points, point);
     },
@@ -54,6 +60,7 @@ export default {
         api.getEventById(eventId)
           .then(data => (event = data))
           .then(api.getPointsByEventId)
+          // TODO: Download categories here
           .then(points => {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);

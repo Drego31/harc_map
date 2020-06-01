@@ -1,4 +1,6 @@
 import { createFeatures } from 'map/createFeatures';
+import { uCheck } from '@dbetka/utils';
+import { map } from 'map'
 
 function getFeatures () {
   return points.layer.getSource().getFeatures();
@@ -14,6 +16,11 @@ export const points = {
   getFeatures,
   getFeatureByOlUid,
   create: config => createFeatures(config),
+  destroyAll () {
+    if (uCheck.isObject(map.realMap) && uCheck.isObject(points.layer)) {
+      map.realMap.removeLayer(points.layer.get('name'))
+    }
+  },
   removeByOlUid (olUid) {
     const feature = getFeatureByOlUid(olUid);
     points.layer.getSource().removeFeature(feature);

@@ -1,4 +1,5 @@
 import { uCheck } from '@dbetka/utils';
+import { autoUpdate } from 'utils/auto-update';
 
 export default {
   namespaced: true,
@@ -35,6 +36,7 @@ export default {
       state.user = '';
       state.userTeam = '';
       state.collectedPointsIds = [];
+      autoUpdate.stop()
     },
   },
   actions: {
@@ -45,7 +47,10 @@ export default {
         context.commit('setCollectedPointsIds', collectedPointsIds);
         context.commit('setUserTeam', userTeam);
         context.dispatch('event/download', undefined, { root: true })
-          .then(() => resolve())
+          .then(() => {
+            autoUpdate.run()
+            resolve()
+          })
           .catch(error => reject(error));
       });
     },
