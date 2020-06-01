@@ -7,12 +7,6 @@ const Endpoint = require('../lib/endpoint');
 
 class GetRequestService extends Endpoint {
 
-  validatePermissions () {
-    const json = this.getRequestJson();
-    const events = this.session.userEvents;
-    return events.includes(json.eventId);
-  }
-
   databasePart () {
     const json = this.getRequestJson();
     const eventCollection = 'events';
