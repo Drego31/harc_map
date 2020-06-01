@@ -40,8 +40,10 @@ const getFinalPoints = (shape, fill, stroke) => {
   });
 };
 
-export function createFeatures ({ list }) {
+export function createFeatures ({ list = [] }) {
   const listOfFeatures = [];
+
+  console.log({ list });
 
   for (const point of list) {
     const lat = point.latitude;

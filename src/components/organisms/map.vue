@@ -19,7 +19,7 @@ export default {
       maxZoom: 19,
     });
     map.points.create({
-      list: appEvent.points,
+      list: this.$store.getters['event/notCollectedPoints'],
     });
   },
 };
