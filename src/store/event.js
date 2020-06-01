@@ -43,6 +43,12 @@ export default {
       const point = state.points.find(item => item.pointId === data.pointId);
       Object.assign(point, data);
     },
+    updateListOfPoints: (state, list = []) => {
+      for (const newPoint of list) {
+        const point = state.points.find(item => item.pointId === newPoint.pointId);
+        Object.assign(point, newPoint);
+      }
+    },
     removePoint: (state, point) => {
       arrayUtils.removeItem(state.points, point);
     },

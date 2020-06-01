@@ -7,6 +7,7 @@ import { map } from 'src/map';
 import { Fill, RegularShape, Stroke, Style } from 'ol/style';
 import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { store } from 'store';
+import { uCheck } from '@dbetka/utils';
 
 const getStroke = (shape, width = 2) => {
   return new Stroke({
@@ -41,7 +42,15 @@ const getFinalPoints = (shape, fill, stroke) => {
 };
 
 export function createFeatures ({ list = [] }) {
+  const mapIsNotDefined = uCheck.isNotObject(map.realMap);
   const listOfFeatures = [];
+
+  if (mapIsNotDefined) {
+    console.error(new Error('Map is undefined'))
+    return false;
+  }
+
+  map.points.destroyAll()
 
   for (const point of list) {
     const lat = point.pointLatitude;
@@ -59,9 +68,9 @@ export function createFeatures ({ list = [] }) {
     feature.setStyle(getFinalPoints(shape, fill, stroke));
 
     point.olUid = feature.ol_uid;
-    store.commit('event/updatePoint', point);
     listOfFeatures.push(feature);
   }
+  store.commit('event/updateListOfPoints', list);
 
   const layer = new VectorLayer({
     source: new VectorSource({
