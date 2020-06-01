@@ -1,4 +1,6 @@
 import { arrayUtils } from 'utils/array';
+import { uCheck } from '@dbetka/utils';
+import moment from 'moment';
 
 export default {
   namespaced: true,
@@ -18,6 +20,18 @@ export default {
     eventId: state => state.eventId,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
+    },
+    notCollectedPoints: (state, getters, rootState, rootGetters) => {
+      return state.points.filter(point => {
+        const now = moment();
+        const lastGapTime = moment(now).minutes((now.minute() - (now.minute() % 15))).seconds(0);
+
+        const collectionTimeIsNull = uCheck.isNull(point.pointCollectionTime);
+        const isFromThisTimeGap = moment(point.pointCollectionTime).isBefore(lastGapTime);
+        const isNotMyCollectedPoint = rootGetters['user/collectedPointsIds'].includes(point.pointId) === false;
+
+        return (collectionTimeIsNull || isFromThisTimeGap) && isNotMyCollectedPoint;
+      });
     },
   },
   mutations: {
