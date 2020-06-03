@@ -75,10 +75,10 @@ export default {
       return this.pointCategories.find(category => category.categoryId === categoryId);
     },
     getCollectedPointsLengthById (categoryId) {
-      return this.collectedPoints.filter(point => point.pointShape === categoryId).length;
+      return this.collectedPoints.filter(point => point.pointCategory === categoryId).length;
     },
     getCollectedPointsValueById (categoryId) {
-      const length = this.collectedPoints.filter(point => point.pointShape === categoryId).length;
+      const length = this.collectedPoints.filter(point => point.pointCategory === categoryId).length;
       return length * this.getCategoryById(categoryId).pointValue;
     },
     toggleDetails (point) {

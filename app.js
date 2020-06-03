@@ -59,6 +59,7 @@ app.use(expressSession(Object.assign(sessionConfig, {
   store: new MongoStore({
     url: connectionString,
     // dbName: 'harcmap-sessions',
+    stringify: false,
   }),
 })));
 // console.log(sessionConfig);

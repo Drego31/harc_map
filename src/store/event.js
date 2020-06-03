@@ -1,4 +1,6 @@
 import { arrayUtils } from 'utils/array';
+import { uCheck } from '@dbetka/utils';
+import moment from 'moment';
 
 export default {
   namespaced: true,
@@ -24,6 +26,18 @@ export default {
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
+    notCollectedPoints: (state, getters, rootState, rootGetters) => {
+      return state.points.filter(point => {
+        const now = moment();
+        const lastGapTime = moment(now).minutes((now.minute() - (now.minute() % 15))).seconds(0);
+
+        const collectionTimeIsNull = uCheck.isNull(point.pointCollectionTime);
+        const isFromThisTimeGap = moment(point.pointCollectionTime).isBefore(lastGapTime);
+        const isNotMyCollectedPoint = rootGetters['user/collectedPointsIds'].includes(point.pointId) === false;
+
+        return (collectionTimeIsNull || isFromThisTimeGap) && isNotMyCollectedPoint;
+      });
+    },
   },
   mutations: {
     setEvent: (state, data) => {
@@ -40,6 +54,12 @@ export default {
       const point = state.points.find(item => item.pointId === data.pointId);
       Object.assign(point, data);
     },
+    updateListOfPoints: (state, list = []) => {
+      for (const newPoint of list) {
+        const point = state.points.find(item => item.pointId === newPoint.pointId);
+        Object.assign(point, newPoint);
+      }
+    },
     removePoint: (state, point) => {
       arrayUtils.removeItem(state.points, point);
     },
@@ -54,6 +74,7 @@ export default {
         api.getEventById(eventId)
           .then(data => (event = data))
           .then(api.getPointsByEventId)
+          // TODO: Download categories here
           .then(points => {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);

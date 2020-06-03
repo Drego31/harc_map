@@ -27,7 +27,7 @@ export const routes = [
     name: ROUTES.about.name,
     component: PAbout,
     meta: {
-      onlyBeforeLogin: true,
+      onlyBeforeLogin: false,
       requiredAuth: false,
     },
   },

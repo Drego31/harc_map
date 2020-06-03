@@ -42,3 +42,8 @@ npm run run:mongodb
 docker run -p 27017:27017 -v `pwd`/config/mongodb/[your_folder_name]:/docker-entrypoint-initdb.d mongo
 ```
 
+### Adding "Rodło" points to database:
+1. To add points, necessary categories and events you have to run local database first `npm run run:mongodb`
+2. When local DB completely load, run command `npm run fill-database`.
+3. Thats all!
+

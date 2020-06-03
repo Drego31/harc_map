@@ -3,10 +3,13 @@
     <div class="a-img f-map">
     </div>
     <div>
-      <a-button-primary @click="$router.push(ROUTES.signIn.path)">Logowanie</a-button-primary>
+      <a-button-primary @click="$router.push(ROUTES.signIn.path)">{{ ROUTES.signIn.label }}</a-button-primary>
     </div>
     <div>
-      <a-button-secondary @click="$router.push(ROUTES.signUp.path)">Rejestracja</a-button-secondary>
+      <a-button-secondary @click="$router.push(ROUTES.signUp.path)">{{ ROUTES.signUp.label }}</a-button-secondary>
+    </div>
+    <div>
+      <a-button-secondary @click="$router.push(ROUTES.about.path)">{{ ROUTES.about.label }}</a-button-secondary>
     </div>
   </t-page>
 </template>

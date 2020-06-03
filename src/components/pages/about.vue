@@ -71,7 +71,7 @@ export default {
         links: [
           {
             label: 'GitHub',
-            path: 'https://github.com/Drego31/',
+            path: 'https://github.com/dbetka/',
           },
           {
             label: 'LinkedIn',
