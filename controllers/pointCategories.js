@@ -8,7 +8,9 @@ const Endpoint = require('../lib/endpoint');
 class GetRequestService extends Endpoint {
 
   databasePart () {
-    const categoryCollection = 'point_categories';
+    const json = this.getRequestJson();
+    const categoryCollection = 'point_categories_' + json.eventId;
+
     return database.readMany(categoryCollection, {})
 
       .then(categories => {
@@ -48,7 +50,7 @@ class PostRequestService extends Endpoint {
       });
     });
 
-    const categoryCollection = 'point_categories';
+    const categoryCollection = 'point_categories_' + json.eventId;
     return database.create(categoryCollection, toSave)
       .then(() => this.sendResponse());
   }
@@ -62,7 +64,9 @@ class PostRequestService extends Endpoint {
 class DeleteRequestService extends Endpoint {
 
   databasePart () {
-    const categoryCollection = 'point_categories';
+    const json = this.getRequestJson();
+    const categoryCollection = 'point_categories_' + json.eventId;
+
     return database.remove(categoryCollection, {})
       .then(() => this.sendResponse());
   }
