@@ -3,7 +3,6 @@ const router = express.Router();
 const validator = require('../lib/validator');
 const validateCodes = require('../lib/validateCodes');
 const database = require('../lib/mongodb');
-const utils = require('../lib/utils');
 const Endpoint = require('../lib/endpoint');
 
 class GetRequestService extends Endpoint {
