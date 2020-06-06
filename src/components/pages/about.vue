@@ -92,10 +92,19 @@ export default {
         links: [],
       },
       {
-        photo: '',
+        photo: 'https://media-exp1.licdn.com/dms/image/C4E03AQGHPMB1bAAq7A/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=YRm71P6-8AsosWqGUtSFam-IO1XgJxwhp-jYiPbP5GE',
         fullName: 'Filip Betka',
         responsibilities: 'Programista back-end',
-        links: [],
+        links: [
+          {
+            label: 'GitHub',
+            path: 'https://github.com/filbetka/',
+          },
+          {
+            label: 'LinkedIn',
+            path: 'https://www.linkedin.com/in/filip-betka-6b1b10184/',
+          },
+        ],
       },
       {
         photo: '',
