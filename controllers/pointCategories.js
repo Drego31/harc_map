@@ -73,7 +73,7 @@ class DeleteRequestService extends Endpoint {
 
 }
 
-router.get('/', (request, response) => new GetRequestService(request, response, () => {}));
+router.get('/', (request, response) => new GetRequestService(request, response, validator.methods.validatePointCategoriesGetRequest));
 router.post('/', (request, response) => new PostRequestService(request, response, validator.methods.validatePointCategoriesPostRequest));
-router.delete('/', (request, response) => new DeleteRequestService(request, response, () => {}));
+router.delete('/', (request, response) => new DeleteRequestService(request, response, validator.methods.validatePointCategoriesDeleteRequest));
 module.exports = router;
