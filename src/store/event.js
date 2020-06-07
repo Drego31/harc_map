@@ -26,6 +26,10 @@ export default {
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
+    // getTemporaryPoints: state => state.points
+    //   .filter(point => uCheck.isNotNull(point.pointExpirationTime)
+    //     .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime)),
+
     notCollectedPoints: (state, getters, rootState, rootGetters) => {
       return state.points.filter(point => {
         const now = moment();
@@ -65,6 +69,9 @@ export default {
     },
     setMapPosition: (state, mapPosition) => {
       state.mapPosition = mapPosition;
+    },
+    setMapZoom: (state, mapZoom) => {
+      state.mapZoom = mapZoom;
     },
   },
   actions: {
