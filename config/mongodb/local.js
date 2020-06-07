@@ -13,7 +13,7 @@ db.events.insert({
   'mapLatitude': 54.4787,
 });
 
-db.point_categories.insertMany([{
+db.point_categories_ab12.insertMany([{
   'categoryId': NumberInt(1),
   'pointValue': NumberInt(1),
   'pointShape': NumberInt(1),
