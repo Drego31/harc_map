@@ -52,10 +52,10 @@
 </template>
 
 <script>
-import TPage from 'templates/page';
-import IconAccountCircle from 'icons/AccountCircle';
+  import TPage from 'templates/page';
+  import IconAccountCircle from 'icons/AccountCircle';
 
-export default {
+  export default {
   name: 'p-about',
   components: {
     TPage,
@@ -86,10 +86,18 @@ export default {
         links: [],
       },
       {
-        photo: '',
+        photo: 'https://henouser.pl/photo.jpeg',
         fullName: 'Paweł Jurkiewicz',
         responsibilities: 'Programista back-end',
-        links: [],
+        links: [
+          {
+            label: 'Site',
+            path: 'https://henouser.pl/',
+          }, {
+            label: 'GitLab',
+            path: 'https://gitlab.com/henouser',
+          },
+        ],
       },
       {
         photo: 'https://media-exp1.licdn.com/dms/image/C4E03AQGHPMB1bAAq7A/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=YRm71P6-8AsosWqGUtSFam-IO1XgJxwhp-jYiPbP5GE',
