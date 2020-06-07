@@ -1,5 +1,5 @@
 <template>
-  <div class="f-mb-2 f-text-center f-text-24 f-text-bold ">
+  <div class="f-mb-2 f-text-center f-text-32 f-text-bold ">
     {{ hours }}:{{ minutes }}:{{ seconds }}
   </div>
 </template>

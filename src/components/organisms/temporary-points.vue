@@ -8,20 +8,21 @@
     >
       <icon-clock
         :size="24"
-        class="a-icon f-active-point"
-      >
-      </icon-clock>
+        class="a-icon"
+        :class="classByPointExpirationStatus(point.pointExpirationTime)"
+      />
 
       <div>
         <div class="f-text-left">{{ point.pointName }}</div>
         <div class="f-text-14"> {{ getAvailabilityTimeAsString(point.pointExpirationTime) }}</div>
       </div>
+
       <icon-map
         :size="24"
         class="a-icon"
-        @click="panToPointLocationOnMap(point.pointLatitude, point.pointLongitude)"
-      >
-      </icon-map>
+        :class="classByPointExpirationStatus(point.pointExpirationTime)"
+        @click="panToPointLocationOnMap(point)"
+      />
     </div>
   </div>
 </template>
@@ -31,7 +32,7 @@ import { pointDurationTimeMock, temporaryPointsMock } from 'pages/temporary-poin
 import clock from 'molecules/clock.vue';
 import IconMap from 'icons/Map.vue';
 import IconClock from 'icons/Clock.vue';
-import { getHoursAndMinutesAsString } from 'utils/date';
+import { getHoursAndMinutesAsString, modifyDateHours } from 'utils/date';
 import { ROUTES } from 'utils/macros/routes';
 import { mapMutations } from 'vuex';
 
@@ -46,58 +47,43 @@ export default {
     temporaryPointsMock,
     pointDurationTimeMock,
     points: [],
-    pointsExpirationTimes: [],
-    pointsAppearanceTimes: [],
   }),
-  computed: {},
   mounted () {
     this.points = this.sortedTemporaryPoints();
-    this.points.filter(point => {
-      const appearanceDate = new Date(point.pointExpirationTime);
-      const appearanceHour = point.pointExpirationTime.getHours() - pointDurationTimeMock;
-
-      appearanceDate.setHours(appearanceHour);
-      this.pointsAppearanceTimes.push(appearanceDate);
-      this.pointsExpirationTimes.push(point.pointExpirationTime);
-    });
-
-    this.$options.interval = setInterval(this.updatePointsStatus, 1000);
-    console.log(this.pointsExpirationTimes);
   },
   methods: {
     ...mapMutations('event', [
       'setMapPosition',
+      'setMapZoom',
     ]),
+    // ...mapGetters('event', [
+    //   'getTemporaryPoints',
+    // ]),
     sortedTemporaryPoints () {
       return this.temporaryPointsMock.sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime);
     },
-    updatePointsStatus () {
-      // let now =  new Date();
-      // now = now.getTime()
-      // this.points.filter(point => point.pointExpirationTime === now ||)
-      // //
-      // if ()
-    },
-
     getAvailabilityTimeAsString (expirationDate) {
-      const appearanceDate = new Date(expirationDate);
-      const appearanceHour = expirationDate.getHours() - pointDurationTimeMock;
-
-      appearanceDate.setHours(appearanceHour);
-
+      const appearanceDate = modifyDateHours(expirationDate, -pointDurationTimeMock);
       return getHoursAndMinutesAsString(appearanceDate) + ' - ' + getHoursAndMinutesAsString(expirationDate);
     },
-    panToPointLocationOnMap (pointLatitude, pointLongitude) {
+    panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
       const mapPosition = {
         latitude: pointLatitude,
         longitude: pointLongitude,
       };
       this.setMapPosition(mapPosition);
+      this.setMapZoom(12);
       this.$router.push(ROUTES.map.path);
     },
+    classByPointExpirationStatus (pointExpirationTime) {
+      const now = new Date().getTime();
+      const pointAppearanceDate = modifyDateHours(pointExpirationTime, -pointDurationTimeMock);
 
+      if (pointExpirationTime < now) return 'f-disabled-point';
+      else if (pointAppearanceDate > now) return 'f-future-point';
+      else return 'f-active-point';
+    },
   },
-
 }
 ;
 </script>

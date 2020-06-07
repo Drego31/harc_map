@@ -14,7 +14,7 @@ export const temporaryPointsMock = [
     pointId: 'xdXD',
     pointType: 'timeout',
     pointName: 'Konstruowanie bomby',
-    pointExpirationTime: new Date(2020, 4, 27, 19, 0, 0), // TODO: Date and time, when point expiration
+    pointExpirationTime: new Date(2020, 6, 27, 19, 0, 0), // TODO: Date and time, when point expiration
     pointCollectionTime: undefined,
     pointLongitude: -0.12755,
     pointLatitude: 51.507222,
@@ -24,7 +24,7 @@ export const temporaryPointsMock = [
     pointId: 'xdXM',
     pointType: 'timeout',
     pointName: 'Jedzenie nietoperzy',
-    pointExpirationTime: new Date(2020, 4, 27, 20, 0, 0), // TODO: Date and time, when point expiration
+    pointExpirationTime: new Date(2020, 6, 4, 12, 0, 0), // TODO: Date and time, when point expiration
     pointCollectionTime: undefined,
     pointLongitude: 18.538836,
     pointLatitude: 54.519502,
@@ -51,7 +51,6 @@ export const temporaryPointsMock = [
     pointCategory: 1,
   },
 ];
-// TODO 3 colors of clock related to expiration time
 
 export default {
   name: 'p-collected-points',
