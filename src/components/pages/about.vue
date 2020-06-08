@@ -52,10 +52,10 @@
 </template>
 
 <script>
-  import TPage from 'templates/page';
-  import IconAccountCircle from 'icons/AccountCircle';
+import TPage from 'templates/page';
+import IconAccountCircle from 'icons/AccountCircle';
 
-  export default {
+export default {
   name: 'p-about',
   components: {
     TPage,
@@ -80,10 +80,15 @@
         ],
       },
       {
-        photo: '',
+        photo: 'https://i.ibb.co/sj5dcdW/harc.jpg',
         fullName: 'Paweł Bednarczyk',
         responsibilities: 'Programista front-end',
-        links: [],
+        links: [
+          {
+            label: 'GitHub',
+            path: 'https://github.com/Bedpaw/',
+          },
+        ],
       },
       {
         photo: 'https://henouser.pl/photo.jpeg',
