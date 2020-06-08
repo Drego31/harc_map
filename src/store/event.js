@@ -1,6 +1,7 @@
 import { arrayUtils } from 'utils/array';
 import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
+import { MACROS } from 'utils/macros';
 
 export default {
   namespaced: true,
@@ -26,10 +27,9 @@ export default {
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
-    // getTemporaryPoints: state => state.points
-    //   .filter(point => uCheck.isNotNull(point.pointExpirationTime)
-    //     .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime)),
-
+    getTemporaryPoints: state => state.points
+      .filter(point => point.pointType === MACROS.pointType.temporary)
+      .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
     notCollectedPoints: (state, getters, rootState, rootGetters) => {
       return state.points.filter(({
         pointId,
@@ -44,7 +44,7 @@ export default {
         const collectionTimeIsNull = uCheck.isNull(pointCollectionTime);
         const isFromThisTimeGap = moment(pointCollectionTime).isBefore(lastGapTime);
         const isNotMyCollectedPoint = rootGetters['user/collectedPointsIds'].includes(pointId) === false;
-        const isPermanent = pointType === 'permanent';
+        const isPermanent = pointType === MACROS.pointType.permanent;
 
         const expirationTime = moment((new Date(pointExpirationTime)).valueOf());
         const expirationTimeDiffNow = expirationTime.diff(moment());

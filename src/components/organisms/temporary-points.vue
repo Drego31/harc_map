@@ -5,7 +5,7 @@
       v-for="point in points"
       :point="point"
       :key="point.pointId"
-      :pointDurationTimeMock="pointDurationTimeMock"
+      :pointDurationTime="pointDurationTime"
       @panTo="panToPointLocationOnMap"
     />
   </div>
@@ -14,9 +14,9 @@
 <script>
 import MTableRowTemporaryPoints from 'molecules/table-row/temporary-points';
 import clock from 'molecules/clock.vue';
-import { pointDurationTimeMock, temporaryPointsMock } from 'pages/temporary-points';
 import { ROUTES } from 'utils/macros/routes';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import { MACROS } from 'utils/macros';
 
 export default {
   name: 'o-temporary-points',
@@ -25,24 +25,18 @@ export default {
     clock,
   },
   data: () => ({
-    temporaryPointsMock,
-    pointDurationTimeMock,
-    points: [],
+    pointDurationTime: MACROS.pointDurationTime,
   }),
-  mounted () {
-    this.points = this.sortedTemporaryPoints();
+  computed: {
+    ...mapGetters('event', {
+      points: 'getTemporaryPoints',
+    }),
   },
   methods: {
     ...mapMutations('event', [
       'setMapPosition',
       'setMapZoom',
     ]),
-    // ...mapGetters('event', [
-    //   'getTemporaryPoints',
-    // ]),
-    sortedTemporaryPoints () {
-      return this.temporaryPointsMock.sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime);
-    },
     panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
       const mapPosition = {
         latitude: pointLatitude,

@@ -3,18 +3,18 @@
     <icon-clock
       :size="24"
       class="a-icon"
-      :class="classByPointExpirationStatus(point.pointExpirationTime)"
+      :class="classByPointExpirationStatus(pointExpirationTime)"
     />
 
     <div>
       <div class="f-text-left">{{ point.pointName }}</div>
-      <div class="f-text-14"> {{ getAvailabilityTimeAsString(point.pointExpirationTime) }}</div>
+      <div class="f-text-14"> {{ getAvailabilityTimeAsString(pointExpirationTime) }}</div>
     </div>
 
     <icon-map
       :size="24"
       class="a-icon"
-      :class="classByPointExpirationStatus(point.pointExpirationTime)"
+      :class="classByPointExpirationStatus(pointExpirationTime)"
       @click="panTo(point)"
     />
   </div>
@@ -32,13 +32,15 @@ export default {
     IconClock,
   },
   data: () => ({
-    pointAppearanceTime: '',
+    pointAppearanceTime: null,
+    pointExpirationTime: null,
   }),
   created () {
-    this.pointAppearanceTime = modifyDateHours(this.point.pointExpirationTime, -this.pointDurationTimeMock);
+    this.pointExpirationTime = new Date(this.point.pointExpirationTime);
+    this.pointAppearanceTime = modifyDateHours(this.pointExpirationTime, -this.pointDurationTime);
   },
   props: {
-    pointDurationTimeMock: {
+    pointDurationTime: {
       required: true,
       type: Number,
     },
@@ -54,12 +56,12 @@ export default {
     classByPointExpirationStatus (pointExpirationTime) {
       const now = new Date().getTime();
 
-      if (pointExpirationTime < now) {
-        return 'f-disabled-point';
-      } else if (this.pointAppearanceTime > now) {
+      if (this.pointAppearanceTime >= now) {
         return 'f-future-point';
-      } else {
+      } else if (pointExpirationTime >= now) {
         return 'f-active-point';
+      } else {
+        return 'f-disabled-point';
       }
     },
     panTo (point) {
