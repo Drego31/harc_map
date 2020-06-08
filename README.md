@@ -1,10 +1,15 @@
 # HarcMap
 Content:
 1. Installation
+    1. Requirements
+    2. How to prepare Intellij IDE (Webstorm / Phpstorm) for front-end development
 2. Development
+    1. Devel environment
+    2. Production environment:
 3. Local Database
     1. Installation
-
+    2. Default data in local database
+    3. Adding "RTL Gdynia" points to database 
 
 
 
@@ -55,10 +60,11 @@ npm run run:mongodb // Warning! It can be necessary to run this command with adm
 For default, local database is filled example data to run all basic functionality.
 It means one user(zhp@harcmap.henouser.pl), one event(ab12) with 3 categories and 4 points.
 
+
 It doesn't contain any data about "RTL Gdynia" event or another. 
 Default data are smallest content to run basic functionality!
 
-**All initialized data are set from `/config/mongodb/local.js` script.**  
+All initialized data are set from `/config/mongodb/local.js` script!
 
 #### Adding "RTL Gdynia" points to database:
 1. To add points, necessary categories and events you have to run local database first `npm run run:mongodb`
