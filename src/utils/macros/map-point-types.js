@@ -1,4 +1,8 @@
 export const MAP_POINTS = {
+  0: {
+    strokeColor: 'black',
+    fillColor: 'white',
+  },
   1: {
     strokeColor: 'black',
     fillColor: 'blue',
