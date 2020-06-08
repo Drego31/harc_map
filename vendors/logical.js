@@ -8,6 +8,7 @@ const logical = {
   isFunction: value => typeof value === 'function',
   isBoolean: value => typeof value === 'boolean',
   isDefined: value => logical.isUndefined(value) === false,
+  isObjectEmpty: value => !Object.keys(value).length,
 
   isNotString: value => logical.isString(value) === false,
   isNotNumber: value => logical.isNumber(value) === false,
@@ -16,6 +17,7 @@ const logical = {
   isNotArray: value => logical.isArray(value) === false,
   isNotFunction: value => logical.isFunction(value) === false,
   isNotBoolean: value => logical.isBoolean(value) === false,
+  isNotObjectEmpty: value => logical.isObjectEmpty(value) === false,
 };
 
 module.exports = {

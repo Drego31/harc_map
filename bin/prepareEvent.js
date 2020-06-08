@@ -2,7 +2,7 @@ const database = require('../lib/mongodb');
 const utils = require('../lib/utils');
 
 function removePointCategories () {
-  return database.remove('point_categories', { categoryId: { $in: [1, 2, 3] } })
+  return database.remove('point_categories_kO6f', { categoryId: { $in: [1, 2, 3] } })
     .then(result => {
       console.log(result);
     })
@@ -54,7 +54,7 @@ function createPointCategories () {
     },
   ];
 
-  return database.create('point_categories', categories)
+  return database.create('point_categories_kO6f', categories)
     .then(result => {
       console.log(result);
     })

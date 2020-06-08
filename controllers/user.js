@@ -35,14 +35,21 @@ router.route('/login')
     // Checking if user is already logged
     if (req.isAuthenticated()) {
       // Data from session
-      const { user, userTeam, collectedPointsIds, userEvents } = req.user;
-      res.send({
-        user,
-        userTeam,
-        collectedPointsIds,
-        eventId: userEvents[0],
-        error: null,
+      const { user, userTeam, userEvents } = req.user;
+      database.read('users', { user }).then(result => {
+        if (result) {
+          res.send({
+            user,
+            userTeam,
+            collectedPointsIds: result.collectedPointsIds,
+            eventId: userEvents[0],
+            error: null,
+          });
+        } else {
+          utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR);
+        }
       });
+
     } else if (Object.keys(req.body).length === 0) {
       utils.responseUserError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
     } else {
@@ -54,20 +61,26 @@ router.route('/login')
         passport.authenticate('local', (error, userData) => {
           if (error || !userData) {
             // failed login
-            utils.responseUserError(res, 401, error);
+            utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR, error);
           } else {
             req.login(userData, error => {
               // error with setting session
               if (error) {
                 utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
               } else {
-                const { user, userTeam, collectedPointsIds, userEvents } = userData;
-                res.send({
-                  user,
-                  userTeam,
-                  collectedPointsIds,
-                  eventId: userEvents[0],
-                  error: null,
+                const { user, userTeam, userEvents } = userData;
+                database.read('users', { user }).then(result => {
+                  if (result) {
+                    res.send({
+                      user,
+                      userTeam,
+                      collectedPointsIds: result.collectedPointsIds,
+                      eventId: userEvents[0],
+                      error: null,
+                    });
+                  } else {
+                    utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR);
+                  }
                 });
               }
             });
