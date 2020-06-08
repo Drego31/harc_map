@@ -33,6 +33,11 @@ function removeEventPoints () {
 function createPointCategories () {
   const categories = [
     {
+      categoryId: 0,
+      pointValue: 0,
+      pointShape: 0,
+    },
+    {
       categoryId: 1,
       pointValue: 1,
       pointShape: 1,
@@ -79,15 +84,17 @@ function createEvent () {
 }
 
 function createEventPoints () {
-  const points = require('../points').pointsForDatabase();
+  const permanentPoints = require('../points').pointsForDatabase();
+  const temporaryPoints = require('../temporary-points').temporaryPointsForDatabase();
   const readyPoints = [];
+  const points = permanentPoints.concat(temporaryPoints);
 
   Object.keys(points).forEach(index => {
     const point = points[index];
     point.pointId = utils.generateRandomString(4);
-    point.pointType = 'permanent';
-    point.pointName = 'Some point';
-    point.pointExpirationTime = null;
+    point.pointType = point.pointType || 'permanent';
+    point.pointName = point.pointName || 'Empty';
+    point.pointExpirationTime = point.pointExpirationTime || null;
     point.pointCollectionTime = null;
     readyPoints.push(point);
   });
