@@ -10,13 +10,15 @@ import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 
 const getStroke = (shape, width = 2) => {
+  const appearance = MAP_POINTS[shape] || {};
   return new Stroke({
-    color: MAP_POINTS[shape].strokeColor,
+    color: appearance.strokeColor,
     width,
   });
 };
 const getFill = (shape) => {
-  return new Fill({ color: MAP_POINTS[shape].fillColor });
+  const appearance = MAP_POINTS[shape] || {};
+  return new Fill({ color: appearance.fillColor });
 };
 
 const getFinalPoints = (shape, fill, stroke) => {

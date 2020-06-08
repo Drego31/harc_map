@@ -2,7 +2,7 @@ const database = require('../lib/mongodb');
 const utils = require('../lib/utils');
 
 function removePointCategories () {
-  return database.remove('point_categories', { categoryId: { $in: [1, 2, 3] } })
+  return database.remove('point_categories_kO6f', { categoryId: { $in: [1, 2, 3] } })
     .then(result => {
       console.log(result);
     })
@@ -33,6 +33,11 @@ function removeEventPoints () {
 function createPointCategories () {
   const categories = [
     {
+      categoryId: 0,
+      pointValue: 0,
+      pointShape: 0,
+    },
+    {
       categoryId: 1,
       pointValue: 1,
       pointShape: 1,
@@ -49,7 +54,7 @@ function createPointCategories () {
     },
   ];
 
-  return database.create('point_categories', categories)
+  return database.create('point_categories_kO6f', categories)
     .then(result => {
       console.log(result);
     })
@@ -79,15 +84,17 @@ function createEvent () {
 }
 
 function createEventPoints () {
-  const points = require('../points').pointsForDatabase();
+  const permanentPoints = require('../points').pointsForDatabase();
+  const temporaryPoints = require('../temporary-points').temporaryPointsForDatabase();
   const readyPoints = [];
+  const points = permanentPoints.concat(temporaryPoints);
 
   Object.keys(points).forEach(index => {
     const point = points[index];
     point.pointId = utils.generateRandomString(4);
-    point.pointType = 'permanent';
-    point.pointName = 'Some point';
-    point.pointExpirationTime = null;
+    point.pointType = point.pointType || 'permanent';
+    point.pointName = point.pointName || 'Empty';
+    point.pointExpirationTime = point.pointExpirationTime || null;
     point.pointCollectionTime = null;
     readyPoints.push(point);
   });

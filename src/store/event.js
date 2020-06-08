@@ -31,15 +31,28 @@ export default {
     //     .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime)),
 
     notCollectedPoints: (state, getters, rootState, rootGetters) => {
-      return state.points.filter(point => {
+      return state.points.filter(({
+        pointId,
+        pointCollectionTime,
+        pointType,
+        pointExpirationTime,
+      }) => {
+        const timeRange = 1000 * 60 * 60; // 1H
         const now = moment();
         const lastGapTime = moment(now).minutes((now.minute() - (now.minute() % 15))).seconds(0);
 
-        const collectionTimeIsNull = uCheck.isNull(point.pointCollectionTime);
-        const isFromThisTimeGap = moment(point.pointCollectionTime).isBefore(lastGapTime);
-        const isNotMyCollectedPoint = rootGetters['user/collectedPointsIds'].includes(point.pointId) === false;
+        const collectionTimeIsNull = uCheck.isNull(pointCollectionTime);
+        const isFromThisTimeGap = moment(pointCollectionTime).isBefore(lastGapTime);
+        const isNotMyCollectedPoint = rootGetters['user/collectedPointsIds'].includes(pointId) === false;
+        const isPermanent = pointType === 'permanent';
 
-        return (collectionTimeIsNull || isFromThisTimeGap) && isNotMyCollectedPoint;
+        const expirationTime = moment((new Date(pointExpirationTime)).valueOf());
+        const expirationTimeDiffNow = expirationTime.diff(moment());
+        const diffIsInRange = expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
+
+        return (isPermanent || diffIsInRange) &&
+          (collectionTimeIsNull || isFromThisTimeGap) &&
+          isNotMyCollectedPoint;
       });
     },
   },
