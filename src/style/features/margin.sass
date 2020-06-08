@@ -1,0 +1,27 @@
+@each $name, $value in $x
+  .f-m-#{$name}
+    margin: map_get($y, $name) $value !important
+
+@each $name, $value in $x
+  .f-mx-#{$name}
+    margin:
+      left: $value !important
+      right: $value !important
+
+  .f-ml-#{$name}
+    margin-left: $value !important
+
+  .f-mr-#{$name}
+    margin-right: $value !important
+
+@each $name, $value in $y
+  .f-my-#{$name}
+    margin:
+      top: $value !important
+      bottom: $value !important
+
+  .f-mt-#{$name}
+    margin-top: $value !important
+
+  .f-mb-#{$name}
+    margin-bottom: $value !important

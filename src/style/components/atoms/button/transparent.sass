@@ -1,0 +1,18 @@
+.a-button-transparent
+  width: 150px
+  font-weight: normal
+  height: 32px
+  background-color: transparent
+  color: $color-text
+  font-size: 14px
+  padding: 2px 2px
+  border: solid transparent 1px
+  margin: 5px
+
+  &:hover
+    border: solid $color-text 1px
+
+  &:disabled
+    color: rgba($color-text, 0.38)
+    border: solid 1px transparent
+    cursor: not-allowed

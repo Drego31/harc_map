@@ -1,1 +1,7 @@
 .idea
+/node_modules
+package-lock.json
+/config/system.config.json
+/config/cert.key
+/config/cert.pem
+/public/app.min.js
