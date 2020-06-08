@@ -14,7 +14,7 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Tajemnice jeńca',
-          pointExpirationTime: new Date(),
+          pointExpirationTime: Date.now(),
         },
         {
           pointLatitude: 54.5161,
@@ -22,7 +22,7 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Opowieść o holokauście',
-          pointExpirationTime: new Date() + 1000 * 60 * 60, // Date + 1h
+          pointExpirationTime: Date.now() + 1000 * 60 * 60, // Date + 1h
         },
         {
           pointLatitude: 54.5228,
@@ -30,7 +30,7 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Rota Przyrzeczenia THH',
-          pointExpirationTime: new Date() + 1000 * 60 * 30, // Date + 0.5h
+          pointExpirationTime: Date.now() + 1000 * 60 * 30, // Date + 0.5h
         },
       ];
     },
