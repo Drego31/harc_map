@@ -1,5 +1,5 @@
-import { mockApi } from 'api/mock';
-import { realApi } from 'api/real';
+import { mockApi } from 'api/mock/mock';
+import { realApi } from 'api/real/real';
 
 export const api = {
   ...mockApi,
