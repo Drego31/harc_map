@@ -1,0 +1,8 @@
+$sizes: 12, 18, 24, 32, 48, 64,
+
+.a-icon.f-material
+  @each $size in $sizes
+    &.f-size-#{$size}
+      font-size: #{$size}px
+      width: #{$size}px
+      height: #{$size}px
