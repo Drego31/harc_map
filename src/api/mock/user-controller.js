@@ -28,7 +28,11 @@ export const userController = {
     }));
   },
   changePassword ({ password, key }) {
-    return makeDelayFakeAnswer(() => ({
-    }));
+    return makeDelayFakeAnswer(() => ({}));
+  },
+  checkYourLoginSession () {
+    return new Promise((resolve, reject) => {
+      reject(new ErrorMessage(ERRORS.signIn));
+    });
   },
 };
