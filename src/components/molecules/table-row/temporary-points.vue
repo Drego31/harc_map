@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import IconMap from 'icons/Map.vue';
-import IconClock from 'icons/Clock.vue';
 import { getHoursAndMinutesAsString, modifyDateHours } from 'utils/date';
 import AIcon from 'atoms/icon';
 
@@ -30,8 +28,6 @@ export default {
   name: 'm-table-row-temporary-points',
   components: {
     AIcon,
-    IconMap,
-    IconClock,
   },
   data: () => ({
     pointAppearanceTime: null,
