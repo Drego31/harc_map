@@ -22,11 +22,11 @@ export default {
     },
   },
   computed: {
-    classes() {
-      const classes = {}
-      classes['f-size-' + this.size] = true
-      return classes
-    }
+    classes () {
+      const classes = {};
+      classes['f-size-' + this.size] = true;
+      return classes;
+    },
   },
 };
 </script>

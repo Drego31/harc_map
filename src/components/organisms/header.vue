@@ -47,9 +47,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import IconStar from 'icons/Star.vue';
 import AButtonIcon from 'atoms/button/icon';
-import IconArrowLeft from 'icons/ArrowLeft.vue';
 import { ROUTES } from 'utils/macros/routes';
 import AIcon from 'atoms/icon';
 
@@ -58,8 +56,6 @@ export default {
   components: {
     AIcon,
     AButtonIcon,
-    IconArrowLeft,
-    IconStar,
   },
   computed: {
     ...mapGetters('user', [

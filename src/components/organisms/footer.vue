@@ -6,7 +6,7 @@
     <a-button-icon-footer
       v-for="icon of getIcons()"
       :key="icon.label"
-      :icon="icon.component"
+      :icon="icon.iconName"
       :label="icon.label"
       :size="icon.big ? 48 : 24"
       :icon-class="{ 'f-big': icon.big }"
@@ -18,12 +18,6 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import IconMap from 'icons/Map.vue';
-import IconMenu from 'icons/Menu.vue';
-import IconStar from 'icons/Star.vue';
-import IconClock from 'icons/Clock.vue';
-import IconHome from 'icons/Home.vue';
-import IconArrowRight from 'icons/ArrowRight';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
 import { ROUTES } from 'utils/macros/routes';
@@ -63,24 +57,24 @@ export default {
       return [
         {
           ...ROUTES.start,
-          component: IconHome,
+          iconName: 'home',
         },
         {
           ...ROUTES.temporaryPoints,
-          component: IconClock,
+          iconName: 'watch_later',
         },
         {
           ...ROUTES.collectPoint,
-          component: IconStar,
+          iconName: 'star',
           big: true,
         },
         {
           ...ROUTES.map,
-          component: IconMap,
+          iconName: 'map',
         },
         {
           label: 'Menu',
-          component: this.$store.getters['menu/isOpen'] ? IconArrowRight : IconMenu,
+          iconName: this.$store.getters['menu/isOpen'] ? 'arrow_forward' : 'menu',
           method: this.toggle,
         },
       ];
