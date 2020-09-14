@@ -1,6 +1,6 @@
 <template>
   <i
-    class="a-icon f-material"
+    class="a-icon"
     :class="classes"
   >
     {{ name }}
