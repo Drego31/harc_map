@@ -58,7 +58,6 @@
 
 <script>
 import TPage from 'templates/page';
-// import IconAccountCircle from 'icons/AccountCircle';
 import AIcon from 'atoms/icon';
 
 export default {
@@ -66,7 +65,6 @@ export default {
   components: {
     AIcon,
     TPage,
-    // IconAccountCircle,
   },
   data: () => ({
     showMore: false,
