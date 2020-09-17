@@ -27,7 +27,7 @@ export const eventController = {
     return makeDelayFakeAnswer(() => ({
       error: null,
       user: user,
-      pointCollectionTime: 1596649311754,
+      pointCollectionTime: 1596649311754, // Wed Aug 05 2020 19:41:51 GMT+0200 (Central European Summer Time)
     }));
   },
 };
