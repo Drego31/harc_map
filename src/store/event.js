@@ -62,7 +62,7 @@ export default {
       state.mapDefaultPosition = { ...data.mapPosition };
       state.mapDefaultZoom = data.mapZoom;
     },
-    setDefaultValues: (state) => {
+    setDefaultMapPositionAndZoom: (state) => {
       state.mapPosition = { ...state.mapDefaultPosition };
       state.mapZoom = state.mapDefaultZoom;
     },
