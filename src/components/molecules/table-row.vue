@@ -4,26 +4,25 @@
       <slot name="cols"/>
     </div>
 
-    <div class="f-flex f-flex-col f-flex-al-center">
+    <div
+      class="f-flex f-flex-col f-flex-al-center"
+      @click="toggleDetails()"
+    >
       <slot name="details" :isOpen="isOpen"/>
-      <component
+      <a-icon
         v-if="hasDetails"
-        :is="isOpen ? IconArrowUp : IconArrowDown"
-        @click="toggleDetails()"
-        :size="24"
-        class="a-icon"
+        :name="isOpen ? 'arrow_drop_up' : 'arrow_drop_down'"
       />
     </div>
   </div>
 </template>
 
 <script>
-
-import IconArrowUp from 'icons/ArrowUp';
-import IconArrowDown from 'icons/ArrowDown';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-table-row',
+  components: { AIcon },
   props: {
     addClass: {
       type: String,
@@ -36,8 +35,6 @@ export default {
   },
   data: () => ({
     isOpen: false,
-    IconArrowUp,
-    IconArrowDown,
   }),
   methods: {
     toggleDetails () {

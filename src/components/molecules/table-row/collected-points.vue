@@ -2,7 +2,11 @@
   <m-table-row :has-details="true" add-class="f-collected-points">
     <template v-slot:cols>
       <div>
-        <icon-star :size="64" class="a-icon" :class="category.imageColor"/>
+        <a-icon
+          name="star"
+          size="64"
+          :class="category.imageColor"
+        />
       </div>
 
       <div class="f-text-32 f-text-bold">
@@ -26,14 +30,14 @@
 </template>
 
 <script>
-import IconStar from 'icons/Star';
 import MTableRow from 'molecules/table-row';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-table-row-collected-points',
   components: {
+    AIcon,
     MTableRow,
-    IconStar,
   },
   props: {
     category: {
