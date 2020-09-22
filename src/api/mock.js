@@ -2,6 +2,7 @@ import { getEventByIdMock } from 'api/mockMethods/get-event-by-id';
 // import { getCollectedPointsByMock } from 'api/mockMethods/get-collected-points';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
+import { ACCOUNT_TYPES } from 'utils/permissions';
 
 function makeDelayFakeAnswer (method = () => undefined, timeout = 100) {
   return new Promise(resolve => {
@@ -33,6 +34,7 @@ export const mockApi = {
       collectedPointsIds: ['1', '2', '5'],
       userTeam: 'HARC',
       user,
+      accountType: ACCOUNT_TYPES.common,
     }), 500);
   },
   signUp ({ user, password, userTeam, eventId }) {
