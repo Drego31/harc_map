@@ -345,7 +345,7 @@ router.route('/login')
 /**
  * @swagger
  *
- * /user:
+ * /user/remind:
  *  post:
  *    summary: User remind password
  *    description: Request fo reset user password
