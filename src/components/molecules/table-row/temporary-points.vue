@@ -63,7 +63,10 @@ export default {
       }
     },
     panTo (point) {
-      this.$emit('panTo', point);
+      const now = new Date().getTime();
+      if (this.pointExpirationTime >= now) {
+        this.$emit('panTo', point);
+      }
     },
   },
 

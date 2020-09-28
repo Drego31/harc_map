@@ -43,7 +43,7 @@ export default {
         longitude: pointLongitude,
       };
       this.setMapPosition(mapPosition);
-      this.setMapZoom(12);
+      this.setMapZoom(16);
       this.$router.push(ROUTES.map.path);
     },
 
