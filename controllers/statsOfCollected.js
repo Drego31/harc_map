@@ -12,6 +12,7 @@ class GetRequestService extends Endpoint {
 
     return database.read(collection, filters)
       .then(category => {
+        delete category._id;
         point.category = category;
       });
   }
@@ -25,6 +26,7 @@ class GetRequestService extends Endpoint {
         const promises = [];
 
         for (const point of points) {
+          delete point._id;
           promises.push(this.readCategories(user, point));
         }
 
@@ -41,6 +43,8 @@ class GetRequestService extends Endpoint {
         const promises = [];
 
         for (const user of users) {
+          delete user._id;
+          delete user.password;
           promises.push(this.readPoints(user));
         }
 
