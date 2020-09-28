@@ -38,7 +38,8 @@ Content:
     npm i
     npm start
     ``` 
-2. Open https://localhost:8000/
+2. Open https://localhost:8000/ 
+3. If you get into https://localhost:8000/sign-in, the application log you in automatically on demo account (to edit demo user's data go to `config/mongodb/local.js`).
 
 #### Production environment:
 1. Install packages: `npm i`
