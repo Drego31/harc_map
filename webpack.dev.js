@@ -8,6 +8,8 @@ module.exports = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
       PRODUCTION: JSON.stringify(false),
+      USER: JSON.stringify('demo@demo.com'),
+      PASSWORD: JSON.stringify('HarcMap1'),
     }),
   ],
 });
