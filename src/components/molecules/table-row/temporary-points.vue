@@ -1,8 +1,8 @@
 <template>
   <div class="m-grid f-temporary-points">
-    <icon-clock
+    <a-icon
+      :name="ICONS.watch_later"
       :size="24"
-      class="a-icon"
       :class="classByPointExpirationStatus(pointExpirationTime)"
     />
 
@@ -11,9 +11,9 @@
       <div class="f-text-14"> {{ getAvailabilityTimeAsString(pointExpirationTime) }}</div>
     </div>
 
-    <icon-map
+    <a-icon
+      :name="ICONS.map"
       :size="24"
-      class="a-icon"
       :class="classByPointExpirationStatus(pointExpirationTime)"
       @click="panTo(point)"
     />
@@ -21,15 +21,13 @@
 </template>
 
 <script>
-import IconMap from 'icons/Map.vue';
-import IconClock from 'icons/Clock.vue';
 import { getHoursAndMinutesAsString, modifyDateHours } from 'utils/date';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-table-row-temporary-points',
   components: {
-    IconMap,
-    IconClock,
+    AIcon,
   },
   data: () => ({
     pointAppearanceTime: null,

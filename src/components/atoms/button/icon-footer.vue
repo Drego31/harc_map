@@ -3,8 +3,8 @@
     class="f-footer"
     @click="$emit('click')"
   >
-    <component
-      :is="icon"
+    <a-icon
+      :name="icon"
       class="a-icon f-footer"
       :class="iconClass"
       :size="size"
@@ -17,13 +17,17 @@
 
 <script>
 import AButtonIcon from 'atoms/button/icon';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 'a-button-icon-footer',
-  components: { AButtonIcon },
+  components: {
+    AIcon,
+    AButtonIcon,
+  },
   props: {
     icon: {
-      type: Object,
+      type: String,
       required: true,
     },
     label: {
