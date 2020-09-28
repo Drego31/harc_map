@@ -6,7 +6,7 @@ import { styleManager } from 'utils/style-manager';
 import './directives';
 import './validation';
 import { ROUTES } from 'utils/macros/routes';
-import { ICONS } from '../public/iconfont/list';
+import { ICONS } from './__jscash__/icons-names-list';
 
 styleManager.init();
 
