@@ -28,7 +28,7 @@
       @click="showPassword = false"
     />
     <a-icon
-      name="warning"
+      :name="ICONS.warning"
       v-if="error && isPassword === false"
       class="f-input f-error"
     />

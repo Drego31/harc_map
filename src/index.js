@@ -6,6 +6,7 @@ import { styleManager } from 'utils/style-manager';
 import './directives';
 import './validation';
 import { ROUTES } from 'utils/macros/routes';
+import { ICONS } from '../public/iconfont/list';
 
 styleManager.init();
 
@@ -18,6 +19,7 @@ if (PRODUCTION === false) {
 Vue.mixin({
   computed: {
     ROUTES: () => ROUTES,
+    ICONS: () => ICONS,
   },
 });
 
