@@ -57,24 +57,24 @@ export default {
       return [
         {
           ...ROUTES.start,
-          iconName: 'home',
+          iconName: this.ICONS.home,
         },
         {
           ...ROUTES.temporaryPoints,
-          iconName: 'watch_later',
+          iconName: this.ICONS.watch_later,
         },
         {
           ...ROUTES.collectPoint,
-          iconName: 'star',
+          iconName: this.ICONS.star,
           big: true,
         },
         {
           ...ROUTES.map,
-          iconName: 'map',
+          iconName: this.ICONS.map,
         },
         {
           label: 'Menu',
-          iconName: this.$store.getters['menu/isOpen'] ? 'arrow_forward' : 'menu',
+          iconName: this.$store.getters['menu/isOpen'] ? this.ICONS.arrow_forward : this.ICONS.menu,
           method: this.toggle,
         },
       ];
