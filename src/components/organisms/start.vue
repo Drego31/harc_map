@@ -13,7 +13,10 @@
       height="115"
     >
       <div>
-        <icon-star :size="64"/>
+        <a-icon
+          name="star"
+          :size="64"
+        />
       </div>
       <div>
         {{ collectedPointsIds.length }}
@@ -25,8 +28,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import IconStar from 'icons/Star.vue';
 import { THEMES } from 'utils/style-manager';
+import AIcon from 'atoms/icon';
 
 let ctx = null;
 let percent = 0;
@@ -34,7 +37,7 @@ let percent = 0;
 export default {
   name: 'o-start',
   components: {
-    IconStar,
+    AIcon,
   },
   data: () => ({
     value: 0,
