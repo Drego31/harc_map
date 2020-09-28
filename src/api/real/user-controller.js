@@ -1,21 +1,9 @@
-import { AppEvent } from 'src/structures/app-event';
 import { request } from 'utils/request';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
-import { logical } from 'vendors/logical';
-import { MapPoint } from 'src/structures/map-point';
+import { hasNoError, catchConnectionError } from 'api/real/real';
 
-function catchConnectionError (reject) {
-  return function (fetchError) {
-    reject(new ErrorMessage(fetchError));
-  };
-}
-
-function hasNoError (data) {
-  return logical.isNull(data.error);
-}
-
-export const realApi = {
+export const userController = {
   signIn ({ user, password }) {
     return new Promise((resolve, reject) => {
       request.post({
@@ -118,78 +106,6 @@ export const realApi = {
       })
         .then(() => {
           resolve();
-        })
-        .catch(catchConnectionError(reject));
-    });
-  },
-  getEventById (eventId) {
-    return new Promise((resolve, reject) => {
-      request.get({
-        url: '/event',
-        data: { eventId },
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve(new AppEvent(data));
-          } else {
-            reject(new ErrorMessage(ERRORS.getEventById));
-          }
-        })
-        .catch(catchConnectionError(reject));
-    });
-  },
-  getPointsByEventId ({ eventId }) {
-    return new Promise((resolve, reject) => {
-      request.get({
-        url: '/event/points',
-        data: { eventId },
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve(data.points.map(point => new MapPoint(point)));
-          } else {
-            reject(new ErrorMessage(ERRORS.getEventById));
-          }
-        })
-        .catch(catchConnectionError(reject));
-    });
-  },
-  getCategoriesByEventId ({ eventId }) {
-    return new Promise((resolve, reject) => {
-      request.get({
-        url: '/event/point/categories',
-        data: { eventId },
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve(data.categories);
-          } else {
-            reject(new ErrorMessage(ERRORS.getEventById));
-          }
-        })
-        .catch(catchConnectionError(reject));
-    });
-  },
-  collectPoint ({ user, eventId, pointId }) {
-    return new Promise((resolve, reject) => {
-      request.put({
-        url: '/event/point/collect',
-        data: {
-          user,
-          eventId,
-          pointId,
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve();
-          } else {
-            reject(new ErrorMessage(ERRORS.collectPoint));
-          }
         })
         .catch(catchConnectionError(reject));
     });

@@ -67,7 +67,7 @@ function createPointCategories () {
 function createEvent () {
   const event = {
     eventId: 'kO6f',
-    eventName: 'Event',
+    eventName: 'Rajd „Tajna Lilijka”',
     mapZoom: 11,
     mapLongitude: 18.4735,
     mapLatitude: 54.4787,
