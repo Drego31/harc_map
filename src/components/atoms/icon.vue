@@ -2,6 +2,7 @@
   <i
     class="a-icon"
     :class="classes"
+    v-on="{ ...$listeners }"
   >
     {{ name }}
     <slot/>
@@ -9,6 +10,8 @@
 </template>
 
 <script>
+import { uCheck } from '@dbetka/utils';
+
 export default {
   name: 'a-icon',
   props: {
@@ -18,13 +21,15 @@ export default {
     },
     size: {
       type: [String, Number],
-      default: 24,
+      default: undefined,
     },
   },
   computed: {
     classes () {
       const classes = {};
-      classes['f-size-' + this.size] = true;
+      if (uCheck.isDefined(this.size)) {
+        classes['f-size-' + this.size] = true;
+      }
       return classes;
     },
   },
