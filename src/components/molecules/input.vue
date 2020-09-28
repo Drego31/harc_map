@@ -16,13 +16,13 @@
       {{ placeholder }}
     </label>
     <a-icon
-      name="visibility"
+      :name="ICONS.visibility"
       v-if="isPassword && showPassword === false"
       class="f-input"
       @click="showPassword = true"
     />
     <a-icon
-      name="visibility_off"
+      :name="ICONS.visibility_off"
       v-if="isPassword && showPassword"
       class="f-input"
       @click="showPassword = false"
@@ -33,7 +33,7 @@
       class="f-input f-error"
     />
     <a-icon
-      name="check"
+      :name="ICONS.check"
       v-if="correct && isPassword === false && error === false"
       class="f-input f-correct"
     />

@@ -14,7 +14,7 @@
     >
       <div>
         <a-icon
-          name="star"
+          :name="ICONS.star"
           :size="64"
         />
       </div>

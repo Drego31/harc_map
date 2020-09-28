@@ -3,7 +3,7 @@
     <template v-slot:cols>
       <div>
         <a-icon
-          name="star"
+          :name="ICONS.star"
           size="64"
           :class="category.imageColor"
         />

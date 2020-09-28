@@ -20,12 +20,12 @@
       {{ placeholder }}
     </label>
     <a-icon
-      name="warning"
+      :name="ICONS.warning"
       v-if="error"
       class="f-input f-error"
     />
     <a-icon
-      name="check"
+      :name="ICONS.check"
       v-if="correct && error === false"
       class="f-input f-correct"
     />

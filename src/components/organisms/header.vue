@@ -9,7 +9,7 @@
         @click="$router.push(pathBackButton)"
       >
         <a-icon
-          name="arrow_back"
+          :name="ICONS.arrow_back"
           size="32"
         />
       </a-button-icon>
@@ -32,7 +32,7 @@
       :class="{ 'f-hidden': isLogin === false }"
     >
       <a-icon
-        name="star"
+        :name="ICONS.star"
         size="24"
       />
       <div

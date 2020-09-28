@@ -1,7 +1,7 @@
 <template>
   <div class="m-grid f-temporary-points">
     <a-icon
-      name="watch_later"
+      :name="ICONS.watch_later"
       :size="24"
       :class="classByPointExpirationStatus(pointExpirationTime)"
     />
@@ -12,7 +12,7 @@
     </div>
 
     <a-icon
-      name="map"
+      :name="ICONS.map"
       :size="24"
       :class="classByPointExpirationStatus(pointExpirationTime)"
       @click="panTo(point)"
