@@ -34,7 +34,7 @@ function generateListOfIcons () {
     });
   let fileContent = 'export const ICONS = {\n';
   fileContent += lines.join('');
-  fileContent += '};';
+  fileContent += '};\n';
 
   return fileContent;
 }
@@ -42,7 +42,7 @@ function generateListOfIcons () {
 function writeFileWithListOfIcons (fileContent) {
   fs.writeFile(outputListOfIcons, fileContent, function (err) {
     if (err) return console.log(err);
-    console.log(`Material Icon List > ${destination}/list.js`);
+    console.log(`Material Icon List > ${outputListOfIcons}`);
     console.log('Material design icons has been cloned!');
   });
 }
