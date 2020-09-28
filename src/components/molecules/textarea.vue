@@ -19,15 +19,15 @@
     >
       {{ placeholder }}
     </label>
-    <icon-alert
+    <a-icon
+      name="warning"
       v-if="error"
-      class="a-icon f-input f-error"
-      :size="26"
+      class="f-input f-error"
     />
-    <icon-check-bold
+    <a-icon
+      name="check"
       v-if="correct && error === false"
-      class="a-icon f-input f-correct"
-      :size="26"
+      class="f-input f-correct"
     />
     <div
       class="a-assist"
@@ -41,16 +41,14 @@
 <script>
 import { mixins } from 'mixins/base';
 import MResizeAuto from 'molecules/resize-auto';
-import IconAlert from 'icons/Alert';
-import IconCheckBold from 'icons/CheckBold';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-textarea',
   mixins: [mixins.vModel],
   components: {
+    AIcon,
     MResizeAuto,
-    IconAlert,
-    IconCheckBold,
   },
   props: {
     placeholder: {
