@@ -24,6 +24,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import { api } from 'api/index';
 import { THEMES } from 'utils/style-manager';
 import { ROUTES } from 'utils/macros/routes';
+import router from 'src/router';
 
 export default {
   name: 'o-menu',
@@ -55,9 +56,7 @@ export default {
     },
     toggleTheme () {
       this.$store.commit('theme/toggle');
-      if (this.$router.currentRoute.path !== ROUTES.start.path) {
-        this.$router.push(ROUTES.start.path);
-      }
+      router.hardReload();
       this.close();
     },
     signOut () {

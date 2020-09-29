@@ -1,20 +1,16 @@
 <template>
   <div class="o-header">
     <div
-      class="f-flex f-flex-row f-flex-al-center"
+      class="m-panel f-header f-side"
       :class="{ 'f-hidden': isMainPage }"
     >
-      <a-button-icon
-        class="f-arrow-back"
+      <a-icon
+        :name="ICONS.arrow_back"
+        :size="26"
         @click="$router.push(pathBackButton)"
-      >
-        <a-icon
-          :name="ICONS.arrow_back"
-          size="32"
-        />
-      </a-button-icon>
+      />
     </div>
-    <div class="f-flex f-flex-col f-flex-just-end">
+    <div class="m-panel f-header f-center">
       <template v-if="pageTitle !== ''">
         <div class="a-subtitle">
           {{ pageTitle }}
@@ -28,34 +24,35 @@
       </div>
     </div>
     <div
-      class="f-flex f-flex-row f-flex-al-center"
+      class="m-panel f-header f-side"
       :class="{ 'f-hidden': isLogin === false }"
     >
       <a-icon
-        :name="ICONS.star"
-        size="24"
+        :name="ICONS.invert_colors"
+        :size="26"
+        class="f-header"
+        @click="toggleTheme()"
       />
-      <div
-        class="a-chip"
+      <a-icon
+        :name="ICONS.star"
+        :size="26"
+        class="f-header"
         @click="$router.push(ROUTES.collectedPoints.path)"
-      >
-        {{ collectedPointsIds.length }}
-      </div>
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import AButtonIcon from 'atoms/button/icon';
 import { ROUTES } from 'utils/macros/routes';
 import AIcon from 'atoms/icon';
+import router from 'src/router';
 
 export default {
   name: 'o-header',
   components: {
     AIcon,
-    AButtonIcon,
   },
   computed: {
     ...mapGetters('user', [
@@ -70,6 +67,12 @@ export default {
     },
     pathBackButton () {
       return this.isLogin ? ROUTES.start.path : ROUTES.welcome.path;
+    },
+  },
+  methods: {
+    toggleTheme () {
+      this.$store.commit('theme/toggle');
+      router.hardReload();
     },
   },
 };

@@ -18,12 +18,15 @@ export const store = new Vuex.Store({
   },
   state: {
     isLoading: true,
+    routerId: 0,
   },
   getters: {
     isLoading: state => state.isLoading,
+    routerId: state => state.routerId,
   },
   mutations: {
     setIsLoading: (state, payload) => (state.isLoading = payload),
+    increaseRouterId: (state) => state.routerId++,
   },
   actions: {},
 });
