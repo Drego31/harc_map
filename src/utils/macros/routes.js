@@ -1,15 +1,19 @@
+import { ICONS } from 'src/__jscash__/icons-names-list';
+
 export const ROUTES = {
   welcome: {
     path: '/',
     name: 'welcome',
     label: 'Strona startowa',
     shortLabel: 'Strona startowa',
+    icon: ICONS.sensor_door,
   },
   about: {
     path: '/about',
     name: 'about',
     label: 'O nas',
     shortLabel: 'O nas',
+    icon: ICONS.emoji_objects,
   },
   signIn: {
     path: '/sign-in',
