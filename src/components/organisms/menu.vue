@@ -55,6 +55,7 @@ export default {
     },
     toggleTheme () {
       this.$store.commit('theme/toggle');
+      this.close()
     },
     signOut () {
       api.signOut({
