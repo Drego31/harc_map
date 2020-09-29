@@ -35,6 +35,7 @@ export default {
       ROUTES.start,
       ROUTES.temporaryPoints,
       ROUTES.collectPoint,
+      ROUTES.collectedPoints,
       ROUTES.map,
       ROUTES.about,
     ],

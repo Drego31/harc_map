@@ -7,7 +7,7 @@
       v-for="icon of getIcons()"
       :key="icon.label"
       :icon="icon.iconName"
-      :label="icon.label"
+      :label="icon.shortLabel"
       :icon-class="{ 'f-big': icon.big }"
       :class="{ 'f-big': icon.big, 'f-selected': isActualPath(icon) }"
       @click="onClick(icon)"
@@ -72,7 +72,7 @@ export default {
           iconName: this.ICONS.map,
         },
         {
-          label: 'Menu',
+          shortLabel: 'Menu',
           iconName: this.$store.getters['menu/isOpen'] ? this.ICONS.arrow_forward : this.ICONS.menu,
           method: this.toggle,
         },
