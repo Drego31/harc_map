@@ -25,6 +25,9 @@ export default {
       }
       return collectedPoints;
     },
+    sumOfCollectedPoints (state, getters) {
+      return getters.collectedPointsIds.length;
+    },
   },
   mutations: {
     setUser: (state, payload) => (state.user = payload),

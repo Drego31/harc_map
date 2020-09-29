@@ -1,5 +1,7 @@
 <template>
   <div :class="isOpen ? 'f-open' : ''" class="o-menu">
+    <div class="a-text f-title f-menu">Cześć, {{ $store.getters['user/userTeam'] }}</div>
+    <div class="a-text f-subtitle f-menu">Masz {{ $store.getters['user/sumOfCollectedPoints'] }} punktów</div>
     <router-link
       v-for="(route, key) in links"
       :key="key"

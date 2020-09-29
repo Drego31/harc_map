@@ -19,7 +19,7 @@
         />
       </div>
       <div>
-        {{ collectedPointsIds.length }}
+        {{ sumOfCollectedPoints }}
       </div>
     </canvas>
 
@@ -50,7 +50,7 @@ export default {
   computed: {
     ...mapGetters('user', [
       'userTeam',
-      'collectedPointsIds',
+      'sumOfCollectedPoints',
       'valueChanged',
     ]),
     ...mapGetters('event', [
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     resetValue () {
-      this.value = this.collectedPointsIds.length - 1;
+      this.value = this.sumOfCollectedPoints - 1;
     },
     makeAnimationStep () {
       window.requestAnimationFrame(this.drawCanvas);
