@@ -34,7 +34,7 @@
         @click="toggleTheme()"
       />
       <a-icon
-        :name="ICONS.star"
+        :name="ROUTES.collectedPoints.icon"
         :size="26"
         class="f-header"
         @click="$router.push(ROUTES.collectedPoints.path)"

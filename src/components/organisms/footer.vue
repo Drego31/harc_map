@@ -4,13 +4,13 @@
     v-if="isLogin"
   >
     <a-button-icon-footer
-      v-for="icon of getIcons()"
-      :key="icon.label"
-      :icon="icon.iconName"
-      :label="icon.shortLabel"
-      :icon-class="{ 'f-big': icon.big }"
-      :class="{ 'f-big': icon.big, 'f-selected': isActualPath(icon) }"
-      @click="onClick(icon)"
+      v-for="shortcut of getShortcuts()"
+      :key="shortcut.label"
+      :icon="shortcut.icon"
+      :label="shortcut.shortLabel"
+      :icon-class="{ 'f-big': shortcut.big }"
+      :class="{ 'f-big': shortcut.big, 'f-selected': isActualPath(shortcut) }"
+      @click="onClick(shortcut)"
     />
   </div>
 </template>
@@ -42,38 +42,28 @@ export default {
         return this.$route.path === path;
       }
     },
-    onClick (icon) {
-      if (logical.isString(icon.path) && icon.path !== '') {
-        this.$router.push(icon.path).catch(() => {
+    onClick (shortcut) {
+      if (logical.isString(shortcut.path) && shortcut.path !== '') {
+        this.$router.push(shortcut.path).catch(() => {
           this.$store.commit('menu/close');
         });
       }
-      if (logical.isFunction(icon.method)) {
-        icon.method();
+      if (logical.isFunction(shortcut.method)) {
+        shortcut.method();
       }
     },
-    getIcons () {
+    getShortcuts () {
       return [
-        {
-          ...ROUTES.start,
-          iconName: this.ICONS.home,
-        },
-        {
-          ...ROUTES.temporaryPoints,
-          iconName: this.ICONS.watch_later,
-        },
+        ROUTES.start,
+        ROUTES.temporaryPoints,
         {
           ...ROUTES.collectPoint,
-          iconName: this.ICONS.star,
           big: true,
         },
-        {
-          ...ROUTES.map,
-          iconName: this.ICONS.map,
-        },
+        ROUTES.map,
         {
           shortLabel: 'Menu',
-          iconName: this.$store.getters['menu/isOpen'] ? this.ICONS.arrow_forward : this.ICONS.menu,
+          icon: this.$store.getters['menu/isOpen'] ? this.ICONS.arrow_forward : this.ICONS.menu,
           method: this.toggle,
         },
       ];
