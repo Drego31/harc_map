@@ -2,7 +2,7 @@
   <div id="app">
     <o-header/>
     <div class="f-relative f-flex-1">
-      <router-view :key="routeId"/>
+      <router-view :key="routerId"/>
     </div>
     <o-footer/>
     <o-menu/>
@@ -27,10 +27,10 @@ export default {
     OLoading,
   },
   computed: {
-    ...mapGetters(['isLoading']),
-    routeId () {
-      return this.$store.getters.routeId;
-    },
+    ...mapGetters([
+      'isLoading',
+      'routerId',
+    ]),
   },
 };
 </script>
