@@ -55,7 +55,10 @@ export default {
     },
     toggleTheme () {
       this.$store.commit('theme/toggle');
-      this.close()
+      if (this.$router.currentRoute.path !== ROUTES.start.path) {
+        this.$router.push(ROUTES.start.path);
+      }
+      this.close();
     },
     signOut () {
       api.signOut({

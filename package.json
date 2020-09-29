@@ -41,7 +41,6 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@dbetka/utils": "^0.1.0",
-    "material-design-icons": "^3.0.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-builtin-extend": "^1.1.2",
     "css-loader": "^3.4.2",
@@ -56,8 +55,10 @@
     "eslint-plugin-vue": "^6.2.2",
     "import-glob-loader": "^1.1.0",
     "jest": "^25.2.7",
+    "material-design-icons": "^3.0.1",
     "moment": "^2.24.0",
     "nodemailer": "^6.4.6",
+    "ol-mapbox-style": "^6.1.4",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
