@@ -6,7 +6,7 @@
     >
       <a-icon
         :name="ICONS.arrow_back"
-        :size="26"
+        :size="28"
         @click="$router.push(pathBackButton)"
       />
     </div>
@@ -28,16 +28,16 @@
       :class="{ 'f-hidden': isLogin === false }"
     >
       <a-icon
-        :name="ICONS.invert_colors"
-        :size="26"
-        class="f-header"
-        @click="toggleTheme()"
-      />
-      <a-icon
         :name="ROUTES.collectedPoints.icon"
-        :size="26"
+        :size="28"
         class="f-header"
         @click="$router.push(ROUTES.collectedPoints.path)"
+      />
+      <a-icon
+        :name="ICONS.invert_colors"
+        :size="28"
+        class="f-header"
+        @click="toggleTheme()"
       />
     </div>
   </div>

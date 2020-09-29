@@ -1,7 +1,11 @@
 <template>
   <div :class="isOpen ? 'f-open' : ''" class="o-menu">
     <div class="a-text f-title f-menu">Cześć, {{ $store.getters['user/userTeam'] }}</div>
-    <div class="a-text f-subtitle f-menu">Masz {{ $store.getters['user/sumOfCollectedPoints'] }} punktów</div>
+
+    <div class="a-text f-subtitle f-menu">
+      Masz <span class="f-text-primary-hover">{{ $store.getters['user/sumOfCollectedPoints'] }} punktów</span>
+    </div>
+
     <router-link
       v-for="(route, key) in links"
       :key="key"
@@ -16,6 +20,7 @@
         :class="{ 'f-selected': isActualPath(route) }"
       />
     </router-link>
+
     <a class="a-link f-menu" @click="toggleTheme()">
       <div class="f-flex-1">{{ themeName === THEMES.light ? 'Ciemny tryb' : 'Jasny tryb' }}</div>
       <a-icon
@@ -23,6 +28,7 @@
         class="f-menu"
       />
     </a>
+
     <a class="a-link f-menu" @click="signOut()">
       <div class="f-flex-1">Wyloguj</div>
       <a-icon
