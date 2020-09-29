@@ -1,7 +1,7 @@
 <template>
   <i
     class="a-icon"
-    :class="classes"
+    :style="style"
     v-on="{ ...$listeners }"
   >
     {{ name }}
@@ -25,12 +25,14 @@ export default {
     },
   },
   computed: {
-    classes () {
-      const classes = {};
+    style () {
+      let style = '';
       if (uCheck.isDefined(this.size)) {
-        classes['f-size-' + this.size] = true;
+        style += `font-size: ${this.size}px;`;
+        style += `width: ${this.size}px;`;
+        style += `height: ${this.size}px;`;
       }
-      return classes;
+      return style;
     },
   },
 };

@@ -8,7 +8,6 @@
       :key="icon.label"
       :icon="icon.iconName"
       :label="icon.label"
-      :size="icon.big ? 48 : 24"
       :icon-class="{ 'f-big': icon.big }"
       :class="{ 'f-big': icon.big, 'f-selected': isActualPath(icon) }"
       @click="onClick(icon)"
