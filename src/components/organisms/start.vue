@@ -24,7 +24,6 @@ export default {
     ...mapGetters('user', [
       'userTeam',
       'sumOfCollectedPoints',
-      'valueChanged',
     ]),
     ...mapGetters('event', [
       'name',
