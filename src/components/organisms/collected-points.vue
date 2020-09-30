@@ -7,20 +7,16 @@
         <div>Ilość zebranych</div>
         <div>Suma wartości</div>
       </div>
-      <div class="m-grid f-category-sum">
-        <div><a-icon :name="ICONS.stop_circle" class="f-text-danger" /></div>
-        <div>40</div>
-        <div>320 pkt</div>
-      </div>
-      <div class="m-grid f-category-sum">
-        <div><a-icon :name="ICONS.stop_circle" class="f-text-warning" /></div>
-        <div>40</div>
-        <div>320 pkt</div>
-      </div>
-      <div class="m-grid f-category-sum">
-        <div><a-icon :name="ICONS.stop_circle" class="f-text-info" /></div>
-        <div>40</div>
-        <div>320 pkt</div>
+      <div
+        v-for="category in categories"
+        :key="category.categoryId"
+        class="m-grid f-category-sum"
+      >
+        <div>
+          <a-icon :name="ICONS.stop_circle" :class="getCategoryClassById(category.categoryId)"/>
+        </div>
+        <div>{{ getCollectedPointsLengthById(category.categoryId) }}</div>
+        <div>{{ getCollectedPointsValueById(category.categoryId) }} pkt</div>
       </div>
     </div>
     <div class="f-pt-3 f-line-24">
@@ -32,33 +28,22 @@
         <div>Miejsce</div>
         <div>Rozwiń</div>
       </div>
-      <div class="m-grid f-point">
-        <div><a-icon :name="ICONS.stop_circle" class="f-text-info" /></div>
-        <div>ksf0</div>
-        <div>1 pkt</div>
-        <div><a-icon :name="ICONS.map" /></div>
-        <div><a-icon :name="ICONS.arrow_drop_down"/></div>
-      </div>
-      <div class="m-grid f-point">
-        <div><a-icon :name="ICONS.stop_circle" class="f-text-info" /></div>
-        <div>ksf0</div>
-        <div>1 pkt</div>
-        <div><a-icon :name="ICONS.map" /></div>
-        <div><a-icon :name="ICONS.arrow_drop_down"/></div>
-      </div>
-      <div class="m-grid f-point">
-        <div><a-icon :name="ICONS.stop_circle" class="f-text-warning" /></div>
-        <div>ksf0</div>
-        <div>3 pkt</div>
-        <div><a-icon :name="ICONS.map" /></div>
-        <div><a-icon :name="ICONS.arrow_drop_down"/></div>
-      </div>
-      <div class="m-grid f-point">
-        <div><a-icon :name="ICONS.stop_circle" class="f-text-danger" /></div>
-        <div>ksf0</div>
-        <div>7 pkt</div>
-        <div><a-icon :name="ICONS.map" /></div>
-        <div><a-icon :name="ICONS.arrow_drop_down"/></div>
+      <div
+        v-for="point of collectedPoints"
+        :key="point.pointId"
+        class="m-grid f-point"
+      >
+        <div>
+          <a-icon :name="ICONS.stop_circle" :class="getCategoryClassById(point.pointCategory)"/>
+        </div>
+        <div>{{ point.pointId }}</div>
+        <div>{{ getCategoryById(point.pointCategory).pointValue }} pkt</div>
+        <div>
+          <a-icon :name="ICONS.map"/>
+        </div>
+        <div>
+          <a-icon :name="ICONS.arrow_drop_down"/>
+        </div>
       </div>
     </div>
 
@@ -74,42 +59,26 @@ export default {
   components: {
     AIcon,
   },
-  data: () => ({
-    pointCategories: [
-      {
-        name: 'Pierwsza kategoria',
-        isDetailsOpen: false,
-        categoryId: 1,
-        pointValue: 1,
-        pointShape: 1,
-        imageColor: 'f-first-category',
-      },
-      {
-        name: 'Druga kategoria',
-        isDetailsOpen: false,
-        categoryId: 2,
-        pointValue: 2,
-        pointShape: 2,
-        imageColor: 'f-second-category',
-      },
-      {
-        name: 'Trzecia kategoria',
-        isDetailsOpen: false,
-        categoryId: 3,
-        pointValue: 3,
-        pointShape: 3,
-        imageColor: 'f-third-category',
-      },
-    ],
-  }),
   computed: {
     ...mapGetters('user', [
       'collectedPoints',
     ]),
+    ...mapGetters('event', [
+      'categories',
+      'getCategoryById'
+    ]),
   },
   methods: { // :TODO: Change pointShape to categoryId after refactor points in API
-    getCategoryById (categoryId) {
-      return this.pointCategories.find(category => category.categoryId === categoryId);
+    getCategoryClassById (categoryId) {
+      const pointShape = this.getCategoryById(categoryId).pointShape;
+      switch (pointShape) {
+        case 1:
+          return 'f-text-info';
+        case 2:
+          return 'f-text-warning';
+        case 3:
+          return 'f-text-danger';
+      }
     },
     getCollectedPointsLengthById (categoryId) {
       return this.collectedPoints.filter(point => point.pointCategory === categoryId).length;
@@ -117,9 +86,6 @@ export default {
     getCollectedPointsValueById (categoryId) {
       const length = this.collectedPoints.filter(point => point.pointCategory === categoryId).length;
       return length * this.getCategoryById(categoryId).pointValue;
-    },
-    toggleDetails (point) {
-      point.isDetailsOpen = !point.isDetailsOpen;
     },
   },
 };

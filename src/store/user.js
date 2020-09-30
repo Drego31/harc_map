@@ -25,8 +25,12 @@ export default {
       }
       return collectedPoints;
     },
-    sumOfCollectedPoints (state, getters) {
-      return getters.collectedPointsIds.length;
+    sumOfCollectedPoints (state, getters, rootState, rootGetters) {
+      return getters.collectedPoints
+        .map(point => {
+          return rootGetters['event/getCategoryById'](point.pointCategory).pointValue;
+        })
+        .reduce((a, b) => a + b, 0);
     },
   },
   mutations: {

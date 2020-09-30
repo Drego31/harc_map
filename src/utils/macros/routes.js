@@ -54,7 +54,7 @@ export const ROUTES = {
   temporaryPoints: {
     path: '/temporary-points',
     name: 'temporary-points',
-    label: 'Punkty czasowe',
+    label: 'Wydarzenia czasowe',
     shortLabel: 'Czasowe',
     icon: ICONS.watch_later,
   },
