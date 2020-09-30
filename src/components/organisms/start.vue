@@ -4,8 +4,11 @@
       <div class="a-text f-title f-start" v-text="name"/>
     </div>
     <div class="f-p-2">
-      <div class="a-text f-subtitle f-start">
-        Zebrałeś już <span class="f-text-white">{{ sumOfCollectedPoints }} punktów</span>
+      <div v-if="sumOfCollectedPoints > 0" class="a-text f-subtitle f-start">
+        Zebraliście już <span class="f-text-white">{{ sumOfCollectedPoints }} pkt</span>
+      </div>
+      <div v-else class="a-text f-subtitle f-start">
+        Nie zebraliście jeszcze żadnych punktów
       </div>
     </div>
   </div>

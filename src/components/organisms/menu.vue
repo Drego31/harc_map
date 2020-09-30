@@ -3,7 +3,7 @@
     <div class="a-text f-title f-menu">Cześć, {{ $store.getters['user/userTeam'] }}</div>
 
     <div class="a-text f-subtitle f-menu">
-      Masz <span class="f-text-primary-hover">{{ $store.getters['user/sumOfCollectedPoints'] }} punktów</span>
+      Macie <span class="f-text-primary-hover">{{ $store.getters['user/sumOfCollectedPoints'] }} pkt</span>
     </div>
 
     <router-link
