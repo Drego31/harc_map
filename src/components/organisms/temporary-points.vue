@@ -17,6 +17,7 @@ import clock from 'molecules/clock.vue';
 import { ROUTES } from 'utils/macros/routes';
 import { mapGetters, mapMutations } from 'vuex';
 import { MACROS } from 'utils/macros';
+import { map } from 'map/index';
 
 export default {
   name: 'o-temporary-points',
@@ -37,16 +38,7 @@ export default {
       'setMapPosition',
       'setMapZoom',
     ]),
-    panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
-      const mapPosition = {
-        latitude: pointLatitude,
-        longitude: pointLongitude,
-      };
-      this.setMapPosition(mapPosition);
-      this.setMapZoom(16);
-      this.$router.push(ROUTES.map.path);
-    },
-
+    panToPointLocationOnMap: map.panToPointLocationOnMap,
   },
 }
 ;

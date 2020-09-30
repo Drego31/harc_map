@@ -1,15 +1,24 @@
 <template>
-  <div class="m-grid f-point">
-    <div>
-      <a-icon-category :category-id="point.pointCategory"/>
+  <div>
+    <div class="m-grid f-point">
+      <div>
+        <a-icon-category :category-id="point.pointCategory"/>
+      </div>
+      <div>{{ point.pointId }}</div>
+      <div>{{ getCategoryById(point.pointCategory).pointValue }} pkt</div>
+      <div>
+        <a-icon :name="ICONS.map" @click="panTo(point)"/>
+      </div>
+      <div>
+        <a-icon
+          :name="ICONS.arrow_drop_down"
+          @click="toggleDetails"
+        />
+      </div>
     </div>
-    <div>{{ point.pointId }}</div>
-    <div>{{ getCategoryById(point.pointCategory).pointValue }} pkt</div>
-    <div>
-      <a-icon :name="ICONS.map"/>
-    </div>
-    <div>
-      <a-icon :name="ICONS.arrow_drop_down"/>
+    <div v-if="detailsAreOpen" class="f-line-18 f-text-14 f-text-left f-pl-3 f-pb-1">
+      Współrzędne: <span class="f-text-bold">{{ point.pointLatitude }}, {{ point.pointLongitude }}</span> <br>
+      Czas zebrania: <span class="f-text-bold">{{ getCollectionTime }}</span>
     </div>
   </div>
 </template>
@@ -18,6 +27,8 @@
 import AIcon from 'atoms/icon';
 import AIconCategory from 'atoms/icon/category';
 import { mapGetters } from 'vuex';
+import moment from 'moment'
+import { map } from 'map/index';
 
 export default {
   name: 'm-row-point',
@@ -25,6 +36,9 @@ export default {
     AIconCategory,
     AIcon,
   },
+  data: () => ({
+    detailsAreOpen: false,
+  }),
   props: {
     point: {
       type: Object,
@@ -35,6 +49,16 @@ export default {
     ...mapGetters('event', [
       'getCategoryById',
     ]),
+    getCollectionTime() {
+      moment.locale('pl')
+      return moment(this.point.pointCollectionTime).calendar()
+    }
+  },
+  methods: {
+    toggleDetails () {
+      this.detailsAreOpen = (this.detailsAreOpen === false);
+    },
+    panTo: map.panToPointLocationOnMap,
   },
 };
 </script>
