@@ -11,7 +11,7 @@ export const THEMES = {
 };
 
 export const styleManager = {
-  defaultSheet: THEMES.dark,
+  defaultSheet: THEMES.light,
   sheets: {
     light: lightSheet,
     dark: darkSheet,
