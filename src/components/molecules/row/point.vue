@@ -27,7 +27,7 @@
 import AIcon from 'atoms/icon';
 import AIconCategory from 'atoms/icon/category';
 import { mapGetters } from 'vuex';
-import moment from 'moment'
+import moment from 'moment';
 import { map } from 'map/index';
 
 export default {
@@ -49,10 +49,10 @@ export default {
     ...mapGetters('event', [
       'getCategoryById',
     ]),
-    getCollectionTime() {
-      moment.locale('pl')
-      return moment(this.point.pointCollectionTime).calendar()
-    }
+    getCollectionTime () {
+      moment.locale('pl');
+      return moment(this.point.pointCollectionTime).calendar();
+    },
   },
   methods: {
     toggleDetails () {

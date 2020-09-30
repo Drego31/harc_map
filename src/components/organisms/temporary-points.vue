@@ -14,7 +14,6 @@
 <script>
 import MTableRowTemporaryPoints from 'molecules/table-row/temporary-points';
 import clock from 'molecules/clock.vue';
-import { ROUTES } from 'utils/macros/routes';
 import { mapGetters, mapMutations } from 'vuex';
 import { MACROS } from 'utils/macros';
 import { map } from 'map/index';

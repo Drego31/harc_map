@@ -50,7 +50,7 @@ export function createMap (config) {
       );
       break;
     case THEMES.dark:
-      apply(map.realMap, 'https://api.maptiler.com/maps/darkmatter/style.json?key=h8C6qJeBCACAF9OGJYR3');
+      apply(map.realMap, 'https://api.maptiler.com/maps/eed8967a-5c7a-4c09-9a72-dc16ebfb54ad/style.json?key=h8C6qJeBCACAF9OGJYR3');
       break;
   }
 }
