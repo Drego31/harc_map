@@ -25,12 +25,12 @@
     </div>
     <div
       class="m-panel f-header f-side"
-      :class="{ 'f-hidden': isLogin === false }"
     >
       <a-icon
         :name="ROUTES.collectedPoints.icon"
         :size="28"
         class="f-header"
+        :class="{ 'f-hidden': isLogin === false }"
         @click="$router.push(ROUTES.collectedPoints.path)"
       />
       <a-icon
