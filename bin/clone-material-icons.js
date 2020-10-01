@@ -24,10 +24,8 @@ cloneMaterialIcons()
   .then(createListOfIconsFile)
   .catch(console.error);
 
-/* ------------------------------------------------------------- */
-
 function cloneMaterialIcons () {
-  console.log('Clone Material Icons...');
+  console.log('Cloning Material Icons...');
   const requests = [];
 
   for (const fileName of filesInSource) {
@@ -36,15 +34,15 @@ function cloneMaterialIcons () {
   return Promise.allSettled(requests);
 }
 
-function createListOfIconsFile() {
+function createListOfIconsFile () {
   console.log('\nDownloading list of icons...');
   return generateListOfIcons(iconListSource)
     .then(list => writeListOfIconsIntoFile(iconListDestination, list))
     .then(() => {
-      const splitSourcePath = iconListSource.split('/')
-      const fileName = splitSourcePath[splitSourcePath.length - 1]
+      const splitSourcePath = iconListSource.split('/');
+      const fileName = splitSourcePath[splitSourcePath.length - 1];
       console.log(fileName + ' ~> ' + iconListDestination);
-    })
+    });
 }
 
 
