@@ -1,7 +1,6 @@
 <template>
   <t-page title="" class="f-text-center">
-    <div class="a-img f-map">
-    </div>
+    <div class="a-img f-map-round" />
     <div>
       <a-button-primary @click="$router.push(ROUTES.signIn.path)">{{ ROUTES.signIn.label }}</a-button-primary>
     </div>

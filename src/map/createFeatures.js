@@ -79,6 +79,7 @@ export function createFeatures ({ list = [] }) {
       features: listOfFeatures,
     }),
   });
+  layer.setZIndex(10);
   map.realMap.addLayer(layer);
   map.points.layer = layer;
 }

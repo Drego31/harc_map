@@ -35,6 +35,7 @@ Content:
 #### Devel environment
 1. Make in terminal:
     ```
+    sudo apt install svn
     npm i
     npm start
     ``` 
@@ -42,7 +43,11 @@ Content:
 3. If you get into https://localhost:8000/sign-in, the application log you in automatically on demo account (to edit demo user's data go to `config/mongodb/local.js`).
 
 #### Production environment:
-1. Install packages: `npm i`
+1. Install packages: 
+    ```
+    sudo apt install svn
+    npm i
+    ``` 
 2. Run server: `npm run run:prod`
 3. App is ready!
 
