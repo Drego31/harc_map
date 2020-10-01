@@ -34,7 +34,7 @@
         @click="$router.push(ROUTES.collectedPoints.path)"
       />
       <a-icon
-        :name="ICONS.invert_colors"
+        :name="ICONS.brightness_4"
         :size="28"
         class="f-header"
         @click="toggleTheme()"
