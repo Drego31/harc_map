@@ -7,7 +7,6 @@
       :name="icon"
       class="a-icon f-footer"
       :class="iconClass"
-      :size="size"
     />
     <div class="a-label f-button-icon-footer">
       {{ label }}
@@ -37,10 +36,6 @@ export default {
     iconClass: {
       type: Object,
       default: () => ({}),
-    },
-    size: {
-      type: Number,
-      default: 24,
     },
   },
 };

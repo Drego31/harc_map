@@ -46,7 +46,6 @@ export default {
     onCollectPoint () {
       this.isSending = false;
       this.blockForm = false;
-      this.$store.commit('user/setValueChanged', true);
       this.$router.push(ROUTES.start.path);
     },
     collectPoint () {
