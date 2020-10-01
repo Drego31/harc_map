@@ -8,7 +8,8 @@
         <div>Suma wartości</div>
       </div>
       <m-row-category-sum
-        v-for="category in categories"
+        v-for="[key, category] in categories.entries()"
+        v-if="key > 0"
         :key="category.categoryId"
         :category="category"
       />
@@ -23,7 +24,7 @@
         <div>Rozwiń</div>
       </div>
       <m-row-point
-        v-for="point of collectedPoints"
+        v-for="point of collectedPoints.reverse()"
         :key="point.pointId"
         :point="point"
       />
