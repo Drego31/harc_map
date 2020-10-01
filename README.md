@@ -57,7 +57,8 @@ Content:
 1. To run local database be sure that you already downloaded [Docker](https://www.docker.com/products/docker-desktop)
 2. Next step is run npm script: 
 ```
-npm run run:mongodb // Warning! It can be necessary to run this command with administrator permission(sudo)
+// Warning! It can be necessary to run this command with administrator permission(sudo)
+npm run run:mongodb
 ``` 
 
 #### Default data in local database
