@@ -10,7 +10,6 @@
     "run:dev": "NODE_ENV=development node app.js",
     "run:prod": "NODE_ENV=production node app.js",
     "run:mongodb": "docker run -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
-    "start": "npm run run:dev & npm run build:dev",
     "fill-database": "NODE_ENV=development node bin/prepareEvent.js",
     "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
   },

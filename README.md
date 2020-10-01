@@ -32,22 +32,20 @@ Content:
 
 
 ## Development
+
 #### Devel environment
-1. Make in terminal:
-    ```
-    sudo apt install svn
-    npm i
-    npm start
-    ``` 
-2. Open https://localhost:8000/ 
-3. If you get into https://localhost:8000/sign-in, the application log you in automatically on demo account (to edit demo user's data go to `config/mongodb/local.js`).
+1. Install packages: `npm i`
+2. Run the local database - [read more](#local-database)
+3. Fill the database - [read more](#adding-rtl-gdynia-points-to-database)
+4. Run the local server: `npm run run:dev`
+5. Run the front-end builder: `npm run build:dev`
+6. App is ready on https://localhost:3030/
+7. If you get into https://localhost:3030/sign-in, the application log you in automatically on 
+   the demo account (to edit demo user's data go to `config/mongodb/local.js`).
 
 #### Production environment:
-1. Install packages: 
-    ```
-    sudo apt install svn
-    npm i
-    ``` 
+1. Install packages: `npm i`
+2. Build front-end package: `npm run build:prod`
 2. Run server: `npm run run:prod`
 3. App is ready!
 
