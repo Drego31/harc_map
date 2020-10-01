@@ -6,6 +6,7 @@
     <div class="o-popup">
       <div
         v-for="[key, message] of listOfMessages.entries()"
+        :key="key"
         class="f-pb-1"
         :class="{ 'f-text-28 f-mb-1': key === 0 }"
         v-text="message"

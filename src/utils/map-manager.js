@@ -29,7 +29,7 @@ export const mapManager = {
         .then(() => {
           store.commit('event/updatePoint', {
             pointId,
-            collectionTime: Date.now()
+            collectionTime: Date.now(),
           });
           store.commit('user/addCollectedPointId', pointId);
           resolve();
@@ -39,7 +39,7 @@ export const mapManager = {
           //   map.points.add(feature);
           // }
           console.trace(error);
-          const errorMessage = new ErrorMessage(error)
+          const errorMessage = new ErrorMessage(error);
           errorMessage.showMessage('Punkt nie został zebrany przez problem z serwerem. \nSpróbuj ponownie później.');
           reject(errorMessage);
         });

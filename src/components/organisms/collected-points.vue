@@ -8,8 +8,7 @@
         <div>Suma wartości</div>
       </div>
       <m-row-category-sum
-        v-for="[key, category] in categories.entries()"
-        v-if="key > 0"
+        v-for="category in filteredCategories"
         :key="category.categoryId"
         :category="category"
       />
@@ -51,6 +50,9 @@ export default {
     ...mapGetters('event', [
       'categories',
     ]),
+    filteredCategories () {
+      return this.categories.filter(category => category.categoryId !== 0);
+    },
   },
 };
 </script>

@@ -18,8 +18,8 @@ export default {
     close: (state) => (state.isOpen = false),
     toggle: (state) => (state.isOpen = state.isOpen === false),
     addMessage: (state, payload) => state.messages.push(payload),
-    setMessages: (state, payload) => state.messages = payload,
-    setIcon: (state, payload) => state.icon = payload,
+    setMessages: (state, payload) => (state.messages = payload),
+    setIcon: (state, payload) => (state.icon = payload),
   },
   actions: {
     open (context, { messages, icon }) {
@@ -28,7 +28,7 @@ export default {
       context.commit('open');
     },
     openTemporary (context, { messages, icon, time = 2000 }) {
-      return new Promise((resolve => {
+      return new Promise(resolve => {
         context.dispatch('open', {
           messages,
           icon,
@@ -38,7 +38,7 @@ export default {
           .timeout(time)
           .then(() => context.commit('close'))
           .then(resolve);
-      }));
+      });
     },
     reset (context) {
       context.commit('setMessages', []);

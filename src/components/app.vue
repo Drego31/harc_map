@@ -19,13 +19,11 @@ import OMenu from 'organisms/menu';
 import OFooter from 'organisms/footer';
 import OLoading from 'organisms/loading';
 import { mapGetters } from 'vuex';
-import AIcon from 'atoms/icon';
 import OPopup from 'organisms/popup';
 
 export default {
   components: {
     OPopup,
-    AIcon,
     OHeader,
     OMenu,
     OFooter,
