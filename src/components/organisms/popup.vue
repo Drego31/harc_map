@@ -1,28 +1,9 @@
 <template>
   <div
     v-if="isOpen"
-    style="
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      z-index: 90;
-      background: rgba(0,0,0,0.3);
-    "
+    class="m-cover f-popup"
   >
-    <div
-      style="
-        width: 280px;
-        background: rgb(0, 136, 68);
-        box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 5px 2px;
-        margin: 32vh auto auto;
-        padding: 56px 32px 48px;
-        text-align: center;
-        font-weight: bold;
-        font-size: 20px;
-      "
-    >
+    <div class="o-popup">
       <div
         v-for="[key, message] of listOfMessages.entries()"
         class="f-pb-1"
