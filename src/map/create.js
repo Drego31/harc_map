@@ -3,22 +3,22 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
 import { map } from 'map/index';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { apply } from 'ol-mapbox-style';
-import { THEMES } from 'utils/style-manager';
 import { store } from 'store/index';
 import { Attribution, defaults as defaultControls } from 'ol/control';
+import { mapConfig } from 'map/config';
+import { uCheck } from '@dbetka/utils';
 
 export function createMap (config) {
   const {
     elementId,
-    lat = 0,
-    lon = 0,
-    zoom = 2,
-    maxZoom = 19,
+    lat = mapConfig.settings.lat,
+    lon = mapConfig.settings.lon,
+    zoom = mapConfig.settings.zoom,
+    maxZoom = mapConfig.settings.maxZoom,
   } = config;
 
   if (!elementId) {
@@ -41,16 +41,20 @@ export function createMap (config) {
     }),
   });
 
-  switch (store.getters['theme/name']) {
-    case THEMES.light:
-      map.realMap.addLayer(
-        new TileLayer({
-          source: new OSM(),
-        }),
-      );
-      break;
-    case THEMES.dark:
-      apply(map.realMap, 'https://api.maptiler.com/maps/eed8967a-5c7a-4c09-9a72-dc16ebfb54ad/style.json?key=h8C6qJeBCACAF9OGJYR3');
-      break;
+  addMapTilesSuitToTheme(map);
+}
+
+function addMapTilesSuitToTheme (map) {
+  const theme = store.getters['theme/name'];
+  const source = mapConfig.sources[theme];
+
+  if (uCheck.isObject(source)) {
+    map.realMap.addLayer(
+      new TileLayer({
+        source: source,
+      }),
+    );
+  } else if (uCheck.isString(source)) {
+    apply(map.realMap, mapConfig.sources.dark);
   }
 }
