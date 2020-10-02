@@ -17,6 +17,15 @@ class GetRequestService extends Endpoint {
       });
   }
 
+  calculateCollectedSum (points) {
+    let sum = 0;
+    for (const point of points) {
+      sum += point.category.pointValue;
+    }
+
+    return sum;
+  }
+
   readPoints (user) {
     const collection = 'event_' + user.userEvents[0];
     const filters = { pointId: { $in: user.collectedPointsIds } };
@@ -32,7 +41,11 @@ class GetRequestService extends Endpoint {
 
         return Promise.all(promises)
           .then(() => {
-            return { user, collected: points, collectedSum: 0 };
+            return {
+              user,
+              collected: points,
+              collectedSum: this.calculateCollectedSum(points),
+            };
           });
       });
   }
