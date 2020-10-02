@@ -20,10 +20,6 @@ const iconDestinationDir = 'public/iconfont/';
 const iconListSource = 'https://raw.githubusercontent.com/google/material-design-icons/master/font/MaterialIcons-Regular.codepoints';
 const iconListDestination = './src/__jscash__/icons-names-list.js';
 
-cloneMaterialIcons()
-  .then(createListOfIconsFile)
-  .catch(console.error);
-
 function cloneMaterialIcons () {
   console.log('Cloning Material Icons...');
   const requests = [];
@@ -45,6 +41,9 @@ function createListOfIconsFile () {
     });
 }
 
+cloneMaterialIcons()
+  .then(createListOfIconsFile)
+  .catch(console.error);
 
 
 
