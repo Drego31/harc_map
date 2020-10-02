@@ -1,64 +1,49 @@
-const { ncp } = require('ncp');
-const fs = require('fs');
-const fetch = require('node-fetch');
-const { exec } = require('child_process');
+const { downloadSingleFile } = require('../lib/file-downloader');
+const { generateListOfIcons, writeListOfIconsIntoFile } = require('../lib/icon-list-generator');
 
-ncp.limit = 16;
-const source = 'https://github.com/google/material-design-icons/trunk/font';
-const destination = 'public/iconfont';
-const inputListOfIcons = 'https://raw.githubusercontent.com/google/material-design-icons/master/font/MaterialIcons-Regular.codepoints';
-const outputListOfIcons = './src/__jscash__/icons-names-list.js';
+const iconSourceDir = 'https://raw.githubusercontent.com/google/material-design-icons/master/font/';
+const filesInSource = [
+  'MaterialIcons-Regular.codepoints',
+  'MaterialIcons-Regular.ttf',
+  'MaterialIconsOutlined-Regular.codepoints',
+  'MaterialIconsOutlined-Regular.otf',
+  'MaterialIconsRound-Regular.codepoints',
+  'MaterialIconsRound-Regular.otf',
+  'MaterialIconsSharp-Regular.codepoints',
+  'MaterialIconsSharp-Regular.otf',
+  'MaterialIconsTwoTone-Regular.codepoints',
+  'MaterialIconsTwoTone-Regular.otf',
+  'README.md',
+];
+const iconDestinationDir = 'public/iconfont/';
 
-cloneMaterialIcons()
-  .then(generateListOfIcons)
-  .then(writeFileWithListOfIcons)
-  .catch(error => console.error(error));
+const iconListSource = 'https://raw.githubusercontent.com/google/material-design-icons/master/font/MaterialIcons-Regular.codepoints';
+const iconListDestination = './src/__jscash__/icons-names-list.js';
 
 function cloneMaterialIcons () {
-  return new Promise(((resolve, reject) => {
-    exec(`svn checkout ${source} ${destination}`, (error, stdout, stderr) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      if (stderr) {
-        reject(stdout);
-        return;
-      }
-      resolve();
-      console.log(source + ' > ' + destination);
+  console.log('Cloning Material Icons...');
+  const requests = [];
+
+  for (const fileName of filesInSource) {
+    requests.push(downloadSingleFile(iconSourceDir, iconDestinationDir, fileName));
+  }
+  return Promise.allSettled(requests);
+}
+
+function createListOfIconsFile () {
+  console.log('\nDownloading list of icons...');
+  return generateListOfIcons(iconListSource)
+    .then(list => writeListOfIconsIntoFile(iconListDestination, list))
+    .then(() => {
+      const splitSourcePath = iconListSource.split('/');
+      const fileName = splitSourcePath[splitSourcePath.length - 1];
+      console.log(fileName + ' ~> ' + iconListDestination);
     });
-  }));
 }
 
-function generateListOfIcons () {
-  return new Promise((resolve, reject) => {
-    fetch(inputListOfIcons)
-      .then(response => response.text())
-      .then(data => {
-        const linesToPrepare = data.split('\n');
-        const lines = linesToPrepare
-          .filter(line => line !== '')
-          .map(line => {
-            const iconName = line.split(' ')[0];
-            return `  '${iconName}': '${iconName}',\n`;
-          });
-        let fileContent = 'export const ICONS = {\n';
-        fileContent += Array.from(new Set(lines)).join('');
-        fileContent += '};\n';
-
-        resolve(fileContent);
-      })
-      .catch(reject);
-  });
-}
-
-function writeFileWithListOfIcons (fileContent) {
-  fs.writeFile(outputListOfIcons, fileContent, function (err) {
-    if (err) return console.log(err);
-    console.log(inputListOfIcons + ' > ' + outputListOfIcons);
-  });
-}
+cloneMaterialIcons()
+  .then(createListOfIconsFile)
+  .catch(console.error);
 
 
 
