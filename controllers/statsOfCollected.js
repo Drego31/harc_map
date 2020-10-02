@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const validateCodes = require('../lib/validateCodes');
+const validator = require('../lib/validator');
 const database = require('../lib/mongodb');
 const Endpoint = require('../lib/endpoint');
 
@@ -32,7 +32,7 @@ class GetRequestService extends Endpoint {
 
         return Promise.all(promises)
           .then(() => {
-            return { user, points };
+            return { user, collected: points, collectedSum: 0 };
           });
       });
   }
@@ -55,7 +55,7 @@ class GetRequestService extends Endpoint {
   readFromDatabase () {
     return this.readUsers()
       .then(response => {
-        this.responseObject.response = response;
+        this.responseObject.stats = response;
       });
   }
 
@@ -65,6 +65,10 @@ class GetRequestService extends Endpoint {
   }
 
   preServiceOperations () {
+    if (this.isNotSuperUser()) {
+      this.responseObject.error = validator
+        .validateCodes.UNAUTHORIZED_ACCESS;
+    }
   }
 
 }
