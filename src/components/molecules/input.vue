@@ -15,27 +15,27 @@
     >
       {{ placeholder }}
     </label>
-    <icon-eye
+    <a-icon
+      :name="ICONS.visibility"
       v-if="isPassword && showPassword === false"
-      class="a-icon f-input"
-      :size="26"
+      class="f-input"
       @click="showPassword = true"
     />
-    <icon-eye-off
+    <a-icon
+      :name="ICONS.visibility_off"
       v-if="isPassword && showPassword"
-      class="a-icon f-input"
-      :size="26"
+      class="f-input"
       @click="showPassword = false"
     />
-    <icon-alert
+    <a-icon
+      :name="ICONS.warning"
       v-if="error && isPassword === false"
-      class="a-icon f-input f-error"
-      :size="26"
+      class="f-input f-error"
     />
-    <icon-check-bold
+    <a-icon
+      :name="ICONS.check"
       v-if="correct && isPassword === false && error === false"
-      class="a-icon f-input f-correct"
-      :size="26"
+      class="f-input f-correct"
     />
     <div
       class="a-assist"
@@ -48,19 +48,13 @@
 
 <script>
 import { mixins } from 'mixins/base';
-import IconEye from 'icons/Eye';
-import IconEyeOff from 'icons/EyeOff';
-import IconAlert from 'icons/Alert';
-import IconCheckBold from 'icons/CheckBold';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-input',
   mixins: [mixins.vModel],
   components: {
-    IconEye,
-    IconEyeOff,
-    IconAlert,
-    IconCheckBold,
+    AIcon,
   },
   props: {
     disabled: {

@@ -34,6 +34,10 @@ router.beforeEach((to, from, next) => {
     });
 });
 
+router.hardReload = function () {
+  store.commit('increaseRouterId');
+};
+
 export default router;
 
 function makeFirstRun () {
