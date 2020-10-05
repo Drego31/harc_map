@@ -1,5 +1,7 @@
 import { uPromise } from '@dbetka/utils';
 
+const defaultTime = 2000
+
 export default {
   namespaced: true,
   state: {
@@ -27,7 +29,7 @@ export default {
       context.commit('setIcon', icon);
       context.commit('open');
     },
-    openTemporary (context, { messages, icon, time = 2000 }) {
+    openTemporary (context, { messages, icon, time = defaultTime }) {
       return new Promise(resolve => {
         context.dispatch('open', {
           messages,
