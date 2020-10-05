@@ -3,7 +3,11 @@ const pjson = require('../package.json');
 
 const options = {
   // List of files to be processed
-  apis: ['./controllers/user.js'],
+  apis: [
+    './spec/swagger/components/responses.yaml',
+    './spec/swagger/components/properties.yaml',
+    './controllers/user.js',
+  ],
   definition: {
     openapi: '3.0.0',
     // App info

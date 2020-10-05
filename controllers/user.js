@@ -40,27 +40,13 @@ function __checkForgotTimeout (forgotTimestamp) {
  *            type: object
  *            properties:
  *              user:
- *                type: string
- *                format: email
- *                description: Username
- *                required: true
+ *                $ref: '#/components/properties/User'
  *              password:
- *                type: string
- *                format: password
- *                minLength: 8
- *                description: User password
- *                required: true
+ *                $ref: '#/components/properties/Password'
  *              userTeam:
- *                type: string
- *                minLength: 1
- *                description: Name of user team
- *                required: true
+ *                $ref: '#/components/properties/UserTeam'
  *              eventId:
- *                type: string
- *                minLength: 4
- *                maxLength: 4
- *                description: Key that access to event
- *                required: true
+ *                $ref: '#/components/properties/EventId'
  *          examples:
  *            Registration:
  *              value: { user: example@harcmap.pl, password: Abcd1234, userTeam: FonzieBoys, eventId: Ab12 }
@@ -74,12 +60,9 @@ function __checkForgotTimeout (forgotTimestamp) {
  *              type: object
  *              properties:
  *                user:
- *                  type: string
- *                  nullable: true
- *                  format: email
+ *                   $ref: '#/components/responses/200/User'
  *                error:
- *                  type: number
- *                  nullable: true
+ *                   $ref: '#/components/responses/200/Error'
  *      400:
  *        description: Errors about invalid eventId, userTeam or another validation
  *        content:
@@ -88,9 +71,9 @@ function __checkForgotTimeout (forgotTimestamp) {
  *              type: object
  *              properties:
  *                user:
- *                  nullable: true
+ *                  $ref: '#/components/responses/400/Error'
  *                error:
- *                  type: number
+ *                  $ref: '#/components/responses/400/Error'
  */
 router.route('/')
   .post((req, res) => {
@@ -182,15 +165,10 @@ router.route('/login')
    *            type: object
    *            properties:
    *              user:
-   *                type: string
-   *                format: email
-   *                description: Username
+   *                $ref: '#/components/properties/User'
    *                required: false
    *              password:
-   *                type: string
-   *                format: password
-   *                minLength: 8
-   *                description: User password
+   *                $ref: '#/components/properties/Password'
    *                required: false
    *          examples:
    *            ex1:
@@ -211,23 +189,15 @@ router.route('/login')
    *              type: object
    *              properties:
    *                user:
-   *                  type: string
-   *                  nullable: true
-   *                  format: email
+   *                  $ref: '#/components/responses/200/User'
    *                userTeam:
-   *                  type: string
-   *                  nullable: true
+   *                  $ref: '#/components/responses/200/UserTeam'
    *                collectedPointsIds:
-   *                  type: array
-   *                  nullable: true
-   *                  items:
-   *                    type: number
+   *                  $ref: '#/components/responses/200/CollectedPointsIds'
    *                eventId:
-   *                  type: string
-   *                  nullable: true
+   *                  $ref: '#/components/responses/200/EventId'
    *                error:
-   *                  type: number
-   *                  nullable: true
+   *                  $ref: '#/components/responses/200/Error'
    *      401:
    *        description: User is not logged, have no access
    *        content:
@@ -236,9 +206,9 @@ router.route('/login')
    *              type: object
    *              properties:
    *                user:
-   *                  nullable: true
+   *                  $ref: '#/components/responses/400/User'
    *                error:
-   *                  type: number
+   *                  $ref: '#/components/responses/200/Error'
    */
   .post((req, res, next) => {
     // Checking if user is already logged
@@ -318,12 +288,9 @@ router.route('/login')
    *              type: object
    *              properties:
    *                user:
-   *                  type: string
-   *                  nullable: true
-   *                  format: email
+   *                  $ref: '#/components/responses/200/User'
    *                error:
-   *                  type: number
-   *                  nullable: true
+   *                  $ref: '#/components/responses/200/Error'
    */
   .delete((req, res) => {
     let user = null;
@@ -345,10 +312,71 @@ router.route('/login')
 /**
  * @swagger
  *
+ * /user/activation/{key}:
+ *  get:
+ *    summary: User activation account
+ *    description: Using by user to activate account. Link received in email
+ *    tags:
+ *      - User
+ *    parameters:
+ *      - name: key
+ *        description: Unique key assigned to inactive account
+ *        in: query
+ *        required: true
+ *    responses:
+ *      200:
+ *        description: A username to be returned or error (MOVE ERRORS INFO TO 4** and 5** CODES)
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                user:
+ *                  $ref: '#/components/responses/200/User'
+ *                error:
+ *                  $ref: '#/components/responses/200/Error'
+ *      302:
+ *        description: Redirection to sign-in form(/sign-in) or error page(/404)
+ */
+router.route('/activation/:key')
+  .get((req, res) => {
+    // Data from client
+    const { key } = req.params;
+    database.read('users', { activationKey: key })
+      .then(userData => {
+        if (userData && !userData.accountIsActive) {
+          const activationUpdateData = {
+            accountIsActive: true,
+            activationKey: null,
+          };
+          database.update('users', { _id: database.ObjectId(userData._id) }, activationUpdateData)
+            .then(result => {
+              // Successfully updated
+              if (result) {
+                res.redirect(302, '/sign-in');
+              } else {
+                utils.responseUserError(res, 200, errorsCodes.DATABASE_NO_RESULT_ERROR);
+              }
+            })
+            .catch(error => {
+              utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
+            });
+        } else {
+          res.redirect(302, '/404');
+        }
+      })
+      .catch(error => {
+        utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
+      });
+  });
+
+/**
+ * @swagger
+ *
  * /user/remind:
  *  post:
  *    summary: User remind password
- *    description: Request fo reset user password
+ *    description: Request for reset user password
  *    tags:
  *      - User
  *    requestBody:
@@ -358,10 +386,7 @@ router.route('/login')
  *            type: object
  *            properties:
  *              user:
- *                type: string
- *                format: email
- *                description: Username
- *                required: true
+ *                $ref: '#/components/properties/User'
  *          examples:
  *            Registration:
  *              value: { user: example@harcmap.pl }
@@ -375,12 +400,9 @@ router.route('/login')
  *              type: object
  *              properties:
  *                user:
- *                  type: string
- *                  nullable: true
- *                  format: email
+ *                  $ref: '#/components/responses/200/User'
  *                error:
- *                  type: number
- *                  nullable: true
+ *                  $ref: '#/components/responses/200/Error'
  *      400:
  *        description: Errors about validation
  *        content:
@@ -389,9 +411,9 @@ router.route('/login')
  *              type: object
  *              properties:
  *                user:
- *                  nullable: true
+ *                  $ref: '#/components/responses/400/User'
  *                error:
- *                  type: number
+ *                  $ref: '#/components/responses/400/Error'
  *      401:
  *        description: Inactive account
  *        content:
@@ -400,9 +422,9 @@ router.route('/login')
  *              type: object
  *              properties:
  *                user:
- *                  nullable: true
+ *                  $ref: '#/components/responses/400/User'
  *                error:
- *                  type: number
+ *                  $ref: '#/components/responses/400/Error'
  */
 router.route('/remind')
   .post((req, res) => {
@@ -456,47 +478,30 @@ router.route('/remind')
   });
 
 /**
- * @description User activation account
- */
-router.route('/activation/:key')
-  .get((req, res) => {
-    // Data from client
-    const { key } = req.params;
-    database.read('users', { activationKey: key })
-      .then(userData => {
-        if (userData && !userData.accountIsActive) {
-          const activationUpdateData = {
-            accountIsActive: true,
-            activationKey: null,
-          };
-          database.update('users', { _id: database.ObjectId(userData._id) }, activationUpdateData)
-            .then(result => {
-              // Successfully updated
-              if (result) {
-                res.redirect(302, '/sign-in');
-              } else {
-                utils.responseUserError(res, 200, errorsCodes.DATABASE_NO_RESULT_ERROR);
-              }
-            })
-            .catch(error => {
-              utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
-            });
-        } else {
-          res.redirect(302, '/404');
-        }
-      })
-      .catch(error => {
-        utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
-      });
-  });
-
-/**
- * @description Forgot password
+ * @swagger
+ *
+ * /user/remind/{key}:
+ *  get:
+ *    summary: Request for change password
+ *    description: Using by user to go to change password form. Link received via email
+ *    tags:
+ *      - User
+ *    parameters:
+ *      - name: key
+ *        description: Unique key assigned to inactive account
+ *        in: query
+ *        required: true
+ *    responses:
+ *      200:
+ *        description: Return index.html
+ *        content:
+ *          text/html:
+ *            schema:
+ *              type: string
+ *      302:
+ *        description: Redirection to error page(/404)
  */
 router.route('/remind/:key')
-  /**
-   * @description TODO Return HTML if user was ask for change password (not longer then - systemConfig.app.passwordForgotTimeoutInMinutes)
-   */
   .get((req, res) => {
     // Data from client
     const { key } = req.params;
@@ -513,7 +518,56 @@ router.route('/remind/:key')
       });
   })
   /**
-   * @description Change password in Database
+   * @swagger
+   *
+   * /user/remind/{key}:
+   *  put:
+   *    summary: Change password in database
+   *    description: Using by user to change password in database
+   *    tags:
+   *      - User
+   *    parameters:
+   *      - name: key
+   *        description: Unique key assigned to inactive account
+   *        in: query
+   *        required: true
+   *    requestBody:
+   *      content:
+   *        application/json:
+   *          schema:
+   *            type: object
+   *            properties:
+   *              password:
+   *                $ref: '#/components/properties/Password'
+   *          examples:
+   *            Registration:
+   *              value: { password: ExamplePassword1! }
+   *      required: true
+   *    responses:
+   *      200:
+   *        description: Return when successfully change password. TO CHANGE - received too when DB crush
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                user:
+   *                  $ref: '#/components/responses/200/User'
+   *                error:
+   *                  $ref: '#/components/responses/200/Error'
+   *      400:
+   *        description: Errors
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                user:
+   *                  $ref: '#/components/responses/400/User'
+   *                error:
+   *                  $ref: '#/components/responses/400/Error'
+   *      404:
+   *        description: Return when time to change password pass
    */
   .put((req, res) => {
     // User data validation
