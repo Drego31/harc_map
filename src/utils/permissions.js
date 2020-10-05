@@ -1,5 +1,6 @@
 import { store } from 'store/index';
 import { uCheck } from '@dbetka/utils';
+import { ErrorMessage } from 'utils/error-message';
 
 export const ACCOUNT_TYPES = {
   common: 'common',
@@ -14,12 +15,12 @@ export const permissions = {
         if (user.accountType === accountType) {
           resolve();
         } else {
-          reject();
+          reject(new ErrorMessage('User has no permission for this action'));
         }
       }
-      reject();
+      reject(new ErrorMessage('User has no permission for this action'));
     });
   },
 };
 
-window.permissions = permissions
+window.permissions = permissions;
