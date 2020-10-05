@@ -24,7 +24,7 @@
     <a class="a-link f-menu" @click="toggleTheme()">
       <div class="f-flex-1">{{ themeName === THEMES.light ? 'Ciemny tryb' : 'Jasny tryb' }}</div>
       <a-icon
-        :name="ICONS.invert_colors"
+        :name="ICONS.brightness_4"
         class="f-menu"
       />
     </a>

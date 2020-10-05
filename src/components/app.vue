@@ -9,6 +9,7 @@
     <transition name="fade">
       <o-loading v-show="isLoading"/>
     </transition>
+    <o-popup/>
   </div>
 </template>
 
@@ -18,9 +19,11 @@ import OMenu from 'organisms/menu';
 import OFooter from 'organisms/footer';
 import OLoading from 'organisms/loading';
 import { mapGetters } from 'vuex';
+import OPopup from 'organisms/popup';
 
 export default {
   components: {
+    OPopup,
     OHeader,
     OMenu,
     OFooter,

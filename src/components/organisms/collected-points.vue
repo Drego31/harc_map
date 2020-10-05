@@ -8,7 +8,7 @@
         <div>Suma wartości</div>
       </div>
       <m-row-category-sum
-        v-for="category in categories"
+        v-for="category in filteredCategories"
         :key="category.categoryId"
         :category="category"
       />
@@ -23,7 +23,7 @@
         <div>Rozwiń</div>
       </div>
       <m-row-point
-        v-for="point of collectedPoints"
+        v-for="point of collectedPoints.reverse()"
         :key="point.pointId"
         :point="point"
       />
@@ -50,6 +50,9 @@ export default {
     ...mapGetters('event', [
       'categories',
     ]),
+    filteredCategories () {
+      return this.categories.filter(category => category.categoryId !== 0);
+    },
   },
 };
 </script>
