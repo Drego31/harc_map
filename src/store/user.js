@@ -9,7 +9,6 @@ export default {
     userTeam: '',
     accountType: '',
     collectedPointsIds: [],
-    valueChanged: false,
   },
   getters: {
     user: state => state.user,
@@ -17,7 +16,6 @@ export default {
     accountType: state => state.accountType,
     isLogin: state => state.user !== '',
     collectedPointsIds: state => state.collectedPointsIds,
-    valueChanged: state => state.valueChanged,
     collectedPoints (state, getters, rootState, rootGetters) {
       const collectedPoints = [];
 
@@ -28,6 +26,13 @@ export default {
       }
       return collectedPoints;
     },
+    sumOfCollectedPoints (state, getters, rootState, rootGetters) {
+      return getters.collectedPoints
+        .map(point => {
+          return rootGetters['event/getCategoryById'](point.pointCategory).pointValue;
+        })
+        .reduce((a, b) => a + b, 0);
+    },
   },
   mutations: {
     setUser: (state, payload) => (state.user = payload),
@@ -35,7 +40,6 @@ export default {
     setAccountType: (state, payload) => (state.accountType = payload),
     setCollectedPointsIds: (state, payload) => (state.collectedPointsIds = payload || []),
     addCollectedPointId: (state, payload) => (state.collectedPointsIds.push(payload)),
-    setValueChanged: (state, payload) => (state.valueChanged = payload),
     signOut: state => {
       state.user = '';
       state.userTeam = '';
