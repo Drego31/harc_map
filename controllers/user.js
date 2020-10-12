@@ -35,7 +35,7 @@ router.route('/login')
     // Checking if user is already logged
     if (req.isAuthenticated()) {
       // Data from session
-      const { user, userTeam, userEvents } = req.user;
+      const { user, userTeam, userEvents, accountType } = req.user;
       database.read('users', { user }).then(result => {
         if (result) {
           res.send({
@@ -43,6 +43,7 @@ router.route('/login')
             userTeam,
             collectedPointsIds: result.collectedPointsIds,
             eventId: userEvents[0],
+            accountType,
             error: null,
           });
         } else {
@@ -68,7 +69,7 @@ router.route('/login')
               if (error) {
                 utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
               } else {
-                const { user, userTeam, userEvents } = userData;
+                const { user, userTeam, userEvents, accountType } = userData;
                 database.read('users', { user }).then(result => {
                   if (result) {
                     res.send({
@@ -76,6 +77,7 @@ router.route('/login')
                       userTeam,
                       collectedPointsIds: result.collectedPointsIds,
                       eventId: userEvents[0],
+                      accountType,
                       error: null,
                     });
                   } else {

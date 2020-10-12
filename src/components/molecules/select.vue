@@ -27,9 +27,9 @@
     >
       {{ placeholder }}
     </label>
-    <icon-cancel
-      class="a-icon f-input"
-      :size="26"
+    <a-icon
+      :name="ICONS.cancel"
+      class="f-input"
       @click.stop="focusAndToggle"
     />
     <div
@@ -53,12 +53,14 @@
 
 <script>
 import { mixins } from 'mixins/base';
-import IconCancel from 'icons/ArrowDown';
 import { logical } from 'vendors/logical';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-select',
-  components: { IconCancel },
+  components: {
+    AIcon,
+  },
   mixins: [mixins.vModel],
   props: {
     /**

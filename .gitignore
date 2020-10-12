@@ -5,3 +5,4 @@ package-lock.json
 /config/cert.key
 /config/cert.pem
 /public/app.min.js
+public/iconfont/.svn

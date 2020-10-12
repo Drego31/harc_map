@@ -1,20 +1,40 @@
 <template>
   <div :class="isOpen ? 'f-open' : ''" class="o-menu">
+    <div class="a-text f-title f-menu">Cześć, {{ $store.getters['user/userTeam'] }}</div>
+
+    <div class="a-text f-subtitle f-menu">
+      Macie <span class="f-text-primary-hover">{{ $store.getters['user/sumOfCollectedPoints'] }} pkt</span>
+    </div>
+
     <router-link
       v-for="(route, key) in links"
       :key="key"
       :to="route.path"
       @click.native="close()"
       class="a-link f-menu"
-      :class="{ 'f-selected': isActualPath(route) }"
     >
-      {{ route.label }}
+      <div class="f-flex-1">{{ route.label }}</div>
+      <a-icon
+        :name="route.icon"
+        class="f-menu"
+        :class="{ 'f-selected': isActualPath(route) }"
+      />
     </router-link>
+
     <a class="a-link f-menu" @click="toggleTheme()">
-      {{ themeName === THEMES.light ? 'Ciemny tryb' : 'Jasny tryb' }}
+      <div class="f-flex-1">{{ themeName === THEMES.light ? 'Ciemny tryb' : 'Jasny tryb' }}</div>
+      <a-icon
+        :name="ICONS.brightness_4"
+        class="f-menu"
+      />
     </a>
+
     <a class="a-link f-menu" @click="signOut()">
-      Wyloguj
+      <div class="f-flex-1">Wyloguj</div>
+      <a-icon
+        :name="ICONS.logout"
+        class="f-menu"
+      />
     </a>
   </div>
 </template>
@@ -24,14 +44,18 @@ import { mapGetters, mapMutations } from 'vuex';
 import { api } from 'api/index';
 import { THEMES } from 'utils/style-manager';
 import { ROUTES } from 'utils/macros/routes';
+import router from 'src/router';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 'o-menu',
+  components: { AIcon },
   data: () => ({
     links: [
       ROUTES.start,
       ROUTES.temporaryPoints,
       ROUTES.collectPoint,
+      ROUTES.collectedPoints,
       ROUTES.map,
       ROUTES.about,
     ],
@@ -55,6 +79,8 @@ export default {
     },
     toggleTheme () {
       this.$store.commit('theme/toggle');
+      router.hardReload();
+      this.close();
     },
     signOut () {
       api.signOut({

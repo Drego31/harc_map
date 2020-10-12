@@ -4,26 +4,19 @@
     v-if="isLogin"
   >
     <a-button-icon-footer
-      v-for="icon of getIcons()"
-      :key="icon.label"
-      :icon="icon.component"
-      :label="icon.label"
-      :size="icon.big ? 48 : 24"
-      :icon-class="{ 'f-big': icon.big }"
-      :class="{ 'f-big': icon.big, 'f-selected': isActualPath(icon) }"
-      @click="onClick(icon)"
+      v-for="shortcut of getShortcuts()"
+      :key="shortcut.label"
+      :icon="shortcut.icon"
+      :label="shortcut.shortLabel"
+      :icon-class="{ 'f-big': shortcut.big }"
+      :class="{ 'f-big': shortcut.big, 'f-selected': isActualPath(shortcut) }"
+      @click="onClick(shortcut)"
     />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import IconMap from 'icons/Map.vue';
-import IconMenu from 'icons/Menu.vue';
-import IconStar from 'icons/Star.vue';
-import IconClock from 'icons/Clock.vue';
-import IconHome from 'icons/Home.vue';
-import IconArrowRight from 'icons/ArrowRight';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
 import { ROUTES } from 'utils/macros/routes';
@@ -49,38 +42,28 @@ export default {
         return this.$route.path === path;
       }
     },
-    onClick (icon) {
-      if (logical.isString(icon.path) && icon.path !== '') {
-        this.$router.push(icon.path).catch(() => {
+    onClick (shortcut) {
+      if (logical.isString(shortcut.path) && shortcut.path !== '') {
+        this.$router.push(shortcut.path).catch(() => {
           this.$store.commit('menu/close');
         });
       }
-      if (logical.isFunction(icon.method)) {
-        icon.method();
+      if (logical.isFunction(shortcut.method)) {
+        shortcut.method();
       }
     },
-    getIcons () {
+    getShortcuts () {
       return [
-        {
-          ...ROUTES.start,
-          component: IconHome,
-        },
-        {
-          ...ROUTES.temporaryPoints,
-          component: IconClock,
-        },
+        ROUTES.start,
+        ROUTES.temporaryPoints,
         {
           ...ROUTES.collectPoint,
-          component: IconStar,
           big: true,
         },
+        ROUTES.map,
         {
-          ...ROUTES.map,
-          component: IconMap,
-        },
-        {
-          label: 'Menu',
-          component: this.$store.getters['menu/isOpen'] ? IconArrowRight : IconMenu,
+          shortLabel: 'Menu',
+          icon: this.$store.getters['menu/isOpen'] ? this.ICONS.arrow_forward : this.ICONS.menu,
           method: this.toggle,
         },
       ];

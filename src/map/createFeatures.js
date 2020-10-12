@@ -8,10 +8,13 @@ import { Fill, RegularShape, Stroke, Style } from 'ol/style';
 import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
+
 import { getCollectedPointsByMock } from 'api/mock/mockMethods/get-collected-points';
 import LineString from 'ol/geom/LineString';
+import { mapConfig } from 'map/config';
 
-const getStroke = (shape, width = 2) => {
+
+const getStroke = (shape, width = mapConfig.features.defaultWidth) => {
   const appearance = MAP_POINTS[shape] || {};
   return new Stroke({
     color: appearance.strokeColor,
@@ -98,6 +101,7 @@ export function createFeatures ({ list = [] }) {
       features: listOfFeatures,
     }),
   });
+
   const lineLayer = new VectorLayer({
     source: new VectorSource({
       features: [lineFeature],
@@ -112,6 +116,9 @@ export function createFeatures ({ list = [] }) {
     }),
   });
   map.realMap.addLayer(lineLayer);
+
+  layer.setZIndex(mapConfig.features.zIndex);
+
   map.realMap.addLayer(layer);
   map.points.layer = layer;
 }

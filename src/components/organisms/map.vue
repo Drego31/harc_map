@@ -18,7 +18,6 @@ export default {
       lat: position.latitude,
       lon: position.longitude,
       zoom: appEvent.mapZoom,
-      maxZoom: 19,
     });
     map.points.create({
       list: this.$store.getters['event/notCollectedPoints'],
