@@ -1,6 +1,6 @@
 import { uPromise } from '@dbetka/utils';
 
-const defaultTime = 2000
+const defaultTime = 2000;
 
 export default {
   namespaced: true,
