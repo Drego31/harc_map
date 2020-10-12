@@ -3,6 +3,7 @@ import { points } from 'map/points';
 import { ROUTES } from 'utils/macros/routes';
 import { store } from 'store/index';
 import router from 'src/router';
+import { lines } from 'map/lines';
 
 export const map = {
   realMap: null,
@@ -17,4 +18,5 @@ export const map = {
     router.push(ROUTES.map.path);
   },
   points,
+  lines,
 };
