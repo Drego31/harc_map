@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "clone-fonts": "node bin/clone-material-icons.js",
-    "build:dev": "npm run clone-fonts && npx webpack --config webpack.dev.js --watch",
-    "build:prod": "npm run clone-fonts && npx webpack --config webpack.prod.js",
+    "build:dev": "npx webpack --config webpack.dev.js --watch",
+    "build:prod": "npx webpack --config webpack.prod.js",
     "run:dev": "NODE_ENV=development node app.js",
     "run:prod": "NODE_ENV=production node app.js",
     "run:mongodb": "docker run -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
@@ -17,12 +17,16 @@
     "type": "git",
     "url": "git+https://github.com/Drego31/harc_map.git"
   },
-  "author": "",
+  "author": "dbetka",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Drego31/harc_map/issues"
   },
   "homepage": "https://github.com/Drego31/harc_map#readme",
+  "engines": {
+    "node": ">=12.9.0",
+    "npm": ">=6.0.0"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "child_process": "^1.0.2",
