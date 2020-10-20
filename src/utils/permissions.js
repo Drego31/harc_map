@@ -2,12 +2,14 @@ import { store } from 'store/index';
 import { uCheck } from '@dbetka/utils';
 import { ErrorMessage } from 'utils/error-message';
 
+// ACCOUNT_TYPES is available in vue templates
 export const ACCOUNT_TYPES = {
   common: 'common',
   admin: 'admin',
 };
 
 export const permissions = {
+  // permissions.check method is available in vue templates
   check (accountType) {
     const user = store.getters['user/user'];
     if (uCheck.isDefined(user) && user !== '') {
@@ -29,5 +31,3 @@ export const permissions = {
     });
   },
 };
-
-window.permissions = permissions;
