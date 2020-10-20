@@ -9,16 +9,23 @@ export const ACCOUNT_TYPES = {
 
 export const permissions = {
   check (accountType) {
-    return new Promise((resolve, reject) => {
-      const user = store.getters['user/user'];
-      if (uCheck.isDefined(user)) {
-        if (user.accountType === accountType) {
-          resolve();
-        } else {
-          reject(new ErrorMessage('User has no permission for this action'));
-        }
+    const user = store.getters['user/user'];
+    if (uCheck.isDefined(user) && user !== '') {
+      const userAccountType = store.getters['user/accountType'];
+      if (userAccountType === accountType) {
+        return true;
       }
-      reject(new ErrorMessage('User has no permission for this action'));
+    }
+    return false;
+  },
+  promiseCheck (accountType) {
+    return new Promise((resolve, reject) => {
+      const correctPermissions = permissions.check(accountType);
+      if (correctPermissions === true) {
+        resolve();
+      } else {
+        reject(new ErrorMessage('User has no permission for this action'));
+      }
     });
   },
 };
