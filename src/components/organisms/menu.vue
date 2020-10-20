@@ -1,5 +1,5 @@
 <template>
-  <div :class="isOpen ? 'f-open' : ''" class="o-menu">
+  <div class="o-menu" :class="isOpen ? 'f-open' : ''">
     <div class="a-text f-title f-menu">Cześć, {{ $store.getters['user/userTeam'] }}</div>
 
     <div class="a-text f-subtitle f-menu">

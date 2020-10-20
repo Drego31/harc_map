@@ -6,6 +6,11 @@
     </div>
     <o-footer/>
     <o-menu/>
+    <div
+      class="a-cover f-menu"
+      :class="isOpen ? 'f-show' : ''"
+      @click="close"
+    />
     <transition name="fade">
       <o-loading v-show="isLoading"/>
     </transition>
@@ -18,7 +23,7 @@ import OHeader from 'organisms/header';
 import OMenu from 'organisms/menu';
 import OFooter from 'organisms/footer';
 import OLoading from 'organisms/loading';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import OPopup from 'organisms/popup';
 
 export default {
@@ -33,6 +38,14 @@ export default {
     ...mapGetters([
       'isLoading',
       'routerId',
+    ]),
+    ...mapGetters('menu', [
+      'isOpen',
+    ]),
+  },
+  methods: {
+    ...mapMutations('menu', [
+      'close',
     ]),
   },
 };
