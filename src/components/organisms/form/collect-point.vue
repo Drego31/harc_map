@@ -22,6 +22,7 @@ import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldText from 'molecules/field/text';
 import AButtonSubmit from 'atoms/button/submit';
+import { ICONS } from 'src/__jscash__/icons-names-list';
 
 export default {
   name: 'o-form-collect-point',
@@ -44,9 +45,18 @@ export default {
   },
   methods: {
     onCollectPoint () {
-      this.isSending = false;
-      this.blockForm = false;
-      this.$router.push(ROUTES.start.path);
+      this.$store.dispatch('popup/openTemporary', {
+        messages: [
+          'Gratulujemy!',
+          'Zdobyłeś punkt!',
+        ],
+        icon: ICONS.check_circle_outline,
+      })
+        .then(() => {
+          this.isSending = false;
+          this.blockForm = false;
+          this.$router.push(ROUTES.start.path);
+        });
     },
     collectPoint () {
       const pointId = this.collectedPointId;

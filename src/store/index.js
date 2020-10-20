@@ -5,6 +5,7 @@ import theme from './theme';
 import event from './event';
 import user from './user';
 import header from './header';
+import popup from './popup';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export const store = new Vuex.Store({
     event,
     user,
     header,
+    popup,
   },
   state: {
     isLoading: true,
