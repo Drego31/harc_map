@@ -2,9 +2,21 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
+const glob = require('glob');
 
 function resolve (dir) {
   return path.resolve(__dirname, dir);
+}
+
+try {
+  files = glob.sync('public/*.app.*.js');
+  files.concat(glob.sync('public/app.*.js'));
+  for (const file of files) {
+    fs.unlinkSync(file);
+  }
+} catch (err) {
+  throw new Error('Removing old bundles went wrong');
 }
 
 module.exports = {
