@@ -30,4 +30,18 @@ export const permissions = {
       }
     });
   },
+  checkIsAdmin () {
+    return this.check(ACCOUNT_TYPES.admin);
+  },
+  checkIsCommon () {
+    return this.check(ACCOUNT_TYPES.common);
+  },
+  promiseCheckIsAdmin () {
+    return this.promiseCheck(ACCOUNT_TYPES.admin);
+  },
+  promiseCheckIsCommon () {
+    return this.promiseCheck(ACCOUNT_TYPES.common);
+  },
 };
+
+window.permissions = permissions;

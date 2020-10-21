@@ -21,10 +21,12 @@ Vue.mixin({
   computed: {
     ROUTES: () => ROUTES,
     ICONS: () => ICONS,
-    ACCOUNT_TYPES: ACCOUNT_TYPES,
+    ACCOUNT_TYPES: () => ACCOUNT_TYPES,
   },
   methods: {
-    checkPermissions: permissions.check(),
+    checkPermissions: permissions.check,
+    checkIsAdmin: permissions.checkIsAdmin,
+    checkIsCommon: permissions.checkIsCommon,
   },
 });
 
