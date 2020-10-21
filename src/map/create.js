@@ -3,7 +3,6 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
-import { map } from 'map/index';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { apply } from 'ol-mapbox-style';
@@ -12,7 +11,7 @@ import { Attribution, defaults as defaultControls } from 'ol/control';
 import { mapConfig } from 'map/config';
 import { uCheck } from '@dbetka/utils';
 
-export function createMap (config) {
+export function createMap (map, config) {
   const {
     elementId,
     lat = mapConfig.settings.lat,

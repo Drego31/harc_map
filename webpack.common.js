@@ -1,6 +1,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 function resolve (dir) {
   return path.resolve(__dirname, dir);
@@ -10,7 +11,7 @@ module.exports = {
   mode: 'development',
   entry: 'src/index.js',
   output: {
-    filename: 'app.min.js',
+    filename: 'app.[contenthash].js',
     path: resolve('public'),
   },
   devServer: {
@@ -100,6 +101,9 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      template: resolve('src/index.html'),
+    }),
     new webpack.DefinePlugin({
       APP_NAME: JSON.stringify('HarcMap'),
       VERSION: JSON.stringify('1.0.0'),
