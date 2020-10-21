@@ -20,6 +20,11 @@ const passportConfig = require('./lib/passportConfig');
 const connectionString = require('./lib/mongodb').connectionString;
 const appConfig = utils.getSystemConfig().app;
 
+// Swagger
+const swaggerUi = require('swagger-ui-express');
+const specs = require('./spec/swagger.js');
+// const swaggerDocument = require('./swagger.json');
+
 // Controllers
 const userController = require('./controllers/user');
 const eventController = require('./controllers/event');
@@ -55,6 +60,8 @@ if (ENV_DEVELOPMENT) {
     res.header('Access-Control-Allow-Methods', '*');
     next();
   });
+
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 }
 app.use(expressSession(Object.assign(sessionConfig, {
   store: new MongoStore({

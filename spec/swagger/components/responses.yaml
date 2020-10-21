@@ -1,0 +1,28 @@
+# TODO in final version, code 200 shouldn't return error field
+# TODO User, UserTeam, CollectedPointsIds, EventId in 200 status should be always string, not null
+components:
+  responses:
+    200:
+      User:
+        type: string
+        nullable: true
+        format: email
+      UserTeam:
+        type: string
+        nullable: true
+      CollectedPointsIds:
+        type: array
+        nullable: true
+        items:
+          type: number
+      EventId:
+        type: string
+        nullable: true
+      Error:
+        type: number
+        nullable: true
+    400:
+      User:
+        nullable: true
+      Error:
+        type: number
