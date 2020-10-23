@@ -6,6 +6,8 @@ import { styleManager } from 'utils/style-manager';
 import './directives';
 import './validation';
 import { ROUTES } from 'utils/macros/routes';
+import { ICONS } from './__jscash__/icons-names-list';
+import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 
 styleManager.init();
 
@@ -18,6 +20,13 @@ if (PRODUCTION === false) {
 Vue.mixin({
   computed: {
     ROUTES: () => ROUTES,
+    ICONS: () => ICONS,
+    ACCOUNT_TYPES: () => ACCOUNT_TYPES,
+  },
+  methods: {
+    checkPermissions: permissions.check,
+    checkIsAdmin: permissions.checkIsAdmin,
+    checkIsCommon: permissions.checkIsCommon,
   },
 });
 

@@ -27,12 +27,16 @@ router.beforeEach((to, from, next) => {
   }
 
   promise
-    .catch(() => undefined)
+    .catch((e) => console.error(e))
     .finally(() => {
       redirectIfNotAuth(to, from, next);
       store.commit('menu/close');
     });
 });
+
+router.hardReload = function () {
+  store.commit('increaseRouterId');
+};
 
 export default router;
 

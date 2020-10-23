@@ -20,6 +20,11 @@ const passportConfig = require('./lib/passportConfig');
 const connectionString = require('./lib/mongodb').connectionString;
 const appConfig = utils.getSystemConfig().app;
 
+// Swagger
+const swaggerUi = require('swagger-ui-express');
+const specs = require('./spec/swagger.js');
+// const swaggerDocument = require('./swagger.json');
+
 // Controllers
 const userController = require('./controllers/user');
 const eventController = require('./controllers/event');
@@ -27,6 +32,7 @@ const eventPointController = require('./controllers/eventPoint');
 const eventPointsController = require('./controllers/eventPoints');
 const pointCollectController = require('./controllers/pointCollect');
 const pointCategoriesController = require('./controllers/pointCategories');
+const statsOfCollectedController = require('./controllers/statsOfCollected');
 
 // Create express app instance
 const app = express();
@@ -54,6 +60,8 @@ if (ENV_DEVELOPMENT) {
     res.header('Access-Control-Allow-Methods', '*');
     next();
   });
+
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 }
 app.use(expressSession(Object.assign(sessionConfig, {
   store: new MongoStore({
@@ -89,6 +97,7 @@ app.use('/event/point', eventPointController);
 app.use('/event/points', eventPointsController);
 app.use('/event/point/collect', pointCollectController);
 app.use('/event/point/categories', pointCategoriesController);
+app.use('/admin/collected/stats', statsOfCollectedController);
 
 // index rewrite
 app.get('*', (req, res) => {

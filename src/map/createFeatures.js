@@ -8,8 +8,9 @@ import { Fill, RegularShape, Stroke, Style } from 'ol/style';
 import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
+import { mapConfig } from 'map/config';
 
-const getStroke = (shape, width = 2) => {
+const getStroke = (shape, width = mapConfig.features.defaultWidth) => {
   const appearance = MAP_POINTS[shape] || {};
   return new Stroke({
     color: appearance.strokeColor,
@@ -79,6 +80,7 @@ export function createFeatures ({ list = [] }) {
       features: listOfFeatures,
     }),
   });
+  layer.setZIndex(mapConfig.features.zIndex);
   map.realMap.addLayer(layer);
   map.points.layer = layer;
 }

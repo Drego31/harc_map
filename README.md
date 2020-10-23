@@ -1,21 +1,20 @@
 # HarcMap
 Content:
-1. Installation
+1. [Installation](#installation)
     1. Requirements
     2. How to prepare Intellij IDE (Webstorm / Phpstorm) for front-end development
-2. Development
+2. [Development](#development)
     1. Devel environment
     2. Production environment:
-3. Local Database
-    1. Installation
+3. [Local Database](#local-database)
+    1. Database installation
     2. Default data in local database
     3. Adding "RTL Gdynia" points to database 
 
 
 
-
-
 ## Installation
+
 #### Requirements
 - node v10.15.3 or higher
 - npm v6.13.7 or higher
@@ -28,20 +27,21 @@ Content:
 
 
 
-
-
-
 ## Development
+
 #### Devel environment
-1. Make in terminal:
-    ```
-    npm i
-    npm start
-    ``` 
-2. Open https://localhost:8000/
+1. Install packages: `npm i`
+2. Run the local database ([read more](#local-database))
+3. Fill the database ([read more](#adding-rtl-gdynia-points-to-database))
+4. Run the local server: `npm run run:dev`
+5. Run the front-end builder: `npm run build:dev`
+6. App is ready on https://localhost:3030/
+7. If you get into https://localhost:3030/sign-in, the application log you in automatically on 
+   the demo account (to edit demo user's data go to `config/mongodb/local.js`).
 
 #### Production environment:
 1. Install packages: `npm i`
+2. Build front-end package: `npm run build:prod`
 2. Run server: `npm run run:prod`
 3. App is ready!
 
@@ -49,28 +49,30 @@ Content:
 
 
 ## Local database
-#### Installation
-1. To run local database be sure that you already downloaded [Docker](https://www.docker.com/products/docker-desktop)
-2. Next step is run npm script: 
+
+#### Database installation
+1. To run the local database be sure that you already installed [Docker](https://www.docker.com/products/docker-desktop)
+2. Next step is running npm script: 
 ```
-npm run run:mongodb // Warning! It can be necessary to run this command with administrator permission(sudo)
+// Warning! It can be necessary to run this command with administrator permissions (sudo)
+npm run run:mongodb
 ``` 
 
 #### Default data in local database
-For default, local database is filled example data to run all basic functionality.
+For default, the local database is filling example data to run all basic functionality.
 It means one user(zhp@harcmap.henouser.pl), one event(ab12) with 3 categories and 4 points.
 
 
 It doesn't contain any data about "RTL Gdynia" event or another. 
-Default data are smallest content to run basic functionality!
+Default data are the smallest content to run basic functionality!
 
-All initialized data are set from `/config/mongodb/local.js` script!
+All initialized data are setting from `/config/mongodb/local.js` script!
 
 #### Adding "RTL Gdynia" points to database:
-1. To add points, necessary categories and events you have to run local database first `npm run run:mongodb`
+1. To add points, necessary categories and events you have to run local database first ([read more](#local-database))
 2. When local DB completely load, run command `npm run fill-database`.
-3. Thats all!
+3. That's all!
 
-`fill-database` script, add only "RTL Gdynia" data to database!
+`fill-database` script, add only example "RTL Gdynia" data to database!
 
 

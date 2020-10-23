@@ -12,8 +12,7 @@ export const mapManager = {
       // let feature;
 
       if (logical.isUndefined(point)) {
-        const errorMessage = new ErrorMessage(ERRORS.pointWithPointIdDoesntExist(pointId));
-        reject(errorMessage);
+        reject(ERRORS.pointWithPointIdDoesntExist(pointId));
       }
 
       // if (mapIsDefined) {
@@ -28,14 +27,19 @@ export const mapManager = {
         pointId,
       })
         .then(() => {
-          store.commit('event/removePoint', point);
+          store.commit('event/updatePoint', {
+            pointId,
+            pointCollectionTime: Date.now(),
+          });
           store.commit('user/addCollectedPointId', pointId);
           resolve();
         })
-        .catch(errorMessage => {
+        .catch(error => {
           // if (mapIsDefined) {
           //   map.points.add(feature);
           // }
+          console.trace(error);
+          const errorMessage = new ErrorMessage(error);
           errorMessage.showMessage('Punkt nie został zebrany przez problem z serwerem. \nSpróbuj ponownie później.');
           reject(errorMessage);
         });

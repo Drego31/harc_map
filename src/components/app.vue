@@ -2,13 +2,19 @@
   <div id="app">
     <o-header/>
     <div class="f-relative f-flex-1">
-      <router-view/>
+      <router-view :key="routerId"/>
     </div>
     <o-footer/>
     <o-menu/>
+    <div
+      class="a-cover f-menu"
+      :class="isOpen ? 'f-show' : ''"
+      @click="close"
+    />
     <transition name="fade">
       <o-loading v-show="isLoading"/>
     </transition>
+    <o-popup/>
   </div>
 </template>
 
@@ -17,17 +23,30 @@ import OHeader from 'organisms/header';
 import OMenu from 'organisms/menu';
 import OFooter from 'organisms/footer';
 import OLoading from 'organisms/loading';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import OPopup from 'organisms/popup';
 
 export default {
   components: {
+    OPopup,
     OHeader,
     OMenu,
     OFooter,
     OLoading,
   },
   computed: {
-    ...mapGetters(['isLoading']),
+    ...mapGetters([
+      'isLoading',
+      'routerId',
+    ]),
+    ...mapGetters('menu', [
+      'isOpen',
+    ]),
+  },
+  methods: {
+    ...mapMutations('menu', [
+      'close',
+    ]),
   },
 };
 </script>

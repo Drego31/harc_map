@@ -1,20 +1,21 @@
 import { uCheck } from '@dbetka/utils';
 import { autoUpdate } from 'utils/auto-update';
+import { ACCOUNT_TYPES } from 'utils/permissions';
 
 export default {
   namespaced: true,
   state: {
     user: '',
     userTeam: '',
+    accountType: '',
     collectedPointsIds: [],
-    valueChanged: false,
   },
   getters: {
     user: state => state.user,
     userTeam: state => state.userTeam,
+    accountType: state => state.accountType,
     isLogin: state => state.user !== '',
     collectedPointsIds: state => state.collectedPointsIds,
-    valueChanged: state => state.valueChanged,
     collectedPoints (state, getters, rootState, rootGetters) {
       const collectedPoints = [];
 
@@ -25,13 +26,20 @@ export default {
       }
       return collectedPoints;
     },
+    sumOfCollectedPoints (state, getters, rootState, rootGetters) {
+      return getters.collectedPoints
+        .map(point => {
+          return rootGetters['event/getCategoryById'](point.pointCategory).pointValue;
+        })
+        .reduce((a, b) => a + b, 0);
+    },
   },
   mutations: {
     setUser: (state, payload) => (state.user = payload),
     setUserTeam: (state, payload) => (state.userTeam = payload),
+    setAccountType: (state, payload) => (state.accountType = payload),
     setCollectedPointsIds: (state, payload) => (state.collectedPointsIds = payload || []),
     addCollectedPointId: (state, payload) => (state.collectedPointsIds.push(payload)),
-    setValueChanged: (state, payload) => (state.valueChanged = payload),
     signOut: state => {
       state.user = '';
       state.userTeam = '';
@@ -40,12 +48,13 @@ export default {
     },
   },
   actions: {
-    signIn (context, { eventId, user, collectedPointsIds, userTeam }) {
+    signIn (context, { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common }) {
       return new Promise((resolve, reject) => {
         context.commit('event/setId', eventId, { root: true });
         context.commit('setUser', user);
-        context.commit('setCollectedPointsIds', collectedPointsIds);
         context.commit('setUserTeam', userTeam);
+        context.commit('setAccountType', accountType);
+        context.commit('setCollectedPointsIds', collectedPointsIds);
         context.dispatch('event/download', undefined, { root: true })
           .then(() => {
             autoUpdate.run();

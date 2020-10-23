@@ -19,6 +19,7 @@ export default {
     },
     mapZoom: 2,
     points: [],
+    categories: [],
   },
   getters: {
     event: state => state,
@@ -27,6 +28,10 @@ export default {
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
+    getCategoryById: state => categoryId => {
+      return state.categories.find(category => category.categoryId === categoryId);
+    },
+    categories: state => state.categories,
     getTemporaryPoints: state => state.points
       .filter(point => point.pointType === MACROS.pointType.temporary)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
@@ -62,7 +67,7 @@ export default {
       state.mapDefaultPosition = { ...data.mapPosition };
       state.mapDefaultZoom = data.mapZoom;
     },
-    setDefaultValues: (state) => {
+    setDefaultMapPositionAndZoom: (state) => {
       state.mapPosition = { ...state.mapDefaultPosition };
       state.mapZoom = state.mapDefaultZoom;
     },
@@ -93,8 +98,12 @@ export default {
         let event;
         api.getEventById(eventId)
           .then(data => (event = data))
+          .then(api.getCategoriesByEventId)
+          .then(categories => {
+            event.categories = categories;
+            return event;
+          })
           .then(api.getPointsByEventId)
-          // TODO: Download categories here
           .then(points => {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);

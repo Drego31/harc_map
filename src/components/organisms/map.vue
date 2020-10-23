@@ -4,6 +4,8 @@
 
 <script>
 import { map } from 'map';
+import { mapMutations } from 'vuex';
+import { toLonLat } from 'ol/proj';
 
 export default {
   name: 'o-map',
@@ -16,11 +18,25 @@ export default {
       lat: position.latitude,
       lon: position.longitude,
       zoom: appEvent.mapZoom,
-      maxZoom: 19,
     });
     map.points.create({
       list: this.$store.getters['event/notCollectedPoints'],
     });
+  },
+  methods: {
+    ...mapMutations('event', [
+      'setMapPosition',
+      'setMapZoom',
+    ]),
+  },
+  beforeDestroy () {
+    const mapView = map.realMap.getView();
+    const [longitude, latitude] = toLonLat(mapView.getCenter());
+    this.setMapPosition({
+      latitude,
+      longitude,
+    });
+    this.setMapZoom(mapView.getZoom());
   },
 };
 </script>
