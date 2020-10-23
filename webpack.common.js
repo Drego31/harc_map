@@ -10,8 +10,7 @@ function resolve (dir) {
 }
 
 try {
-  files = glob.sync('public/*.app.*.js');
-  files.concat(glob.sync('public/app.*.js'));
+  files = glob.sync('public/*app.*.js');
   for (const file of files) {
     fs.unlinkSync(file);
   }
