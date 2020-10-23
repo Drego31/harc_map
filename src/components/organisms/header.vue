@@ -24,7 +24,7 @@
       </div>
     </div>
     <div
-      class="m-panel f-header f-side"
+      class="m-panel f-header f-side f-right"
     >
       <a-icon
         :name="ROUTES.collectedPoints.icon"
@@ -32,12 +32,6 @@
         class="f-header"
         :class="{ 'f-hidden': isLogin === false }"
         @click="$router.push(ROUTES.collectedPoints.path)"
-      />
-      <a-icon
-        :name="ICONS.brightness_4"
-        :size="28"
-        class="f-header"
-        @click="toggleTheme()"
       />
     </div>
   </div>
@@ -47,7 +41,6 @@
 import { mapGetters } from 'vuex';
 import { ROUTES } from 'utils/macros/routes';
 import AIcon from 'atoms/icon';
-import router from 'src/router';
 
 export default {
   name: 'o-header',
@@ -67,12 +60,6 @@ export default {
     },
     pathBackButton () {
       return this.isLogin ? ROUTES.start.path : ROUTES.welcome.path;
-    },
-  },
-  methods: {
-    toggleTheme () {
-      this.$store.commit('theme/toggle');
-      router.hardReload();
     },
   },
 };

@@ -6,7 +6,7 @@ import router from 'src/router';
 
 export const map = {
   realMap: null,
-  create: config => createMap(config),
+  create: config => createMap(map, config),
   panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
     const mapPosition = {
       latitude: pointLatitude,

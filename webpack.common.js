@@ -1,16 +1,29 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
+const glob = require('glob');
 
 function resolve (dir) {
   return path.resolve(__dirname, dir);
+}
+
+try {
+  files = glob.sync('public/*.app.*.js');
+  files.concat(glob.sync('public/app.*.js'));
+  for (const file of files) {
+    fs.unlinkSync(file);
+  }
+} catch (err) {
+  throw new Error('Removing old bundles went wrong');
 }
 
 module.exports = {
   mode: 'development',
   entry: 'src/index.js',
   output: {
-    filename: 'app.min.js',
+    filename: 'app.[contenthash].js',
     path: resolve('public'),
   },
   devServer: {
@@ -100,6 +113,9 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      template: resolve('src/index.html'),
+    }),
     new webpack.DefinePlugin({
       APP_NAME: JSON.stringify('HarcMap'),
       VERSION: JSON.stringify('1.0.0'),

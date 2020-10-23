@@ -8,6 +8,13 @@ import validateTools from 'vendors/validate-tools';
 Vue.component('validation-provider', ValidationProvider);
 Vue.component('validation-observer', ValidationObserver);
 
+messages.required = 'Pole jest wymagane.';
+messages.email = 'Musisz podać poprawny adres email.';
+messages.min = 'Pole musi składać się z co najmniej {length} znaków.';
+messages.max = 'Pole musi składać się z co najmniej {length} znaków.';
+messages.confirmed = 'Pole nie zgadza się z polem potwierdzającym {target}.';
+messages.length = 'Pole musi mieć długość {length}.';
+
 // Register all rules
 Object.keys(rules).forEach(rule => {
   extend(rule, {
@@ -20,12 +27,12 @@ extend('hasNumber', {
   validate (value) {
     return validateTools.hasNumber(value);
   },
-  message: 'Pole {_field_} powinno zawierać conajmniej jedną cyfrę',
+  message: 'Pole powinno zawierać conajmniej jedną cyfrę.',
 });
 
 extend('hasCapitalize', {
   validate (value) {
     return /[A-Z]/.test(value);
   },
-  message: 'Pole {_field_} powinno zawierać conajmniej jedną wielką literę',
+  message: 'Pole powinno zawierać conajmniej jedną wielką literę.',
 });
