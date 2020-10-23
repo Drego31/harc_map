@@ -117,7 +117,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       APP_NAME: JSON.stringify('HarcMap'),
-      VERSION: JSON.stringify('1.0.0'),
+      VERSION: JSON.stringify('1.1.0'),
     }),
   ],
 };
