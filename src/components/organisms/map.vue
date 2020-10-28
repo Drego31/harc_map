@@ -22,7 +22,8 @@ export default {
       zoom: appEvent.mapZoom,
     });
     map.points.create({
-      list: this.$store.getters['event/notCollectedPoints'],
+      list: this.$store.getters['event/getPointsVisibleOnMap'],
+      listOfCollectedPoints: this.$store.getters['user/collectedPoints'],
     });
     map.lines.create({
       list: this.$store.getters['user/collectedPoints'],
