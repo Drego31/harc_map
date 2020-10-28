@@ -29,7 +29,7 @@ export const mapManager = {
         .then(() => {
           store.commit('event/updatePoint', {
             pointId,
-            collectionTime: Date.now(),
+            pointCollectionTime: Date.now(),
           });
           store.commit('user/addCollectedPointId', pointId);
           resolve();
