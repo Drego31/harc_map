@@ -11,8 +11,8 @@ const setLineStyle = () => {
   return new Style({
     stroke: new Stroke(
       {
-        color: '#008844',
-        width: 5,
+        color: mapConfig.lineConnectingPoints.color,
+        width: mapConfig.lineConnectingPoints.width,
       },
     ),
   });
@@ -22,6 +22,7 @@ export function createLinesFeature ({ list = [] }) {
   const mapIsNotDefined = uCheck.isNotObject(map.realMap);
   const notEnoughPoints = list.length < 2;
 
+  if (mapConfig.lineConnectingPoints.visible === false) return false;
   if (notEnoughPoints) return false;
   if (mapIsNotDefined) {
     console.error(new Error('Map is undefined'));
