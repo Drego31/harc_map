@@ -1,6 +1,6 @@
 {
   "name": "harcmap",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "HarcMap",
   "main": "src/index.js",
   "scripts": {
@@ -34,6 +34,8 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "glob": "^7.1.6",
+    "html-webpack-plugin": "^4.5.0",
     "mongodb": "^3.5.3",
     "ncp": "^2.0.0",
     "node-fetch": "^2.6.1",
@@ -41,6 +43,8 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sha3": "^2.1.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4",
     "vue": "^2.6.11"
   },
   "devDependencies": {
