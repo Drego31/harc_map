@@ -50,6 +50,7 @@ function addMapTilesSuitToTheme (map) {
   if (uCheck.isObject(source)) {
     map.realMap.addLayer(
       new TileLayer({
+        className: 'osm-layer',
         source: source,
       }),
     );
