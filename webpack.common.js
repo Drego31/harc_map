@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackUtils = require('./webpack/utils');
 const webpackRules = require('./webpack/rules').rules;
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const resolve = webpackUtils.resolve;
 
 const AppName = 'HarcMap';
