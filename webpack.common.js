@@ -9,12 +9,13 @@ const AppName = 'HarcMap';
 const AppVersion = webpackUtils.getAppVersionFromPackageJSON();
 
 webpackUtils.removeOldBundleFiles('public/*app.*.js');
+webpackUtils.removeOldBundleFiles('public/*app.js');
 
 module.exports = {
   mode: 'development',
   entry: 'src/index.js',
   output: {
-    filename: 'app.[contenthash].js',
+    // filename in dev and prod configs
     path: resolve('public'),
   },
   devServer: {
