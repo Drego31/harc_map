@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackUtils = require('./webpack/utils');
 const webpackRules = require('./webpack/rules').rules;
 const resolve = webpackUtils.resolve;
@@ -9,12 +8,13 @@ const AppName = 'HarcMap';
 const AppVersion = webpackUtils.getAppVersionFromPackageJSON();
 
 webpackUtils.removeOldBundleFiles('public/*app.*.js');
+webpackUtils.removeOldBundleFiles('public/*app.js');
 
 module.exports = {
   mode: 'development',
   entry: 'src/index.js',
   output: {
-    filename: 'app.[contenthash].js',
+    // filename in dev and prod configs
     path: resolve('public'),
   },
   devServer: {
@@ -56,9 +56,7 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      template: resolve('src/index.html'),
-    }),
+    // HtmlWebpackPlugin in dev and prod configs
     new webpack.DefinePlugin({
       APP_NAME: JSON.stringify(AppName),
       VERSION: JSON.stringify(AppVersion),
