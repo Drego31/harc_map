@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpackUtils = require('./webpack/utils');
 const webpackRules = require('./webpack/rules').rules;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const resolve = webpackUtils.resolve;
 
 const AppName = 'HarcMap';
@@ -56,7 +57,9 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    // HtmlWebpackPlugin in dev and prod configs
+    new HtmlWebpackPlugin({
+      template: resolve('src/index.html'),
+    }),
     new webpack.DefinePlugin({
       APP_NAME: JSON.stringify(AppName),
       VERSION: JSON.stringify(AppVersion),
