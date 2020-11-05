@@ -15,7 +15,7 @@ const colorsRGB = {
   'green': 'rgb(0,255,0)',
 };
 
-export const colorsRGBAsArray = () => {
+export const RGBColorsArray = () => {
   const result = { ...colorsRGB };
   Object.keys(result).map(key => {
     result[key] = colorsUtils.convertRGBToArray(result[key]);

@@ -23,6 +23,6 @@ export const mapConfig = {
   lineConnectingPoints: {
     visible: true,
     color: '#008844',
-    width: 5,
+    width: 4,
   },
 };

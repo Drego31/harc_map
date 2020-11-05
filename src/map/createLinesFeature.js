@@ -7,7 +7,7 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke, Style } from 'ol/style';
 import { mapConfig } from 'map/config';
 
-const setLineStyle = () => {
+const getLineStyle = () => {
   return new Style({
     stroke: new Stroke(
       {
@@ -43,7 +43,7 @@ export function createLinesFeature ({ list = [] }) {
     source: new VectorSource({
       features: [feature],
     }),
-    style: setLineStyle(),
+    style: getLineStyle(),
   });
   layer.setZIndex(mapConfig.features.zIndex);
 

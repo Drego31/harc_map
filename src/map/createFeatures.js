@@ -10,10 +10,10 @@ import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 
-const getStroke = (shape, width = mapConfig.features.defaultWidth, isCollected) => {
+const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth ) => {
   let appearance = MAP_POINTS[shape] || {};
   if (isCollected) {
-    const opacity = 0.2;
+    const opacity = 0.3;
     appearance = { ...appearance };
     appearance.strokeColor = [...appearance.strokeColor, opacity];
   }
@@ -30,7 +30,6 @@ const getFill = (shape, isCollected) => {
     appearance = { ...appearance };
     appearance.fillColor = [...appearance.fillColor, opacity];
   }
-
   return new Fill({ color: appearance.fillColor });
 };
 
