@@ -7,6 +7,9 @@ module.exports = merge(common, {
   performance: {
     hints: false,
   },
+  output: {
+    filename: 'app.[contenthash].js',
+  },
   plugins: [
     new webpack.DefinePlugin({
       PRODUCTION: JSON.stringify(true),

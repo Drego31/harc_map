@@ -1,9 +1,9 @@
 <template>
-  <div :class="isOpen ? 'f-open' : ''" class="o-menu">
+  <div class="o-menu" :class="isOpen ? 'f-open' : ''">
     <div class="a-text f-title f-menu">Cześć, {{ $store.getters['user/userTeam'] }}</div>
 
     <div class="a-text f-subtitle f-menu">
-      Macie <span class="f-text-primary-hover">{{ $store.getters['user/sumOfCollectedPoints'] }} pkt</span>
+      Zebraliście <span class="f-text-primary-hover">{{ $store.getters['user/sumOfCollectedPoints'] }} pkt</span>
     </div>
 
     <router-link
@@ -12,29 +12,29 @@
       :to="route.path"
       @click.native="close()"
       class="a-link f-menu"
+      :class="{ 'f-selected': isActualPath(route) }"
     >
-      <div class="f-flex-1">{{ route.label }}</div>
       <a-icon
         :name="route.icon"
         class="f-menu"
-        :class="{ 'f-selected': isActualPath(route) }"
       />
+      <div class="f-flex-1 f-pl-3">{{ route.label }}</div>
     </router-link>
 
     <a class="a-link f-menu" @click="toggleTheme()">
-      <div class="f-flex-1">{{ themeName === THEMES.light ? 'Ciemny tryb' : 'Jasny tryb' }}</div>
       <a-icon
         :name="ICONS.brightness_4"
         class="f-menu"
       />
+      <div class="f-flex-1 f-pl-3">{{ themeName === THEMES.light ? 'Ciemny tryb' : 'Jasny tryb' }}</div>
     </a>
 
     <a class="a-link f-menu" @click="signOut()">
-      <div class="f-flex-1">Wyloguj</div>
       <a-icon
         :name="ICONS.logout"
         class="f-menu"
       />
+      <div class="f-flex-1 f-pl-3">Wyloguj</div>
     </a>
   </div>
 </template>

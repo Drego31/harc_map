@@ -1,8 +1,10 @@
 .idea
-/node_modules
+node_modules
 package-lock.json
-/config/system.config.json
-/config/cert.key
-/config/cert.pem
-/public/app.min.js
+config/system.config.json
+config/cert.key
+config/cert.pem
+public/*app.*.js
+public/*app.js
+public/index.html
 public/iconfont/.svn

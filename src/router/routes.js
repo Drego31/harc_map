@@ -1,15 +1,5 @@
 import { ROUTES } from 'utils/macros/routes';
 import PWelcome from 'pages/welcome';
-import PAbout from 'pages/about';
-import PSignIn from 'pages/sign-in';
-import PSignUp from 'pages/sign-up';
-import PRemindPassword from 'pages/remind-password';
-import PChangePassword from 'pages/change-password';
-import PStart from 'pages/start';
-import PTemporaryPoints from 'pages/temporary-points';
-import PCollectPoint from 'pages/collect-point';
-import PCollectedPoints from 'pages/collected-points';
-import PMap from 'pages/map';
 import PError from 'pages/error';
 
 export const routes = [
@@ -25,7 +15,7 @@ export const routes = [
   {
     path: ROUTES.about.path,
     name: ROUTES.about.name,
-    component: PAbout,
+    component: () => import('pages/about.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: false,
@@ -34,7 +24,7 @@ export const routes = [
   {
     path: ROUTES.signIn.path,
     name: ROUTES.signIn.name,
-    component: PSignIn,
+    component: () => import('pages/sign-in.vue'),
     meta: {
       onlyBeforeLogin: true,
       requiredAuth: false,
@@ -43,7 +33,7 @@ export const routes = [
   {
     path: ROUTES.signUp.path,
     name: ROUTES.signUp.name,
-    component: PSignUp,
+    component: () => import('pages/sign-up.vue'),
     meta: {
       onlyBeforeLogin: true,
       requiredAuth: false,
@@ -52,7 +42,7 @@ export const routes = [
   {
     path: ROUTES.remindPassword.path,
     name: ROUTES.remindPassword.name,
-    component: PRemindPassword,
+    component: () => import('pages/remind-password.vue'),
     meta: {
       onlyBeforeLogin: true,
       requiredAuth: false,
@@ -61,7 +51,7 @@ export const routes = [
   {
     path: ROUTES.changePassword.pathWithParam,
     name: ROUTES.changePassword.name,
-    component: PChangePassword,
+    component: () => import('pages/change-password.vue'),
     meta: {
       onlyBeforeLogin: true,
       requiredAuth: false,
@@ -70,7 +60,7 @@ export const routes = [
   {
     path: ROUTES.start.path,
     name: ROUTES.start.name,
-    component: PStart,
+    component: () => import('pages/start.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
@@ -79,7 +69,7 @@ export const routes = [
   {
     path: ROUTES.temporaryPoints.path,
     name: ROUTES.temporaryPoints.name,
-    component: PTemporaryPoints,
+    component: () => import('pages/temporary-points.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
@@ -88,7 +78,7 @@ export const routes = [
   {
     path: ROUTES.collectPoint.path,
     name: ROUTES.collectPoint.name,
-    component: PCollectPoint,
+    component: () => import('pages/collect-point.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
@@ -97,7 +87,7 @@ export const routes = [
   {
     path: ROUTES.collectedPoints.path,
     name: ROUTES.collectedPoints.name,
-    component: PCollectedPoints,
+    component: () => import('pages/collected-points.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
@@ -106,7 +96,7 @@ export const routes = [
   {
     path: ROUTES.map.path,
     name: ROUTES.map.name,
-    component: PMap,
+    component: () => import('pages/map.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,

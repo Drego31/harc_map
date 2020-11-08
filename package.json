@@ -1,12 +1,12 @@
 {
   "name": "harcmap",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "HarcMap",
   "main": "src/index.js",
   "scripts": {
     "clone-fonts": "node bin/clone-material-icons.js",
-    "build:dev": "npm run clone-fonts && npx webpack --config webpack.dev.js --watch",
-    "build:prod": "npm run clone-fonts && npx webpack --config webpack.prod.js",
+    "build:dev": "npx webpack --config webpack.dev.js --watch",
+    "build:prod": "npx webpack --config webpack.prod.js",
     "run:dev": "NODE_ENV=development node app.js",
     "run:prod": "NODE_ENV=production node app.js",
     "run:mongodb": "docker run -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
@@ -15,14 +15,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Drego31/harc_map.git"
+    "url": "git+https://github.com/dbetka/harcmap.git"
   },
-  "author": "",
+  "author": "dbetka",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Drego31/harc_map/issues"
+    "url": "https://github.com/dbetka/harcmap/issues"
   },
-  "homepage": "https://github.com/Drego31/harc_map#readme",
+  "homepage": "https://github.com/dbetka/harcmap#readme",
+  "engines": {
+    "node": ">=12.9.0",
+    "npm": ">=6.0.0"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "child_process": "^1.0.2",
@@ -30,6 +34,8 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "glob": "^7.1.6",
+    "html-webpack-plugin": "^4.5.0",
     "mongodb": "^3.5.3",
     "ncp": "^2.0.0",
     "node-fetch": "^2.6.1",
@@ -37,6 +43,8 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sha3": "^2.1.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4",
     "vue": "^2.6.11"
   },
   "devDependencies": {
