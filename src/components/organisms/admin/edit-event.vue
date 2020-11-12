@@ -4,7 +4,7 @@
       <m-input
         :disabled="blockForm"
         placeholder="Nazwa wydarzenia"
-        v-model="values.name"
+        v-model="values.eventName"
       />
       <m-input
         :disabled=true
@@ -29,7 +29,7 @@ import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
 import { mixins } from 'mixins/base';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import AButtonSecondary from 'atoms/button/secondary';
 
 export default {
@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       values: {
-        name: '',
+        eventName: '',
         eventId: '',
       },
       blockForm: false,
@@ -53,26 +53,23 @@ export default {
     };
   },
   created () {
-    this.values.name = this.event.name;
+    this.values.eventName = this.event.eventName;
     this.values.eventId = this.event.eventId;
   },
   computed: {
-    ...mapGetters('event', ['event']),
+    ...mapGetters('event', ['event', 'getEventInBackendFormat']),
+    ...mapMutations('event', ['setEvent']),
   },
   methods: {
     updateEvent () {
-      console.log(this.values);
-      eventId,
-      eventName,
-      mapLongitude,
-      mapLatitude,
-      mapZoom;
-      const editedEvent = {
-        ...this.event,
-        name: this.values.name,
+      const updatedEvent = {
+        ...this.getEventInBackendFormat,
+        eventName: this.values.eventName,
       };
-      console.log(editedEvent);
-      api.updateEvent(editedEvent);
+      api.updateEvent(updatedEvent)
+        .then(api.getEventById)
+        .then(this.setEvent)
+        .catch(this.onErrorOccurs);
     },
   },
 };

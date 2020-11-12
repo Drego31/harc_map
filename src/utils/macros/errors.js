@@ -11,4 +11,5 @@ export const ERRORS = {
     'Skontaktuj się z administratorem wydarzenia.',
   signOut: 'Sign out went wrong',
   collectPoint: 'Collecting point went wrong',
+  updateEvent: 'Something went wrong, event has not been updated',
 };

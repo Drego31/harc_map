@@ -7,7 +7,7 @@ export class AppEvent {
     mapZoom = 2,
   }) {
     this.eventId = eventId;
-    this.name = eventName;
+    this.eventName = eventName;
     this.mapPosition = {
       latitude: mapLatitude,
       longitude: mapLongitude,

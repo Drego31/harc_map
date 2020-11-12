@@ -78,4 +78,27 @@ export const eventController = {
         .catch(catchConnectionError(reject));
     });
   },
+  updateEvent ({ eventId, eventName, mapLongitude, mapLatitude, mapZoom }) {
+    return new Promise((resolve, reject) => {
+      request.put({
+        url: '/event',
+        data: {
+          eventId,
+          eventName,
+          mapLongitude,
+          mapLatitude,
+          mapZoom,
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (hasNoError(data)) {
+            resolve(data.eventId);
+          } else {
+            reject(new ErrorMessage(ERRORS.updateEvent));
+          }
+        })
+        .catch(catchConnectionError(reject));
+    });
+  },
 };

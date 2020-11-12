@@ -7,7 +7,7 @@ export default {
   namespaced: true,
   state: {
     eventId: '',
-    name: '',
+    eventName: '',
     mapDefaultPosition: {
       latitude: 0,
       longitude: 0,
@@ -23,7 +23,7 @@ export default {
   },
   getters: {
     event: state => state,
-    name: state => state.name,
+    eventName: state => state.eventName,
     eventId: state => state.eventId,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
@@ -65,6 +65,16 @@ export default {
         return expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
       });
     },
+    getSeparatedMapPosition: (state) => ({
+      mapLongitude: state.mapPosition.longitude,
+      mapLatitude: state.mapPosition.latitude,
+    }),
+    getEventInBackendFormat: (state, getters) => ({
+      eventId: state.eventId,
+      eventName: state.eventName,
+      mapZoom: state.mapZoom,
+      ...getters.getSeparatedMapPosition,
+    }),
   },
   mutations: {
     setEvent: (state, data) => {
