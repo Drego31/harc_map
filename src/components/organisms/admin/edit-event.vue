@@ -2,20 +2,20 @@
   <div class="f-flex f-flex-col f-flex-just-center">
     <o-form :on-submit="updateEvent">
       <m-input
-          :disabled="blockForm"
-          placeholder="Nazwa wydarzenia"
-          v-model="values.name"
+        :disabled="blockForm"
+        placeholder="Nazwa wydarzenia"
+        v-model="values.name"
       />
       <m-input
-          :disabled=true
-          placeholder="Klucz wydarzenia"
-          v-model="values.eventId"
+        :disabled=true
+        placeholder="Klucz wydarzenia"
+        v-model="values.eventId"
       />
       <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
-          :disabled="blockForm"
-          :is-sending="isSending"
-          text="Zapisz"
+        :disabled="blockForm"
+        :is-sending="isSending"
+        text="Zapisz"
       />
     </o-form>
     <a-button-secondary class="f-text-center">
@@ -62,11 +62,11 @@ export default {
   methods: {
     updateEvent () {
       console.log(this.values);
-          eventId,
-          eventName,
-          mapLongitude,
-          mapLatitude,
-          mapZoom;
+      eventId,
+      eventName,
+      mapLongitude,
+      mapLatitude,
+      mapZoom;
       const editedEvent = {
         ...this.event,
         name: this.values.name,
