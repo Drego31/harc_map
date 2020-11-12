@@ -86,4 +86,11 @@ export const ROUTES = {
     shortLabel: 'Wydarzenie',
     icon: ICONS.map,
   },
+  setMapPosition: {
+    path: '/set-map-position',
+    name: 'set-map-position',
+    label: 'Ustawienia mapy',
+    shortLabel: 'Ustawienia mapy',
+    icon: ICONS.map,
+  },
 };

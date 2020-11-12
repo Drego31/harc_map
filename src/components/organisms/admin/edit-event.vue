@@ -18,7 +18,7 @@
         text="Zapisz"
       />
     </o-form>
-    <a-button-secondary class="f-text-center">
+    <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)" >
       Ustaw domyślną pozycję mapy
     </a-button-secondary>
   </div>

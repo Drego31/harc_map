@@ -112,6 +112,15 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.setMapPosition.path,
+    name: ROUTES.setMapPosition.name,
+    component: () => import('pages/admin/set-map-position.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+    },
+  },
+  {
     path: '*',
     name: 'error',
     component: PError,
