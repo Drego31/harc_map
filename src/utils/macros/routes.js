@@ -79,4 +79,11 @@ export const ROUTES = {
     shortLabel: 'Mapa',
     icon: ICONS.map,
   },
+  editEvent: {
+    path: '/edit-event',
+    name: 'edit-event',
+    label: 'Edytowanie wydarzenia',
+    shortLabel: 'Wydarzenie',
+    icon: ICONS.map,
+  },
 };

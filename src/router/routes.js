@@ -103,6 +103,15 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.editEvent.path,
+    name: ROUTES.editEvent.name,
+    component: () => import('pages/admin/edit-event.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+    },
+  },
+  {
     path: '*',
     name: 'error',
     component: PError,
