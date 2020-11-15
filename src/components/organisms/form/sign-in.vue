@@ -57,6 +57,11 @@ export default {
           this.$router.push(ROUTES.start.path);
           this.isSending = false;
           this.blockForm = false;
+        })
+        .catch(() => {
+          this.message = 'Logowanie nie powiodło się ze względu na poblem z pobraniem danych konta.';
+          this.isSending = false;
+          this.blockForm = false;
         });
     },
     signIn () {

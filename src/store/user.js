@@ -1,6 +1,8 @@
 import { uCheck } from '@dbetka/utils';
 import { autoUpdate } from 'utils/auto-update';
 import { ACCOUNT_TYPES } from 'utils/permissions';
+import { ErrorMessage } from 'utils/error-message';
+import { ERRORS } from 'utils/macros/errors';
 
 export default {
   namespaced: true,
@@ -60,7 +62,24 @@ export default {
             autoUpdate.run();
             resolve();
           })
-          .catch(error => reject(error));
+          .catch(() => {
+            context.dispatch('signOut').catch(() => undefined);
+            reject(new ErrorMessage(ERRORS.signIn));
+          });
+      });
+    },
+    signOut (context) {
+      return new Promise((resolve, reject) => {
+        const user = context.state.user;
+        api.signOut({ user })
+          .finally(() => {
+            context.commit('signOut');
+          })
+          .catch(() => {
+            const error = new ErrorMessage(ERRORS.signOut);
+            error.showMessage('Wylogowanie nie powiodło się na serwerze. Zostałeś wylogowany lokalnie.');
+            reject(error);
+          });
       });
     },
   },

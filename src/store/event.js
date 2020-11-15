@@ -94,7 +94,7 @@ export default {
   },
   actions: {
     download (context, eventId = context.state.eventId) {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
         let event;
         api.getEventById(eventId)
           .then(data => (event = data))
@@ -108,7 +108,8 @@ export default {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);
             resolve(event);
-          });
+          })
+          .catch(reject);
       });
     },
   },
