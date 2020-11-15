@@ -59,7 +59,7 @@ export default {
           this.blockForm = false;
         })
         .catch(() => {
-          this.message = 'Logowanie nie powiodło się ze względu na poblem z pobraniem danych konta.';
+          this.message = 'Logowanie nie powiodło się ze względu na problem z pobraniem danych konta.';
           this.isSending = false;
           this.blockForm = false;
         });
