@@ -11,6 +11,6 @@ export const ERRORS = {
   remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się. ' +
     'Skontaktuj się z administratorem wydarzenia.',
   signOut: 'Wylogowanie po stronie serwera nie powiodło. Zostałeś wylogowany lokalnie.',
-  collectPoint: 'Zabranie punktu nie powiodło się.',
-  pointIsCollected: 'Punkt został już zebrany przez innego użytkownika.',
+  collectPoint: 'Zabranie punktu nie powiodło się przez problem z serwerem.',
+  pointIsCollected: 'Punkt o podanym kodzie został zebrany już wcześniej.',
 };

@@ -1,6 +1,5 @@
 // import { map } from 'map/index';
 import { store } from 'store/index';
-import { ErrorMessage } from 'utils/error-message';
 import { logical } from 'vendors/logical';
 import { ERRORS } from 'utils/macros/errors';
 
@@ -38,10 +37,7 @@ export const mapManager = {
           // if (mapIsDefined) {
           //   map.points.add(feature);
           // }
-          console.trace(error);
-          const errorMessage = new ErrorMessage(error);
-          errorMessage.showMessage('Punkt nie został zebrany przez problem z serwerem. \nSpróbuj ponownie później.');
-          reject(errorMessage);
+          reject(error);
         });
     });
   },

@@ -4,6 +4,7 @@ import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
 import { hasNoError, catchConnectionError } from 'api/real/real';
+import validateCodes from 'src/../lib/validateCodes';
 
 export const eventController = {
   getEventById (eventId) {
@@ -72,7 +73,11 @@ export const eventController = {
           if (hasNoError(data)) {
             resolve();
           } else {
-            reject(new ErrorMessage(ERRORS.collectPoint));
+            if (data.error === validateCodes.DATABASE_DATA_CONFLICT_ERROR) {
+              reject(new ErrorMessage(ERRORS.pointIsCollected));
+            } else {
+              reject(new ErrorMessage(ERRORS.collectPoint));
+            }
           }
         })
         .catch(catchConnectionError(reject));
