@@ -76,8 +76,8 @@ export default {
             context.commit('signOut');
           })
           .catch(() => {
-            const error = new ErrorMessage(ERRORS.signOut);
-            error.showMessage('Wylogowanie nie powiodło się na serwerze. Zostałeś wylogowany lokalnie.');
+            const error = new ErrorMessage('Method signOut on server side went wrong');
+            error.showMessage(ERRORS.signOut);
             reject(error);
           });
       });

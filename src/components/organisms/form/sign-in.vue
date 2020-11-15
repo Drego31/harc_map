@@ -27,6 +27,7 @@ import { uPromise } from '@dbetka/utils';
 import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
+import { ERRORS } from 'utils/macros/errors';
 
 export default {
   name: 'o-form-sign-in',
@@ -59,7 +60,7 @@ export default {
           this.blockForm = false;
         })
         .catch(() => {
-          this.message = 'Logowanie nie powiodło się ze względu na problem z pobraniem danych konta.';
+          this.message = ERRORS.dataAfterSignIn;
           this.isSending = false;
           this.blockForm = false;
         });

@@ -6,9 +6,11 @@ export const ERRORS = {
     ' nie istnieje.',
   fakeErrorInMockApi: 'Fake error in mockApi',
   signIn: 'Logowanie nie powiodło się - błędny e-mail lub hasło.',
+  dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta.',
   signUp: 'Sign up went wrong',
   remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się. ' +
     'Skontaktuj się z administratorem wydarzenia.',
-  signOut: 'Sign out went wrong',
-  collectPoint: 'Collecting point went wrong',
+  signOut: 'Wylogowanie po stronie serwera nie powiodło. Zostałeś wylogowany lokalnie.',
+  collectPoint: 'Zabranie punktu nie powiodło się.',
+  pointIsCollected: 'Punkt został już zebrany przez innego użytkownika.',
 };
