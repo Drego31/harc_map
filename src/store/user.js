@@ -74,6 +74,7 @@ export default {
         api.signOut({ user })
           .finally(() => {
             context.commit('signOut');
+            resolve();
           })
           .catch(() => {
             const error = new ErrorMessage('Method signOut on server side went wrong');
