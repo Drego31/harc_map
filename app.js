@@ -9,8 +9,7 @@ logs.init(ENV_DEVELOPMENT);
 // Modules
 const express = require('express');
 const passport = require('passport');
-const https = require('https');
-const fs = require('fs');
+const http = require('http');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 const bodyParser = require('body-parser');
@@ -107,9 +106,6 @@ app.get('*', (req, res) => {
 /**
  * Https server startup
  */
-https.createServer({
-  key: fs.readFileSync(appConfig.key),
-  cert: fs.readFileSync(appConfig.cert),
-}, app).listen(appConfig.port, () => {
-  console.log(`   \x1b[32mHTTPS server \x1b[1mstarted\x1b[0m\x1b[32m [${appConfig.port}]\n\x1b[0m`);
+http.createServer(app).listen(appConfig.port, () => {
+  console.log(`   \x1b[32mHTTP server \x1b[1mstarted\x1b[0m\x1b[32m [${appConfig.port}]\n\x1b[0m`);
 });
