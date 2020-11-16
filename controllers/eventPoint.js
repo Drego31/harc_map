@@ -14,10 +14,12 @@ class GetRequestService extends Endpoint {
 
     return database.read(pointsCollection, filters)
 
-      .then(point => {
-        if (point === null) {
+      .then(points => {
+        if (points.length === 0) {
           this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
         }
+
+        const point = points[0];
 
         delete point._id;
         this.responseObject.point = point;
@@ -59,10 +61,10 @@ class PostRequestService extends Endpoint {
 
     return database.read('events', eventFilter)
 
-      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
+      .then(result => this.makeThrowIf(result.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR))
       .then(() => database.read(pointsCollection, pointFilter))
 
-      .then(result => this.makeThrowIf(result !== null, validateCodes.DATABASE_DATA_CONFLICT_ERROR))
+      .then(result => this.makeThrowIf(result.length !== 0, validateCodes.DATABASE_DATA_CONFLICT_ERROR))
       .then(() => database.create(pointsCollection, [toSave]))
       .then(() => this.sendResponse());
   }
@@ -96,10 +98,10 @@ class PutRequestService extends Endpoint {
 
     return database.read('events', eventFilter)
 
-      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
+      .then(result => this.makeThrowIf(result.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR))
       .then(() => database.read(pointsCollection, pointFilter))
 
-      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
+      .then(result => this.makeThrowIf(result.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR))
       .then(() => database.update(pointsCollection, pointFilter, toUpdate))
       .then(() => this.sendResponse());
   }

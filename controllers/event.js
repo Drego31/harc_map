@@ -14,8 +14,9 @@ class GetRequestService extends Endpoint {
 
     return database.read(eventCollection, filters)
 
-      .then(event => {
-        if (event === null) {
+      .then(events => {
+        const event = events[0];
+        if (!event) {
           this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
         }
 
@@ -54,7 +55,7 @@ class PostRequestService extends Endpoint {
 
     return database.read(eventCollection, eventFilter)
 
-      .then(result => this.makeThrowIf(result !== null, validateCodes.DATABASE_DATA_CONFLICT_ERROR))
+      .then(result => this.makeThrowIf(result.length !== 0, validateCodes.DATABASE_DATA_CONFLICT_ERROR))
       .then(() => database.create(eventCollection, [toSave]))
       .then(() => this.sendResponse());
   }
@@ -84,7 +85,9 @@ class PutRequestService extends Endpoint {
 
     return database.read(eventCollection, eventFilter)
 
-      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
+      .then(results => {
+        this.makeThrowIf(results.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR)
+      })
       .then(() => database.update(eventCollection, eventFilter, toUpdate))
       .then(() => this.sendResponse());
   }

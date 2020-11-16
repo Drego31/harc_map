@@ -11,7 +11,8 @@ class GetRequestService extends Endpoint {
     const filters = { categoryId: point.pointCategory };
 
     return database.read(collection, filters)
-      .then(category => {
+      .then(categories => {
+        const category = categories[0];
         delete category._id;
         point.category = category;
       });

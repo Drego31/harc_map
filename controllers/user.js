@@ -15,13 +15,63 @@ const errorsCodes = require('../lib/validateCodes');
  * @description User have some time for change password until link to change will be blocked.
  * Here we check this
  * @param forgotTimestamp {number} - timestamp of request for change password
- * @return {boolean} - result of check from desription
+ * @return {boolean/Error} - result of check from desription
  * @private
  */
 function __checkForgotTimeout (forgotTimestamp) {
   // convert config value of timeout to ms
   const passwordForgotTimeout = systemConfig.app.passwordForgotTimeoutInMinutes * 60 * 1000;
-  return (forgotTimestamp >= Date.now() - passwordForgotTimeout);
+  if (forgotTimestamp && forgotTimestamp >= Date.now() - passwordForgotTimeout) {
+    return true;
+  } else {
+    throw errorsCodes.FORGOT_TIMESTAMP_HAS_ENDED;
+  }
+}
+
+/**
+ * @description Getting information about user that are sending to frontend.
+ * This is not only session information!
+ * @param userStructure {object} - Object of user from mongo collection or each user session store
+ * @param collectedPointsIds {array} - array of collected ids
+ * @return {{eventId: *, userTeam: *, accountType: *, error: null, user: *, collectedPointsIds: *}}
+ * @private
+ */
+function __getUserDataForResponse (userStructure = {}, collectedPointsIds) {
+  const { user, userTeam, userEvents, accountType } = userStructure;
+
+  // user object schema that's sending to frontend
+  return {
+    user,
+    userTeam,
+    collectedPointsIds: collectedPointsIds,
+    eventId: userEvents[0],
+    accountType,
+    error: null,
+  };
+}
+
+/**
+ * @description Create user object that will be insert to database
+ * @param information {object} - information gave by user
+ * @return {{password: string, accountCreated: number, userTeam: *, forgotTimestamp: null, accountType: string, accountIsActive: boolean, userEvents: [*], activationKey: string, user: *, forgotKey: null, collectedPointsIds: []}}
+ * @private
+ */
+function __createNewUserObject (information) {
+  const { user, userTeam, password, userEvent } = information;
+
+  return {
+    user,
+    userTeam,
+    password: utils.getSHA(password),
+    userEvents: [userEvent],
+    accountType: 'common',
+    accountIsActive: false,
+    activationKey: utils.generateAccessKey(),
+    forgotKey: null,
+    forgotTimestamp: null,
+    accountCreated: Date.now(),
+    collectedPointsIds: [],
+  };
 }
 
 /**
@@ -81,67 +131,44 @@ router.route('/')
     const requestBodyValidationError = validator.validate(
       validator.methods.validateUserRegistrationPostRequest, req.body,
     );
+
     if (!requestBodyValidationError) {
       // Data from client
       const { user, password, userTeam, eventId } = req.body;
+
+      // user doesn't exist, we can create new
+      const newUserData = __createNewUserObject({
+        user,
+        password,
+        userTeam,
+        userEvent: eventId,
+      });
+
       // check if eventId is correct(exist)
       database.read('events', { eventId })
-        .then(eventResult => {
-          // event exist - user can be creat
-          if (eventResult) {
-            // check if user and userTeam doesn't already exist
-            database.read('users', { $or: [{ user }, { userTeam }] })
-              .then(userData => {
-                // exist
-                if (userData) {
-                  utils.responseUserError(res, 400, errorsCodes.USER_EXIST);
-                } else {
-                  // user doesn't exist, we can create new
-                  const newUserData = {
-                    user,
-                    userTeam,
-                    password: utils.getSHA(password),
-                    userEvents: [eventId],
-                    accountType: 'common',
-                    accountIsActive: false,
-                    activationKey: utils.generateAccessKey(),
-                    forgotKey: null,
-                    forgotTimestamp: null,
-                    accountCreated: Date.now(),
-                    collectedPointsIds: [],
-                  };
-                  database.create('users', [newUserData])
-                    .then((result) => {
-                      if (result) {
-                        mail.accountActivation(user, newUserData.activationKey)
-                          .then(() => {
-                            // User created
-                            res.send({
-                              user,
-                              error: null,
-                            });
-                          })
-                          .catch(error => {
-                            utils.responseUserError(res, 200, errorsCodes.MAIL_UNKNOWN_ERROR, error);
-                          });
-                      } else {
-                        utils.responseUserError(res, 200, errorsCodes.MAIL_UNKNOWN_ERROR);
-                      }
-                    })
-                    .catch(error => {
-                      utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
-                    });
-                }
-              })
-              .catch(error => {
-                utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
-              });
-          } else {
-            utils.responseUserError(res, 400, errorsCodes.EVENT_ID_NOT_EXIST);
-          }
+        // event exist - user can be creat
+        .then(results => utils.throwIfEmpty(results, errorsCodes.EVENT_ID_NOT_EXIST))
+        // check if user and userTeam doesn't already exist
+        .then(() => database.read('users', { $or: [{ user }, { userTeam }] }))
+        .then(results => utils.throwIf(results.length, errorsCodes.USER_EXIST))
+        // create user
+        .then(() => database.create('users', [newUserData]))
+        .then(utils.throwIfEmpty)
+        // send activation mail
+        .then(() => mail.accountActivation(user, newUserData.activationKey))
+        .then(() => {
+          // User created
+          res.send({
+            user,
+            error: null,
+          });
         })
-        .catch(error => {
-          utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
+        .catch(errorCode => {
+          if ([errorsCodes.USER_EXIST, errorsCodes.EVENT_ID_NOT_EXIST].includes(errorCode)) {
+            utils.responseUserError(res, 400, errorCode);
+          } else {
+            utils.responseUserError(res, 200, errorCode);
+          }
         });
     } else {
       utils.responseUserError(res, 400, requestBodyValidationError);
@@ -214,22 +241,16 @@ router.route('/login')
     // Checking if user is already logged
     if (req.isAuthenticated()) {
       // Data from session
-      const { user, userTeam, userEvents, accountType } = req.user;
-      database.read('users', { user }).then(result => {
-        if (result) {
-          res.send({
-            user,
-            userTeam,
-            collectedPointsIds: result.collectedPointsIds,
-            eventId: userEvents[0],
-            accountType,
-            error: null,
-          });
-        } else {
+      const { user } = req.user;
+      database.read('users', { user })
+        .then(utils.throwIfEmpty)
+        .then(results => {
+          const result = results[0];
+          res.send(__getUserDataForResponse(req.user, result.collectedPointsIds));
+        })
+        .catch(() => {
           utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR);
-        }
-      });
-
+        });
     } else if (Object.keys(req.body).length === 0) {
       utils.responseUserError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
     } else {
@@ -248,21 +269,16 @@ router.route('/login')
               if (error) {
                 utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
               } else {
-                const { user, userTeam, userEvents, accountType } = userData;
-                database.read('users', { user }).then(result => {
-                  if (result) {
-                    res.send({
-                      user,
-                      userTeam,
-                      collectedPointsIds: result.collectedPointsIds,
-                      eventId: userEvents[0],
-                      accountType,
-                      error: null,
-                    });
-                  } else {
+                const { user } = userData;
+                database.read('users', { user })
+                  .then(utils.throwIfEmpty)
+                  .then(results => {
+                    const result = results[0];
+                    res.send(__getUserDataForResponse(userData, result.collectedPointsIds));
+                  })
+                  .catch(() => {
                     utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR);
-                  }
-                });
+                  });
               }
             });
           }
@@ -297,14 +313,16 @@ router.route('/login')
   .delete((req, res) => {
     let user = null;
     let error = null;
+
     if (req.isAuthenticated()) {
       // Data from client
       user = req.user.user;
       // Logout from session
       req.logout();
     } else {
-      error = validator.ValidateCodes.UNAUTHORIZED_ACCESS;
+      error = errorsCodes.UNAUTHORIZED_ACCESS;
     }
+
     res.send({
       user,
       error,
@@ -342,33 +360,31 @@ router.route('/login')
  */
 router.route('/activation/:key')
   .get((req, res) => {
+    const activationUpdateData = {
+      accountIsActive: true,
+      activationKey: null,
+    };
+
     // Data from client
     const { key } = req.params;
     database.read('users', { activationKey: key })
-      .then(userData => {
-        if (userData && !userData.accountIsActive) {
-          const activationUpdateData = {
-            accountIsActive: true,
-            activationKey: null,
-          };
-          database.update('users', { _id: database.ObjectId(userData._id) }, activationUpdateData)
-            .then(result => {
-              // Successfully updated
-              if (result) {
-                res.redirect(302, '/sign-in');
-              } else {
-                utils.responseUserError(res, 200, errorsCodes.DATABASE_NO_RESULT_ERROR);
-              }
-            })
-            .catch(error => {
-              utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
-            });
-        } else {
-          res.redirect(302, '/404');
-        }
+      .then(utils.throwIfEmpty)
+      .then(results => results[0])
+      // check if account isn't active
+      .then(result => utils.throwIf(result.accountIsActive, errorsCodes.DATABASE_NO_RESULT_ERROR))
+      // update account to active
+      .then(result => database.update('users', { _id: database.ObjectId(result._id) }, activationUpdateData))
+      // successful updated
+      .then(utils.throwIfEmpty)
+      .then(() => {
+        res.redirect(302, '/sign-in');
       })
-      .catch(error => {
-        utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
+      .catch(errorCode => {
+        if (errorCode === errorsCodes.DATABASE_NO_RESULT_ERROR) {
+          res.redirect(302, '/404');
+        } else {
+          utils.responseUserError(res, 200, errorCode);
+        }
       });
   });
 
@@ -434,48 +450,43 @@ router.route('/remind')
     const requestBodyValidationError = validator.validate(
       validator.methods.validateUserRemindPostRequest, req.body,
     );
+
     if (!requestBodyValidationError) {
+      const forgotData = {
+        forgotKey: utils.generateAccessKey(),
+        forgotTimestamp: Date.now(),
+      };
+
       // Data from client
       const { user } = req.body;
       database.read('users', { user })
-        .then((userData) => {
-          if (userData.accountIsActive) {
-            const forgotData = {
-              forgotKey: utils.generateAccessKey(),
-              forgotTimestamp: Date.now(),
-            };
-            // Update user data with forgot key and forgot timestamp
-            database.update('users', { user }, forgotData)
-              .then((result) => {
-                if (result) {
-                  // Sending mail
-                  mail.resetPassword(user, forgotData.forgotKey)
-                    .then(() => {
-                      // Email successfully sent
-                      res.send({
-                        user,
-                        error: null,
-                      });
-                    })
-                    .catch(error => {
-                      utils.responseUserError(res, 200, errorsCodes.MAIL_UNKNOWN_ERROR, error);
-                    });
-                } else {
-                  utils.responseUserError(res, 200, errorsCodes.MAIL_UNKNOWN_ERROR);
-                }
-              })
-              .catch(error => {
-                utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
-              });
+        .then(results => {
+          const result = results[0];
+
+          if (result && result.accountIsActive) {
+            return result;
           } else {
             utils.responseUserError(res, 401, errorsCodes.ACCOUNT_IS_INACTIVE);
           }
         })
-        .catch(error => {
-          utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
+        // update user object with forgot key and timeout
+        .then(() => database.update('users', { user }, forgotData))
+        // unknow error of mail module
+        .then(result => utils.throwIfEmpty(result, errorsCodes.MAIL_UNKNOWN_ERROR))
+        // send mail
+        .then(() => mail.resetPassword(user, forgotData.forgotKey))
+        .then(() => {
+          // successful sent
+          res.send({
+            user,
+            error: null,
+          });
+        })
+        .catch(errorCode => {
+          utils.responseUserError(res, 200, errorCode);
         });
     } else {
-      utils.responseUserError(res, 400, requestBodyValidationError);
+      utils.responseUserError(res, 400, errorsCodes.JSON_INCORRECT, requestBodyValidationError);
     }
   });
 
@@ -507,14 +518,12 @@ router.route('/remind/:key')
   .get((req, res) => {
     // Data from client
     const { key } = req.params;
+    // search for key
     database.read('users', { forgotKey: key })
-      .then((result) => {
-        if (__checkForgotTimeout(result.forgotTimestamp)) {
-          res.sendFile(path.resolve(__dirname, '../public/index.html'));
-        } else {
-          res.redirect(302, '/404');
-        }
-      })
+      .then(utils.throwIfEmpty)
+      // check if forgotTimeout hasn't ended
+      .then(userWithKey => __checkForgotTimeout(userWithKey.forgotTimestamp))
+      .then(() => res.sendFile(path.resolve(__dirname, '../public/index.html')))
       .catch(() => {
         res.redirect(302, '/404');
       });
@@ -580,37 +589,39 @@ router.route('/remind/:key')
       // Data from client
       const { password } = req.body;
       const { key } = req.params;
+
       database.read('users', { forgotKey: key })
-        .then((userData) => {
-          if (userData) {
-            if (__checkForgotTimeout(userData.forgotTimestamp)) {
-              const updateData = {
-                password: utils.getSHA(password),
-                forgotKey: null,
-                forgotTimestamp: null,
-              };
-              database.update('users', { _id: database.ObjectId(userData._id) }, updateData)
-                .then(() => {
-                  res.send({
-                    user: null,
-                    error: null,
-                  });
-                })
-                .catch(error => {
-                  utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
-                });
-            } else {
-              res.status(404).send();
-            }
+        .then(results => utils.throwIfEmpty(results, errorsCodes.INVALID_URL_KEY))
+        // forgotTimeout has ended
+        .then(results => {
+          const result = results[0];
+
+          if (__checkForgotTimeout(result.forgotTimestamp)) {
+            return result;
           } else {
-            utils.responseUserError(res, 400, errorsCodes.INVALID_URL_KEY);
+            res.status(404).send();
           }
         })
-        .catch(error => {
-          utils.responseUserError(res, 200, errorsCodes.DATABASE_DATA_ERROR, error);
+        // change password to new
+        .then(userData => {
+          const updateData = {
+            password: utils.getSHA(password),
+            forgotKey: null,
+            forgotTimestamp: null,
+          };
+          return database.update('users', { _id: database.ObjectId(userData._id) }, updateData);
+        })
+        .then(() => {
+          res.send({
+            user: null,
+            error: null,
+          });
+        })
+        .catch(errorCode => {
+          utils.responseUserError(res, 200, errorCode);
         });
     } else {
-      utils.responseUserError(res, 400, requestBodyValidationError);
+      utils.responseUserError(res, 400, errorsCodes.JSON_INCORRECT);
     }
   });
 

@@ -8,11 +8,11 @@ const Endpoint = require('../lib/endpoint');
 class PutRequestService extends Endpoint {
 
   databasePartValidateEvent (event) {
-    this.makeThrowIf(event === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(event.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR);
   }
 
   databasePartValidatePoint (point) {
-    this.makeThrowIf(point === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(point.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR);
   }
 
   databasePartValidateUser (user) {
@@ -50,18 +50,18 @@ class PutRequestService extends Endpoint {
     const userFilter = { user: json.user };
 
     return database.read(eventCollection, eventFilter)
-      .then(event => this.databasePartValidateEvent(event))
+      .then(events => this.databasePartValidateEvent(events[0]))
 
       .then(() => database.read(pointsCollection, pointFilter))
-      .then(point => {
-        this.databasePartValidatePoint(point);
-        pointToUpdate = point;
+      .then(points => {
+        this.databasePartValidatePoint(points[0]);
+        pointToUpdate = points[0];
       })
 
       .then(() => database.read(userCollection, userFilter))
-      .then(user => {
-        this.databasePartValidateUser(user);
-        userToUpdate = user;
+      .then(users => {
+        this.databasePartValidateUser(users[0]);
+        userToUpdate = users[0];
       })
 
       .then(() => this.databasePartUpdateUser(userCollection, userFilter, userToUpdate))

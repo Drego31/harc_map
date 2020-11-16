@@ -72,10 +72,10 @@ class PostRequestService extends Endpoint {
 
     return database.read('events', eventFilter)
 
-      .then(result => this.makeThrowIf(result === null, validateCodes.DATABASE_NO_RESULT_ERROR))
+      .then(result => this.makeThrowIf(result.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR))
       .then(() => database.read(pointsCollection, pointFilter))
 
-      .then(result => this.makeThrowIf(result !== null, validateCodes.DATABASE_DATA_CONFLICT_ERROR))
+      .then(result => this.makeThrowIf(result.length !== 0, validateCodes.DATABASE_DATA_CONFLICT_ERROR))
       .then(() => database.create(pointsCollection, toSave))
       .then(() => this.sendResponse());
   }
