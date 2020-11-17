@@ -112,5 +112,25 @@ export default {
           .catch(reject);
       });
     },
+    collectPoint (context, pointId) {
+      return new Promise((resolve, reject) => {
+        api.collectPoint({
+          eventId: context.getters.eventId,
+          user: context.rootGetters['user/user'],
+          pointId,
+        })
+          .then(() => {
+            context.commit('updatePoint', {
+              pointId,
+              pointCollectionTime: Date.now(),
+            });
+            context.commit('user/addCollectedPointId', pointId, { root: true });
+            resolve();
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
   },
 };

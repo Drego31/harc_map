@@ -5,6 +5,7 @@ import { ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
 import { hasNoError, catchConnectionError } from 'api/real/real';
 import validateCodes from 'src/../lib/validateCodes';
+import { apiResponseService } from 'utils/api-response-service';
 
 export const eventController = {
   getEventById (eventId) {
@@ -69,17 +70,16 @@ export const eventController = {
         },
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve();
-          } else {
-            if (data.error === validateCodes.DATABASE_DATA_CONFLICT_ERROR) {
-              reject(new ErrorMessage(ERRORS.pointIsCollected));
-            } else {
-              reject(new ErrorMessage(ERRORS.collectPoint));
-            }
-          }
-        })
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          success: resolve,
+          reject,
+          defaultError: ERRORS.collectPoint,
+          errors: [
+            [validateCodes.DATABASE_DATA_CONFLICT_ERROR, ERRORS.pointIsCollected],
+            [validateCodes.DATABASE_NO_RESULT_ERROR, ERRORS.pointNotExists],
+          ],
+        }))
         .catch(catchConnectionError(reject));
     });
   },
