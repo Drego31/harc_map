@@ -1,7 +1,5 @@
 import { request } from 'utils/request';
-import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
-import { hasNoError, catchConnectionError } from 'api/real/real';
 import { apiResponseService } from 'utils/api-response-service';
 
 export const userController = {
@@ -24,7 +22,7 @@ export const userController = {
           reject,
           defaultError: ERRORS.signIn,
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
   checkYourLoginSession () {
@@ -42,7 +40,7 @@ export const userController = {
           reject,
           defaultError: ERRORS.checkYourLoginSession,
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
   signUp ({ user, password, userTeam, eventId }) {
@@ -63,7 +61,7 @@ export const userController = {
           reject,
           defaultError: ERRORS.signUp,
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
   remindPassword ({ user }) {
@@ -79,7 +77,7 @@ export const userController = {
           reject,
           defaultError: ERRORS.remindPassword,
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
   signOut ({ user }) {
@@ -95,7 +93,7 @@ export const userController = {
           reject,
           defaultError: ERRORS.signOut,
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
   changePassword: function ({ password, key }) {
@@ -105,7 +103,7 @@ export const userController = {
         data: { password },
       })
         .then(() => resolve())
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
 };

@@ -1,10 +1,6 @@
-import { hasNoError } from 'api/real/real';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
-
-const requireMethod = (methodName) => () => {
-  throw new Error(methodName + ' method required');
-};
+import { logical } from 'vendors/logical';
 
 /**
  * @param errors - example:
@@ -21,10 +17,10 @@ export const apiResponseService = {
     errors = [],
     defaultError = ERRORS.undefinedError,
   }) {
-    if (hasNoError(data)) {
+    if (this.hasNoError(data)) {
       resolve();
     } else {
-      this.catchError({
+      catchError({
         data,
         reject,
         errors,
@@ -32,14 +28,29 @@ export const apiResponseService = {
       });
     }
   },
-  catchError ({ data, errors = {}, reject, defaultError }) {
-    let errorMessage = defaultError;
-    for (const [code, message] of errors) {
-      if (data.error === code) {
-        errorMessage = message;
-        break;
-      }
-    }
-    reject(new ErrorMessage(errorMessage));
+  catchConnectionError (reject) {
+    return function (fetchError) {
+      reject(new ErrorMessage(fetchError));
+    };
+  },
+  hasNoError (data) {
+    return logical.isNull(data.error);
   },
 };
+
+function requireMethod (methodName) {
+  return () => {
+    throw new Error(methodName + ' method required');
+  };
+}
+
+function catchError ({ data, errors = {}, reject, defaultError }) {
+  let errorMessage = defaultError;
+  for (const [code, message] of errors) {
+    if (data.error === code) {
+      errorMessage = message;
+      break;
+    }
+  }
+  reject(new ErrorMessage(errorMessage));
+}

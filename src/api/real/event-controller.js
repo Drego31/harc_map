@@ -2,7 +2,6 @@ import { request } from 'utils/request';
 import { AppEvent } from 'src/structures/app-event';
 import { ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
-import { catchConnectionError } from 'api/real/real';
 import validateCodes from 'src/../lib/validateCodes';
 import { apiResponseService } from 'utils/api-response-service';
 
@@ -20,7 +19,7 @@ export const eventController = {
           reject,
           defaultError: ERRORS.getEventById,
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
   getPointsByEventId ({ eventId }) {
@@ -36,7 +35,7 @@ export const eventController = {
           reject,
           defaultError: ERRORS.getPoints,
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
   getCategoriesByEventId ({ eventId }) {
@@ -52,7 +51,7 @@ export const eventController = {
           reject,
           defaultError: ERRORS.getCategories,
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
   collectPoint ({ user, eventId, pointId }) {
@@ -76,7 +75,7 @@ export const eventController = {
             [validateCodes.DATABASE_NO_RESULT_ERROR, ERRORS.pointNotExists],
           ],
         }))
-        .catch(catchConnectionError(reject));
+        .catch(apiResponseService.catchConnectionError(reject));
     });
   },
 };
