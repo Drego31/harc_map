@@ -1,9 +1,8 @@
 import { request } from 'utils/request';
 import { AppEvent } from 'src/structures/app-event';
-import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
-import { hasNoError, catchConnectionError } from 'api/real/real';
+import { catchConnectionError } from 'api/real/real';
 import validateCodes from 'src/../lib/validateCodes';
 import { apiResponseService } from 'utils/api-response-service';
 
@@ -15,13 +14,12 @@ export const eventController = {
         data: { eventId },
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve(new AppEvent(data));
-          } else {
-            reject(new ErrorMessage(ERRORS.getEventById));
-          }
-        })
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          resolve: () => resolve(new AppEvent(data)),
+          reject,
+          defaultError: ERRORS.getEventById,
+        }))
         .catch(catchConnectionError(reject));
     });
   },
@@ -32,13 +30,12 @@ export const eventController = {
         data: { eventId },
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve(data.points.map(point => new MapPoint(point)));
-          } else {
-            reject(new ErrorMessage(ERRORS.getEventById));
-          }
-        })
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          resolve: () => resolve(data.points.map(point => new MapPoint(point))),
+          reject,
+          defaultError: ERRORS.getPoints,
+        }))
         .catch(catchConnectionError(reject));
     });
   },
@@ -49,13 +46,12 @@ export const eventController = {
         data: { eventId },
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve(data.categories);
-          } else {
-            reject(new ErrorMessage(ERRORS.getEventById));
-          }
-        })
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          resolve: () => resolve(data.categories),
+          reject,
+          defaultError: ERRORS.getCategories,
+        }))
         .catch(catchConnectionError(reject));
     });
   },
@@ -72,7 +68,7 @@ export const eventController = {
         .then(response => response.json())
         .then(data => apiResponseService.takeOverResponse({
           data,
-          success: resolve,
+          resolve,
           reject,
           defaultError: ERRORS.collectPoint,
           errors: [

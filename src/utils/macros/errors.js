@@ -1,7 +1,9 @@
 export const ERRORS = {
   undefinedError: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
   eventIdIsRequired: '"eventId" param is required',
-  getEventById: 'Event data can not be download',
+  getEventById: 'Pobieranie danych wydarzenia nie powiodło się.',
+  getPoints: 'Pobieranie punktów dla wybranego wydarzenia nie powiodło się.',
+  getCategories: 'Pobieranie kategorii dla wybranego wydarzenia nie powiodło się.',
   elementIdIsRequiredForMap: 'elementId is necessary to create map',
   pointWithPointIdDoesntExist: pointId => `Punkt o kodzie "${pointId}" nie istnieje.`,
   pointIsCollected: 'Punkt o podanym kodzie został zebrany już wcześniej.',

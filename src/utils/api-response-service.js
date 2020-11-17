@@ -6,21 +6,28 @@ const requireMethod = (methodName) => () => {
   throw new Error(methodName + ' method required');
 };
 
+/**
+ * @param errors - example:
+ *   errors: [
+ *     [validateCodes.DATABASE_DATA_CONFLICT_ERROR, ERRORS.pointIsCollected],
+ *     [validateCodes.DATABASE_NO_RESULT_ERROR, ERRORS.pointNotExists],
+ *   ],
+ */
 export const apiResponseService = {
   takeOverResponse ({
     data,
-    success = requireMethod('success'),
+    resolve = requireMethod('success'),
     reject = requireMethod('reject'),
-    errors = {},
+    errors = [],
     defaultError = ERRORS.undefinedError,
   }) {
     if (hasNoError(data)) {
-      success();
+      resolve();
     } else {
       this.catchError({
         data,
-        errors,
         reject,
+        errors,
         defaultError,
       });
     }
