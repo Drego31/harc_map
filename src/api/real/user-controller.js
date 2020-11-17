@@ -2,6 +2,7 @@ import { request } from 'utils/request';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { hasNoError, catchConnectionError } from 'api/real/real';
+import { apiResponseService } from 'utils/api-response-service';
 
 export const userController = {
   signIn ({ user, password }) {
@@ -14,14 +15,15 @@ export const userController = {
         },
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          resolve () {
             delete data.error;
             resolve(data);
-          } else {
-            reject(new ErrorMessage(ERRORS.signIn));
-          }
-        })
+          },
+          reject,
+          defaultError: ERRORS.signIn,
+        }))
         .catch(catchConnectionError(reject));
     });
   },
@@ -31,14 +33,15 @@ export const userController = {
         url: '/user/login',
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          resolve () {
             delete data.error;
             resolve(data);
-          } else {
-            reject(new ErrorMessage(ERRORS.signIn));
-          }
-        })
+          },
+          reject,
+          defaultError: ERRORS.checkYourLoginSession,
+        }))
         .catch(catchConnectionError(reject));
     });
   },
@@ -54,13 +57,12 @@ export const userController = {
         },
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve();
-          } else {
-            reject(new ErrorMessage(ERRORS.signUp));
-          }
-        })
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          resolve,
+          reject,
+          defaultError: ERRORS.signUp,
+        }))
         .catch(catchConnectionError(reject));
     });
   },
@@ -71,13 +73,12 @@ export const userController = {
         data: { user },
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve();
-          } else {
-            reject(new ErrorMessage(ERRORS.remindPassword));
-          }
-        })
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          resolve,
+          reject,
+          defaultError: ERRORS.remindPassword,
+        }))
         .catch(catchConnectionError(reject));
     });
   },
@@ -88,13 +89,12 @@ export const userController = {
         data: { user },
       })
         .then(response => response.json())
-        .then(data => {
-          if (hasNoError(data)) {
-            resolve();
-          } else {
-            reject(new ErrorMessage(ERRORS.signOut));
-          }
-        })
+        .then(data => apiResponseService.takeOverResponse({
+          data,
+          resolve,
+          reject,
+          defaultError: ERRORS.signOut,
+        }))
         .catch(catchConnectionError(reject));
     });
   },
@@ -104,9 +104,7 @@ export const userController = {
         url: '/user/remind/' + key,
         data: { password },
       })
-        .then(() => {
-          resolve();
-        })
+        .then(() => resolve())
         .catch(catchConnectionError(reject));
     });
   },

@@ -9,6 +9,7 @@ export const ERRORS = {
   pointIsCollected: 'Punkt o podanym kodzie został zebrany już wcześniej.',
   pointNotExists: 'Punkt o podanym kodzie nie istnieje.',
   fakeErrorInMockApi: 'Fake error in mockApi',
+  checkYourLoginSession: 'Twoja sesja jest pusta - nie jesteś zalogowany.',
   signIn: 'Logowanie nie powiodło się - błędny e-mail lub hasło.',
   dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta.',
   signUp: 'Sign up went wrong',
