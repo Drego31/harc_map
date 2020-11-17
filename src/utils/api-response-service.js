@@ -5,8 +5,8 @@ import { logical } from 'vendors/logical';
 /**
  * @param errors - example:
  *   errors: [
- *     [validateCodes.DATABASE_DATA_CONFLICT_ERROR, ERRORS.pointIsCollected],
- *     [validateCodes.DATABASE_NO_RESULT_ERROR, ERRORS.pointNotExists],
+ *     [errorCode1, errorMessage1],
+ *     [errorCode2, errorMessage2],
  *   ],
  */
 export const apiResponseService = {
