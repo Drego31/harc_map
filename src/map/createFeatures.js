@@ -11,14 +11,14 @@ import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 
 const getStroke = (shape, width = mapConfig.features.defaultWidth) => {
-  const appearance = MAP_POINTS[shape] || {};
+  const appearance = MAP_POINTS[shape]() || {};
   return new Stroke({
     color: appearance.strokeColor,
     width,
   });
 };
 const getFill = (shape) => {
-  const appearance = MAP_POINTS[shape] || {};
+  const appearance = MAP_POINTS[shape]() || {};
   return new Fill({ color: appearance.fillColor });
 };
 
