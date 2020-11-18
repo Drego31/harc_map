@@ -84,6 +84,6 @@ export const ROUTES = {
     name: 'edit-event',
     label: 'Edytowanie wydarzenia',
     shortLabel: 'Wydarzenie',
-    icon: ICONS.map,
+    icon: ICONS.edit,
   },
 };

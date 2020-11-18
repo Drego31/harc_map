@@ -7,7 +7,7 @@
         v-model="values.eventName"
       />
       <m-input
-        :disabled=true
+        disabled
         placeholder="Klucz wydarzenia"
         v-model="values.eventId"
       />
@@ -33,7 +33,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import AButtonSecondary from 'atoms/button/secondary';
 
 export default {
-  name: 'o-edit-event',
+  name: 'o-admin-edit-event',
   mixins: [mixins.form],
   components: {
     AButtonSecondary,
