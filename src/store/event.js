@@ -53,9 +53,9 @@ export default {
           // Point is permanent and collected, but user don't know it to next gap time
           // Gap time = Last quarter of an hour from now example .00, .15, .30, .45
           const now = moment();
-          const lastGapTime = moment(now).minutes((now.minute() - (now.minute() % 15))).seconds(0);
-          const isBeforeLastGapTime = moment(pointCollectionTime).isBefore(lastGapTime);
-          return isBeforeLastGapTime === false;
+          const lastGapEndTime = moment(now).minutes((now.minute() - (now.minute() % 15))).seconds(0);
+          const isBeforeLastGapEndTime = moment(pointCollectionTime).isBefore(lastGapEndTime);
+          return isBeforeLastGapEndTime === false;
         }
 
         // Point is temporary - should be visible in interval => pointExpirationTime +/- time range
