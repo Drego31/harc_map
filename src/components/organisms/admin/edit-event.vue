@@ -57,13 +57,13 @@ export default {
     this.values.eventId = this.event.eventId;
   },
   computed: {
-    ...mapGetters('event', ['event', 'getEventInBackendFormat']),
+    ...mapGetters('event', ['event', 'getEventBasicInformation']),
     ...mapMutations('event', ['setEvent']),
   },
   methods: {
     updateEvent () {
       const updatedEvent = {
-        ...this.getEventInBackendFormat,
+        ...this.getEventBasicInformation,
         eventName: this.values.eventName,
       };
       api.updateEvent(updatedEvent)

@@ -10,8 +10,8 @@ export const map = {
   create: config => createMap(map, config),
   panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
     const mapPosition = {
-      latitude: pointLatitude,
-      longitude: pointLongitude,
+      mapLatitude: pointLatitude,
+      mapLongitude: pointLongitude,
     };
     store.commit('event/setMapPosition', mapPosition);
     store.commit('event/setMapZoom', 16);
