@@ -5,5 +5,6 @@ config/system.config.json
 config/cert.key
 config/cert.pem
 public/*app.*.js
+public/*app.js
 public/index.html
 public/iconfont/.svn

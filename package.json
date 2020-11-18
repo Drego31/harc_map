@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Drego31/harc_map.git"
+    "url": "git+https://github.com/dbetka/harcmap.git"
   },
   "author": "dbetka",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Drego31/harc_map/issues"
+    "url": "https://github.com/dbetka/harcmap/issues"
   },
-  "homepage": "https://github.com/Drego31/harc_map#readme",
+  "homepage": "https://github.com/dbetka/harcmap#readme",
   "engines": {
     "node": ">=12.9.0",
     "npm": ">=6.0.0"
@@ -67,7 +67,6 @@
     "js-cookie": "^2.2.1",
     "moment": "^2.24.0",
     "nodemailer": "^6.4.6",
-    "ol-mapbox-style": "^6.1.4",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
