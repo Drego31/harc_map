@@ -8,10 +8,8 @@ export class AppEvent {
   }) {
     this.eventId = eventId;
     this.eventName = eventName;
-    this.mapPosition = {
-      latitude: mapLatitude,
-      longitude: mapLongitude,
-    };
+    this.mapLatitude = mapLatitude;
+    this.mapLongitude = mapLongitude;
     this.mapZoom = mapZoom;
   }
 }

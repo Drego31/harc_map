@@ -8,16 +8,12 @@ export default {
   state: {
     eventId: '',
     eventName: '',
-    mapDefaultPosition: {
-      latitude: 0,
-      longitude: 0,
-    },
-    mapDefaultZoom: 2,
-    mapPosition: {
-      latitude: 0,
-      longitude: 0,
-    },
+    mapLongitude: 0,
+    mapLatitude: 0,
+    mapDefaultLongitude: 0,
+    mapDefaultLatitude: 0,
     mapZoom: 2,
+    mapDefaultZoom: 2,
     points: [],
     categories: [],
   },
@@ -65,25 +61,24 @@ export default {
         return expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
       });
     },
-    getSeparatedMapPosition: (state) => ({
-      mapLongitude: state.mapPosition.longitude,
-      mapLatitude: state.mapPosition.latitude,
-    }),
-    getEventInBackendFormat: (state, getters) => ({
+    getEventBasicInformation: (state) => ({
       eventId: state.eventId,
       eventName: state.eventName,
       mapZoom: state.mapZoom,
-      ...getters.getSeparatedMapPosition,
+      mapLongitude: state.mapLongitude,
+      mapLatitude: state.mapLatitude,
     }),
   },
   mutations: {
     setEvent: (state, data) => {
       Object.assign(state, { ...data });
-      state.mapDefaultPosition = { ...data.mapPosition };
+      state.mapDefaultLatitude = data.mapLatitude;
+      state.mapDefaultLongitude = data.mapLongitude;
       state.mapDefaultZoom = data.mapZoom;
     },
     setDefaultMapPositionAndZoom: (state) => {
-      state.mapPosition = { ...state.mapDefaultPosition };
+      state.mapLatitude = state.mapDefaultLatitude;
+      state.mapLongitude = state.mapDefaultLongitude;
       state.mapZoom = state.mapDefaultZoom;
     },
     setId: (state, payload) => (state.eventId = payload),
@@ -100,8 +95,9 @@ export default {
     removePoint: (state, point) => {
       arrayUtils.removeItem(state.points, point);
     },
-    setMapPosition: (state, mapPosition) => {
-      state.mapPosition = mapPosition;
+    setMapPosition: (state, { mapLatitude, mapLongitude }) => {
+      state.mapLatitude = mapLatitude;
+      state.mapLongitude = mapLongitude;
     },
     setMapZoom: (state, mapZoom) => {
       state.mapZoom = mapZoom;

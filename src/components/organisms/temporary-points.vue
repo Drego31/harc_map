@@ -14,7 +14,7 @@
 <script>
 import MTableRowTemporaryPoints from 'molecules/table-row/temporary-points';
 import clock from 'molecules/clock.vue';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import { MACROS } from 'utils/macros';
 import { map } from 'map/index';
 
@@ -33,10 +33,6 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations('event', [
-      'setMapPosition',
-      'setMapZoom',
-    ]),
     panToPointLocationOnMap: map.panToPointLocationOnMap,
   },
 }

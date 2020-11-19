@@ -13,12 +13,11 @@ export default {
   name: 'o-map',
   mounted () {
     const appEvent = this.$store.getters['event/event'];
-    const position = appEvent.mapPosition;
 
     map.create({
       elementId: 'o-map',
-      lat: position.latitude,
-      lon: position.longitude,
+      lat: appEvent.mapLatitude,
+      lon: appEvent.mapLongitude,
       zoom: appEvent.mapZoom,
     });
     map.points.create({
@@ -36,10 +35,10 @@ export default {
     ]),
     saveLastMapPosition () {
       const mapView = map.realMap.getView();
-      const [longitude, latitude] = toLonLat(mapView.getCenter());
+      const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
       this.setMapPosition({
-        latitude,
-        longitude,
+        mapLatitude,
+        mapLongitude,
       });
       this.setMapZoom(mapView.getZoom());
     },

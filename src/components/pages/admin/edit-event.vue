@@ -1,18 +1,18 @@
 <template>
   <t-page title="Edycja wydarzenia">
-    <o-edit-event/>
+    <o-admin-edit-event/>
   </t-page>
 </template>
 
 <script>
-import OEditEvent from 'organisms/admin/edit-event';
 import TPage from 'templates/page';
+import OAdminEditEvent from 'organisms/admin/edit-event';
 
 export default {
-  name: 'edit-event',
+  name: 'p-admin-edit-event',
   components: {
+    OAdminEditEvent,
     TPage,
-    OEditEvent,
   },
 };
 </script>
