@@ -1,94 +1,61 @@
-import { request } from 'utils/request';
+import { makeRequest, request } from 'utils/request';
 import { ERRORS } from 'utils/macros/errors';
 import { apiResponseService } from 'utils/api-response-service';
 
 export const userController = {
   signIn ({ user, password }) {
-    return new Promise((resolve, reject) => {
-      request.post({
-        url: '/user/login',
-        data: {
-          user,
-          password,
-        },
-      })
-        .then(response => apiResponseService.takeOverResponse({
-          response,
-          onSuccess (data) {
-            delete data.error;
-            resolve(data);
-          },
-          onError: reject,
-          defaultError: ERRORS.signIn,
-        }))
-        .catch(apiResponseService.catchConnectionError(reject));
+    return makeRequest({
+      method: request.post,
+      url: '/user/login',
+      data: {
+        user,
+        password,
+      },
+      onSuccess (data) {
+        delete data.error;
+        return data;
+      },
+      defaultError: ERRORS.signIn,
     });
   },
   checkYourLoginSession () {
-    return new Promise((resolve, reject) => {
-      request.post({
-        url: '/user/login',
-      })
-        .then(response => apiResponseService.takeOverResponse({
-          response,
-          onSuccess (data) {
-            delete data.error;
-            resolve(data);
-          },
-          onError: reject,
-          defaultError: ERRORS.checkYourLoginSession,
-        }))
-        .catch(apiResponseService.catchConnectionError(reject));
+    return makeRequest({
+      method: request.post,
+      url: '/user/login',
+      onSuccess (data) {
+        delete data.error;
+        return data;
+      },
+      defaultError: ERRORS.checkYourLoginSession,
     });
   },
   signUp ({ user, password, userTeam, eventId }) {
-    return new Promise((resolve, reject) => {
-      request.post({
-        url: '/user',
-        data: {
-          user,
-          password,
-          userTeam,
-          eventId,
-        },
-      })
-        .then(response => apiResponseService.takeOverResponse({
-          response,
-          onSuccess: resolve,
-          onError: reject,
-          defaultError: ERRORS.signUp,
-        }))
-        .catch(apiResponseService.catchConnectionError(reject));
+    return makeRequest({
+      method: request.post,
+      url: '/user',
+      data: {
+        user,
+        password,
+        userTeam,
+        eventId,
+      },
+      defaultError: ERRORS.signUp,
     });
   },
   remindPassword ({ user }) {
-    return new Promise((resolve, reject) => {
-      request.post({
-        url: '/user/remind',
-        data: { user },
-      })
-        .then(response => apiResponseService.takeOverResponse({
-          response,
-          onSuccess: resolve,
-          onError: reject,
-          defaultError: ERRORS.remindPassword,
-        }))
-        .catch(apiResponseService.catchConnectionError(reject));
+    return makeRequest({
+      method: request.post,
+      url: '/user/remind',
+      data: { user },
+      defaultError: ERRORS.remindPassword,
     });
   },
   signOut ({ user }) {
-    return new Promise((resolve, reject) => {
-      request.delete({
-        url: '/user/login',
-        data: { user },
-      })
-        .then(response => apiResponseService.takeOverResponse({
-          response,
-          onSuccess: resolve,
-          onError: reject,
-          defaultError: ERRORS.signOut,
-        }))
-        .catch(apiResponseService.catchConnectionError(reject));
+    return makeRequest({
+      method: request.delete,
+      url: '/user/login',
+      data: { user },
+      defaultError: ERRORS.signOut,
     });
   },
   changePassword: function ({ password, key }) {
