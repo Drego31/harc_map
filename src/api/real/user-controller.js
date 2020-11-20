@@ -12,10 +12,9 @@ export const userController = {
           password,
         },
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
-          resolve () {
+        .then(response => apiResponseService.takeOverResponse({
+          response,
+          resolve (data) {
             delete data.error;
             resolve(data);
           },
@@ -30,10 +29,9 @@ export const userController = {
       request.post({
         url: '/user/login',
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
-          resolve () {
+        .then(response => apiResponseService.takeOverResponse({
+          response,
+          resolve (data) {
             delete data.error;
             resolve(data);
           },
@@ -54,9 +52,8 @@ export const userController = {
           eventId,
         },
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
+        .then(response => apiResponseService.takeOverResponse({
+          response,
           resolve,
           reject,
           defaultError: ERRORS.signUp,
@@ -70,9 +67,8 @@ export const userController = {
         url: '/user/remind',
         data: { user },
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
+        .then(response => apiResponseService.takeOverResponse({
+          response,
           resolve,
           reject,
           defaultError: ERRORS.remindPassword,
@@ -86,9 +82,8 @@ export const userController = {
         url: '/user/login',
         data: { user },
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
+        .then(response => apiResponseService.takeOverResponse({
+          response,
           resolve,
           reject,
           defaultError: ERRORS.signOut,

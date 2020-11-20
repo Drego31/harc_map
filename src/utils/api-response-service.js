@@ -11,22 +11,24 @@ import { logical } from 'vendors/logical';
  */
 export const apiResponseService = {
   takeOverResponse ({
-    data,
+    response,
     resolve = requireMethod('success'),
     reject = requireMethod('reject'),
     errors = [],
     defaultError = ERRORS.undefinedError,
   }) {
-    if (this.hasNoError(data)) {
-      resolve();
-    } else {
-      catchError({
-        data,
-        reject,
-        errors,
-        defaultError,
-      });
-    }
+    response.json().then(data => {
+      if (this.hasNoError(data)) {
+        resolve(data);
+      } else {
+        catchError({
+          data,
+          reject,
+          errors,
+          defaultError,
+        });
+      }
+    });
   },
   catchConnectionError (reject) {
     return function (fetchError) {

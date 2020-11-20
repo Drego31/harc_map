@@ -12,10 +12,9 @@ export const eventController = {
         url: '/event',
         data: { eventId },
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
-          resolve: () => resolve(new AppEvent(data)),
+        .then(response => apiResponseService.takeOverResponse({
+          response,
+          resolve: data => resolve(new AppEvent(data)),
           reject,
           defaultError: ERRORS.getEventById,
         }))
@@ -28,10 +27,9 @@ export const eventController = {
         url: '/event/points',
         data: { eventId },
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
-          resolve: () => resolve(data.points.map(point => new MapPoint(point))),
+        .then(response => apiResponseService.takeOverResponse({
+          response,
+          resolve: data => resolve(data.points.map(point => new MapPoint(point))),
           reject,
           defaultError: ERRORS.getPoints,
         }))
@@ -44,10 +42,9 @@ export const eventController = {
         url: '/event/point/categories',
         data: { eventId },
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
-          resolve: () => resolve(data.categories),
+        .then(response => apiResponseService.takeOverResponse({
+          response,
+          resolve: data => resolve(data.categories),
           reject,
           defaultError: ERRORS.getCategories,
         }))
@@ -64,9 +61,8 @@ export const eventController = {
           pointId,
         },
       })
-        .then(response => response.json())
-        .then(data => apiResponseService.takeOverResponse({
-          data,
+        .then(response => apiResponseService.takeOverResponse({
+          response,
           resolve,
           reject,
           defaultError: ERRORS.collectPoint,
