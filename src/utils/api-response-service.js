@@ -10,7 +10,6 @@ import { logical } from 'vendors/logical';
  *   ],
  */
 export const apiResponseService = {
-
   takeOverResponse ({
     response,
     onSuccess = requireMethod('onSuccess'),
