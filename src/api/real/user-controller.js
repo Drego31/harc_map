@@ -11,10 +11,6 @@ export const userController = {
         user,
         password,
       },
-      onSuccess (data) {
-        delete data.error;
-        return data;
-      },
       defaultError: ERRORS.signIn,
     });
   },
@@ -22,10 +18,6 @@ export const userController = {
     return makeRequest({
       method: request.post,
       url: '/user/login',
-      onSuccess (data) {
-        delete data.error;
-        return data;
-      },
       defaultError: ERRORS.checkYourLoginSession,
     });
   },

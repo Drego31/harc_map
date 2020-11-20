@@ -6,7 +6,7 @@ export function makeRequest ({
   fetchOptions = {},
   url = '',
   data = {},
-  onSuccess = data => data,
+  transformResponseData = data => data,
   defaultError,
   errors = [],
 }) {
@@ -18,7 +18,10 @@ export function makeRequest ({
     })
       .then(response => apiResponseService.takeOverResponse({
         response,
-        onSuccess: data => resolve(onSuccess(data)),
+        onSuccess: responseData => {
+          delete responseData.error;
+          resolve(transformResponseData(responseData));
+        },
         onError: reject,
         defaultError,
         errors,

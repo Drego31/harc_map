@@ -10,7 +10,7 @@ export const eventController = {
       method: request.get,
       url: '/event',
       data: { eventId },
-      onSuccess: data => new AppEvent(data),
+      transformResponseData: data => new AppEvent(data),
       defaultError: ERRORS.getEventById,
     });
   },
@@ -19,7 +19,9 @@ export const eventController = {
       method: request.get,
       url: '/event/points',
       data: { eventId },
-      onSuccess: data => data.points.map(point => new MapPoint(point)),
+      transformResponseData: data => {
+        return data.points.map(point => new MapPoint(point));
+      },
       defaultError: ERRORS.getPoints,
     });
   },
@@ -28,7 +30,7 @@ export const eventController = {
       method: request.get,
       url: '/event/point/categories',
       data: { eventId },
-      onSuccess: data => data.categories,
+      transformResponseData: data => data.categories,
       defaultError: ERRORS.getCategories,
     });
   },
