@@ -1,22 +1,26 @@
+import { RGBColorsArray } from 'utils/colors';
+
+const colors = RGBColorsArray();
+
 export const MAP_POINTS = {
   0: {
-    strokeColor: 'black',
-    fillColor: 'white',
+    strokeColor: colors.black,
+    fillColor: colors.white,
   },
   1: {
-    strokeColor: 'black',
-    fillColor: 'blue',
+    strokeColor: colors.black,
+    fillColor: colors.blue,
   },
   2: {
-    strokeColor: 'black',
-    fillColor: 'yellow',
+    strokeColor: colors.black,
+    fillColor: colors.yellow,
   },
   3: {
-    strokeColor: 'black',
-    fillColor: 'red',
+    strokeColor: colors.black,
+    fillColor: colors.red,
   },
   4: {
-    strokeColor: 'blue',
-    fillColor: 'red',
+    strokeColor: colors.blue,
+    fillColor: colors.red,
   },
 };

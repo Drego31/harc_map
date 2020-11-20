@@ -10,7 +10,7 @@ function intervalMethod () {
     .then(() => {
       if (uCheck.isObject(map.realMap)) {
         map.points.create({
-          list: this.$store.getters['event/notCollectedPoints'],
+          list: this.$store.getters['event/getPointsVisibleOnMap'],
         });
       }
     })
