@@ -96,7 +96,7 @@ export default {
     download (context, eventId = context.state.eventId) {
       return new Promise((resolve, reject) => {
         let event;
-        api.getEventById(eventId)
+        api.getEventById({ eventId })
           .then(data => (event = data))
           .then(api.getCategoriesByEventId)
           .then(categories => {

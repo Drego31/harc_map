@@ -5,7 +5,7 @@ import { MapPoint } from 'src/structures/map-point';
 import validateCodes from 'src/../lib/validateCodes';
 
 export const eventController = {
-  getEventById (eventId) {
+  getEventById ({ eventId }) {
     return makeRequest({
       method: request.get,
       url: '/event',
