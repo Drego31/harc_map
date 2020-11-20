@@ -33,9 +33,9 @@ export default {
     }),
     style () {
       if (this.themeName === THEMES.dark) {
-        return 'background-image: url("/img/map-screen-dark.png")';
+        return 'background-image: url("/img/compass.jpg"); background-size: auto 100%';
       } else {
-        return 'background-image: url("/img/map-screen.png")';
+        return 'background-image: url("/img/compass.jpg"); background-size: auto 100%';
       }
     },
   },
