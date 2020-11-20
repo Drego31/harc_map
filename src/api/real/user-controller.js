@@ -14,11 +14,11 @@ export const userController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve (data) {
+          onSuccess (data) {
             delete data.error;
             resolve(data);
           },
-          reject,
+          onError: reject,
           defaultError: ERRORS.signIn,
         }))
         .catch(apiResponseService.catchConnectionError(reject));
@@ -31,11 +31,11 @@ export const userController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve (data) {
+          onSuccess (data) {
             delete data.error;
             resolve(data);
           },
-          reject,
+          onError: reject,
           defaultError: ERRORS.checkYourLoginSession,
         }))
         .catch(apiResponseService.catchConnectionError(reject));
@@ -54,8 +54,8 @@ export const userController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve,
-          reject,
+          onSuccess: resolve,
+          onError: reject,
           defaultError: ERRORS.signUp,
         }))
         .catch(apiResponseService.catchConnectionError(reject));
@@ -69,8 +69,8 @@ export const userController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve,
-          reject,
+          onSuccess: resolve,
+          onError: reject,
           defaultError: ERRORS.remindPassword,
         }))
         .catch(apiResponseService.catchConnectionError(reject));
@@ -84,8 +84,8 @@ export const userController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve,
-          reject,
+          onSuccess: resolve,
+          onError: reject,
           defaultError: ERRORS.signOut,
         }))
         .catch(apiResponseService.catchConnectionError(reject));

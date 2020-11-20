@@ -10,20 +10,21 @@ import { logical } from 'vendors/logical';
  *   ],
  */
 export const apiResponseService = {
+
   takeOverResponse ({
     response,
-    resolve = requireMethod('success'),
-    reject = requireMethod('reject'),
+    onSuccess = requireMethod('onSuccess'),
+    onError = requireMethod('onError'),
     errors = [],
     defaultError = ERRORS.undefinedError,
   }) {
     response.json().then(data => {
       if (this.hasNoError(data)) {
-        resolve(data);
+        onSuccess(data);
       } else {
         catchError({
           data,
-          reject,
+          onError,
           errors,
           defaultError,
         });
@@ -46,7 +47,7 @@ function requireMethod (methodName) {
   };
 }
 
-function catchError ({ data, errors = {}, reject, defaultError }) {
+function catchError ({ data, errors = {}, onError, defaultError }) {
   let errorMessage = defaultError;
   for (const [code, message] of errors) {
     if (data.error === code) {
@@ -54,5 +55,5 @@ function catchError ({ data, errors = {}, reject, defaultError }) {
       break;
     }
   }
-  reject(new ErrorMessage(errorMessage));
+  onError(new ErrorMessage(errorMessage));
 }

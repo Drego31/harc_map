@@ -14,8 +14,8 @@ export const eventController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve: data => resolve(new AppEvent(data)),
-          reject,
+          onSuccess: data => resolve(new AppEvent(data)),
+          onError: reject,
           defaultError: ERRORS.getEventById,
         }))
         .catch(apiResponseService.catchConnectionError(reject));
@@ -29,8 +29,8 @@ export const eventController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve: data => resolve(data.points.map(point => new MapPoint(point))),
-          reject,
+          onSuccess: data => resolve(data.points.map(point => new MapPoint(point))),
+          onError: reject,
           defaultError: ERRORS.getPoints,
         }))
         .catch(apiResponseService.catchConnectionError(reject));
@@ -44,8 +44,8 @@ export const eventController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve: data => resolve(data.categories),
-          reject,
+          onSuccess: data => resolve(data.categories),
+          onError: reject,
           defaultError: ERRORS.getCategories,
         }))
         .catch(apiResponseService.catchConnectionError(reject));
@@ -63,8 +63,8 @@ export const eventController = {
       })
         .then(response => apiResponseService.takeOverResponse({
           response,
-          resolve,
-          reject,
+          onSuccess: resolve,
+          onError: reject,
           defaultError: ERRORS.collectPoint,
           errors: [
             [validateCodes.DATABASE_DATA_CONFLICT_ERROR, ERRORS.pointIsCollected],
