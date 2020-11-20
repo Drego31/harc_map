@@ -24,6 +24,7 @@ module.exports = {
   output: {
     filename: 'app.[contenthash].js',
     path: resolve('public'),
+    publicPath: '/',
   },
   devServer: {
     historyApiFallback: {
