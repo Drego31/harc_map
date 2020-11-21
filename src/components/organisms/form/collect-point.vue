@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { mapManager } from 'utils/map-manager';
 import { mapGetters } from 'vuex';
 import { ROUTES } from 'utils/macros/routes';
 import { mixins } from 'mixins/base';
@@ -60,7 +59,7 @@ export default {
     },
     collectPoint () {
       const pointId = this.collectedPointId;
-      mapManager.collectPoint(pointId)
+      this.$store.dispatch('event/collectPoint', pointId)
         .then(this.onCollectPoint)
         .catch(this.onErrorOccurs);
     },
