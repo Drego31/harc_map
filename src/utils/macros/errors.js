@@ -35,13 +35,19 @@ export const API_ERRORS = {
       ],
     ],
   },
+
   // USER
   signIn: {
-    defaultError: 'Logowanie nie powiodło się — błędny e-mail lub hasło.',
+    defaultError: 'Logowanie nie powiodło się ze względu na błąd serwera.',
     errors: [
       [
-        validateCodes.DATABASE_DATA_CONFLICT_ERROR,
-        'Punkt o podanym kodzie został zebrany już wcześniej.',
+        [
+          validateCodes.SESSION_ERROR,
+          validateCodes.IS_NOT_EMAIL,
+          validateCodes.PASSWORD_TOO_SHORT,
+          validateCodes.PASSWORD_HAS_NOT_NUMBER,
+        ],
+        'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
       ],
     ],
   },

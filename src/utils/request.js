@@ -11,6 +11,8 @@ export function makeRequest ({
   errors = [],
 }) {
   return new Promise((resolve, reject) => {
+    console.log({ makeRequest });
+
     method({
       url,
       data,

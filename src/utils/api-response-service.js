@@ -5,7 +5,10 @@ import { logical } from 'vendors/logical';
 /**
  * @param errors - example:
  *   errors: [
- *     [errorCode1, errorMessage1],
+ *     [
+ *       [errorCode11, errorCode12],
+ *       errorMessage1,
+ *     ],
  *     [errorCode2, errorMessage2],
  *   ],
  */
@@ -47,10 +50,17 @@ function requireMethod (methodName) {
   };
 }
 
-function catchError ({ data, errors = {}, onError, defaultError }) {
+function catchError ({ data, errors = [], onError, defaultError }) {
   let errorMessage = defaultError;
   for (const [code, message] of errors) {
-    if (data.error === code) {
+    if (logical.isArray(code)) {
+      for (const singleCode of code) {
+        if (data.error === singleCode) {
+          errorMessage = message;
+          break;
+        }
+      }
+    } else if (data.error === code) {
       errorMessage = message;
       break;
     }
