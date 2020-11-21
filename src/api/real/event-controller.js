@@ -1,8 +1,7 @@
 import { makeRequest, request } from 'utils/request';
 import { AppEvent } from 'src/structures/app-event';
-import { ERRORS } from 'utils/macros/errors';
+import { API_ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
-import validateCodes from 'src/../lib/validateCodes';
 
 export const eventController = {
   getEventById ({ eventId }) {
@@ -11,7 +10,7 @@ export const eventController = {
       url: '/event',
       data: { eventId },
       transformResponseData: data => new AppEvent(data),
-      defaultError: ERRORS.getEventById,
+      ...API_ERRORS.getEventById,
     });
   },
   getPointsByEventId ({ eventId }) {
@@ -22,7 +21,7 @@ export const eventController = {
       transformResponseData: data => {
         return data.points.map(point => new MapPoint(point));
       },
-      defaultError: ERRORS.getPoints,
+      ...API_ERRORS.getPointsByEventId,
     });
   },
   getCategoriesByEventId ({ eventId }) {
@@ -31,7 +30,7 @@ export const eventController = {
       url: '/event/point/categories',
       data: { eventId },
       transformResponseData: data => data.categories,
-      defaultError: ERRORS.getCategories,
+      ...API_ERRORS.getCategoriesByEventId,
     });
   },
   collectPoint ({ user, eventId, pointId }) {
@@ -43,11 +42,7 @@ export const eventController = {
         eventId,
         pointId,
       },
-      defaultError: ERRORS.collectPoint,
-      errors: [
-        [validateCodes.DATABASE_DATA_CONFLICT_ERROR, ERRORS.pointIsCollected],
-        [validateCodes.DATABASE_NO_RESULT_ERROR, ERRORS.pointNotExists],
-      ],
+      ...API_ERRORS.collectPoint,
     });
   },
 };

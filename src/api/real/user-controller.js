@@ -1,6 +1,5 @@
 import { makeRequest, request } from 'utils/request';
-import { ERRORS } from 'utils/macros/errors';
-import { apiResponseService } from 'utils/api-response-service';
+import { API_ERRORS } from 'utils/macros/errors';
 
 export const userController = {
   signIn ({ user, password }) {
@@ -11,14 +10,14 @@ export const userController = {
         user,
         password,
       },
-      defaultError: ERRORS.signIn,
+      ...API_ERRORS.signIn,
     });
   },
   checkYourLoginSession () {
     return makeRequest({
       method: request.post,
       url: '/user/login',
-      defaultError: ERRORS.checkYourLoginSession,
+      ...API_ERRORS.checkYourLoginSession,
     });
   },
   signUp ({ user, password, userTeam, eventId }) {
@@ -31,7 +30,7 @@ export const userController = {
         userTeam,
         eventId,
       },
-      defaultError: ERRORS.signUp,
+      ...API_ERRORS.signUp,
     });
   },
   remindPassword ({ user }) {
@@ -39,7 +38,7 @@ export const userController = {
       method: request.post,
       url: '/user/remind',
       data: { user },
-      defaultError: ERRORS.remindPassword,
+      ...API_ERRORS.remindPassword,
     });
   },
   signOut ({ user }) {
@@ -47,17 +46,15 @@ export const userController = {
       method: request.delete,
       url: '/user/login',
       data: { user },
-      defaultError: ERRORS.signOut,
+      ...API_ERRORS.signOut,
     });
   },
   changePassword: function ({ password, key }) {
-    return new Promise((resolve, reject) => {
-      request.put({
-        url: '/user/remind/' + key,
-        data: { password },
-      })
-        .then(() => resolve())
-        .catch(apiResponseService.catchConnectionError(reject));
+    return makeRequest({
+      method: request.put,
+      url: '/user/remind/' + key,
+      data: { password },
+      ...API_ERRORS.changePassword,
     });
   },
 };
