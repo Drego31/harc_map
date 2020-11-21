@@ -35,29 +35,34 @@ export default {
     getTemporaryPoints: state => state.points
       .filter(point => point.pointType === MACROS.pointType.temporary)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
-    notCollectedPoints: (state, getters, rootState, rootGetters) => {
+
+    getPointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
       return state.points.filter(({
         pointId,
         pointCollectionTime,
         pointType,
         pointExpirationTime,
       }) => {
+        if (pointType === MACROS.pointType.permanent) {
+          // Point is not collected
+          if (uCheck.isNull(pointCollectionTime)) return true;
+
+          // Display points collected by user
+          if (rootGetters['user/collectedPointsIds'].includes(pointId) === true) return true;
+
+          // Point is permanent and collected, but user don't know it to next gap time
+          // Gap time = Last quarter of an hour from now example .00, .15, .30, .45
+          const now = moment();
+          const lastGapEndTime = moment(now).minutes((now.minute() - (now.minute() % 15))).seconds(0);
+          const isBeforeLastGapEndTime = moment(pointCollectionTime).isBefore(lastGapEndTime);
+          return isBeforeLastGapEndTime === false;
+        }
+
+        // Point is temporary - should be visible in interval => pointExpirationTime +/- time range
         const timeRange = 1000 * 60 * 60; // 1H
-        const now = moment();
-        const lastGapTime = moment(now).minutes((now.minute() - (now.minute() % 15))).seconds(0);
-
-        const collectionTimeIsNull = uCheck.isNull(pointCollectionTime);
-        const isFromThisTimeGap = moment(pointCollectionTime).isBefore(lastGapTime);
-        const isNotMyCollectedPoint = rootGetters['user/collectedPointsIds'].includes(pointId) === false;
-        const isPermanent = pointType === MACROS.pointType.permanent;
-
         const expirationTime = moment((new Date(pointExpirationTime)).valueOf());
         const expirationTimeDiffNow = expirationTime.diff(moment());
-        const diffIsInRange = expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
-
-        return (isPermanent || diffIsInRange) &&
-          (collectionTimeIsNull || isFromThisTimeGap) &&
-          isNotMyCollectedPoint;
+        return expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
       });
     },
   },
@@ -94,9 +99,9 @@ export default {
   },
   actions: {
     download (context, eventId = context.state.eventId) {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
         let event;
-        api.getEventById(eventId)
+        api.getEventById({ eventId })
           .then(data => (event = data))
           .then(api.getCategoriesByEventId)
           .then(categories => {
@@ -108,6 +113,27 @@ export default {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);
             resolve(event);
+          })
+          .catch(reject);
+      });
+    },
+    collectPoint (context, pointId) {
+      return new Promise((resolve, reject) => {
+        api.collectPoint({
+          eventId: context.getters.eventId,
+          user: context.rootGetters['user/user'],
+          pointId,
+        })
+          .then(() => {
+            context.commit('updatePoint', {
+              pointId,
+              pointCollectionTime: Date.now(),
+            });
+            context.commit('user/addCollectedPointId', pointId, { root: true });
+            resolve();
+          })
+          .catch(error => {
+            reject(error);
           });
       });
     },

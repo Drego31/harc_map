@@ -1,5 +1,7 @@
 <template>
-  <div class="o-map" id="o-map"></div>
+  <div>
+    <div class="o-map" id="o-map"></div>
+  </div>
 </template>
 
 <script>
@@ -20,7 +22,11 @@ export default {
       zoom: appEvent.mapZoom,
     });
     map.points.create({
-      list: this.$store.getters['event/notCollectedPoints'],
+      list: this.$store.getters['event/getPointsVisibleOnMap'],
+      listOfCollectedPoints: this.$store.getters['user/collectedPoints'],
+    });
+    map.lines.create({
+      list: this.$store.getters['user/collectedPoints'],
     });
   },
   methods: {
@@ -28,15 +34,18 @@ export default {
       'setMapPosition',
       'setMapZoom',
     ]),
+    saveLastMapPosition () {
+      const mapView = map.realMap.getView();
+      const [longitude, latitude] = toLonLat(mapView.getCenter());
+      this.setMapPosition({
+        latitude,
+        longitude,
+      });
+      this.setMapZoom(mapView.getZoom());
+    },
   },
   beforeDestroy () {
-    const mapView = map.realMap.getView();
-    const [longitude, latitude] = toLonLat(mapView.getCenter());
-    this.setMapPosition({
-      latitude,
-      longitude,
-    });
-    this.setMapZoom(mapView.getZoom());
+    this.saveLastMapPosition();
   },
 };
 </script>

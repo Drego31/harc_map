@@ -10,15 +10,26 @@ import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 
-const getStroke = (shape, width = mapConfig.features.defaultWidth) => {
-  const appearance = MAP_POINTS[shape]() || {};
+const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
+  let appearance = MAP_POINTS[shape]() || {};
+  if (isCollected) {
+    const opacity = 0.3;
+    appearance = { ...appearance };
+    appearance.strokeColor = [...appearance.strokeColor, opacity];
+  }
   return new Stroke({
     color: appearance.strokeColor,
     width,
   });
 };
-const getFill = (shape) => {
-  const appearance = MAP_POINTS[shape]() || {};
+
+const getFill = (shape, isCollected) => {
+  let appearance = MAP_POINTS[shape]() || {};
+  if (isCollected) {
+    const opacity = 0.3;
+    appearance = { ...appearance };
+    appearance.fillColor = [...appearance.fillColor, opacity];
+  }
   return new Fill({ color: appearance.fillColor });
 };
 
