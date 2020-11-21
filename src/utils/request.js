@@ -1,6 +1,33 @@
 import { logical } from 'vendors/logical';
+import { apiResponseService } from 'utils/api-response-service';
 
-function makeFetch ({ url, config }) {
+export function makeRequest ({
+  method,
+  fetchOptions = {},
+  url = '',
+  data = {},
+  transformResponseData = data => data,
+  defaultError,
+  errors = [],
+}) {
+  return new Promise((resolve, reject) => {
+    method({
+      url,
+      data,
+      ...fetchOptions,
+    })
+      .then(response => apiResponseService.takeOverResponse({
+        response,
+        onSuccess: responseData => resolve(transformResponseData(responseData)),
+        onError: reject,
+        defaultError,
+        errors,
+      }))
+      .catch(apiResponseService.catchConnectionError(reject));
+  });
+}
+
+function envFetch ({ url, config }) {
   return new Promise((resolve, reject) => {
     fetch(url, {
       ...config,
@@ -37,7 +64,7 @@ export const request = {
     const pathVariables = request.dataToPathVariables(data);
     const fullUrl = request.host + url + pathVariables;
 
-    return makeFetch({
+    return envFetch({
       url: fullUrl,
       config: {
         method: 'GET',
@@ -49,7 +76,7 @@ export const request = {
     const fullUrl = request.host + url;
     addBodyToConfig(config, data);
 
-    return makeFetch({
+    return envFetch({
       url: fullUrl,
       config: {
         method: 'POST',
@@ -61,7 +88,7 @@ export const request = {
     const fullUrl = request.host + url;
     addBodyToConfig(config, data);
 
-    return makeFetch({
+    return envFetch({
       url: fullUrl,
       config: {
         method: 'PUT',
@@ -73,7 +100,7 @@ export const request = {
     const fullUrl = request.host + url;
     addBodyToConfig(config, data);
 
-    return makeFetch({
+    return envFetch({
       url: fullUrl,
       config: {
         method: 'DELETE',
@@ -82,5 +109,3 @@ export const request = {
     });
   },
 };
-
-window.request = request;

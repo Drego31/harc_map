@@ -10,7 +10,7 @@ import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 
-const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth ) => {
+const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
   let appearance = MAP_POINTS[shape] || {};
   if (isCollected) {
     const opacity = 0.3;
