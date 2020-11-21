@@ -52,17 +52,12 @@ function requireMethod (methodName) {
 
 function catchError ({ data, errors = [], onError, defaultError }) {
   let errorMessage = defaultError;
-  for (const [code, message] of errors) {
-    if (logical.isArray(code)) {
-      for (const singleCode of code) {
-        if (data.error === singleCode) {
-          errorMessage = message;
-          break;
-        }
+  for (const [codes, message] of errors) {
+    for (const singleCode of codes) {
+      if (data.error === singleCode) {
+        errorMessage = message;
+        break;
       }
-    } else if (data.error === code) {
-      errorMessage = message;
-      break;
     }
   }
   onError(new ErrorMessage(errorMessage));

@@ -26,11 +26,11 @@ export const API_ERRORS = {
     defaultError: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
     errors: [
       [
-        validateCodes.DATABASE_DATA_CONFLICT_ERROR,
+        [validateCodes.DATABASE_DATA_CONFLICT_ERROR],
         'Punkt o podanym kodzie został zebrany już wcześniej.',
       ],
       [
-        validateCodes.DATABASE_NO_RESULT_ERROR,
+        [validateCodes.DATABASE_NO_RESULT_ERROR],
         'Punkt o podanym kodzie nie istnieje.',
       ],
     ],
