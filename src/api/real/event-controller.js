@@ -56,7 +56,6 @@ export const eventController = {
         mapLatitude,
         mapZoom,
       },
-      transformResponseData: data => data.eventId,
       ...API_ERRORS.updateEvent,
     });
 

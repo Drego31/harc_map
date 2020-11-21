@@ -6,6 +6,11 @@ export const formMixin = {
     isSending: false,
     blockForm: false,
   }),
+  computed: {
+    hasErrors () {
+      return this._events.length > 0;
+    },
+  },
   methods: {
     onErrorOccurs (errorMessage) {
       console.error(errorMessage);
