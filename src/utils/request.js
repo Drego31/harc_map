@@ -18,10 +18,7 @@ export function makeRequest ({
     })
       .then(response => apiResponseService.takeOverResponse({
         response,
-        onSuccess: responseData => {
-          delete responseData.error;
-          resolve(transformResponseData(responseData));
-        },
+        onSuccess: responseData => resolve(transformResponseData(responseData)),
         onError: reject,
         defaultError,
         errors,

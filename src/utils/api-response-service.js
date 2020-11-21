@@ -19,6 +19,7 @@ export const apiResponseService = {
   }) {
     response.json().then(data => {
       if (this.hasNoError(data)) {
+        delete data.error;
         onSuccess(data);
       } else {
         catchError({
