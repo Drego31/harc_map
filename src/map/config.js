@@ -16,4 +16,9 @@ export const mapConfig = {
     defaultWidth: 2,
     zIndex: 10,
   },
+  lineConnectingPoints: {
+    visible: true,
+    color: '#008844',
+    width: 4,
+  },
 };

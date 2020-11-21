@@ -41,7 +41,6 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import { api } from 'api/index';
 import { THEMES } from 'utils/style-manager';
 import { ROUTES } from 'utils/macros/routes';
 import router from 'src/router';
@@ -83,16 +82,10 @@ export default {
       this.close();
     },
     signOut () {
-      api.signOut({
-        user: this.$store.getters['user/user'],
-      })
-        .then(this.onSignOut)
-        .catch(() => {
-          alert('Something went wrong...');
-        });
+      this.$store.dispatch('user/signOut')
+        .finally(() => this.onSignOut());
     },
     onSignOut () {
-      this.$store.commit('user/signOut');
       this.$router.push(ROUTES.welcome.path);
     },
   },
