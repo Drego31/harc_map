@@ -15,7 +15,7 @@ export const apiResponseService = {
     onSuccess = requireMethod('onSuccess'),
     onError = requireMethod('onError'),
     errors = [],
-    defaultError = ERRORS.undefined,
+    defaultError = ERRORS.undefined.defaultError,
   }) {
     response.json().then(data => {
       if (this.hasNoError(data)) {

@@ -1,7 +1,6 @@
 import validateCodes from '../../../lib/validateCodes';
 
 export const ERRORS = {
-  undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
   eventIdIsRequired: '"eventId" param is required',
   elementIdIsRequiredForMap: 'elementId is necessary to create map',
   pointWithPointIdDoesntExist: pointId => `Punkt o kodzie "${pointId}" nie istnieje.`,
@@ -10,6 +9,9 @@ export const ERRORS = {
 };
 
 export const API_ERRORS = {
+  undefined: {
+    defaultError: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
+  },
   // EVENT
   getEventById: {
     defaultError: 'Pobieranie danych wydarzenia się nie powiodło.',
