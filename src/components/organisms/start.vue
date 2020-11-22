@@ -1,7 +1,7 @@
 <template>
   <div class="m-panel f-start">
     <div class="a-img f-map" :style="style">
-      <div class="a-text f-title f-start" v-text="name"/>
+      <div class="a-text f-title f-start" v-text="eventName"/>
     </div>
     <div class="f-p-2">
       <div v-if="sumOfCollectedPoints > 0" class="a-text f-subtitle f-start">
@@ -26,7 +26,7 @@ export default {
       'sumOfCollectedPoints',
     ]),
     ...mapGetters('event', [
-      'name',
+      'eventName',
     ]),
     ...mapGetters('theme', {
       themeName: 'name',

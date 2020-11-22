@@ -39,7 +39,7 @@
     />
     <div
       class="a-assist"
-      :class="{ 'f-error': error }"
+      :class="{ 'f-error': error, 'f-disabled': disabled}"
     >
       {{ assist }}
     </div>
@@ -100,6 +100,7 @@ export default {
         'f-error': this.error,
         'f-correct': this.correct,
         'f-icon': this.error || this.isPassword,
+        'f-disabled': this.disabled,
       };
     },
     getType () {

@@ -22,6 +22,9 @@ export const API_ERRORS = {
   getCategoriesByEventId: {
     defaultError: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
   },
+  updateEvent: {
+    defaultError: 'Edycja danych dla wybranego wydarzenia się nie powiodła',
+  },
   collectPoint: {
     defaultError: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
     errors: [
