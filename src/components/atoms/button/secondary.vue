@@ -1,7 +1,7 @@
 <template>
   <a-button
     @click="$emit('click')"
-    class="a-button f-secondary"
+    :add-class="['f-secondary', addClass]"
     :loading="loading"
     loading-img="/img/zhp-green.png"
   >
@@ -14,6 +14,6 @@ import AButton from 'atoms/button';
 export default {
   name: 'a-button-secondary',
   components: { AButton },
-  props: ['loading'],
+  props: ['loading', 'addClass'],
 };
 </script>
