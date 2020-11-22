@@ -150,7 +150,7 @@ router.route('/')
         .then(results => utils.throwIfEmpty(results, errorsCodes.EVENT_ID_NOT_EXIST))
         // check if user and userTeam doesn't already exist
         .then(() => database.read('users', { $or: [{ user }, { userTeam }] }))
-        .then(results => utils.throwIf(results.length, errorsCodes.USER_EXIST))
+        .then(results => utils.throwIf(results, results.length, errorsCodes.USER_EXIST))
         // create user
         .then(() => database.create('users', [newUserData]))
         .then(utils.throwIfEmpty)
@@ -167,7 +167,7 @@ router.route('/')
           if ([errorsCodes.USER_EXIST, errorsCodes.EVENT_ID_NOT_EXIST].includes(errorCode)) {
             utils.responseUserError(res, 400, errorCode);
           } else {
-            utils.responseUserError(res, 200, errorCode);
+            utils.responseUserError(res, 200, errorCode, errorCode);
           }
         });
     } else {
@@ -248,8 +248,8 @@ router.route('/login')
           const result = results[0];
           res.send(__getUserDataForResponse(req.user, result.collectedPointsIds));
         })
-        .catch(() => {
-          utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR);
+        .catch(errorMsg => {
+          utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR, errorMsg);
         });
     } else if (Object.keys(req.body).length === 0) {
       utils.responseUserError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
@@ -276,8 +276,8 @@ router.route('/login')
                     const result = results[0];
                     res.send(__getUserDataForResponse(userData, result.collectedPointsIds));
                   })
-                  .catch(() => {
-                    utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR);
+                  .catch(errorMsg => {
+                    utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR, errorMsg);
                   });
               }
             });
@@ -371,7 +371,7 @@ router.route('/activation/:key')
       .then(utils.throwIfEmpty)
       .then(results => results[0])
       // check if account isn't active
-      .then(result => utils.throwIf(result.accountIsActive, errorsCodes.DATABASE_NO_RESULT_ERROR))
+      .then(result => utils.throwIf(result, result.accountIsActive, errorsCodes.DATABASE_NO_RESULT_ERROR))
       // update account to active
       .then(result => database.update('users', { _id: database.ObjectId(result._id) }, activationUpdateData))
       // successful updated
@@ -383,7 +383,7 @@ router.route('/activation/:key')
         if (errorCode === errorsCodes.DATABASE_NO_RESULT_ERROR) {
           res.redirect(302, '/404');
         } else {
-          utils.responseUserError(res, 200, errorCode);
+          utils.responseUserError(res, 200, errorCode, errorCode);
         }
       });
   });
@@ -483,7 +483,7 @@ router.route('/remind')
           });
         })
         .catch(errorCode => {
-          utils.responseUserError(res, 200, errorCode);
+          utils.responseUserError(res, 200, errorCode, errorCode);
         });
     } else {
       utils.responseUserError(res, 400, errorsCodes.JSON_INCORRECT, requestBodyValidationError);
@@ -524,7 +524,8 @@ router.route('/remind/:key')
       // check if forgotTimeout hasn't ended
       .then(userWithKey => __checkForgotTimeout(userWithKey.forgotTimestamp))
       .then(() => res.sendFile(path.resolve(__dirname, '../public/index.html')))
-      .catch(() => {
+      .catch(errorMsg => {
+        if (errorMsg) console.trace(errorMsg);
         res.redirect(302, '/404');
       });
   })
@@ -618,7 +619,7 @@ router.route('/remind/:key')
           });
         })
         .catch(errorCode => {
-          utils.responseUserError(res, 200, errorCode);
+          utils.responseUserError(res, 200, errorCode, errorCode);
         });
     } else {
       utils.responseUserError(res, 400, errorsCodes.JSON_INCORRECT);
