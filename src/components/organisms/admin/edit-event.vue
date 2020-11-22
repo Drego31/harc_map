@@ -10,8 +10,13 @@
         disabled
         placeholder="Klucz wydarzenia"
         v-model="values.eventId"
+        assist="Klucz wydarzenia jest generowany automatycznie"
       />
-      <div class="f-text-center f-text-danger" v-text="message"/>
+      <div
+        class="f-text-center"
+        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
+        v-text="message"
+      />
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
@@ -29,7 +34,7 @@ import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
 import { mixins } from 'mixins/base';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import AButtonSecondary from 'atoms/button/secondary';
 
 export default {
@@ -49,6 +54,7 @@ export default {
       },
       blockForm: false,
       isSending: false,
+      isServerError: false,
       message: '',
     };
   },
@@ -58,7 +64,6 @@ export default {
   },
   computed: {
     ...mapGetters('event', ['event', 'getEventBasicInformation']),
-    ...mapMutations('event', ['setEvent']),
   },
   methods: {
     updateEvent () {
@@ -68,8 +73,17 @@ export default {
       };
       api.updateEvent(updatedEvent)
         .then(api.getEventById)
-        .then(this.setEvent)
+        .then(eventData => this.$store.commit('event/setEvent', eventData))
+        .then(this.onEventUpdate)
         .catch(this.onErrorOccurs);
+    },
+    onEventUpdate () {
+      this.isServerError = false;
+      this.message = 'Zapisanie nowych danych wydarzenia się powiodło.';
+      setTimeout(() => this.clearMessage(), 3000);
+    },
+    clearMessage () {
+      this.message = '';
     },
   },
 };

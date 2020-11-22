@@ -105,9 +105,9 @@ export default {
   },
   actions: {
     download (context, eventId = context.state.eventId) {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
         let event;
-        api.getEventById(eventId)
+        api.getEventById({ eventId })
           .then(data => (event = data))
           .then(api.getCategoriesByEventId)
           .then(categories => {
@@ -119,6 +119,27 @@ export default {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);
             resolve(event);
+          })
+          .catch(reject);
+      });
+    },
+    collectPoint (context, pointId) {
+      return new Promise((resolve, reject) => {
+        api.collectPoint({
+          eventId: context.getters.eventId,
+          user: context.rootGetters['user/user'],
+          pointId,
+        })
+          .then(() => {
+            context.commit('updatePoint', {
+              pointId,
+              pointCollectionTime: Date.now(),
+            });
+            context.commit('user/addCollectedPointId', pointId, { root: true });
+            resolve();
+          })
+          .catch(error => {
+            reject(error);
           });
       });
     },

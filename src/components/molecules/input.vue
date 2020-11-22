@@ -39,7 +39,7 @@
     />
     <div
       class="a-assist"
-      :class="{ 'f-error': error }"
+      :class="{ 'f-error': error, 'f-disabled': disabled}"
     >
       {{ assist }}
     </div>
