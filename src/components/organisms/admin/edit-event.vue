@@ -12,15 +12,15 @@
         v-model="values.eventId"
         assist="Klucz wydarzenia jest generowany automatycznie"
       />
-      <a-button-submit
-        :disabled="blockForm"
-        :is-sending="isSending"
-        text="Zapisz"
-      />
       <div
         class="f-text-center"
         :class="[hasErrors ? 'f-text-danger' : 'f-text-primary']"
         v-text="message"
+      />
+      <a-button-submit
+        :disabled="blockForm"
+        :is-sending="isSending"
+        text="Zapisz"
       />
     </o-form>
     <a-button-secondary class="f-text-center">
@@ -78,7 +78,7 @@ export default {
     },
     onEventUpdate () {
       this.message = 'Zapisanie nowych danych wydarzenia powiodło się.';
-      setTimeout(() => this.clearMessage(), 1500);
+      setTimeout(() => this.clearMessage(), 3000);
     },
     clearMessage () {
       this.message = '';
