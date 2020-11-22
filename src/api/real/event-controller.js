@@ -45,4 +45,19 @@ export const eventController = {
       ...API_ERRORS.collectPoint,
     });
   },
+  updateEvent ({ eventId, eventName, mapLongitude, mapLatitude, mapZoom }) {
+    return makeRequest({
+      method: request.put,
+      url: '/event',
+      data: {
+        eventId,
+        eventName,
+        mapLongitude,
+        mapLatitude,
+        mapZoom,
+      },
+      ...API_ERRORS.updateEvent,
+    });
+
+  },
 };
