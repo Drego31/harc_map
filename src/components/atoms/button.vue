@@ -1,6 +1,10 @@
 <template>
-  <div class="m-area f-button" @click="$emit('click')">
-    <button class="a-button" :class="addClass">
+  <div class="m-area f-button" @click="$emit('click', $event)">
+    <button
+      class="a-button"
+      :class="addClass"
+      ref="button"
+    >
       <slot v-if="loading === false"/>
       <a-loader v-if="loading" :img="loadingImg"/>
     </button>
@@ -24,8 +28,8 @@ export default {
       default: '',
     },
     addClass: {
-      type: String || Array,
-      default: '',
+      type: Array,
+      default: () => [],
     },
   },
 };

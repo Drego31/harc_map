@@ -1,6 +1,6 @@
 <template>
   <a-button
-    @click="$emit('click')"
+    @click="$emit('click', $event)"
     :add-class="['f-secondary', addClass]"
     :loading="loading"
     loading-img="/img/zhp-green.png"
