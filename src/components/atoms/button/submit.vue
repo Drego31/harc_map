@@ -5,7 +5,7 @@
     type="submit"
     :loading="isSending"
   >
-    {{ message ? message : 'Dalej' }}
+    {{ message ? message : text }}
   </a-button-primary>
 </template>
 
@@ -27,6 +27,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    text: {
+      type: String,
+      default: 'Dalej',
     },
   },
 };
