@@ -3,6 +3,7 @@
     @click="$emit('click')"
     class="f-primary"
     :loading="loading"
+    loading-img="/img/zhp.png"
   >
     <slot/>
   </a-button>

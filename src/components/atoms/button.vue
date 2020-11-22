@@ -1,7 +1,7 @@
 <template>
   <button @click="$emit('click')" class="a-button">
     <slot v-if="loading === false"/>
-    <a-loader v-if="loading"/>
+    <a-loader v-if="loading" :img="loadingImg"/>
   </button>
 </template>
 
@@ -15,6 +15,10 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    loadingImg: {
+      type: String,
+      default: '',
     },
   },
 };
