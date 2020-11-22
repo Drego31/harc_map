@@ -14,7 +14,7 @@
       />
       <div
         class="f-text-center"
-        :class="[hasErrors ? 'f-text-danger' : 'f-text-primary']"
+        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
         v-text="message"
       />
       <a-button-submit
@@ -54,6 +54,7 @@ export default {
       },
       blockForm: false,
       isSending: false,
+      isServerError: false,
       message: '',
     };
   },
@@ -77,7 +78,8 @@ export default {
         .catch(this.onErrorOccurs);
     },
     onEventUpdate () {
-      this.message = 'Zapisanie nowych danych wydarzenia powiodło się.';
+      this.isServerError = false;
+      this.message = 'Zapisanie nowych danych wydarzenia się powiodło.';
       setTimeout(() => this.clearMessage(), 3000);
     },
     clearMessage () {

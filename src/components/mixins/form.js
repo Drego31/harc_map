@@ -5,15 +5,12 @@ export const formMixin = {
     message: '',
     isSending: false,
     blockForm: false,
+    isServerError: false,
   }),
-  computed: {
-    hasErrors () {
-      return this._events.length > 0;
-    },
-  },
   methods: {
     onErrorOccurs (errorMessage) {
       console.error(errorMessage);
+      this.isServerError = true;
       this.message = errorMessage.message;
       this.isSending = false;
       this.blockForm = false;
