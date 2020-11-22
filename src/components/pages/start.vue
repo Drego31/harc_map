@@ -1,6 +1,17 @@
 <template>
   <t-page title="Start" class="f-start">
-    <o-start></o-start>
+    <m-panel
+      :title="eventName"
+      :img-styles="imgStyles"
+    >
+      <div v-if="sumOfCollectedPoints > 0">
+        Zebraliście już <span class="f-text-white">{{ sumOfCollectedPoints }} pkt</span>
+      </div>
+      <div v-else>
+        Nie zebraliście jeszcze żadnych punktów
+      </div>
+    </m-panel>
+
     <div class="f-p-2">
       <a-button-primary
         class="f-fill f-mt-3 f-mb-4"
@@ -20,17 +31,33 @@
 
 <script>
 import TPage from 'templates/page';
-import OStart from 'organisms/start';
 import AButtonPrimary from 'atoms/button/primary';
 import AButtonSecondary from 'atoms/button/secondary';
+import MPanel from 'molecules/panel';
+import { mapGetters } from 'vuex';
+import { THEMES } from 'utils/style-manager';
 
 export default {
   name: 'p-start',
   components: {
+    MPanel,
     AButtonSecondary,
     AButtonPrimary,
     TPage,
-    OStart,
+  },
+  computed: {
+    ...mapGetters('user', [
+      'sumOfCollectedPoints',
+    ]),
+    ...mapGetters('event', [
+      'eventName',
+    ]),
+    imgStyles () {
+      const styles = {};
+      styles[THEMES.dark] = 'background-image: url("/img/compass.jpg"); background-size: auto 100%';
+      styles[THEMES.light] = 'background-image: url("/img/compass.jpg"); background-size: auto 100%';
+      return styles;
+    },
   },
 };
 </script>
