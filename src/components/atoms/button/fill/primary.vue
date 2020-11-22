@@ -1,6 +1,6 @@
 <template>
   <a-button-primary
-    @click="$emit('click')"
+    @click="$emit('click', $event)"
     class="f-fill"
     :add-class="['f-fill', addClass]"
     :loading="loading"
