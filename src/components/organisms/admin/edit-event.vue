@@ -71,9 +71,7 @@ export default {
         ...this.getEventBasicInformation,
         eventName: this.values.eventName,
       };
-      api.updateEvent(updatedEvent)
-        .then(api.getEventById)
-        .then(eventData => this.$store.commit('event/setEvent', eventData))
+      this.$store.dispatch('event/updateEvent', updatedEvent)
         .then(this.onEventUpdate)
         .catch(this.onErrorOccurs);
     },
