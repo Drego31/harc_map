@@ -1,8 +1,8 @@
 <template>
-  <div class="m-area f-button" @click="$emit('click', $event)">
+  <div class="m-area f-button" @click="emitClick($event)">
     <button
       class="a-button"
-      :class="addClass"
+      :class="getClass"
       ref="button"
       :disabled="disabled"
     >
@@ -35,6 +35,24 @@ export default {
     loadingImg: {
       type: String,
       default: '',
+    },
+  },
+  computed: {
+    getClass () {
+      const classes = [this.addClass];
+
+      if (this.loading) {
+        classes.push('f-loading');
+      }
+
+      return classes;
+    },
+  },
+  methods: {
+    emitClick (event) {
+      if (this.disabled === false) {
+        this.$emit('click', event);
+      }
     },
   },
 };

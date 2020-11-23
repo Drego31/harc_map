@@ -8,9 +8,9 @@
       <a-button-secondary @click="$router.push(ROUTES.signUp.path)">
         {{ ROUTES.signUp.label }}
       </a-button-secondary>
-      <a-button-secondary @click="$router.push(ROUTES.about.path)">
+      <a-button-primary loading disabled @click="$router.push(ROUTES.about.path)">
         {{ ROUTES.about.label }}
-      </a-button-secondary>
+      </a-button-primary>
     </div>
   </t-page>
 </template>

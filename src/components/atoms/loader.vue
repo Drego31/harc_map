@@ -15,7 +15,7 @@ export default {
   name: 'a-loader',
   props: {
     addClass: {
-      type: String,
+      type: [Array, String],
       default: '',
     },
     img: {
