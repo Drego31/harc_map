@@ -3,7 +3,7 @@
     @click="$emit('click', $event)"
     :add-class="['f-secondary', addClass]"
     :loading="loading"
-    loading-img="/img/zhp-green-52.png"
+    :loading-img="loadingImg"
     :disabled="disabled"
   >
     <slot/>
@@ -12,6 +12,8 @@
 
 <script>
 import AButton from 'atoms/button';
+import { THEMES } from 'utils/style-manager';
+
 export default {
   name: 'a-button-secondary',
   components: { AButton },
@@ -27,6 +29,15 @@ export default {
     addClass: {
       type: [Array, String],
       default: '',
+    },
+  },
+  computed: {
+    loadingImg () {
+      if (this.$store.getters['theme/name'] === THEMES.dark) {
+        return '/img/zhp-52.png';
+      } else {
+        return '/img/zhp-green-52.png';
+      }
     },
   },
 };
