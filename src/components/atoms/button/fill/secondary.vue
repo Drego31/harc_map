@@ -1,21 +1,21 @@
 <template>
-  <a-button
-    @click="$emit('click')"
-    :add-class="['f-primary', addClass]"
+  <a-button-secondary
+    @click="$emit('click', $event)"
+    class="f-fill"
+    :add-class="['f-fill', addClass]"
     :loading="loading"
     :disabled="disabled"
-    loading-img="/img/zhp-52.png"
   >
     <slot/>
-  </a-button>
+  </a-button-secondary>
 </template>
 
 <script>
-import AButton from 'atoms/button';
+import AButtonSecondary from 'atoms/button/secondary';
 
 export default {
-  name: 'a-button-primary',
-  components: { AButton },
+  name: 'a-button-fill-secondary',
+  components: { AButtonSecondary },
   props: {
     disabled: {
       type: Boolean,
