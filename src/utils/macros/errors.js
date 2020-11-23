@@ -45,12 +45,15 @@ export const API_ERRORS = {
     errors: [
       [
         [
-          validateCodes.SESSION_ERROR,
           validateCodes.IS_NOT_EMAIL,
           validateCodes.PASSWORD_TOO_SHORT,
           validateCodes.PASSWORD_HAS_NOT_NUMBER,
         ],
         'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
+      ],
+      [
+        [validateCodes.SESSION_ERROR],
+        'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
       ],
     ],
   },
