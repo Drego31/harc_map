@@ -8,6 +8,7 @@ import './validation';
 import { ROUTES } from 'utils/macros/routes';
 import { ICONS } from './__jscash__/icons-names-list';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
+import i18n from './dictionary';
 
 styleManager.init();
 
@@ -30,8 +31,11 @@ Vue.mixin({
   },
 });
 
+console.log(i18n.t('hi'));
+
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App),
 }).$mount('#app');

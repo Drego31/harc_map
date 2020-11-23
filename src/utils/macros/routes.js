@@ -1,5 +1,7 @@
 import { ICONS } from 'src/__jscash__/icons-names-list';
 
+i18n
+
 export const ROUTES = {
   welcome: {
     path: '/',
