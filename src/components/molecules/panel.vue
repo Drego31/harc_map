@@ -1,7 +1,7 @@
 <template>
   <div class="m-panel f-page">
     <div class="a-img f-panel" :style="style">
-      <div v-if="title !== ''" class="a-text f-title f-big">
+      <div v-if="title !== ''" class="m-banner f-panel">
         {{ title }}
       </div>
     </div>
