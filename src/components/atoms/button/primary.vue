@@ -3,7 +3,8 @@
     @click="$emit('click')"
     :add-class="['f-primary', addClass]"
     :loading="loading"
-    loading-img="/img/zhp.png"
+    :disabled="disabled"
+    loading-img="/img/zhp-52.png"
   >
     <slot/>
   </a-button>
@@ -15,6 +16,19 @@ import AButton from 'atoms/button';
 export default {
   name: 'a-button-primary',
   components: { AButton },
-  props: ['loading', 'addClass'],
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    addClass: {
+      type: [Array, String],
+      default: '',
+    },
+  },
 };
 </script>

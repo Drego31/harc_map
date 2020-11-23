@@ -4,9 +4,10 @@
       class="a-button"
       :class="addClass"
       ref="button"
+      :disabled="disabled"
     >
       <slot v-if="loading === false"/>
-      <a-loader v-if="loading" :img="loadingImg"/>
+      <a-loader v-if="loading" :add-class="addClass" :img="loadingImg"/>
     </button>
   </div>
 </template>
@@ -19,17 +20,21 @@ export default {
   components: { ALoader },
   inheritAttrs: false,
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     loading: {
       type: Boolean,
       default: false,
     },
+    addClass: {
+      type: [Array, String],
+      default: '',
+    },
     loadingImg: {
       type: String,
       default: '',
-    },
-    addClass: {
-      type: Array,
-      default: () => [],
     },
   },
 };

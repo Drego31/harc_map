@@ -2,7 +2,7 @@
   <span class="a-loader">
     <img
       class="a-img f-loader"
-      :class="additionalClass"
+      :class="addClass"
       :src="img"
       alt="logo"
     />
@@ -14,13 +14,13 @@
 export default {
   name: 'a-loader',
   props: {
-    additionalClass: {
+    addClass: {
       type: String,
       default: '',
     },
     img: {
       type: String,
-      default: '/img/zhp.png',
+      default: '/img/zhp-52.png',
     },
   },
 };

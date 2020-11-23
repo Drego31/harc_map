@@ -4,6 +4,7 @@
     class="f-fill"
     :add-class="['f-fill', addClass]"
     :loading="loading"
+    :disabled="disabled"
   >
     <slot/>
   </a-button-primary>
@@ -15,6 +16,19 @@ import AButtonPrimary from 'atoms/button/primary';
 export default {
   name: 'a-button-fill-primary',
   components: { AButtonPrimary },
-  props: ['loading', 'addClass'],
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    addClass: {
+      type: [Array, String],
+      default: '',
+    },
+  },
 };
 </script>
