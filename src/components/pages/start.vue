@@ -12,37 +12,31 @@
       </div>
     </m-panel>
 
-    <div class="f-p-2">
-      <a-button-primary
-        class="f-fill f-mt-3 f-mb-4"
-        @click="$router.push(ROUTES.map.path)"
-      >
+    <div class="m-collection f-button f-px-2">
+      <a-button-fill-primary @click="$router.push(ROUTES.map.path)">
         Rozpocznij poszukiwania!
-      </a-button-primary>
-      <a-button-secondary
-        class="f-fill"
-        @click="$router.push(ROUTES.collectedPoints.path)"
-      >
+      </a-button-fill-primary>
+      <a-button-fill-secondary @click="$router.push(ROUTES.collectedPoints.path)">
         Sprawdź swoje wyniki
-      </a-button-secondary>
+      </a-button-fill-secondary>
     </div>
   </t-page>
 </template>
 
 <script>
 import TPage from 'templates/page';
-import AButtonPrimary from 'atoms/button/primary';
-import AButtonSecondary from 'atoms/button/secondary';
 import MPanel from 'molecules/panel';
 import { mapGetters } from 'vuex';
 import { THEMES } from 'utils/style-manager';
+import AButtonFillSecondary from 'atoms/button/fill/secondary';
+import AButtonFillPrimary from 'atoms/button/fill/primary';
 
 export default {
   name: 'p-start',
   components: {
     MPanel,
-    AButtonSecondary,
-    AButtonPrimary,
+    AButtonFillPrimary,
+    AButtonFillSecondary,
     TPage,
   },
   computed: {

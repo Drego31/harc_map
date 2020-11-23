@@ -1,11 +1,12 @@
 <template>
   <a-button-primary
+    @click="$emit('click', $event)"
+    class="f-fill"
+    :add-class="['f-fill', addClass]"
+    :loading="loading"
     :disabled="disabled"
-    @click="$emit('click')"
-    type="submit"
-    :loading="isSending"
   >
-    {{ message ? message : text }}
+    <slot/>
   </a-button-primary>
 </template>
 
@@ -13,24 +14,20 @@
 import AButtonPrimary from 'atoms/button/primary';
 
 export default {
-  name: 'a-button-submit',
+  name: 'a-button-fill-primary',
   components: { AButtonPrimary },
   props: {
-    isSending: {
-      type: Boolean,
-      default: false,
-    },
-    message: {
-      type: String,
-      default: '',
-    },
     disabled: {
       type: Boolean,
       default: false,
     },
-    text: {
-      type: String,
-      default: 'Dalej',
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    addClass: {
+      type: [Array, String],
+      default: '',
     },
   },
 };
