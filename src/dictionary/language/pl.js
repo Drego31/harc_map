@@ -43,4 +43,13 @@ export const pl = {
       nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
     },
   },
+  from: {
+    field: {
+      email: 'E-mail',
+      password: 'Hasło',
+      rePassword: 'Powtórz hasło',
+      userTeam: 'Nazwa patrolu',
+      eventId: 'Kod wydarzenia',
+    },
+  },
 };

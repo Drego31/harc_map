@@ -13,13 +13,13 @@
         :disabled="blockForm"
       />
       <m-field-text
-        label="Nazwa patrolu"
+        :label="$t('form.field.userTeam')"
         :rules="rules.userTeam"
         v-model="values.userTeam"
         :disabled="blockForm"
       />
       <m-field-text
-        label="Kod wydarzenia"
+        :label="$t('form.field.eventId')"
         :rules="rules.eventId"
         v-model="values.eventId"
         :disabled="blockForm"
@@ -53,6 +53,7 @@ import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
+
 export default {
   name: 'o-form-sign-in',
   mixins: [mixins.form, mixins.validation],
