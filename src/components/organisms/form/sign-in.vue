@@ -2,12 +2,12 @@
   <o-form :on-submit="signIn">
     <m-input
       :disabled="blockForm"
-      placeholder="E-mail"
+      :placeholder="$t('form.field.email')"
       v-model="values.user"
     />
     <m-input
       :disabled="blockForm"
-      placeholder="Hasło"
+      :placeholder="$t('form.field.password')"
       type="password"
       v-model="values.password"
     />

@@ -1,8 +1,8 @@
 <template>
-  <t-page title="Logowanie" class="f-flex f-flex-col">
+  <t-page class="f-flex f-flex-col">
     <o-form-sign-in/>
     <a-button-secondary @click="$router.push(ROUTES.remindPassword.path)">
-      Przypomnij hasło
+      {{ ROUTES.remindPassword.label }}
     </a-button-secondary>
   </t-page>
 </template>
