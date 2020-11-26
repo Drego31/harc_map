@@ -21,6 +21,7 @@ export const pl = {
   },
   general: {
     showMore: 'pokaż&nbsp;więcej...',
+    pointUnit: 'pkt',
   },
   page: {
     about: {
@@ -34,6 +35,12 @@ export const pl = {
       frontDev: 'Front-end Developer',
       backDev: 'Back-end Developer',
       uxDesigner: 'UX Designer',
+    },
+    start: {
+      search: 'Rozpocznij poszukiwania!',
+      checkResults: 'Sprawdź swoje wyniki',
+      alreadyCollected: 'Zebraliście już',
+      nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
     },
   },
 };

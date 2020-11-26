@@ -5,10 +5,13 @@
     </div>
     <div class="f-p-2">
       <div v-if="sumOfCollectedPoints > 0" class="a-text f-subtitle f-start">
-        Zebraliście już <span class="f-text-white">{{ sumOfCollectedPoints }} pkt</span>
+        {{ $t('page.start.alreadyCollected') }}
+        <span class="f-text-white">
+          {{ sumOfCollectedPoints }} {{ $t('general.pointUnit') }}
+        </span>
       </div>
       <div v-else class="a-text f-subtitle f-start">
-        Nie zebraliście jeszcze żadnych punktów
+        {{ $t('page.start.nothingCollected') }}
       </div>
     </div>
   </div>

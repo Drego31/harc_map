@@ -1,18 +1,18 @@
 <template>
-  <t-page title="Start" class="f-start">
+  <t-page class="f-start">
     <o-start></o-start>
     <div class="f-p-2">
       <a-button-primary
         class="f-fill f-mt-3 f-mb-4"
         @click="$router.push(ROUTES.map.path)"
       >
-        Rozpocznij poszukiwania!
+        {{ $t('page.start.search') }}
       </a-button-primary>
       <a-button-secondary
         class="f-fill"
         @click="$router.push(ROUTES.collectedPoints.path)"
       >
-        Sprawdź swoje wyniki
+        {{ $t('page.start.checkResults') }}
       </a-button-secondary>
     </div>
   </t-page>
