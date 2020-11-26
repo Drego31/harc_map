@@ -2,23 +2,20 @@
   <t-page :title="ROUTES.about.label" class="f-text-center">
     <p class="f-text-left">
       <span>
-        <strong>HarcMap</strong> to aplikacja przeznaczona do przeprowadzania gier terenowych dla harcerzy i nie tylko. Pomysłodawcą
-        projektu jest drużynowy z Hufca ZHP Gdynia
+        <strong>HarcMap</strong> {{ $t('page.about.appInfo') }}
       </span>
       <span
         v-if="showMore === false"
         class="f-text-bold f-text-underline"
         @click="showMore = true"
-      >
-        pokaż&nbsp;więcej...
-      </span>
+        v-html="$t('general.showMore')"
+      />
       <span v-else>
-        Dominik Betka, który jest z zawodu programistą. Zebrał on zespół osób z branży,
-        które chciały pomóc w formie wolontariatu. Poniżej możecie poznać ludzi, którzy poświęcili swój czas na stworzenie
-        tak ciekawego projektu. Dziękuję tym osobą za tą ciężką pracę. <strong>:)</strong>
+        {{ $t('page.about.more') }}
+        <strong>:)</strong>
       </span>
     </p>
-    <p class="f-text-bold">O twórcach</p>
+    <p class="f-text-bold">{{ $t('page.about.authors') }}</p>
     <div
       v-for="person of creators"
       :key="person.fullName"
@@ -32,7 +29,6 @@
         size="64"
         v-else
       />
-      <!--      <icon-account-circle :size="64" v-else/>-->
       <div class="f-flex-1 f-pt-1 f-pl-1 f-text-left">
         <div class="f-text-bold">{{ person.fullName }}</div>
         <div class="f-text-14">{{ person.responsibilities }}</div>
@@ -59,6 +55,7 @@
 <script>
 import TPage from 'templates/page';
 import AIcon from 'atoms/icon';
+import { translator } from 'src/dictionary';
 
 export default {
   name: 'p-about',
@@ -72,7 +69,7 @@ export default {
       {
         photo: '/img/dbetka.jpeg',
         fullName: 'Dominik Betka',
-        responsibilities: 'Lider, Programista front-end',
+        responsibilities: translator.t('page.about.leader') + ', ' + translator.t('page.about.frontDev'),
         links: [
           {
             label: 'GitHub',
@@ -87,7 +84,7 @@ export default {
       {
         photo: 'https://i.ibb.co/sj5dcdW/harc.jpg',
         fullName: 'Paweł Bednarczyk',
-        responsibilities: 'Programista front-end',
+        responsibilities: translator.t('page.about.frontDev'),
         links: [
           {
             label: 'GitHub',
@@ -98,7 +95,7 @@ export default {
       {
         photo: 'https://henouser.pl/photo.jpeg',
         fullName: 'Paweł Jurkiewicz',
-        responsibilities: 'Programista back-end',
+        responsibilities: translator.t('page.about.backDev'),
         links: [
           {
             label: 'Site',
@@ -112,12 +109,8 @@ export default {
       {
         // photo: 'https://media-exp1.licdn.com/dms/image/C4E03AQGHPMB1bAAq7A/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=YRm71P6-8AsosWqGUtSFam-IO1XgJxwhp-jYiPbP5GE',
         fullName: 'Filip Betka',
-        responsibilities: 'Programista back-end',
+        responsibilities: translator.t('page.about.backDev'),
         links: [
-          {
-            label: 'GitHub',
-            path: 'https://github.com/filbetka/',
-          },
           {
             label: 'LinkedIn',
             path: 'https://www.linkedin.com/in/filip-betka-6b1b10184/',
@@ -127,13 +120,18 @@ export default {
       {
         photo: '',
         fullName: 'Magdalena Granke',
-        responsibilities: 'UX Designer',
-        links: [],
+        responsibilities: translator.t('page.about.uxDesigner'),
+        links: [
+          {
+            label: 'LinkedIn',
+            path: 'https://www.linkedin.com/in/magdalenagranke/',
+          },
+        ],
       },
       {
         photo: '',
         fullName: 'Adam Dominik',
-        responsibilities: 'Programista front-end',
+        responsibilities: translator.t('page.about.frontDev'),
         links: [],
       },
     ],
