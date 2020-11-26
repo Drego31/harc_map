@@ -17,10 +17,10 @@
 
     <template slot="response">
       <div class="f-py-2 f-text-bold">
-        Link do odzyskania hasła wysłano na podany email.
+        {{ $t('page.remindPassword.success') }}
       </div>
       <a-button-primary @click="$router.push(ROUTES.welcome.path)">
-        Przejdź do startowej
+        {{ $t('page.remindPassword.startPage') }}
       </a-button-primary>
     </template>
   </o-form>

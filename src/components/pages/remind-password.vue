@@ -1,5 +1,5 @@
 <template>
-  <t-page title="Przypomnij hasło">
+  <t-page>
     <o-remind-password/>
   </t-page>
 </template>

@@ -23,6 +23,25 @@ export const pl = {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
   },
+  form: {
+    field: {
+      email: 'E-mail',
+      password: 'Hasło',
+      rePassword: 'Powtórz hasło',
+      userTeam: 'Nazwa patrolu',
+      eventId: 'Kod wydarzenia',
+    },
+    validation: {
+      required: 'Pole jest wymagane.',
+      email: 'Musisz podać poprawny adres email.',
+      min: 'Pole musi składać się z co najmniej {length} znaków.',
+      max: 'Pole musi składać się z co najmniej {length} znaków.',
+      confirmed: 'Pole nie zgadza się z polem potwierdzającym {target}.',
+      length: 'Pole musi mieć długość {length}.',
+      hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
+      hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
+    },
+  },
   page: {
     about: {
       appInfo: `to aplikacja przeznaczona do przeprowadzania gier terenowych dla harcerzy i nie tylko. Pomysłodawcą
@@ -42,24 +61,9 @@ export const pl = {
       alreadyCollected: 'Zebraliście już',
       nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
     },
-  },
-  form: {
-    field: {
-      email: 'E-mail',
-      password: 'Hasło',
-      rePassword: 'Powtórz hasło',
-      userTeam: 'Nazwa patrolu',
-      eventId: 'Kod wydarzenia',
-    },
-    validation: {
-      required: 'Pole jest wymagane.',
-      email: 'Musisz podać poprawny adres email.',
-      min: 'Pole musi składać się z co najmniej {length} znaków.',
-      max: 'Pole musi składać się z co najmniej {length} znaków.',
-      confirmed: 'Pole nie zgadza się z polem potwierdzającym {target}.',
-      length: 'Pole musi mieć długość {length}.',
-      hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
-      hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
+    remindPassword: {
+      success: 'Link do odzyskania hasła wysłano na podany email.',
+      startPage: 'Przejdź do startowej',
     },
   },
 };
