@@ -31,8 +31,6 @@ Vue.mixin({
   },
 });
 
-console.log(i18n.t('hi'));
-
 new Vue({
   router,
   store,
