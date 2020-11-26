@@ -43,13 +43,23 @@ export const pl = {
       nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
     },
   },
-  from: {
+  form: {
     field: {
       email: 'E-mail',
       password: 'Hasło',
       rePassword: 'Powtórz hasło',
       userTeam: 'Nazwa patrolu',
       eventId: 'Kod wydarzenia',
+    },
+    validation: {
+      required: 'Pole jest wymagane.',
+      email: 'Musisz podać poprawny adres email.',
+      min: 'Pole musi składać się z co najmniej {length} znaków.',
+      max: 'Pole musi składać się z co najmniej {length} znaków.',
+      confirmed: 'Pole nie zgadza się z polem potwierdzającym {target}.',
+      length: 'Pole musi mieć długość {length}.',
+      hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
+      hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
     },
   },
 };

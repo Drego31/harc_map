@@ -1,38 +1,43 @@
 import Vue from 'vue';
-import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
+import {
+  extend as veeExtend,
+  ValidationObserver,
+  ValidationProvider,
+} from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
 import { messages } from 'vee-validate/dist/locale/pl.json';
 import validateTools from 'vendors/validate-tools';
+import { translator } from 'src/dictionary';
 
 // Register it globally
 Vue.component('validation-provider', ValidationProvider);
 Vue.component('validation-observer', ValidationObserver);
 
-messages.required = 'Pole jest wymagane.';
-messages.email = 'Musisz podać poprawny adres email.';
-messages.min = 'Pole musi składać się z co najmniej {length} znaków.';
-messages.max = 'Pole musi składać się z co najmniej {length} znaków.';
-messages.confirmed = 'Pole nie zgadza się z polem potwierdzającym {target}.';
-messages.length = 'Pole musi mieć długość {length}.';
+messages.required = translator.t('form.validation.required');
+messages.email = translator.t('form.validation.email');
+messages.min = translator.t('form.validation.min');
+messages.max = translator.t('form.validation.max');
+messages.confirmed = translator.t('form.validation.confirmed');
+messages.length = translator.t('form.validation.length');
 
 // Register all rules
 Object.keys(rules).forEach(rule => {
-  extend(rule, {
+  veeExtend(rule, {
     ...rules[rule], // copies rule configuration
     message: messages[rule], // assign message
   });
 });
 
-extend('hasNumber', {
+veeExtend('hasNumber', {
   validate (value) {
     return validateTools.hasNumber(value);
   },
-  message: 'Pole powinno zawierać conajmniej jedną cyfrę.',
+  message: translator.t('form.validation.hasNumber'),
 });
 
-extend('hasCapitalize', {
+veeExtend('hasCapitalize', {
   validate (value) {
     return /[A-Z]/.test(value);
   },
-  message: 'Pole powinno zawierać conajmniej jedną wielką literę.',
+  message: translator.t('form.validation.hasCapitalize'),
 });
