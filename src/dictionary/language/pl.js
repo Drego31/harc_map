@@ -66,4 +66,29 @@ export const pl = {
       startPage: 'Przejdź do startowej',
     },
   },
+  error: {
+    eventIdIsRequired: 'Kod wydarzenia jest wymagany',
+    elementIdIsRequiredForMap: 'Kod wydarzenia jest wymagany, by uruchomić mapę',
+    fakeErrorInMockApi: 'Fałszywy błąd mockApi',
+    dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta.',
+  },
+  apiError: {
+    undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
+
+    getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
+    getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
+    getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
+    updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła',
+    collectPoint: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
+    pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany już wcześniej.',
+    pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
+
+    signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
+    signInData: 'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
+    checkYourLoginSession: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
+    signUp: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
+    remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się ze względu na błąd serwera.',
+    signOut: 'Wylogowanie po stronie serwera nie powiodło. Zostałeś wylogowany lokalnie.',
+    changePassword: 'Zmiana hasła się nie powiodła ze względu na błąd serwera.',
+  },
 };
