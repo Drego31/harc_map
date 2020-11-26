@@ -22,6 +22,7 @@ export const pl = {
   general: {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
+    backToStart: 'Przejdź do startowej',
   },
   form: {
     field: {
@@ -63,7 +64,12 @@ export const pl = {
     },
     remindPassword: {
       success: 'Link do odzyskania hasła wysłano na podany email.',
-      startPage: 'Przejdź do startowej',
+    },
+    error: {
+      content: `Cześć! <br>
+        Wygląda na to, że znajdujesz się nie tam gdzie trzeba... <br>
+        <br>
+        Poszukaj innej drogi! :)`,
     },
   },
   error: {

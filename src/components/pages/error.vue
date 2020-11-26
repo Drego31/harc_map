@@ -1,15 +1,12 @@
 <template>
-  <t-page title="Error 404" class="f-text-center">
+  <t-page class="f-text-center">
     <div class="f-text-48 f-pb-2">
       404
     </div>
-    <div>
-      Cześć! <br>
-      Wygląda na to, że znajdujesz się nie tam, gdzie trzeba - nic tu nie ma! :(
-    </div>
+    <div v-html="$t('page.error.content')" />
     <div class="f-pt-1">
       <a-button-primary @click="$router.push(ROUTES.welcome.path)">
-        Przejdź do strony głównej
+        {{ $t('general.backToStart') }}
       </a-button-primary>
     </div>
   </t-page>

@@ -20,7 +20,7 @@
         {{ $t('page.remindPassword.success') }}
       </div>
       <a-button-primary @click="$router.push(ROUTES.welcome.path)">
-        {{ $t('page.remindPassword.startPage') }}
+        {{ $t('general.backToStart') }}
       </a-button-primary>
     </template>
   </o-form>

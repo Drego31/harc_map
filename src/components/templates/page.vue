@@ -10,7 +10,8 @@ import { ROUTES } from 'utils/macros/routes';
 export default {
   name: 't-page',
   mounted () {
-    const title = ROUTES[this.$router.currentRoute.name].label;
+    const route = ROUTES[this.$router.currentRoute.name] || {};
+    const title = route.label;
     this.$store.commit('header/setPageTitle', title);
     if (this.title) {
       document.title = `${title} - ${APP_NAME}`;
