@@ -109,6 +109,7 @@ export const routes = [
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
+      adminOnly: true,
     },
   },
   {
@@ -118,6 +119,7 @@ export const routes = [
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
+      adminOnly: true,
     },
   },
   {
