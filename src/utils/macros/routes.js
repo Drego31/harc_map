@@ -5,8 +5,8 @@ export const ROUTES = {
   welcome: {
     path: '/',
     name: 'welcome',
-    label: translator.t('title.welcome'),
-    shortLabel: translator.t('title.welcome'),
+    label: '',
+    shortLabel: '',
     icon: ICONS.sensor_door,
   },
   about: {

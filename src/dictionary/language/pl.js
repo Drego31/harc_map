@@ -71,6 +71,10 @@ export const pl = {
         <br>
         Poszukaj innej drogi! :)`,
     },
+    collectedPoints: {
+      sumTitle: 'Suma punktów wg kategorii',
+      listTitle: 'Lista zebranych punktów',
+    },
   },
   error: {
     eventIdIsRequired: 'Kod wydarzenia jest wymagany',
@@ -96,5 +100,15 @@ export const pl = {
     remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się ze względu na błąd serwera.',
     signOut: 'Wylogowanie po stronie serwera nie powiodło. Zostałeś wylogowany lokalnie.',
     changePassword: 'Zmiana hasła się nie powiodła ze względu na błąd serwera.',
+  },
+  table: {
+    numberOfCollected: 'Ilość zebranych',
+    sumOfValues: 'Suma wartości',
+    shortCategory: 'Kat.',
+    category: 'Kategoria',
+    shortPointId: 'Kod',
+    value: 'Wartość',
+    place: 'Miejsce',
+    expand: 'Rozwiń',
   },
 };

@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="f-line-24">
-      <div class="a-text f-title f-table">Suma punktów wg kategorii</div>
+      <div class="a-text f-title f-table">{{ $t('page.collectedPoints.sumTitle') }}</div>
       <div class="m-row f-header f-category-sum">
-        <div>Kategoria</div>
-        <div>Ilość zebranych</div>
-        <div>Suma wartości</div>
+        <div>{{ $t('table.category') }}</div>
+        <div>{{ $t('table.numberOfCollected') }}</div>
+        <div>{{ $t('table.sumOfValues') }}</div>
       </div>
       <m-row-category-sum
         v-for="category in filteredCategories"
@@ -14,13 +14,13 @@
       />
     </div>
     <div class="f-pt-3 f-line-24">
-      <div class="a-text f-title f-table">Lista zebranych punktów</div>
+      <div class="a-text f-title f-table">{{ $t('page.collectedPoints.listTitle') }}</div>
       <div class="m-row f-header f-point">
-        <div>Kat.</div>
-        <div>Kod</div>
-        <div>Wartość</div>
-        <div>Miejsce</div>
-        <div>Rozwiń</div>
+        <div>{{ $t('table.shortCategory') }}</div>
+        <div>{{ $t('table.shortPointId') }}</div>
+        <div>{{ $t('table.value') }}</div>
+        <div>{{ $t('table.place') }}</div>
+        <div>{{ $t('table.expand') }}</div>
       </div>
       <m-row-point
         v-for="point of collectedPoints.reverse()"
