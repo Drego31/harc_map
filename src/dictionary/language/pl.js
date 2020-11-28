@@ -11,7 +11,8 @@ export const pl = {
     collectPoint: 'Zbierz punkt',
     collectedPoints: 'Zebrane punkty',
     map: 'Mapa',
-    editEvent: 'Edytowanie wydarzenia',
+    editEvent: 'Edycja wydarzenia',
+    setMapPosition: 'Ustawienia mapy',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
@@ -32,8 +33,12 @@ export const pl = {
       newPassword: 'Nowe hasło',
       reNewPassword: 'Powtórz nowe hasło',
       userTeam: 'Nazwa patrolu',
+      eventName: 'Nazwa wydarzenia',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
+    },
+    assist: {
+      eventId: 'Kod wydarzenia jest generowany automatycznie'
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -46,8 +51,10 @@ export const pl = {
       hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
     },
     button: {
+      save: 'Zapisz',
       next: 'Dalej',
       goToLogin: 'Przejdź do logowania',
+      setDefaultMapPositionAndZoom: 'Ustaw domyślną pozycję mapy',
     },
   },
   page: {
@@ -90,6 +97,10 @@ export const pl = {
         na miejscu. Następnie wciśnij przycisk „Dalej”.`,
     },
     changePassword: {
+      content: `Żeby zmienić swoje hasło, wpisz nowe hasło w poniższe pola, 
+        a następnie naciśnij przycisk „Dalej”.`,
+    },
+    editEvent: {
       content: `Żeby zmienić swoje hasło, wpisz nowe hasło w poniższe pola, 
         a następnie naciśnij przycisk „Dalej”.`,
     },

@@ -1,5 +1,5 @@
 <template>
-  <t-page title="Ustawienia mapy" style="padding: 0">
+  <t-page class="f-p-0">
     <o-admin-set-map-position/>
   </t-page>
 </template>

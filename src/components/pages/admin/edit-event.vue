@@ -1,5 +1,5 @@
 <template>
-  <t-page title="Edycja wydarzenia">
+  <t-page>
     <o-admin-edit-event/>
   </t-page>
 </template>

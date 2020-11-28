@@ -90,8 +90,8 @@ export const ROUTES = {
   setMapPosition: {
     path: '/set-map-position',
     name: 'set-map-position',
-    label: 'Ustawienia mapy',
-    shortLabel: 'Ustawienia mapy',
+    label: translator.t('title.setMapPosition'),
+    shortLabel: translator.t('title.setMapPosition'),
     icon: ICONS.map,
   },
 };
