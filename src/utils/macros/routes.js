@@ -87,4 +87,11 @@ export const ROUTES = {
     shortLabel: translator.t('title.short.editEvent'),
     icon: ICONS.edit,
   },
+  setMapPosition: {
+    path: '/set-map-position',
+    name: 'set-map-position',
+    label: 'Ustawienia mapy',
+    shortLabel: 'Ustawienia mapy',
+    icon: ICONS.map,
+  },
 };

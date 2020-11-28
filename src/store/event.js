@@ -143,5 +143,10 @@ export default {
           });
       });
     },
+    updateEvent (context, updatedEvent = context.getters.getEventBasicInformation) {
+      api.updateEvent(updatedEvent)
+        .then(api.getEventById)
+        .then(eventData => context.commit('setEvent', eventData));
+    },
   },
 };

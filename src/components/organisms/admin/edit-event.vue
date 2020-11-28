@@ -23,7 +23,7 @@
         text="Zapisz"
       />
     </o-form>
-    <a-button-secondary class="f-text-center">
+    <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)" >
       Ustaw domyślną pozycję mapy
     </a-button-secondary>
   </div>
@@ -71,9 +71,7 @@ export default {
         ...this.getEventBasicInformation,
         eventName: this.values.eventName,
       };
-      api.updateEvent(updatedEvent)
-        .then(api.getEventById)
-        .then(eventData => this.$store.commit('event/setEvent', eventData))
+      this.$store.dispatch('event/updateEvent', updatedEvent)
         .then(this.onEventUpdate)
         .catch(this.onErrorOccurs);
     },

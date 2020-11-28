@@ -109,6 +109,17 @@ export const routes = [
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.setMapPosition.path,
+    name: ROUTES.setMapPosition.name,
+    component: () => import('pages/admin/set-map-position.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
     },
   },
   {
