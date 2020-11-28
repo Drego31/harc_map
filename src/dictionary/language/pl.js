@@ -38,7 +38,7 @@ export const pl = {
       pointId: 'Kod punktu',
     },
     assist: {
-      eventId: 'Kod wydarzenia jest generowany automatycznie'
+      eventId: 'Kod wydarzenia jest generowany automatycznie',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -103,6 +103,11 @@ export const pl = {
     editEvent: {
       content: `Żeby zmienić swoje hasło, wpisz nowe hasło w poniższe pola, 
         a następnie naciśnij przycisk „Dalej”.`,
+    },
+    admin: {
+      setMapPosition: {
+        content: 'Ustaw mapę w wybranej pozycji i zapisz.',
+      },
     },
   },
   error: {

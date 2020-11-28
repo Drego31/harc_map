@@ -1,5 +1,5 @@
 <template>
-  <t-page class="f-p-0">
+  <t-page class="f-map">
     <o-admin-set-map-position/>
   </t-page>
 </template>
