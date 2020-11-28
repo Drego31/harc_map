@@ -31,6 +31,7 @@ export const pl = {
       rePassword: 'Powtórz hasło',
       userTeam: 'Nazwa patrolu',
       eventId: 'Kod wydarzenia',
+      pointId: 'Kod punktu',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -41,6 +42,9 @@ export const pl = {
       length: 'Pole musi mieć długość {length}.',
       hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
       hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
+    },
+    button: {
+      next: 'Dalej',
     },
   },
   page: {
@@ -74,6 +78,11 @@ export const pl = {
     collectedPoints: {
       sumTitle: 'Suma punktów wg kategorii',
       listTitle: 'Lista zebranych punktów',
+    },
+    collectPoint: {
+      content: `Aby zebrać punkty udaj się do miejsc oznaczonych na mapie
+        i wpisz kod z koperty do poniższego pola tekstowego.
+        Następnie wciśnij przycisk „Dalej”.`,
     },
   },
   error: {
@@ -110,5 +119,11 @@ export const pl = {
     value: 'Wartość',
     place: 'Miejsce',
     expand: 'Rozwiń',
+  },
+  popup: {
+    collectPoint: {
+      congratulation: 'Gratulujemy!',
+      youCollectedPoint: 'Zdobyłeś punkt!',
+    },
   },
 };
