@@ -47,8 +47,8 @@ export default {
     onCollectPoint () {
       this.$store.dispatch('popup/openTemporary', {
         messages: [
-          translator.t('popup.collectPoint.congratulation'),
-          translator.t('popup.collectPoint.youCollectedPoint'),
+          translator.t('communicate.collectPoint.congratulation'),
+          translator.t('communicate.collectPoint.youCollectedPoint'),
         ],
         icon: ICONS.check_circle_outline,
       })

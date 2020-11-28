@@ -29,6 +29,8 @@ export const pl = {
       email: 'E-mail',
       password: 'Hasło',
       rePassword: 'Powtórz hasło',
+      newPassword: 'Nowe hasło',
+      reNewPassword: 'Powtórz nowe hasło',
       userTeam: 'Nazwa patrolu',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
@@ -45,6 +47,7 @@ export const pl = {
     },
     button: {
       next: 'Dalej',
+      goToLogin: 'Przejdź do logowania',
     },
   },
   page: {
@@ -67,6 +70,8 @@ export const pl = {
       nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
     },
     remindPassword: {
+      content: `Wpisz swój e-mail, naciśnij przycisk „Dalej”, a my wyślemy 
+        na niego link do zmiany twojego hasła.`,
       success: 'Link do odzyskania hasła wysłano na podany email.',
     },
     error: {
@@ -80,9 +85,13 @@ export const pl = {
       listTitle: 'Lista zebranych punktów',
     },
     collectPoint: {
-      content: `Aby zebrać punkty udaj się do miejsc oznaczonych na mapie
-        i wpisz kod z koperty do poniższego pola tekstowego.
-        Następnie wciśnij przycisk „Dalej”.`,
+      content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
+        i wpisz do poniższego pola tekstowego kod z koperty znajdującej się 
+        na miejscu. Następnie wciśnij przycisk „Dalej”.`,
+    },
+    changePassword: {
+      content: `Żeby zmienić swoje hasło, wpisz nowe hasło w poniższe pola, 
+        a następnie naciśnij przycisk „Dalej”.`,
     },
   },
   error: {
@@ -120,10 +129,13 @@ export const pl = {
     place: 'Miejsce',
     expand: 'Rozwiń',
   },
-  popup: {
+  communicate: {
     collectPoint: {
       congratulation: 'Gratulujemy!',
       youCollectedPoint: 'Zdobyłeś punkt!',
+    },
+    changePassword: {
+      success: 'Twoje hasło zostało zmienione!',
     },
   },
 };

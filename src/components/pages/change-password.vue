@@ -1,5 +1,8 @@
 <template>
-  <t-page title="Zmień hasło">
+  <t-page>
+    <div class="f-pt-1 f-pb-4">
+      {{ $t('page.changePassword.content') }}
+    </div>
     <o-change-password></o-change-password>
   </t-page>
 </template>
