@@ -1,5 +1,5 @@
 <template>
-  <t-page :title="ROUTES.about.label" class="f-text-center">
+  <t-page class="f-text-center">
     <p class="f-text-left">
       <span>
         <strong>HarcMap</strong> {{ $t('page.about.appInfo') }}
