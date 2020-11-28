@@ -18,7 +18,6 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   let promise;
-
   if (firstRun) {
     firstRun = false;
     promise = makeFirstRun();
@@ -53,11 +52,16 @@ function makeFirstRun () {
 
 function redirectIfNotAuth (to, from, next) {
   const isLogin = store.getters['user/isLogin'] === true;
+  const adminRequired = to.meta.adminOnly !== undefined && to.meta.adminOnly === true;
+  const isAdmin = permissions.checkIsAdmin();
 
   if (to === from) {
     next(false);
   }
-
+  if (adminRequired && isAdmin === false) {
+    next(false);
+    return;
+  }
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
       next(ROUTES.start.path);

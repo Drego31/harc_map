@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot/>
     <div class="o-map" id="o-map"></div>
   </div>
 </template>
