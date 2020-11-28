@@ -21,20 +21,29 @@ export default {
       type: String,
       default: '',
     },
-    imgStyles: {
+    imagesRelatedToThemes: {
       type: Object,
       required: true,
+    },
+    stylesForImages: {
+      type: Object,
+      default: () => ({
+        dark: '',
+        light: '',
+      }),
     },
   },
   computed: {
     style () {
-      if (this.$store.getters['theme/name'] === THEMES.dark && this.imgStyles.dark) {
-        return this.imgStyles.dark;
-      } else if (this.imgStyles.dark) {
-        return this.imgStyles.light;
-      } else {
-        throw new Error('Prop `imgStyles` is wrong defined');
+      const currentTheme = this.$store.getters['theme/name'];
+
+      for (const theme in THEMES) {
+        if (currentTheme === THEMES[theme] && this.imagesRelatedToThemes[theme]) {
+          return `background-image: url("${this.imagesRelatedToThemes[theme]}"); ` +
+            `${this.stylesForImages[theme]}`;
+        }
       }
+      throw new Error('Prop `imgStyles` is wrong defined');
     },
   },
 };

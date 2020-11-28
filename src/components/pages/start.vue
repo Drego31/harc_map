@@ -2,7 +2,8 @@
   <t-page title="Start" class="f-start">
     <m-panel
       :title="eventName"
-      :img-styles="imgStyles"
+      :images-related-to-themes="panelImages"
+      :styles-for-images="panelStylesForImages"
     >
       <div v-if="sumOfCollectedPoints > 0">
         Zebraliście już <span class="f-text-white">{{ sumOfCollectedPoints }} pkt</span>
@@ -46,10 +47,16 @@ export default {
     ...mapGetters('event', [
       'eventName',
     ]),
-    imgStyles () {
+    panelImages () {
+      const images = {};
+      images[THEMES.dark] = '/img/compass.jpg';
+      images[THEMES.light] = '/img/compass.jpg';
+      return images;
+    },
+    panelStylesForImages () {
       const styles = {};
-      styles[THEMES.dark] = 'background-image: url("/img/compass.jpg"); background-size: auto 100%';
-      styles[THEMES.light] = 'background-image: url("/img/compass.jpg"); background-size: auto 100%';
+      styles[THEMES.dark] = 'background-size: auto 100%';
+      styles[THEMES.light] = 'background-size: auto 100%';
       return styles;
     },
   },
