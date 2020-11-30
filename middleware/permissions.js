@@ -3,13 +3,14 @@ const { logical } = require('../vendors/logical');
 
 class Permissions {
 
+  constructor (permissions) {
+    this.permissions = permissions;
+  }
+
   admin () { return this.permissions.includes('A'); }
   user () { return this.permissions.includes('U'); }
   other () { return this.permissions.includes('O'); }
 
-  constructor (permissions) {
-    this.permissions = permissions;
-  }
 }
 
 const permissionsList = {
@@ -48,7 +49,9 @@ class PermissionsMiddleware {
     const method = this.request.method;
 
     if (url in permissionsList) {
-      return permissionsList[url][method];
+      if (method in permissionsList[url]) {
+        return permissionsList[url][method];
+      }
     }
 
     return null;
