@@ -2,7 +2,6 @@
   <a-button-primary
     :disabled="disabled"
     @click="$emit('click')"
-    class="f-primary"
     type="submit"
     :loading="isSending"
   >
