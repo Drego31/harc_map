@@ -1,5 +1,5 @@
 <template>
-  <t-page title="Wydarzenia czasowe">
+  <t-page>
     <o-temporary-points/>
   </t-page>
 </template>

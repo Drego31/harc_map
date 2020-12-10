@@ -1,47 +1,47 @@
 import validateCodes from '../../../lib/validateCodes';
+import { translator } from 'src/dictionary';
 
 export const ERRORS = {
-  eventIdIsRequired: '"eventId" param is required',
-  elementIdIsRequiredForMap: 'elementId is necessary to create map',
-  pointWithPointIdDoesntExist: pointId => `Punkt o kodzie "${pointId}" nie istnieje.`,
-  fakeErrorInMockApi: 'Fake error in mockApi',
-  dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta.',
+  eventIdIsRequired: translator.t('error.eventIdIsRequired'),
+  elementIdIsRequiredForMap: translator.t('error.elementIdIsRequiredForMap'),
+  fakeErrorInMockApi: translator.t('error.fakeErrorInMockApi'),
+  dataAfterSignIn: translator.t('error.dataAfterSignIn'),
 };
 
 export const API_ERRORS = {
   undefined: {
-    defaultError: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
+    defaultError: translator.t('apiError.undefined'),
   },
   // EVENT
   getEventById: {
-    defaultError: 'Pobieranie danych wydarzenia się nie powiodło.',
+    defaultError: translator.t('apiError.getEventById'),
   },
   getPointsByEventId: {
-    defaultError: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
+    defaultError: translator.t('apiError.getPointsByEventId'),
   },
   getCategoriesByEventId: {
-    defaultError: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
+    defaultError: translator.t('apiError.getCategoriesByEventId'),
   },
   updateEvent: {
-    defaultError: 'Edycja danych dla wybranego wydarzenia się nie powiodła',
+    defaultError: translator.t('apiError.updateEvent'),
   },
   collectPoint: {
-    defaultError: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
+    defaultError: translator.t('apiError.collectPoint'),
     errors: [
       [
         [validateCodes.DATABASE_DATA_CONFLICT_ERROR],
-        'Punkt o podanym kodzie został zebrany już wcześniej.',
+        translator.t('apiError.pointCollectedEarlier'),
       ],
       [
         [validateCodes.DATABASE_NO_RESULT_ERROR],
-        'Punkt o podanym kodzie nie istnieje.',
+        translator.t('apiError.pointNoExist'),
       ],
     ],
   },
 
   // USER
   signIn: {
-    defaultError: 'Logowanie nie powiodło się ze względu na błąd serwera.',
+    defaultError: translator.t('apiError.signIn'),
     errors: [
       [
         [
@@ -49,7 +49,7 @@ export const API_ERRORS = {
           validateCodes.PASSWORD_TOO_SHORT,
           validateCodes.PASSWORD_HAS_NOT_NUMBER,
         ],
-        'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
+        translator.t('apiError.signInData'),
       ],
       [
         [validateCodes.SESSION_ERROR],
@@ -58,18 +58,18 @@ export const API_ERRORS = {
     ],
   },
   checkYourLoginSession: {
-    defaultError: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
+    defaultError: translator.t('apiError.checkYourLoginSession'),
   },
   signUp: {
-    defaultError: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
+    defaultError: translator.t('apiError.signUp'),
   },
   remindPassword: {
-    defaultError: 'Wysyłanie przypomnienia hasła nie powiodło się ze względu na błąd serwera.',
+    defaultError: translator.t('apiError.remindPassword'),
   },
   signOut: {
-    defaultError: 'Wylogowanie po stronie serwera nie powiodło. Zostałeś wylogowany lokalnie.',
+    defaultError: translator.t('apiError.signOut'),
   },
   changePassword: {
-    defaultError: 'Zmiana hasła się nie powiodła ze względu na błąd serwera.',
+    defaultError: translator.t('apiError.changePassword'),
   },
 };

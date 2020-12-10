@@ -3,14 +3,14 @@
     <o-form :on-submit="updateEvent">
       <m-input
         :disabled="blockForm"
-        placeholder="Nazwa wydarzenia"
+        :placeholder="$t('form.field.eventName')"
         v-model="values.eventName"
       />
       <m-input
         disabled
-        placeholder="Klucz wydarzenia"
+        :placeholder="$t('form.field.eventId')"
         v-model="values.eventId"
-        assist="Klucz wydarzenia jest generowany automatycznie"
+        :assist="$t('form.assist.eventId')"
       />
       <div
         class="f-text-center"
@@ -20,11 +20,11 @@
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
-        text="Zapisz"
+        :text="$t('form.button.save')"
       />
     </o-form>
     <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)" >
-      Ustaw domyślną pozycję mapy
+      {{ $t('form.button.setDefaultMapPositionAndZoom') }}
     </a-button-secondary>
   </div>
 </template>

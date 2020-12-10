@@ -13,13 +13,13 @@
         :disabled="blockForm"
       />
       <m-field-text
-        label="Nazwa patrolu"
+        :label="$t('form.field.userTeam')"
         :rules="rules.userTeam"
         v-model="values.userTeam"
         :disabled="blockForm"
       />
       <m-field-text
-        label="Kod wydarzenia"
+        :label="$t('form.field.eventId')"
         :rules="rules.eventId"
         v-model="values.eventId"
         :disabled="blockForm"
@@ -33,19 +33,19 @@
 
     <template slot="response">
       <div class="f-py-2">
-        <div class="f-pb-2 f-bold">Rejestracja przebiegła pomyślnie!</div>
-        Link aktywacyjny został wysłany na wskazany adres e-mail:
+        <div class="f-pb-2 f-bold">{{ $t('page.signUp.registrationDone') }}</div>
+        {{ $t('form.button.linkHasBeenSent') }}
         <span class="f-bold">{{ values.user }}</span>
       </div>
       <a-button-primary @click="$router.push(ROUTES.signIn.path)">
-        Przejdź do logowania
+        {{ $t('form.button.goToLogin') }}
       </a-button-primary>
     </template>
   </o-form>
 </template>
 
 <script>
-import { api } from 'api/index';
+import { api } from 'api';
 import { mixins } from 'mixins/base';
 import AButtonSubmit from 'atoms/button/submit';
 import MFieldEmail from 'molecules/field/email';
@@ -53,6 +53,7 @@ import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
+
 export default {
   name: 'o-form-sign-in',
   mixins: [mixins.form, mixins.validation],

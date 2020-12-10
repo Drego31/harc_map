@@ -1,9 +1,7 @@
 <template>
-  <t-page title="Zbierz punkt">
+  <t-page>
     <div class="f-pt-1 f-pb-4">
-      Aby zebrać punkty udaj się do miejsc oznaczonych na mapie
-      i wpisz kod z koperty do poniższego pola tekstowego.
-      Następnie wciśnij przycisk „Dalej”.
+      {{ $t('page.collectPoint.content') }}
     </div>
     <o-form-collect-point/>
   </t-page>

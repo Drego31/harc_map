@@ -1,8 +1,8 @@
 <template>
   <o-map ref="oMap">
     <m-banner-map @actionTriggered="onSavePosition">
-      <template slot="text">Ustaw mapę w wybranej pozycji i zapisz.</template>
-      <template slot="button-name">Zapisz</template>
+      <template slot="text">{{ $t('page.admin.setMapPosition.content') }}</template>
+      <template slot="button-name">{{ $t('form.button.save') }}</template>
     </m-banner-map>
   </o-map>
 </template>

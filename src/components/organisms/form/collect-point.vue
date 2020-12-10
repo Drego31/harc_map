@@ -1,7 +1,7 @@
 <template>
   <o-form :on-submit="collectPoint">
     <m-field-text
-      label="Kod punktu"
+      :label="$t('form.field.pointId')"
       :rules="rules.pointId"
       v-model="collectedPointId"
       :disabled="blockForm"
@@ -22,6 +22,7 @@ import OForm from 'organisms/form';
 import MFieldText from 'molecules/field/text';
 import AButtonSubmit from 'atoms/button/submit';
 import { ICONS } from 'src/__jscash__/icons-names-list';
+import { translator } from 'src/dictionary';
 
 export default {
   name: 'o-form-collect-point',
@@ -46,8 +47,8 @@ export default {
     onCollectPoint () {
       this.$store.dispatch('popup/openTemporary', {
         messages: [
-          'Gratulujemy!',
-          'Zdobyłeś punkt!',
+          translator.t('communicate.collectPoint.congratulation'),
+          translator.t('communicate.collectPoint.youCollectedPoint'),
         ],
         icon: ICONS.check_circle_outline,
       })

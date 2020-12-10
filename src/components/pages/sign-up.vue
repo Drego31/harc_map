@@ -1,5 +1,5 @@
 <template>
-  <t-page title="Rejestracja">
+  <t-page>
     <o-form-sign-up/>
   </t-page>
 </template>

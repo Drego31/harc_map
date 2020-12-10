@@ -1,5 +1,8 @@
 <template>
-  <t-page title="Przypomnij hasło">
+  <t-page>
+    <div class="f-pt-1 f-pb-4">
+      {{ $t('page.remindPassword.content') }}
+    </div>
     <o-remind-password/>
   </t-page>
 </template>

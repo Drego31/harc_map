@@ -7,7 +7,7 @@
       <m-field-set-password
         :disabled="blockForm"
         v-model="password"
-        :labels="['Nowe hasło', 'Powtórz nowe hasło']"
+        :labels="[$t('form.field.newPassword'), $t('form.field.reNewPassword')]"
       />
       <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
@@ -18,10 +18,10 @@
 
     <template slot="response">
       <div class="f-py-2 f-text-bold">
-        Twoje hasło zostało zmienione!
+        {{ $t('communicate.changePassword.success') }}
       </div>
       <a-button-primary @click="$router.push(ROUTES.signIn.path)">
-        Przejdź do logowania
+        {{ $t('form.button.goToLogin') }}
       </a-button-primary>
     </template>
   </o-form>

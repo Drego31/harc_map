@@ -11,6 +11,7 @@
 
 <script>
 import AButtonPrimary from 'atoms/button/primary';
+import { translator } from 'src/dictionary';
 
 export default {
   name: 'a-button-submit',
@@ -30,7 +31,7 @@ export default {
     },
     text: {
       type: String,
-      default: 'Dalej',
+      default: translator.t('form.button.next'),
     },
   },
 };

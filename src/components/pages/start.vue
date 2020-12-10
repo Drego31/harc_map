@@ -1,24 +1,27 @@
 <template>
-  <t-page title="Start" class="f-start">
+  <t-page class="f-start">
     <m-panel
       :title="eventName"
       :images-related-to-themes="panelImages"
       :styles-for-images="panelStylesForImages"
     >
       <div v-if="sumOfCollectedPoints > 0">
-        Zebraliście już <span class="f-text-white">{{ sumOfCollectedPoints }} pkt</span>
+        {{ $t('page.start.alreadyCollected') }}
+        <span class="f-text-white">
+          {{ sumOfCollectedPoints }} {{ $t('general.pointUnit') }}
+        </span>
       </div>
       <div v-else>
-        Nie zebraliście jeszcze żadnych punktów
+        {{ $t('page.start.nothingCollected') }}
       </div>
     </m-panel>
 
     <div class="m-collection f-button f-px-2">
       <a-button-fill-primary @click="$router.push(ROUTES.map.path)">
-        Rozpocznij poszukiwania!
+        {{ $t('page.start.search') }}
       </a-button-fill-primary>
       <a-button-fill-secondary @click="$router.push(ROUTES.collectedPoints.path)">
-        Sprawdź swoje wyniki
+        {{ $t('page.start.checkResults') }}
       </a-button-fill-secondary>
     </div>
   </t-page>
