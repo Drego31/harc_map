@@ -1,6 +1,6 @@
 <template>
   <div class="o-loading">
-    <a-loader additional-class="f-big"/>
+    <a-loader add-class="f-big" img="/img/zhp-86.png"/>
   </div>
 </template>
 

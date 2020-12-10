@@ -19,6 +19,7 @@ const path = require('path');
 const passportConfig = require('./lib/passportConfig');
 const connectionString = require('./lib/mongodb').connectionString;
 const appConfig = utils.getSystemConfig().app;
+const permissions = require('./middleware/permissions');
 
 // Swagger
 const swaggerUi = require('swagger-ui-express');
@@ -73,6 +74,9 @@ app.use(expressSession(Object.assign(sessionConfig, {
 // console.log(sessionConfig);
 app.use(passport.initialize());
 app.use(passport.session());
+
+// access middleware - permissions
+app.use(permissions);
 
 passport.serializeUser(passportConfig.serializeUser);
 passport.deserializeUser(passportConfig.deserializeUser);

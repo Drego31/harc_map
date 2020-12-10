@@ -1,26 +1,35 @@
-import { RGBColorsArray } from 'utils/colors';
+import { store } from 'store/index';
 
-const colors = RGBColorsArray();
+const availableColors = {
+  stroke: 'stroke',
+  danger: 'danger',
+  warning: 'warning',
+  info: 'info',
+};
+
+function getColor (color) {
+  return store.getters['theme/colors'][color];
+}
 
 export const MAP_POINTS = {
-  0: {
-    strokeColor: colors.black,
-    fillColor: colors.white,
-  },
-  1: {
-    strokeColor: colors.black,
-    fillColor: colors.blue,
-  },
-  2: {
-    strokeColor: colors.black,
-    fillColor: colors.yellow,
-  },
-  3: {
-    strokeColor: colors.black,
-    fillColor: colors.red,
-  },
-  4: {
-    strokeColor: colors.blue,
-    fillColor: colors.red,
-  },
+  0: () => ({
+    strokeColor: getColor(availableColors.stroke),
+    fillColor: getColor(availableColors.danger),
+  }),
+  1: () => ({
+    strokeColor: getColor(availableColors.stroke),
+    fillColor: getColor(availableColors.info),
+  }),
+  2: () => ({
+    strokeColor: getColor(availableColors.stroke),
+    fillColor: getColor(availableColors.warning),
+  }),
+  3: () => ({
+    strokeColor: getColor(availableColors.stroke),
+    fillColor: getColor(availableColors.danger),
+  }),
+  4: () => ({
+    strokeColor: getColor(availableColors.info),
+    fillColor: getColor(availableColors.danger),
+  }),
 };

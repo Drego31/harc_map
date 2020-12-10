@@ -11,7 +11,7 @@ import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 
 const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
-  let appearance = MAP_POINTS[shape] || {};
+  let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
     const opacity = 0.3;
     appearance = { ...appearance };
@@ -24,7 +24,7 @@ const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) 
 };
 
 const getFill = (shape, isCollected) => {
-  let appearance = MAP_POINTS[shape] || {};
+  let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
     const opacity = 0.3;
     appearance = { ...appearance };
@@ -55,7 +55,7 @@ const getFinalPoints = (shape, fill, stroke) => {
   });
 };
 
-export function createFeatures ({ list = [], listOfCollectedPoints = [] }) {
+export function createFeatures ({ list = [] }) {
   const mapIsNotDefined = uCheck.isNotObject(map.realMap);
   const listOfFeatures = [];
 
@@ -70,10 +70,9 @@ export function createFeatures ({ list = [], listOfCollectedPoints = [] }) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;
     const shape = point.pointCategory;
-    const isCollected = listOfCollectedPoints.includes(point);
 
-    const stroke = getStroke(shape, isCollected);
-    const fill = getFill(shape, isCollected);
+    const stroke = getStroke(shape);
+    const fill = getFill(shape);
 
     const position = Projection.fromLonLat([lon, lat]);
 
@@ -92,9 +91,7 @@ export function createFeatures ({ list = [], listOfCollectedPoints = [] }) {
       features: listOfFeatures,
     }),
   });
-
   layer.setZIndex(mapConfig.features.zIndex);
-
   map.realMap.addLayer(layer);
   map.points.layer = layer;
 }
