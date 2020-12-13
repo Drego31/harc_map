@@ -104,6 +104,10 @@ export const pl = {
       content: `Żeby zmienić swoje hasło, wpisz nowe hasło w poniższe pola, 
         a następnie naciśnij przycisk „Dalej”.`,
     },
+    signUp: {
+      registrationDone: 'Rejestracja przebiegła pomyślnie!',
+      linkHasBeenSent: 'Link aktywacyjny został wysłany na wskazany adres e-mail:',
+    },
     admin: {
       setMapPosition: {
         content: 'Ustaw mapę w wybranej pozycji i zapisz.',

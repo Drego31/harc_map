@@ -34,12 +34,12 @@
 
       <template slot="response">
         <div class="f-py-2">
-          <div class="f-pb-2 f-bold">Rejestracja przebiegła pomyślnie!</div>
-          Link aktywacyjny został wysłany na wskazany adres e-mail:
+          <div class="f-pb-2 f-bold">{{ $t('page.signUp.registrationDone') }}</div>
+          {{ $t('form.button.linkHasBeenSent') }}
           <span class="f-bold">{{ values.user }}</span>
         </div>
         <a-button-primary @click="$router.push(ROUTES.signIn.path)">
-          Przejdź do logowania
+          {{ $t('form.button.goToLogin') }}
         </a-button-primary>
       </template>
     </o-form>

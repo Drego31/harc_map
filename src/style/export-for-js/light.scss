@@ -1,0 +1,8 @@
+@import "../variables/colors/light";
+
+:export {
+  stroke: $color-stroke;
+  danger: $color-danger;
+  warning: $color-warning;
+  info: $color-info;
+}
