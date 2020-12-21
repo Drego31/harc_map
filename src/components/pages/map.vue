@@ -1,7 +1,6 @@
 <template>
-  <t-page title="Mapa" class="f-map">
-    <o-map>
-    </o-map>
+  <t-page class="f-map">
+    <o-map/>
     <m-banner-timer/>
   </t-page>
 </template>

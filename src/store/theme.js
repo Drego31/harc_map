@@ -1,4 +1,5 @@
 import { styleManager, THEMES } from 'utils/style-manager';
+import { THEMES_COLORS } from 'utils/macros/styles-colors';
 
 export default {
   namespaced: true,
@@ -7,6 +8,7 @@ export default {
   },
   getters: {
     name: state => state.name,
+    colors: state => THEMES_COLORS[state.name],
   },
   mutations: {
     toggle: state => {

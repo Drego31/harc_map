@@ -35,6 +35,7 @@
 <script>
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
+import { translator } from 'src/dictionary';
 
 export default {
   name: 'm-field-set-password',
@@ -48,8 +49,8 @@ export default {
     labels: {
       type: Array,
       default: () => [
-        'Hasło',
-        'Powtórz hasło',
+        translator.t('form.field.password'),
+        translator.t('form.field.rePassword'),
       ],
     },
   },

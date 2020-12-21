@@ -20,6 +20,7 @@
 <script>
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
+import { translator } from 'src/dictionary';
 
 export default {
   name: 'm-field-email',
@@ -29,7 +30,7 @@ export default {
     disabled: Boolean,
     label: {
       type: String,
-      default: 'E-mail',
+      default: translator.t('form.field.email'),
     },
   },
 };
