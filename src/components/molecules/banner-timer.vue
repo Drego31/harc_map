@@ -1,6 +1,6 @@
 <template>
   <div class="m-banner-timer">
-    <span>To update:</span>
+    <span>{{ $t('features.timer.toUpdate') }}</span>
     <m-countdown-timer/>
   </div>
 </template>

@@ -11,7 +11,7 @@ export default {
   name: 'm-countdown-timer',
   data: () => ({
     minutes: 0,
-    seconds: 5,
+    seconds: 0,
   }),
   mounted () {
     this.setStartTime();
