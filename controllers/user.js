@@ -212,15 +212,11 @@ router.route('/login')
    */
   .post((req, res, next) => {
     const timestamp = Date.now();
-    console.log('login init', 0);
     // Checking if user is already logged
     if (req.isAuthenticated()) {
-      console.log('login isAuth', (Date.now() - timestamp) / 1000 + ' s');
       // Data from session
       const { user, userTeam, userEvents, accountType } = req.user;
-      console.log('login isAuth before users', (Date.now() - timestamp) / 1000 + ' s');
       database.read('users', { user }).then(result => {
-        console.log('login isAuth after users', (Date.now() - timestamp) / 1000 + ' s');
         if (result) {
           res.send({
             user,
@@ -236,36 +232,27 @@ router.route('/login')
       });
 
     } else if (Object.keys(req.body).length === 0) {
-      console.log('login empty body', (Date.now() - timestamp) / 1000 + ' s');
       utils.responseUserError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
     } else {
       // User data validation
-      console.log('login before validation', (Date.now() - timestamp) / 1000 + ' s');
       const requestBodyValidationError = validator.validate(
         validator.methods.validateUserLoginPostRequest, req.body,
       );
-      console.log('login after validation', (Date.now() - timestamp) / 1000 + ' s');
       if (!requestBodyValidationError) {
-        console.log('login before auth', (Date.now() - timestamp) / 1000 + ' s');
 
         passport.authenticate('local', (error, userData) => {
-          console.log('login before auth', (Date.now() - timestamp) / 1000 + ' s');
           if (error || !userData) {
             // failed login
             utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR, error);
           } else {
-            console.log('login before login', (Date.now() - timestamp) / 1000 + ' s');
 
             req.login(userData, error => {
-              console.log('login after login', (Date.now() - timestamp) / 1000 + ' s');
               // error with setting session
               if (error) {
                 utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
               } else {
                 const { user, userTeam, userEvents, accountType } = userData;
-                console.log('login login before users', (Date.now() - timestamp) / 1000 + ' s');
                 database.read('users', { user }).then(result => {
-                  console.log('login login after users', (Date.now() - timestamp) / 1000 + ' s');
                   if (result) {
                     res.send({
                       user,
