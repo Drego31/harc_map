@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import i18n from './dictionary';
 import router from './router';
+import uuidInit from './utils/uuid';
 import { store } from './store';
 import { styleManager } from 'utils/style-manager';
 import './directives';
@@ -11,6 +12,7 @@ import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
 
 styleManager.init();
+uuidInit();
 
 Vue.config.productionTip = false;
 
