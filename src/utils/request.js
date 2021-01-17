@@ -20,7 +20,7 @@ function addBodyToConfig (config, data) {
 }
 
 export const request = {
-  host: PRODUCTION ? '' : 'http://localhost:3030',
+  host: PRODUCTION ? '' : 'https://localhost:3030',
   dataToPathVariables (data) {
     let pathData = '';
 

@@ -211,7 +211,6 @@ router.route('/login')
    *                  $ref: '#/components/responses/200/Error'
    */
   .post((req, res, next) => {
-    const timestamp = Date.now();
     // Checking if user is already logged
     if (req.isAuthenticated()) {
       // Data from session

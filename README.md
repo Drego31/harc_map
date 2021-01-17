@@ -35,8 +35,8 @@ Content:
 3. Fill the database ([read more](#adding-rtl-gdynia-points-to-database))
 4. Run the local server: `npm run run:dev`
 5. Run the front-end builder: `npm run build:dev`
-6. App is ready on http://localhost:3030/
-7. If you get into http://localhost:3030/sign-in, the application log you in automatically on 
+6. App is ready on https://localhost:3030/
+7. If you get into https://localhost:3030/sign-in, the application log you in automatically on 
    the demo account (to edit demo user's data go to `config/mongodb/local.js`).
 
 #### Production environment:
