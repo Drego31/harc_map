@@ -47,6 +47,7 @@ class PostRequestService extends Endpoint {
       mapLongitude: json.mapLongitude,
       mapLatitude: json.mapLatitude,
       mapZoom: json.mapZoom,
+      mapRefreshTime: json.mapRefreshTime,
     };
 
     const eventCollection = 'events';
@@ -77,6 +78,7 @@ class PutRequestService extends Endpoint {
       mapLongitude: json.mapLongitude,
       mapLatitude: json.mapLatitude,
       mapZoom: json.mapZoom,
+      mapRefreshTime: json.mapRefreshTime,
     };
 
     const eventCollection = 'events';
