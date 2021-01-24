@@ -1,6 +1,8 @@
 import { uCheck } from '@dbetka/utils';
 import { autoUpdate } from 'utils/auto-update';
 import { ACCOUNT_TYPES } from 'utils/permissions';
+import { ErrorMessage } from 'utils/error-message';
+import { ERRORS } from 'utils/macros/errors';
 
 export default {
   namespaced: true,
@@ -13,7 +15,7 @@ export default {
   getters: {
     user: state => state.user,
     userTeam: state => state.userTeam,
-    accountType: state => state.accountType,
+    accountType: state => ACCOUNT_TYPES.admin, // state.accountType,
     isLogin: state => state.user !== '',
     collectedPointsIds: state => state.collectedPointsIds,
     collectedPoints (state, getters, rootState, rootGetters) {
@@ -60,7 +62,25 @@ export default {
             autoUpdate.run();
             resolve();
           })
-          .catch(error => reject(error));
+          .catch(() => {
+            context.dispatch('signOut').catch(() => undefined);
+            reject(new ErrorMessage(ERRORS.signIn));
+          });
+      });
+    },
+    signOut (context) {
+      return new Promise((resolve, reject) => {
+        const user = context.state.user;
+        api.signOut({ user })
+          .finally(() => {
+            context.commit('signOut');
+            resolve();
+          })
+          .catch(() => {
+            const error = new ErrorMessage('Method signOut on server side went wrong');
+            error.showMessage(ERRORS.signOut);
+            reject(error);
+          });
       });
     },
   },

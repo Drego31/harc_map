@@ -6,7 +6,7 @@ import { getPointsByEventIdMock } from 'api/mock/mockMethods/get-points';
 import { MapPoint } from 'src/structures/map-point';
 
 export const eventController = {
-  getEventById (eventId) {
+  getEventById ({ eventId }) {
     if (eventId) {
       return makeDelayFakeAnswer(() => getEventByIdMock(eventId));
     } else {

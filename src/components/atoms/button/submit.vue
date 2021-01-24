@@ -2,16 +2,16 @@
   <a-button-primary
     :disabled="disabled"
     @click="$emit('click')"
-    class="f-primary"
     type="submit"
     :loading="isSending"
   >
-    {{ message ? message : 'Dalej' }}
+    {{ message ? message : text }}
   </a-button-primary>
 </template>
 
 <script>
 import AButtonPrimary from 'atoms/button/primary';
+import { translator } from 'src/dictionary';
 
 export default {
   name: 'a-button-submit',
@@ -28,6 +28,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    text: {
+      type: String,
+      default: translator.t('form.button.next'),
     },
   },
 };

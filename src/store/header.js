@@ -7,7 +7,7 @@ export default {
     pageTitle: state => state.pageTitle,
   },
   mutations: {
-    setPageTitle: (state, payload) => (state.pageTitle = payload),
+    setPageTitle: (state, payload = '') => (state.pageTitle = payload),
   },
   actions: {},
 };

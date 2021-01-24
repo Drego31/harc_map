@@ -103,6 +103,26 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.editEvent.path,
+    name: ROUTES.editEvent.name,
+    component: () => import('pages/admin/edit-event.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.setMapPosition.path,
+    name: ROUTES.setMapPosition.name,
+    component: () => import('pages/admin/set-map-position.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
     path: '*',
     name: 'error',
     component: PError,
