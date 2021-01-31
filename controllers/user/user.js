@@ -105,10 +105,10 @@ router.route('/')
       // check if eventId is correct(exist)
       database.read('events', { eventId })
         // event exist - user can be creat
-        .then(results => utils.throwIfEmpty(results, errorsCodes.EVENT_ID_NOT_EXIST))
+        .then(result => utils.throwIfEmpty(result, errorsCodes.EVENT_ID_NOT_EXIST))
         // check if user and userTeam doesn't already exist
         .then(() => database.read('users', { $or: [{ user }, { userTeam }] }))
-        .then(results => utils.throwIf(results, results.length, errorsCodes.USER_EXIST))
+        .then(result => utils.throwIf(result, result.length, errorsCodes.USER_EXIST))
         // create user
         .then(() => database.create('users', [newUserData]))
         .then(utils.throwIfEmpty)

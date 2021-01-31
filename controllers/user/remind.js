@@ -99,9 +99,7 @@ router.route('/')
       // Data from client
       const { user } = req.body;
       database.read('users', { user })
-        .then(results => {
-          const result = results[0];
-
+        .then(result => {
           if (result && result.accountIsActive) {
             return result;
           } else {
@@ -231,11 +229,9 @@ router.route('/:key')
       const { key } = req.params;
 
       database.read('users', { forgotKey: key })
-        .then(results => utils.throwIfEmpty(results, errorsCodes.INVALID_URL_KEY))
+        .then(result => utils.throwIfEmpty(result, errorsCodes.INVALID_URL_KEY))
         // forgotTimeout has ended
-        .then(results => {
-          const result = results[0];
-
+        .then(result => {
           if (__checkForgotTimeout(result.forgotTimestamp)) {
             return result;
           } else {

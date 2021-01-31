@@ -99,8 +99,7 @@ router.route('/')
       const { user } = req.user;
       database.read('users', { user })
         .then(utils.throwIfEmpty)
-        .then(results => {
-          const result = results[0];
+        .then(() => {
           res.send(__getUserDataForResponse(req.user, result.collectedPointsIds));
         })
         .catch(errorMsg => {
@@ -127,8 +126,7 @@ router.route('/')
                 const { user } = userData;
                 database.read('users', { user })
                   .then(utils.throwIfEmpty)
-                  .then(results => {
-                    const result = results[0];
+                  .then(result => {
                     res.send(__getUserDataForResponse(userData, result.collectedPointsIds));
                   })
                   .catch(errorMsg => {

@@ -46,7 +46,6 @@ router.route('/:key')
     const { key } = req.params;
     database.read('users', { activationKey: key })
       .then(utils.throwIfEmpty)
-      .then(results => results[0])
       // check if account isn't active
       .then(result => utils.throwIf(result, result.accountIsActive, errorsCodes.DATABASE_NO_RESULT_ERROR))
       // update account to active

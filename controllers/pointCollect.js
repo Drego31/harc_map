@@ -50,18 +50,18 @@ class PutRequestService extends Endpoint {
     const userFilter = { user: json.user };
 
     return database.read(eventCollection, eventFilter)
-      .then(events => this.databasePartValidateEvent(events[0]))
+      .then(event => this.databasePartValidateEvent(event))
 
       .then(() => database.read(pointsCollection, pointFilter))
-      .then(points => {
-        this.databasePartValidatePoint(points[0]);
-        pointToUpdate = points[0];
+      .then(point => {
+        this.databasePartValidatePoint(point);
+        pointToUpdate = point;
       })
 
       .then(() => database.read(userCollection, userFilter))
-      .then(users => {
-        this.databasePartValidateUser(users[0]);
-        userToUpdate = users[0];
+      .then(user => {
+        this.databasePartValidateUser(user);
+        userToUpdate = user;
       })
 
       .then(() => this.databasePartUpdateUser(userCollection, userFilter, userToUpdate))
