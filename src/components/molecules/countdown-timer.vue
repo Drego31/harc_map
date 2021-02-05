@@ -1,6 +1,6 @@
 <template>
-  <div :style= "[minutes === 0 ? {color: 'red'} : {color: 'black'}]">
-    {{getMinutes}}:{{getSeconds}}
+  <div :class="[minutes === 0 ? 'm-countdown-timer-warning' : 'm-countdown-timer']">
+    {{ getMinutes }}:{{ getSeconds }}
   </div>
 </template>
 
@@ -13,6 +13,12 @@ export default {
     minutes: 0,
     seconds: 0,
   }),
+  props: {
+    timeGap: {
+      type: Number,
+      default: 15,
+    },
+  },
   mounted () {
     this.setStartTime();
     this.updateDateTime();
@@ -34,7 +40,7 @@ export default {
     updateDateTime () {
       if (this.seconds === 0) {
         if (this.minutes === 0) {
-          this.minutes = 14;
+          this.minutes = this.timeGap - 1;
           this.seconds = 59;
         } else {
           this.minutes -= 1;
@@ -46,9 +52,9 @@ export default {
     },
     setStartTime () {
       const now = new Date();
-      const minutesAfterGap = now.getMinutes() % 15;
+      const minutesAfterGap = now.getMinutes() % this.timeGap;
       const secondsAfterGap = now.getSeconds();
-      this.minutes = 15 - minutesAfterGap;
+      this.minutes = this.timeGap - minutesAfterGap;
       this.seconds = 59 - secondsAfterGap;
     },
   },

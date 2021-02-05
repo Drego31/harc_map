@@ -162,5 +162,5 @@ export const pl = {
     timer: {
       toUpdate: 'Aktualizacja',
     },
-  }
+  },
 };
