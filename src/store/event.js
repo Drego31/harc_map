@@ -14,6 +14,7 @@ export default {
     mapDefaultLatitude: 0,
     mapZoom: 2,
     mapDefaultZoom: 2,
+    mapRefreshTime: 60,
     points: [],
     categories: [],
   },
@@ -48,8 +49,9 @@ export default {
 
           // Point is permanent and collected, but user don't know it to next gap time
           // Gap time = Last quarter of an hour from now example .00, .15, .30, .45
+          const mapRefreshTimeInMinutes = state.mapRefreshTime / 60;
           const now = moment();
-          const lastGapEndTime = moment(now).minutes((now.minute() - (now.minute() % 15))).seconds(0);
+          const lastGapEndTime = moment(now).minutes((now.minute() - (now.minute() % mapRefreshTimeInMinutes))).seconds(0);
           const isBeforeLastGapEndTime = moment(pointCollectionTime).isBefore(lastGapEndTime);
           return isBeforeLastGapEndTime === false;
         }
