@@ -10,6 +10,11 @@
         v-model="collectedPointId"
         :disabled="blockForm"
       />
+      <m-select
+        :options="[{label: 'Czasowy', value: 1}, {label: 'Do zebrania', value: 0}]"
+        placeholder="Typ punktu"
+        v-model="pointType"
+      />
       <div class="f-text-danger" v-text="message"/>
       <a-button-submit
         :disabled="blockForm"
@@ -28,11 +33,13 @@ import MFieldText from 'molecules/field/text';
 import AButtonSubmit from 'atoms/button/submit';
 import { ICONS } from 'src/__jscash__/icons-names-list';
 import { translator } from 'src/dictionary';
+import MSelect from 'molecules/select';
 
 export default {
   name: 'p-collect-point',
   mixins: [mixins.form, mixins.validation],
   components: {
+    MSelect,
     TPage,
     AButtonSubmit,
     MFieldText,
@@ -43,6 +50,7 @@ export default {
     blockForm: false,
     isSending: false,
     message: '',
+    pointType: 0,
   }),
   methods: {
     onCollectPoint () {
