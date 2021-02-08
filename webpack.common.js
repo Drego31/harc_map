@@ -17,6 +17,7 @@ module.exports = {
   output: {
     // filename in dev and prod configs
     path: resolve('public'),
+    publicPath: '/',
   },
   devServer: {
     historyApiFallback: {
