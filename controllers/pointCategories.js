@@ -12,14 +12,13 @@ class GetRequestService extends Endpoint {
     const categoryCollection = 'point_categories_' + json.eventId;
 
     return database.readMany(categoryCollection, {})
-
       .then(categories => {
         if (!(categories && categories.length)) {
           this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
         }
 
         categories.forEach(category => { delete category._id; });
-        this.responseObject.categories = categories;
+        this.responseObject.categorises = categories;
         this.sendResponse();
       });
   }

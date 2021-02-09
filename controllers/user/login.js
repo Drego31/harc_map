@@ -99,7 +99,7 @@ router.route('/')
       const { user } = req.user;
       database.read('users', { user })
         .then(utils.throwIfEmpty)
-        .then(() => {
+        .then(result => {
           res.send(__getUserDataForResponse(req.user, result.collectedPointsIds));
         })
         .catch(errorMsg => {
