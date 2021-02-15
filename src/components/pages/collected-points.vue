@@ -1,5 +1,5 @@
 <template>
-  <t-page title="Zebrane punkty" class="f-text-center">
+  <t-page class="f-text-center">
     <o-collected-points></o-collected-points>
   </t-page>
 </template>

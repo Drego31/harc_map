@@ -1,5 +1,8 @@
 <template>
-  <div class="o-map" id="o-map"></div>
+  <div>
+    <slot/>
+    <div class="o-map" id="o-map"></div>
+  </div>
 </template>
 
 <script>
@@ -11,16 +14,19 @@ export default {
   name: 'o-map',
   mounted () {
     const appEvent = this.$store.getters['event/event'];
-    const position = appEvent.mapPosition;
 
     map.create({
       elementId: 'o-map',
-      lat: position.latitude,
-      lon: position.longitude,
+      lat: appEvent.mapLatitude,
+      lon: appEvent.mapLongitude,
       zoom: appEvent.mapZoom,
     });
     map.points.create({
-      list: this.$store.getters['event/notCollectedPoints'],
+      list: this.$store.getters['event/getPointsVisibleOnMap'],
+      listOfCollectedPoints: this.$store.getters['user/collectedPoints'],
+    });
+    map.lines.create({
+      list: this.$store.getters['user/collectedPoints'],
     });
   },
   methods: {
@@ -28,15 +34,18 @@ export default {
       'setMapPosition',
       'setMapZoom',
     ]),
+    saveLastMapPosition () {
+      const mapView = map.realMap.getView();
+      const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
+      this.setMapPosition({
+        mapLatitude,
+        mapLongitude,
+      });
+      this.setMapZoom(mapView.getZoom());
+    },
   },
   beforeDestroy () {
-    const mapView = map.realMap.getView();
-    const [longitude, latitude] = toLonLat(mapView.getCenter());
-    this.setMapPosition({
-      latitude,
-      longitude,
-    });
-    this.setMapZoom(mapView.getZoom());
+    this.saveLastMapPosition();
   },
 };
 </script>

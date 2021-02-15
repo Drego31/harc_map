@@ -28,7 +28,7 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="ICONS.cancel"
+      :name="ICONS.arrow_drop_down"
       class="f-input"
       @click.stop="focusAndToggle"
     />
