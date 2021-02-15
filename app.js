@@ -27,7 +27,7 @@ const specs = require('./spec/swagger.js');
 // const swaggerDocument = require('./swagger.json');
 
 // Controllers
-const userController = require('./controllers/user');
+const userController = require('./controllers/user/index');
 const eventController = require('./controllers/event');
 const eventPointController = require('./controllers/eventPoint');
 const eventPointsController = require('./controllers/eventPoints');
