@@ -18,7 +18,7 @@ class GetRequestService extends Endpoint {
         }
 
         categories.forEach(category => { delete category._id; });
-        this.responseObject.categorises = categories;
+        this.responseObject.categories = categories;
         this.sendResponse();
       });
   }

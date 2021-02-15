@@ -116,7 +116,7 @@ router.route('/')
         passport.authenticate('local', (error, userData) => {
           if (error || !userData) {
             // failed login
-            utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR, error);
+            utils.responseUserError(res, 401, error, error);
           } else {
             req.login(userData, error => {
               // error with setting session

@@ -99,8 +99,9 @@ router.route('/')
       // Data from client
       const { user } = req.body;
       database.read('users', { user })
+        .then(utils.throwIfEmpty)
         .then(result => {
-          if (result && result.accountIsActive) {
+          if (result.accountIsActive) {
             return result;
           } else {
             utils.responseUserError(res, 401, errorsCodes.ACCOUNT_IS_INACTIVE);
@@ -160,7 +161,7 @@ router.route('/:key')
       .then(utils.throwIfEmpty)
       // check if forgotTimeout hasn't ended
       .then(userWithKey => __checkForgotTimeout(userWithKey.forgotTimestamp))
-      .then(() => res.sendFile(path.resolve(__dirname, '../public/index.html')))
+      .then(() => res.sendFile(path.resolve(__dirname, '../../public/index.html')))
       .catch(errorMsg => {
         if (errorMsg) console.trace(errorMsg);
         res.redirect(302, '/404');
