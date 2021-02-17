@@ -65,12 +65,12 @@ export default {
     this.values.eventId = this.event.eventId;
   },
   computed: {
-    ...mapGetters('event', ['event', 'getEventBasicInformation']),
+    ...mapGetters('event', ['event', 'eventBasicInformation']),
   },
   methods: {
     updateEvent () {
       const updatedEvent = {
-        ...this.getEventBasicInformation,
+        ...this.eventBasicInformation,
         eventName: this.values.eventName,
       };
       this.$store.dispatch('event/updateEvent', updatedEvent)
