@@ -3,7 +3,8 @@ import { map } from 'map';
 import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 
-const intervalTime = 60 * 1000; // 60s
+const oneSecond = 1000;
+const intervalTime = 60 * oneSecond;
 let intervalID = null;
 let timeoutID = null;
 
@@ -12,7 +13,7 @@ function intervalMethod () {
     .then(() => {
       if (uCheck.isObject(map.realMap)) {
         map.points.create({
-          list: this.$store.getters['event/getPointsVisibleOnMap'],
+          list: store.getters['event/getPointsVisibleOnMap'],
         });
       }
     })
@@ -25,7 +26,7 @@ export const autoUpdate = {
     timeoutID = setTimeout(() => {
       autoUpdate.once();
       intervalID = setInterval(intervalMethod, intervalTime);
-    }, secondsToFullMinute * 1000);
+    }, secondsToFullMinute * oneSecond);
   },
   once () {
     intervalMethod();

@@ -18,7 +18,7 @@ export const points = {
   create: config => createFeatures(config),
   destroyAll () {
     if (uCheck.isObject(map.realMap) && uCheck.isObject(points.layer)) {
-      map.realMap.removeLayer(points.layer.get('name'));
+      map.realMap.removeLayer(points.layer);
     }
   },
   removeByOlUid (olUid) {

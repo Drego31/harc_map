@@ -1,7 +1,7 @@
-import { arrayUtils } from 'utils/array';
 import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 import { MACROS } from 'utils/macros';
+import Vue from 'vue';
 
 export default {
   namespaced: true,
@@ -48,7 +48,7 @@ export default {
           if (rootGetters['user/collectedPointsIds'].includes(pointId) === true) return true;
 
           // Point is permanent and collected, but user don't know it to next gap time
-          // Gap time = Last quarter of an hour from now example .00, .15, .30, .45
+          // Gap time is last full time from mapRefreshTime counting from full hours
           const mapRefreshTimeInMinutes = state.mapRefreshTime / 60;
           const now = moment();
           const lastGapEndTime = moment(now).minutes((now.minute() - (now.minute() % mapRefreshTimeInMinutes))).seconds(0);
@@ -63,12 +63,13 @@ export default {
         return expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
       });
     },
-    getEventBasicInformation: (state) => ({
+    eventBasicInformation: (state) => ({
       eventId: state.eventId,
       eventName: state.eventName,
       mapZoom: state.mapZoom,
       mapLongitude: state.mapLongitude,
       mapLatitude: state.mapLatitude,
+      mapRefreshTime: state.mapRefreshTime,
     }),
   },
   mutations: {
@@ -85,19 +86,30 @@ export default {
     },
     setId: (state, payload) => (state.eventId = payload),
     updatePoint: (state, data) => {
-      const point = state.points.find(item => item.pointId === data.pointId);
-      Object.assign(point, data);
+      let arrayPointId = null;
+      const point = state.points.find((item, id) => {
+        arrayPointId = id;
+        return item.pointId === data.pointId;
+      });
+      Vue.set(state.points, arrayPointId, Object.assign({}, point, data));
     },
     updateListOfPoints: (state, list = []) => {
       for (const newPoint of list) {
-        const point = state.points.find(item => item.pointId === newPoint.pointId);
-        Object.assign(point, newPoint);
+        let arrayPointId = null;
+        const point = state.points.find((item, id) => {
+          arrayPointId = id;
+          return item.pointId === newPoint.pointId;
+        });
+        Vue.set(state.points, arrayPointId, Object.assign({}, point, newPoint));
       }
     },
     removePoint: (state, point) => {
-      arrayUtils.removeItem(state.points, point);
+      Vue.delete(state.points, state.points.indexOf(point));
     },
-    setMapPosition: (state, { mapLatitude, mapLongitude }) => {
+    setMapPosition: (state, {
+      mapLatitude,
+      mapLongitude,
+    }) => {
       state.mapLatitude = mapLatitude;
       state.mapLongitude = mapLongitude;
     },
@@ -145,7 +157,7 @@ export default {
           });
       });
     },
-    updateEvent (context, updatedEvent = context.getters.getEventBasicInformation) {
+    updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {
       api.updateEvent(updatedEvent)
         .then(api.getEventById)
         .then(eventData => context.commit('setEvent', eventData));
