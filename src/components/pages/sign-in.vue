@@ -57,7 +57,7 @@ export default {
   }),
   mounted () {
     if (PRODUCTION === false) {
-      // this.signInAutomatically();
+      this.signInAutomatically();
     }
   },
   methods: {
