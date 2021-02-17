@@ -54,7 +54,7 @@ export const API_ERRORS = {
         translator.t('apiError.signInData'),
       ],
       [
-        [validateCodes.SESSION_ERROR],
+        [validateCodes.USER_IS_LOGGED_ON_ANOTHER_DEVICE],
         'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
       ],
     ],

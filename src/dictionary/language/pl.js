@@ -36,6 +36,7 @@ export const pl = {
       eventName: 'Nazwa wydarzenia',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
+      mapRefreshTime: 'Odświeżanie punktów na mapie co',
     },
     assist: {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
