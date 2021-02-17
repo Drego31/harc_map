@@ -8,11 +8,11 @@ const Endpoint = require('../lib/endpoint');
 class PutRequestService extends Endpoint {
 
   databasePartValidateEvent (event) {
-    this.makeThrowIf(event === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(event.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR);
   }
 
   databasePartValidatePoint (point) {
-    this.makeThrowIf(point === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(point.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR);
   }
 
   databasePartValidateUser (user) {

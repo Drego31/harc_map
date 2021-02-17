@@ -13,9 +13,8 @@ class GetRequestService extends Endpoint {
     const filters = { eventId: json.eventId };
 
     return database.read(eventCollection, filters)
-
       .then(event => {
-        if (event === null) {
+        if (!event) {
           this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
         }
 

@@ -158,4 +158,9 @@ export const pl = {
       success: 'Twoje hasło zostało zmienione!',
     },
   },
+  features: {
+    timer: {
+      toUpdate: 'Aktualizacja',
+    },
+  },
 };
