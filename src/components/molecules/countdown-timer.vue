@@ -16,7 +16,7 @@ export default {
   props: {
     timeGap: {
       type: Number,
-      default: 15,
+      default: 60,
     },
   },
   mounted () {
@@ -35,12 +35,15 @@ export default {
     getMinutes () {
       return getZeroPad(this.minutes);
     },
+    timeGapInMinutes () {
+      return this.timeGap / 60;
+    },
   },
   methods: {
     updateDateTime () {
       if (this.seconds === 0) {
         if (this.minutes === 0) {
-          this.minutes = this.timeGap - 1;
+          this.minutes = this.timeGapInMinutes - 1;
           this.seconds = 59;
         } else {
           this.minutes -= 1;
@@ -52,10 +55,10 @@ export default {
     },
     setStartTime () {
       const now = new Date();
-      const minutesAfterGap = now.getMinutes() % this.timeGap;
+      const minutesAfterGap = now.getMinutes() % this.timeGapInMinutes;
       const secondsAfterGap = now.getSeconds();
-      this.minutes = this.timeGap - minutesAfterGap;
-      this.seconds = 59 - secondsAfterGap;
+      this.minutes = this.timeGapInMinutes - minutesAfterGap - 1;
+      this.seconds = 60 - secondsAfterGap;
     },
   },
 };

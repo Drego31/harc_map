@@ -63,12 +63,13 @@ export default {
         return expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
       });
     },
-    getEventBasicInformation: (state) => ({
+    eventBasicInformation: (state) => ({
       eventId: state.eventId,
       eventName: state.eventName,
       mapZoom: state.mapZoom,
       mapLongitude: state.mapLongitude,
       mapLatitude: state.mapLatitude,
+      mapRefreshTime: state.mapRefreshTime,
     }),
   },
   mutations: {
@@ -156,7 +157,7 @@ export default {
           });
       });
     },
-    updateEvent (context, updatedEvent = context.getters.getEventBasicInformation) {
+    updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {
       api.updateEvent(updatedEvent)
         .then(api.getEventById)
         .then(eventData => context.commit('setEvent', eventData));
