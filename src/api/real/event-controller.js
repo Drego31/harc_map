@@ -33,7 +33,11 @@ export const eventController = {
       ...API_ERRORS.getCategoriesByEventId,
     });
   },
-  collectPoint ({ user, eventId, pointId }) {
+  collectPoint ({
+    user,
+    eventId,
+    pointId,
+  }) {
     return makeRequest({
       method: request.put,
       url: '/event/point/collect',
@@ -45,7 +49,14 @@ export const eventController = {
       ...API_ERRORS.collectPoint,
     });
   },
-  updateEvent ({ eventId, eventName, mapLongitude, mapLatitude, mapZoom }) {
+  updateEvent ({
+    eventId,
+    eventName,
+    mapLongitude,
+    mapLatitude,
+    mapZoom,
+    mapRefreshTime,
+  }) {
     return makeRequest({
       method: request.put,
       url: '/event',
@@ -55,6 +66,7 @@ export const eventController = {
         mapLongitude,
         mapLatitude,
         mapZoom,
+        mapRefreshTime,
       },
       ...API_ERRORS.updateEvent,
     });

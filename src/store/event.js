@@ -158,9 +158,13 @@ export default {
       });
     },
     updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {
-      api.updateEvent(updatedEvent)
-        .then(api.getEventById)
-        .then(eventData => context.commit('setEvent', eventData));
+      return new Promise((resolve, reject) => {
+        api.updateEvent(updatedEvent)
+          .then(api.getEventById)
+          .then(eventData => context.commit('setEvent', eventData))
+          .then(resolve)
+          .catch(reject);
+      });
     },
   },
 };

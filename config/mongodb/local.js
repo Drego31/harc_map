@@ -93,7 +93,7 @@ db.users.insert({
   'userEvents': [
     'kO6f',
   ],
-  'accountType': 'common',
+  'accountType': 'admin',
   'accountIsActive': true,
   'activationKey': null,
   'forgotKey': null,
