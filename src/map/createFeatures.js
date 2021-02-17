@@ -9,13 +9,14 @@ import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
+import { colorsUtils } from 'utils/colors';
 
 const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
   let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
-    const opacity = 0.3;
+    const opacity = 0.5;
     appearance = { ...appearance };
-    appearance.strokeColor = [...appearance.strokeColor, opacity];
+    appearance.strokeColor = colorsUtils.hexOrRGBToRGB(appearance.strokeColor, opacity);
   }
   return new Stroke({
     color: appearance.strokeColor,
@@ -26,9 +27,9 @@ const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) 
 const getFill = (shape, isCollected) => {
   let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
-    const opacity = 0.3;
+    const opacity = 0.5;
     appearance = { ...appearance };
-    appearance.fillColor = [...appearance.fillColor, opacity];
+    appearance.fillColor = colorsUtils.hexOrRGBToRGB(appearance.fillColor, opacity);
   }
   return new Fill({ color: appearance.fillColor });
 };
@@ -70,9 +71,10 @@ export function createFeatures ({ list = [] }) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;
     const shape = point.pointCategory;
+    const isCollected = point.pointCollectionTime != null;
 
-    const stroke = getStroke(shape);
-    const fill = getFill(shape);
+    const stroke = getStroke(shape, isCollected);
+    const fill = getFill(shape, isCollected);
 
     const position = Projection.fromLonLat([lon, lat]);
 

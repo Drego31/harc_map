@@ -1,8 +1,34 @@
-const colorsUtils = {
-  convertRGBToArray (color) {
-    const colorValues = color.split('(')[1].split(')')[0];
+import { uCheck } from '@dbetka/utils';
+
+export const colorsUtils = {
+  convertRGBToArray (RGB) {
+    const colorValues = RGB.split('(')[1].split(')')[0];
     const colorArray = colorValues.split(',');
     return colorArray.map(partOfColor => Number(partOfColor.trim()));
+  },
+  hexToRGB (hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+
+    if (alpha) {
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    } else {
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+  },
+  hexOrRGBToRGB (hexOrRGB, alpha) {
+    if (hexOrRGB.includes('#')) {
+      return colorsUtils.hexToRGB(hexOrRGB, alpha);
+    }
+    const RGBArray = colorsUtils.convertRGBToArray(hexOrRGB);
+    if (uCheck.isDefined(alpha)) {
+      return `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, ${alpha})`;
+    }
+    if (uCheck.isDefined(RGBArray[3])) {
+      return `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, ${RGBArray[3]})`;
+    }
+    return `rgb(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]})`;
   },
 };
 
