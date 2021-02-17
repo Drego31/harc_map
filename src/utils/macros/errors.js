@@ -48,6 +48,8 @@ export const API_ERRORS = {
           validateCodes.IS_NOT_EMAIL,
           validateCodes.PASSWORD_TOO_SHORT,
           validateCodes.PASSWORD_HAS_NOT_NUMBER,
+          validateCodes.LOGIN_INVALID_PASSWORD,
+          validateCodes.LOGIN_INVALID_USER,
         ],
         translator.t('apiError.signInData'),
       ],

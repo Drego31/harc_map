@@ -11,6 +11,7 @@ db.events.insert({
   'mapZoom': NumberInt(11),
   'mapLongitude': 18.4735,
   'mapLatitude': 54.4787,
+  'mapRefreshTime': 60,
 });
 
 db.point_categories_ab12.insertMany([{
