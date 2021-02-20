@@ -91,6 +91,7 @@ export const pl = {
     collectedPoints: {
       sumTitle: 'Suma punktów wg kategorii',
       listTitle: 'Lista zebranych punktów',
+      noPoints: 'Brak zebranych punktów',
     },
     collectPoint: {
       content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
