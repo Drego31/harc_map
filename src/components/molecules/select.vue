@@ -51,6 +51,14 @@
   </div>
 </template>
 
+<!-- USAGE EXAMPLE
+  <m-select
+    :options="[{label: '5 min', value: 5 * 60}]"
+    :placeholder="$t('form.field.mapRefreshTime')"
+    v-model="values.mapRefreshTime"
+  />
+-->
+
 <script>
 import { mixins } from 'mixins/base';
 import { logical } from 'vendors/logical';
