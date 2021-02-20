@@ -22,6 +22,12 @@
         <div>{{ $t('table.place') }}</div>
         <div>{{ $t('table.expand') }}</div>
       </div>
+      <div
+        v-if="collectedPoints.length === 0"
+        class="a-message f-table"
+      >
+        {{ $t('page.collectedPoints.noPoints') }}
+      </div>
       <m-row-point
         v-for="point of collectedPoints.reverse()"
         :key="point.pointId"
