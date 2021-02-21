@@ -83,6 +83,7 @@ export const pl = {
       success: 'Link do odzyskania hasła wysłano na podany email.',
     },
     error: {
+      title: 'Błąd 404',
       content: `Cześć! <br>
         Wygląda na to, że znajdujesz się nie tam gdzie trzeba... <br>
         <br>
