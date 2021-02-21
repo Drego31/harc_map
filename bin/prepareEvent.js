@@ -71,6 +71,7 @@ function createEvent () {
     mapZoom: 11,
     mapLongitude: 18.4735,
     mapLatitude: 54.4787,
+    mapRefreshTime: 60 * 15,
   };
 
   return database.create('events', [event])

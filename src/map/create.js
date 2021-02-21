@@ -5,7 +5,7 @@ import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
-import { store } from 'store/index';
+import { store } from 'store';
 import { Attribution, defaults as defaultControls } from 'ol/control';
 import { mapConfig } from 'map/config';
 

@@ -28,7 +28,7 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="ICONS.cancel"
+      :name="ICONS.arrow_drop_down"
       class="f-input"
       @click.stop="focusAndToggle"
     />
@@ -50,6 +50,14 @@
     </div>
   </div>
 </template>
+
+<!-- USAGE EXAMPLE
+  <m-select
+    :options="[{label: '5 min', value: 5 * 60}]"
+    :placeholder="$t('form.field.mapRefreshTime')"
+    v-model="values.mapRefreshTime"
+  />
+-->
 
 <script>
 import { mixins } from 'mixins/base';

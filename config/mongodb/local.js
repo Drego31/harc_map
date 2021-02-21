@@ -11,13 +11,10 @@ db.events.insert({
   'mapZoom': NumberInt(11),
   'mapLongitude': 18.4735,
   'mapLatitude': 54.4787,
+  'mapRefreshTime': 60,
 });
 
 db.point_categories_ab12.insertMany([{
-  'categoryId': NumberInt(0),
-  'pointValue': NumberInt(0),
-  'pointShape': NumberInt(0),
-}, {
   'categoryId': NumberInt(1),
   'pointValue': NumberInt(1),
   'pointShape': NumberInt(1),
@@ -96,7 +93,7 @@ db.users.insert({
   'userEvents': [
     'kO6f',
   ],
-  'accountType': 'common',
+  'accountType': 'admin',
   'accountIsActive': true,
   'activationKey': null,
   'forgotKey': null,

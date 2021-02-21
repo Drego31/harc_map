@@ -36,6 +36,7 @@ export const pl = {
       eventName: 'Nazwa wydarzenia',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
+      mapRefreshTime: 'Odświeżanie punktów na mapie co',
     },
     assist: {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
@@ -82,6 +83,7 @@ export const pl = {
       success: 'Link do odzyskania hasła wysłano na podany email.',
     },
     error: {
+      title: 'Błąd 404',
       content: `Cześć! <br>
         Wygląda na to, że znajdujesz się nie tam gdzie trzeba... <br>
         <br>
@@ -90,6 +92,7 @@ export const pl = {
     collectedPoints: {
       sumTitle: 'Suma punktów wg kategorii',
       listTitle: 'Lista zebranych punktów',
+      noPoints: 'Brak zebranych punktów',
     },
     collectPoint: {
       content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
