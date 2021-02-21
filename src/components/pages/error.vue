@@ -25,7 +25,6 @@
 <script>
 import TPage from 'templates/page';
 import MPanel from 'molecules/panel';
-import { mapGetters } from 'vuex';
 import { THEMES } from 'utils/style-manager';
 import AButtonPrimary from 'atoms/button/primary';
 
@@ -37,12 +36,6 @@ export default {
     TPage,
   },
   computed: {
-    ...mapGetters('user', [
-      'sumOfCollectedPoints',
-    ]),
-    ...mapGetters('event', [
-      'eventName',
-    ]),
     panelImages () {
       const images = {};
       images[THEMES.dark] = '/img/treasure-map.jpg';
