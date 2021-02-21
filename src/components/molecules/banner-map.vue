@@ -4,8 +4,8 @@
       <slot name="text"></slot>
     </div>
     <a-button-primary
-      class="f-flex-0"
-      style="min-width: 92px"
+      class="f-flex-0 f-m-0"
+      :add-class="'min'"
       @click="$emit('actionTriggered')"
     >
       <slot name="button-name"></slot>
@@ -21,3 +21,9 @@ export default {
   components: { AButtonPrimary },
 };
 </script>
+
+<style>
+.min {
+  min-width: 92px;
+}
+</style>
