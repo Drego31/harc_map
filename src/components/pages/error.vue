@@ -6,13 +6,13 @@
     >
       <div>
         <span class="a-text f-title f-big">
-          Błąd 404
+          {{ $t('page.error.title') }}
         </span>
       </div>
     </m-panel>
 
     <div class="m-collection f-button f-px-2">
-      <div class="f-pt-3 f-text-bold" v-html="$t('page.error.content')" />
+      <div class="f-pt-3 f-text-bold" v-html="$t('page.error.content')"/>
       <div class="f-pt-1">
         <a-button-primary @click="$router.push(ROUTES.welcome.path)">
           {{ $t('general.backToStart') }}
