@@ -11,6 +11,50 @@ import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 import { colorsUtils } from 'utils/colors';
 
+export function createFeatures ({ list = [] }) {
+  const mapIsNotDefined = uCheck.isNotObject(map.realMap);
+  const listOfFeatures = [];
+
+  if (mapIsNotDefined) {
+    console.error(new Error('Map is undefined'));
+    return false;
+  }
+
+  map.points.destroyAll();
+
+  for (const point of list) {
+    const lat = point.pointLatitude;
+    const lon = point.pointLongitude;
+    const shape = point.pointCategory;
+    const collectedPointsIds = store.getters['user/collectedPointsIds'];
+    const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
+    const isCollected = point.pointCollectionTime != null && collectedByLoginUser;
+
+    const stroke = getStroke(shape, isCollected);
+    const fill = getFill(shape, isCollected);
+
+    const position = Projection.fromLonLat([lon, lat]);
+
+    const feature = new Feature({
+      geometry: new Point(position),
+    });
+    feature.setStyle(getFinalPoints(shape, fill, stroke));
+
+    point.olUid = feature.ol_uid;
+    listOfFeatures.push(feature);
+  }
+  store.commit('event/updateListOfPoints', list);
+
+  const layer = new VectorLayer({
+    source: new VectorSource({
+      features: listOfFeatures,
+    }),
+  });
+  layer.setZIndex(mapConfig.features.zIndex);
+  map.realMap.addLayer(layer);
+  map.points.layer = layer;
+}
+
 const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
   let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
@@ -55,45 +99,3 @@ const getFinalPoints = (shape, fill, stroke) => {
     image: new RegularShape(pointValues),
   });
 };
-
-export function createFeatures ({ list = [] }) {
-  const mapIsNotDefined = uCheck.isNotObject(map.realMap);
-  const listOfFeatures = [];
-
-  if (mapIsNotDefined) {
-    console.error(new Error('Map is undefined'));
-    return false;
-  }
-
-  map.points.destroyAll();
-
-  for (const point of list) {
-    const lat = point.pointLatitude;
-    const lon = point.pointLongitude;
-    const shape = point.pointCategory;
-    const isCollected = point.pointCollectionTime != null;
-
-    const stroke = getStroke(shape, isCollected);
-    const fill = getFill(shape, isCollected);
-
-    const position = Projection.fromLonLat([lon, lat]);
-
-    const feature = new Feature({
-      geometry: new Point(position),
-    });
-    feature.setStyle(getFinalPoints(shape, fill, stroke));
-
-    point.olUid = feature.ol_uid;
-    listOfFeatures.push(feature);
-  }
-  store.commit('event/updateListOfPoints', list);
-
-  const layer = new VectorLayer({
-    source: new VectorSource({
-      features: listOfFeatures,
-    }),
-  });
-  layer.setZIndex(mapConfig.features.zIndex);
-  map.realMap.addLayer(layer);
-  map.points.layer = layer;
-}
