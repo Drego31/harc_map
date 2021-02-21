@@ -32,7 +32,8 @@ export default {
     getTemporaryPoints: state => state.points
       .filter(point => point.pointType === MACROS.pointType.temporary)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
-
+    allCollectedPoints: state => state.points
+      .filter(point => point.pointCollectionTime !== null),
     getPointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
       return state.points.filter(({
         pointId,

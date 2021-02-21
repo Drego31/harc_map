@@ -92,6 +92,7 @@ export const pl = {
     collectedPoints: {
       sumTitle: 'Suma punktów wg kategorii',
       listTitle: 'Lista zebranych punktów',
+      scoreTitle: 'Tabela wyników',
       noPoints: 'Brak zebranych punktów',
     },
     collectPoint: {
@@ -148,9 +149,12 @@ export const pl = {
     shortCategory: 'Kat.',
     category: 'Kategoria',
     shortPointId: 'Kod',
+    team: 'Patrol',
     value: 'Wartość',
+    score: 'Wynik',
     place: 'Miejsce',
     expand: 'Rozwiń',
+    more: 'Więcej',
   },
   communicate: {
     collectPoint: {

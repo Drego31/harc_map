@@ -22,14 +22,22 @@ export default {
       type: Object,
       required: true,
     },
+    allUsers: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
-    ...mapGetters('user', [
-      'collectedPoints',
-    ]),
+    ...mapGetters('user', {
+      userCollectedPoints: 'collectedPoints',
+    }),
     ...mapGetters('event', [
       'getCategoryById',
+      'allCollectedPoints',
     ]),
+    collectedPoints () {
+      return this.allUsers ? this.allCollectedPoints : this.collectedPoints;
+    },
   },
   methods: {
     getCollectedPointsLengthById (categoryId) {

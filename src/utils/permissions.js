@@ -10,7 +10,7 @@ export const ACCOUNT_TYPES = {
 
 export const permissions = {
   // permissions.check method is available in vue templates
-  check (accountType) {
+  checkPermissions (accountType) {
     const user = store.getters['user/user'];
     if (uCheck.isDefined(user) && user !== '') {
       const userAccountType = store.getters['user/accountType'];
@@ -20,7 +20,7 @@ export const permissions = {
     }
     return false;
   },
-  promiseCheck (accountType) {
+  promiseCheckPermissions (accountType) {
     return new Promise((resolve, reject) => {
       const correctPermissions = permissions.check(accountType);
       if (correctPermissions === true) {
@@ -31,16 +31,16 @@ export const permissions = {
     });
   },
   checkIsAdmin () {
-    return this.check(ACCOUNT_TYPES.admin);
+    return this.checkPermissions(ACCOUNT_TYPES.admin);
   },
   checkIsCommon () {
-    return this.check(ACCOUNT_TYPES.common);
+    return this.checkPermissions(ACCOUNT_TYPES.common);
   },
   promiseCheckIsAdmin () {
-    return this.promiseCheck(ACCOUNT_TYPES.admin);
+    return this.promiseCheckPermissions(ACCOUNT_TYPES.admin);
   },
   promiseCheckIsCommon () {
-    return this.promiseCheck(ACCOUNT_TYPES.common);
+    return this.promiseCheckPermissions(ACCOUNT_TYPES.common);
   },
 };
 

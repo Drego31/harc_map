@@ -1,17 +1,11 @@
 <template>
   <div>
-    <div class="m-grid f-point">
-      <div>
-        <a-icon-category :category-id="point.pointCategory"/>
-      </div>
+    <div class="m-grid f-score">
       <div>{{ point.pointId }}</div>
       <div>{{ getCategoryById(point.pointCategory).pointValue }} pkt</div>
       <div>
-        <a-icon :name="ICONS.map" @click="panTo(point)"/>
-      </div>
-      <div>
         <a-icon
-          :name="ICONS.arrow_drop_down"
+          :name="ICONS.more_vert"
           @click="toggleDetails"
         />
       </div>
