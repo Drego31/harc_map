@@ -13,7 +13,7 @@ export default {
     const route = ROUTES[this.$router.currentRoute.name] || {};
     const title = route.label;
     this.$store.commit('header/setPageTitle', title);
-    if (this.title) {
+    if (title) {
       document.title = `${title} - ${APP_NAME}`;
     } else {
       document.title = APP_NAME;
