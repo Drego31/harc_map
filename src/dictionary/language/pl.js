@@ -165,5 +165,8 @@ export const pl = {
     timer: {
       toUpdate: 'Aktualizacja',
     },
+    bannerMap: {
+      defaultSuccessMessage: 'Nowa pozycja została zapisana.',
+    },
   },
 };
