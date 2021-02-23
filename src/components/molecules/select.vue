@@ -12,6 +12,7 @@
         ref="input"
         :value="label"
         readonly
+        @click="focusIn"
         @focusin="focusIn"
         @focusout="focusOut"
         @keyup.esc.prevent="closeOptions"
