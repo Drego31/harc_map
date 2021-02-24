@@ -1,6 +1,6 @@
 <template>
   <o-map ref="oMap">
-    <m-banner-map @actionTriggered="onSavePosition">
+    <m-banner-map ref="banner" @actionTriggered="onSavePosition">
       <template slot="text">{{ $t('page.admin.setMapPosition.content') }}</template>
       <template slot="button-name">{{ $t('form.button.save') }}</template>
     </m-banner-map>
@@ -20,7 +20,8 @@ export default {
   methods: {
     onSavePosition () {
       this.$refs.oMap.saveLastMapPosition();
-      this.$store.dispatch('event/updateEvent');
+      this.$store.dispatch('event/updateEvent')
+        .then(() => this.$refs.banner.emitSuccessMessage());
     },
   },
 };
