@@ -1,6 +1,5 @@
 <template>
   <t-page class="f-text-center">
-
     <a-button-primary
       v-for="route of links"
       :key="route.name"
