@@ -89,9 +89,23 @@ export const ROUTES = {
   },
   setMapPosition: {
     path: '/set-map-position',
-    name: 'set-map-position',
+    name: 'setMapPosition',
     label: translator.t('title.setMapPosition'),
     shortLabel: translator.t('title.setMapPosition'),
+    icon: ICONS.map,
+  },
+  setNewPointPosition: {
+    path: '/set-new-point-position',
+    name: 'setNewPointPosition',
+    label: translator.t('title.setNewPointPosition'),
+    shortLabel: translator.t('title.setNewPointPosition'),
+    icon: ICONS.map,
+  },
+  addNewPoint: {
+    path: '/add-new-point',
+    name: 'addNewPoint',
+    label: translator.t('title.addNewPoint'),
+    shortLabel: translator.t('title.addNewPoint'),
     icon: ICONS.map,
   },
 };

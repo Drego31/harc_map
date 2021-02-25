@@ -13,6 +13,8 @@ export const pl = {
     map: 'Mapa',
     editEvent: 'Edycja wydarzenia',
     setMapPosition: 'Ustawienia mapy',
+    setNewPointPosition: 'Lokalizacja nowego punktu',
+    addNewPoint: 'Nowy punkt',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
@@ -114,6 +116,9 @@ export const pl = {
     admin: {
       setMapPosition: {
         content: 'Ustaw mapę w wybranej pozycji i zapisz.',
+      },
+      setNewPointPosition: {
+        content: 'Ustaw punkt w wybranej pozycji i zapisz.',
       },
     },
   },
