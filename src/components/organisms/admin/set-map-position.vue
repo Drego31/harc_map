@@ -22,7 +22,7 @@ export default {
       this.$refs.oMap.saveLastMapPosition();
       this.$store.dispatch('event/updateEvent')
         .then(() => {
-          this.$refs.banner.emitSuccessMessage();
+          this.$refs.banner.emitSuccessMessage(this.ROUTES.editEvent.path);
         });
     },
   },

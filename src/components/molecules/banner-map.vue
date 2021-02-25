@@ -26,7 +26,6 @@
     </transition>
   </div>
 </template>
-
 <script>
 import AButtonPrimary from 'atoms/button/primary';
 
@@ -43,10 +42,13 @@ export default {
     },
   },
   methods: {
-    emitSuccessMessage () {
+    emitSuccessMessage (pathToNavigateAfterMessage = null) {
       this.showSuccessMessage = true;
       window.setTimeout(() => {
         this.showSuccessMessage = false;
+        if (pathToNavigateAfterMessage) {
+          this.$router.push(pathToNavigateAfterMessage);
+        }
       }, this.successMessageDuration);
     },
   },
