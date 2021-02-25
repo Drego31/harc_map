@@ -123,6 +123,26 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.setNewPointPosition.path,
+    name: ROUTES.setNewPointPosition.name,
+    component: () => import('pages/admin/set-new-point-position.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.addNewPoint.path,
+    name: ROUTES.addNewPoint.name,
+    component: () => import('pages/admin/add-new-point.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
     path: '*',
     name: 'error',
     component: PError,
