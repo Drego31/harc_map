@@ -21,9 +21,7 @@ export default {
     onSavePosition () {
       this.$refs.oMap.saveLastMapPosition();
       this.$store.dispatch('event/updateEvent')
-        .then(() => {
-          this.$refs.banner.emitSuccessMessage(this.ROUTES.editEvent.path);
-        });
+        .then(() => this.$refs.banner.emitSuccessMessage(this.ROUTES.editEvent.path));
     },
   },
 };

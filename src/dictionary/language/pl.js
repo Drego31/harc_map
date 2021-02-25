@@ -11,6 +11,7 @@ export const pl = {
     collectPoint: 'Zbierz punkt',
     collectedPoints: 'Zebrane punkty',
     map: 'Mapa',
+    adminPanel: 'Panel admina',
     editEvent: 'Edycja wydarzenia',
     setMapPosition: 'Ustawienia mapy',
     setNewPointPosition: 'Lokalizacja nowego punktu',
@@ -19,6 +20,7 @@ export const pl = {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
       collectedPoints: 'Zebrane',
+      adminPanel: 'Admin',
       editEvent: 'Wydarzenie',
     },
   },
@@ -169,6 +171,9 @@ export const pl = {
   features: {
     timer: {
       toUpdate: 'Aktualizacja',
+    },
+    bannerMap: {
+      defaultSuccessMessage: 'Nowa pozycja została zapisana.',
     },
   },
 };

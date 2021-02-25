@@ -80,6 +80,13 @@ export const ROUTES = {
     shortLabel: translator.t('title.map'),
     icon: ICONS.map,
   },
+  adminPanel: {
+    path: '/admin-panel',
+    name: 'adminPanel',
+    label: translator.t('title.adminPanel'),
+    shortLabel: translator.t('title.short.adminPanel'),
+    icon: ICONS.settings,
+  },
   editEvent: {
     path: '/edit-event',
     name: 'editEvent',

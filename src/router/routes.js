@@ -103,6 +103,16 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.adminPanel.path,
+    name: ROUTES.adminPanel.name,
+    component: () => import('pages/admin/panel.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
     path: ROUTES.editEvent.path,
     name: ROUTES.editEvent.name,
     component: () => import('pages/admin/edit-event.vue'),
