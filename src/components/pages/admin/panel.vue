@@ -27,6 +27,7 @@ export default {
         ROUTES.collectedPoints,
         ROUTES.editEvent,
         ROUTES.setMapPosition,
+        ROUTES.addNewPoint,
       ];
     },
   },
