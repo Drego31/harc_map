@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%; position: relative">
     <slot/>
     <div class="o-map" id="o-map"></div>
   </div>
@@ -35,17 +35,25 @@ export default {
       'setMapZoom',
     ]),
     saveLastMapPosition () {
+      this.setMapPosition(this.getLastMapCords());
+      this.setMapZoom(this.getLastMapZoom());
+    },
+    getLastMapCords () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({
+      return {
         mapLatitude,
         mapLongitude,
-      });
-      this.setMapZoom(mapView.getZoom());
+      };
     },
-  },
-  beforeDestroy () {
-    this.saveLastMapPosition();
+    getLastMapZoom () {
+      const mapView = map.realMap.getView();
+      return mapView.getZoom();
+    },
+
+    beforeDestroy () {
+      this.saveLastMapPosition();
+    },
   },
 };
 </script>
