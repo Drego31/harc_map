@@ -25,6 +25,9 @@ export default {
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
+    getPointByOlUid: state => pointOlUid => {
+      return state.points.find(point => point.olUid === pointOlUid);
+    },
     getCategoryById: state => categoryId => {
       return state.categories.find(category => category.categoryId === categoryId);
     },

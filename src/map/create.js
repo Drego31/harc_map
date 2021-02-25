@@ -8,6 +8,7 @@ import { ERRORS } from 'utils/macros/errors';
 import { store } from 'store';
 import { Attribution, defaults as defaultControls } from 'ol/control';
 import { mapConfig } from 'map/config';
+import { showPopup } from 'map/showPopup';
 
 export function createMap (map, config) {
   const {
@@ -36,6 +37,12 @@ export function createMap (map, config) {
       zoom,
       maxZoom,
     }),
+  });
+
+  map.realMap.on('singleclick', function (event) {
+    map.realMap.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
+      showPopup(feature.ol_uid);
+    });
   });
 
   addMapTilesSuitToTheme(map);

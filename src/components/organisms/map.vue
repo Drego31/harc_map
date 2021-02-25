@@ -2,6 +2,9 @@
   <div>
     <slot/>
     <div class="o-map" id="o-map"></div>
+    <div id="map-popup" style="position: absolute;width:300px;height:200px;background-color: black; color:white;">
+      Popup
+    </div>
   </div>
 </template>
 
