@@ -79,6 +79,9 @@ export default {
       state.mapDefaultLongitude = data.mapLongitude;
       state.mapDefaultZoom = data.mapZoom;
     },
+    addPoint: (state, point) => {
+      state.points.push(point);
+    },
     setDefaultMapPositionAndZoom: (state) => {
       state.mapLatitude = state.mapDefaultLatitude;
       state.mapLongitude = state.mapDefaultLongitude;
@@ -155,6 +158,16 @@ export default {
           .catch(error => {
             reject(error);
           });
+      });
+    },
+    addPoint (context, point, eventId = context.getters.eventId) {
+      return new Promise((resolve, reject) => {
+        api.addPoint({ point, eventId })
+          .then(() => {
+            context.commit('addPoint', point);
+            resolve();
+          })
+          .catch(reject);
       });
     },
     updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {
