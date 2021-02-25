@@ -20,6 +20,12 @@ export function createFeatures ({ list = [] }) {
     return false;
   }
 
+  map.realMap.on('click', function (e) {
+    map.realMap.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+      console.log('click on', feature.ol_uid);
+    });
+  });
+
   map.points.destroyAll();
 
   for (const point of list) {
