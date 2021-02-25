@@ -6,6 +6,7 @@ import event from './event';
 import user from './user';
 import header from './header';
 import popup from './popup';
+import point from './point';
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ export const store = new Vuex.Store({
     user,
     header,
     popup,
+    point,
   },
   state: {
     isLoading: true,
