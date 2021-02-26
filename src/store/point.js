@@ -5,8 +5,8 @@ const random = generateRandomString;
 const getDefaultState = () => ({
   pointId: random(4),
   pointName: '',
-  pointLongitude: 0,
-  pointLatitude: 0,
+  pointLongitude: null,
+  pointLatitude: null,
   pointType: MACROS.pointType.permanent,
   pointCategory: MACROS.pointCategory[0].categoryId,
   pointCollectionTime: null,
@@ -39,7 +39,7 @@ export default {
       state.pointLatitude = pointLatitude;
       state.pointLongitude = pointLongitude;
     },
-    setBaseProperty: (state, {
+    setPointBasicInformation: (state, {
       pointName,
       pointType,
       pointCategory,
@@ -50,7 +50,7 @@ export default {
       state.pointCategory = pointCategory;
       state.pointExpirationTime = pointExpirationTime;
     },
-    resetState: (state) => {
+    resetPointState: (state) => {
       Object.assign(state, getDefaultState());
     },
   },

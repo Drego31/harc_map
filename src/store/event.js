@@ -163,10 +163,8 @@ export default {
     addPoint (context, point, eventId = context.getters.eventId) {
       return new Promise((resolve, reject) => {
         api.addPoint({ point, eventId })
-          .then(() => {
-            context.commit('addPoint', point);
-            resolve();
-          })
+          .then(() => context.commit('addPoint', point))
+          .then(resolve)
           .catch(reject);
       });
     },
