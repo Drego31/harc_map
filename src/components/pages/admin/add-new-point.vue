@@ -1,40 +1,44 @@
 <template>
-  <t-page>
+  <t-page class="f-flex f-flex-col">
     <o-form :on-submit="addPoint">
       <m-input
         :disabled="blockForm"
-        placeholder="Nazwa punktu"
+        :placeholder="$t('form.field.pointName')"
         v-model="values.pointName"
-        assist="Pole jest nieobowiązkowe"
+        :assist="$t('form.assist.fieldNotRequired')"
       >
       </m-input>
       <m-select
         :options="typeOptions"
-        placeholder="Typ punktu"
+        :placeholder="$t('form.field.pointName')"
         v-model="values.pointType"
       >
       </m-select>
       <m-field-date
         v-if="values.pointType === 'timeout'"
-        label="Data i czas wygaśniecia punktu"
+        :label="$t('form.field.pointDateAndExpirationTime')"
         v-model="values.pointExpirationTime"
         :disabled="blockForm"
       />
       <m-select
         :options="categoryOptions"
-        placeholder="Kategoria punktu"
+        :placeholder="$t('form.field.pointCategory')"
         v-model="values.pointCategory"
       >
       </m-select>
 
       <a-button-submit
-        :disabled="blockForm /*|| hasMapPosition === false*/"
+        style="position: relative; top:70px"
+        :disabled="blockForm || !hasPositionSet"
         :is-sending="isSending"
-        text="Zapisz"
+        :text="$t('form.button.save')"
       />
     </o-form>
-    <a-button-secondary class="f-text-center" @click="pushToMap">
-      Ustaw lokalizację punktu
+    <a-button-secondary
+      class="f-text-center"
+      style="position: relative; top:-70px"
+      @click="pushToMap">
+      {{$t('form.button.setPointMapPosition')}}
     </a-button-secondary>
   </t-page>
 </template>
@@ -48,9 +52,12 @@ import MFieldDate from 'molecules/field/date';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
 import { MACROS } from 'utils/macros';
+import { mapGetters, mapMutations } from 'vuex';
+import { mixins } from 'mixins/base';
 
 export default {
   name: 'p-admin-add-new-point',
+  mixins: [mixins.form],
   components: {
     TPage,
     MFieldDate,
@@ -70,10 +77,10 @@ export default {
       },
       typeOptions: [
         {
-          label: 'Do zebrania',
+          label: this.$t('general.pointPermanent'),
           value: MACROS.pointType.permanent,
         }, {
-          label: 'Czasowy',
+          label: this.$t('general.pointTemporary'),
           value: MACROS.pointType.timeout,
         },
       ],
@@ -87,39 +94,56 @@ export default {
   created () {
     this.updateBasicData();
   },
-
+  computed: {
+    ...mapGetters('point', [
+      'getPointBasicInformation', 'point', 'hasPositionSet',
+    ]),
+  },
   methods: {
+    ...mapMutations('point', [
+      'setPointBasicInformation', 'resetPointState',
+    ]),
+
     updateBasicData () {
-      this.values = { ...this.$store.getters['point/getPointBasicInformation'] };
+      this.values = { ...this.getPointBasicInformation };
     },
 
     createCategoryOptions () {
       return MACROS.pointCategory.map((category) =>
         ({
-          label: `${category.categoryId} poziom - ${category.pointValue} pkt`,
+          label: this.categoryLabelFactory(category.categoryId, category.pointValue),
           value: category.categoryId,
         }),
       );
     },
-
+    categoryLabelFactory (id, value) {
+      const level = this.$t('general.pointCategoryLevel');
+      const unit = this.$t('general.pointUnit');
+      return `${id} ${level} - ${value} ${unit}`;
+    },
     pushToMap () {
-      this.$store.commit('point/setBaseProperty', this.values);
+      this.setPointBasicInformation(this.values);
       this.$router.push(this.ROUTES.setNewPointPosition.path);
     },
 
     addPoint () {
-      this.$store.commit('point/setBaseProperty', this.values);
-      this.$store.dispatch('event/addPoint', this.$store.getters['point/point'])
-        .then(this.onSuccess);
+      this.setPointBasicInformation(this.values);
+      this.$store.dispatch('event/addPoint', this.point)
+        .then(this.onAddPoint)
+        .catch(this.onErrorOccurs);
     },
-    onSuccess () {
-      this.message = 'Zapisanie danych punktu się powiodło.';
-      this.$store.commit('point/resetState');
-      this.updateBasicData();
+    onAddPoint () {
+      this.isServerError = false;
+      this.message = this.$t('communicate.addPoint.success');
+      this.resetForm();
       setTimeout(() => this.clearMessage(), 3000);
     },
     clearMessage () {
       this.message = '';
+    },
+    resetForm () {
+      this.resetPointState();
+      this.updateBasicData();
     },
   },
 };

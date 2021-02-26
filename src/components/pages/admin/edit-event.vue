@@ -108,7 +108,7 @@ export default {
     },
     onEventUpdate () {
       this.isServerError = false;
-      this.message = 'Zapisanie nowych danych wydarzenia się powiodło.';
+      this.message = this.$t('communicate.editEvent.success');
       setTimeout(() => this.clearMessage(), 3000);
     },
     clearMessage () {

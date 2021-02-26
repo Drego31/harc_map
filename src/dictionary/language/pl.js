@@ -27,6 +27,9 @@ export const pl = {
   general: {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
+    pointCategoryLevel: 'pozion',
+    pointTemporary: 'Czasowy',
+    pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
   },
   form: {
@@ -40,10 +43,15 @@ export const pl = {
       eventName: 'Nazwa wydarzenia',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
+      pointName: 'Nazwa punktu',
+      pointType: 'Typ punktu',
+      pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
+      pointCategory: 'Kategoria punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
     },
     assist: {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
+      fieldNotRequired: 'Pole jest nieobowiązkowe',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -60,6 +68,7 @@ export const pl = {
       next: 'Dalej',
       goToLogin: 'Przejdź do logowania',
       setDefaultMapPositionAndZoom: 'Ustaw domyślną pozycję mapy',
+      setPointMapPosition: 'Ustaw lokalizację punktu',
     },
   },
   page: {
@@ -140,6 +149,7 @@ export const pl = {
     collectPoint: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany już wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
+    addPoint: 'Dodanie punktu nie powiodło się',
 
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
     signInData: 'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
@@ -166,6 +176,12 @@ export const pl = {
     },
     changePassword: {
       success: 'Twoje hasło zostało zmienione!',
+    },
+    editEvent: {
+      success: 'Zapisanie nowych danych wydarzenia się powiodło.',
+    },
+    addPoint: {
+      success: 'Zapisanie danych punktu się powiodło.',
     },
   },
   features: {

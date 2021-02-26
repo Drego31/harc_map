@@ -60,7 +60,7 @@ export const eventController = {
         point,
         eventId,
       },
-      ...API_ERRORS.collectPoint, // :TODO
+      ...API_ERRORS.addPoint,
     });
   },
   updateEvent ({

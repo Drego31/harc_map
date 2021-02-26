@@ -38,6 +38,9 @@ export const API_ERRORS = {
       ],
     ],
   },
+  addPoint: {
+    defaultError: translator.t('apiError.addPoint'),
+  },
 
   // USER
   signIn: {
