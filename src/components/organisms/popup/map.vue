@@ -3,10 +3,14 @@
     <div
       v-for="singleData of data"
       :key="singleData.value"
-      class="f-flex"
+      class="m-list-element f-popup"
     >
-      <a-icon :name="singleData.icon"/>
-      <div class="f-flex-1 f-pl-1 f-text-gray">
+      <a-icon
+        class="a-icon f-list"
+        :name="singleData.icon"
+        :size="20"
+      />
+      <div class="f-flex-1 f-pl-1">
         {{ singleData.value }}
       </div>
     </div>
@@ -14,9 +18,13 @@
       v-for="button of buttons"
       :key="button.label"
       @click="button.method()"
-      class="f-flex"
+      class="m-list-element f-popup"
     >
-      <a-icon :name="button.icon"/>
+      <a-icon
+        class="a-icon f-list"
+        :name="button.icon"
+        :size="20"
+      />
       <div class="f-flex-1 f-pl-1">
         {{ button.label }}
       </div>
