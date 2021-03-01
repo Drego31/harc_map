@@ -30,9 +30,7 @@ export class Popup {
   }
 
   hide () {
-    console.log('hide');
     this.overlay.setPosition(undefined);
-    // closer.blur();
     this.container.style.visibility = 'hidden';
     return false;
   }
