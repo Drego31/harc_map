@@ -43,6 +43,7 @@ export default {
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
           if (uCheck.isNull(pointCollectionTime)) return true;
+          if (permissions.checkIsAdmin()) return true;
 
           // Display points collected by user
           if (rootGetters['user/collectedPointsIds'].includes(pointId) === true) return true;
