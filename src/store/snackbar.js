@@ -1,10 +1,12 @@
+import { uPromise } from '@dbetka/utils';
+
 const defaultTime = 2000;
 
 export default {
   namespaced: true,
   state: {
-    isOpen: true,
-    message: 'Skopiowano do schowka!',
+    isOpen: false,
+    message: '',
     icon: undefined,
   },
   getters: {
@@ -20,18 +22,24 @@ export default {
     setIcon: (state, payload) => (state.icon = payload),
   },
   actions: {
-    open (context, { messages, icon }) {
-      context.commit('setMessage', messages);
+    open (context, {
+      message,
+      icon,
+    }) {
+      context.commit('setMessage', message);
       context.commit('setIcon', icon);
       context.commit('open');
     },
-    openTemporary (context, { messages, icon, time = defaultTime }) {
+    openTemporary (context, {
+      message,
+      icon,
+      time = defaultTime,
+    }) {
       return new Promise(resolve => {
         context.dispatch('open', {
-          messages,
+          message,
           icon,
         });
-
         uPromise
           .timeout(time)
           .then(() => context.commit('close'))

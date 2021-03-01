@@ -74,7 +74,7 @@ export default {
     },
     copyToClipboard (key) {
       function copyToClipboard (node) {
-        var r = document.createRange();
+        const r = document.createRange();
         r.selectNode(node);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(r);
@@ -84,7 +84,9 @@ export default {
 
       const element = this.$refs.toCopy[key];
       copyToClipboard(element);
-      alert('Copied to clipboard');
+      this.$store.dispatch('snackbar/openTemporary', {
+        message: 'Copied to clipboard!',
+      });
       this.popup.hide();
     },
   },
