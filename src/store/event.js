@@ -2,6 +2,7 @@ import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
+import Cookies from 'js-cookie';
 
 export default {
   namespaced: true,
@@ -79,6 +80,13 @@ export default {
       state.mapDefaultLatitude = data.mapLatitude;
       state.mapDefaultLongitude = data.mapLongitude;
       state.mapDefaultZoom = data.mapZoom;
+      const cookieJSON = Cookies.get('mapPosition');
+      if (cookieJSON) {
+        const cookie = JSON.parse(cookieJSON);
+        state.mapLatitude = cookie.mapLatitude;
+        state.mapLongitude = cookie.mapLongitude;
+        state.mapZoom = cookie.mapZoom;
+      }
     },
     setDefaultMapPositionAndZoom: (state) => {
       state.mapLatitude = state.mapDefaultLatitude;

@@ -9,6 +9,7 @@
 import { map } from 'map';
 import { mapMutations } from 'vuex';
 import { toLonLat } from 'ol/proj';
+import Cookies from 'js-cookie';
 
 export default {
   name: 'o-map',
@@ -28,6 +29,7 @@ export default {
     map.lines.create({
       list: this.$store.getters['user/collectedPoints'],
     });
+    map.realMap.on('moveend', this.saveLastMapPosition);
   },
   methods: {
     ...mapMutations('event', [
@@ -42,10 +44,17 @@ export default {
         mapLongitude,
       });
       this.setMapZoom(mapView.getZoom());
+      const dataForCookies = {
+        mapLatitude,
+        mapLongitude,
+        mapZoom: mapView.getZoom(),
+      };
+      Cookies.remove('mapPosition');
+      Cookies.set('mapPosition', dataForCookies, { expires: 7 });
     },
   },
   beforeDestroy () {
-    this.saveLastMapPosition();
+    map.realMap.un('moveend', this.saveLastMapPosition);
   },
 };
 </script>
