@@ -6,7 +6,7 @@ const options = {
   apis: [
     './spec/swagger/components/responses.yaml',
     './spec/swagger/components/properties.yaml',
-    './controllers/user.js',
+    './controllers/user/*',
   ],
   definition: {
     openapi: '3.0.0',
