@@ -2,6 +2,7 @@ import Overlay from 'ol/Overlay';
 import { store } from 'store';
 import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
+import { ICONS } from 'src/__jscash__/icons-names-list';
 
 export class Popup {
   constructor ({ container }) {
@@ -39,6 +40,16 @@ export class Popup {
   show (pointOlUid) {
     const point = store.getters['event/getPointByOlUid'](pointOlUid);
     const coordinates = fromLonLat([point.pointLongitude, point.pointLatitude]);
+    store.commit('mapPopup/setData', [
+      {
+        icon: ICONS.place,
+        value: point.pointLongitude + ',' + point.pointLatitude,
+      },
+      {
+        icon: ICONS.vpn_key,
+        value: point.pointId,
+      },
+    ]);
     this.overlay.setPosition(coordinates);
     this.container.style.visibility = 'visible';
   }
