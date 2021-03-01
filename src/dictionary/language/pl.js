@@ -26,6 +26,9 @@ export const pl = {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
     backToStart: 'Przejdź do startowej',
+    hide: 'Ukryj',
+    edit: 'Edytuj',
+    copied: 'Skopiowano do schowka',
   },
   form: {
     field: {

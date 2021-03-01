@@ -55,12 +55,12 @@ export default {
       return [
         {
           icon: this.ICONS.edit,
-          label: 'Edytuj',
+          label: this.$t('general.edit'),
           method: () => this.$router.push(this.ROUTES.adminPanel),
         },
         {
           icon: this.ICONS.close,
-          label: 'Ukryj',
+          label: this.$t('general.hide'),
           method: () => this.popup.hide(),
         },
       ];
@@ -85,7 +85,7 @@ export default {
       const element = this.$refs.toCopy[key];
       copyToClipboard(element);
       this.$store.dispatch('snackbar/openTemporary', {
-        message: 'Copied to clipboard!',
+        message: this.$t('general.copied'),
       });
       this.popup.hide();
     },
