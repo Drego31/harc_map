@@ -2,26 +2,10 @@
   <div>
     <slot/>
     <div class="o-map" id="o-map"></div>
-    <div ref="mapPopup" class="o-popup f-map">
-      <div
-        @click="$router.push(ROUTES.adminPanel)"
-        class="f-flex"
-      >
-        <a-icon :name="ICONS.edit"/>
-        <div class="f-flex-1 f-pl-1">
-          Edycja
-        </div>
-      </div>
-      <div
-        @click="popup.hide()"
-        class="f-flex"
-      >
-        <a-icon :name="ICONS.close"/>
-        <div class="f-flex-1 f-pl-1">
-          Ukryj
-        </div>
-      </div>
-    </div>
+    <o-popup-map
+      v-if="checkIsAdmin()"
+      ref="mapPopup"
+    />
   </div>
 </template>
 
@@ -29,12 +13,11 @@
 import { map } from 'map';
 import { mapMutations } from 'vuex';
 import { toLonLat } from 'ol/proj';
-import { Popup } from 'map/popup';
-import AIcon from 'atoms/icon';
+import OPopupMap from 'organisms/popup/map';
 
 export default {
   name: 'o-map',
-  components: { AIcon },
+  components: { OPopupMap },
   data: () => ({
     popup: null,
   }),
@@ -55,9 +38,10 @@ export default {
       list: this.$store.getters['user/collectedPoints'],
     });
 
-    this.popup = new Popup({
-      container: this.$refs.mapPopup,
-    });
+    if (this.checkIsAdmin()) {
+      // Map popup have to define after map creating.
+      this.$refs.mapPopup.definePopup();
+    }
   },
   methods: {
     ...mapMutations('event', [
