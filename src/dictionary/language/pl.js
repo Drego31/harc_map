@@ -127,6 +127,7 @@ export const pl = {
   },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
+    unauthorizedAccess: 'Brak uprawnień do wykonania tej akcji.',
 
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
@@ -136,8 +137,10 @@ export const pl = {
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany już wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
 
+    all: 'Pobranie listy użytkowników nie powiodło się ze względu na błąd serwera.',
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
     signInData: 'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
+    signInOnOtherDevice: 'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
     checkYourLoginSession: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
     signUp: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
     remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się ze względu na błąd serwera.',
