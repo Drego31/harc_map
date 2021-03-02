@@ -10,6 +10,28 @@
         />
       </div>
     </div>
+    <div
+      v-if="detailsAreOpen"
+      class="m-cover f-popup"
+      @click="toggleDetails"
+    >
+      <div class="o-popup f-score" @click.stop>
+        <div class="f-line-24 f-text-16 f-text-normal">
+          <div class="a-text f-title f-table">{{ $t('page.collectedPoints.sumTitle') }}</div>
+          <div class="m-row f-header f-category-sum">
+            <div>{{ $t('table.category') }}</div>
+            <div>{{ $t('table.numberOfCollected') }}</div>
+            <div>{{ $t('table.sumOfValues') }}</div>
+          </div>
+          <m-row-category-sum
+            :user="user"
+            v-for="category in filteredCategories"
+            :key="category.categoryId"
+            :category="category"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,10 +40,12 @@ import AIcon from 'atoms/icon';
 import { mapGetters } from 'vuex';
 import { map } from 'map';
 import { uCheck } from '@dbetka/utils';
+import MRowCategorySum from 'molecules/row/category-sum';
 
 export default {
   name: 'm-row-score',
   components: {
+    MRowCategorySum,
     AIcon,
   },
   data: () => ({
@@ -37,6 +61,12 @@ export default {
     ...mapGetters('event', [
       'getCategoryById',
     ]),
+    ...mapGetters('event', [
+      'categories',
+    ]),
+    filteredCategories () {
+      return this.categories.filter(category => category.categoryId !== 0);
+    },
     userScore () {
       const collectedPoints = [];
 

@@ -11,6 +11,7 @@
 <script>
 import AIconCategory from 'atoms/icon/category';
 import { mapGetters } from 'vuex';
+import { uCheck } from '@dbetka/utils';
 
 export default {
   name: 'm-row-category-sum',
@@ -18,6 +19,10 @@ export default {
     AIconCategory,
   },
   props: {
+    user: {
+      type: Object,
+      default: null,
+    },
     category: {
       type: Object,
       required: true,
@@ -36,7 +41,16 @@ export default {
       'allCollectedPoints',
     ]),
     collectedPoints () {
-      return this.allUsers ? this.allCollectedPoints : this.collectedPoints;
+      const propsUserCollectedPoints = [];
+      if (this.user !== null) {
+        for (const pointId of getters.collectedPointsIds) {
+          const point = this.$store.getters['event/getPointById'](pointId);
+          uCheck.isDefined(point) ? propsUserCollectedPoints.push(point) : undefined;
+        }
+      }
+      const userCollectedPoints = this.user !== null ? propsUserCollectedPoints : this.userCollectedPoints;
+
+      return this.allUsers ? this.allCollectedPoints : userCollectedPoints;
     },
   },
   methods: {
