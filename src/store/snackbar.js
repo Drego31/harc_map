@@ -1,14 +1,15 @@
 import { uPromise } from '@dbetka/utils';
 
 const defaultTime = 2000;
+const getDefaultState = () => ({
+  isOpen: false,
+  message: '',
+  icon: undefined,
+});
 
 export default {
   namespaced: true,
-  state: {
-    isOpen: false,
-    message: '',
-    icon: undefined,
-  },
+  state: getDefaultState(),
   getters: {
     isOpen: state => state.isOpen,
     message: state => state.message,
@@ -20,6 +21,7 @@ export default {
     toggle: (state) => (state.isOpen = state.isOpen === false),
     setMessage: (state, payload) => (state.message = payload),
     setIcon: (state, payload) => (state.icon = payload),
+    resetState: (state) => Object.assign(state, getDefaultState()),
   },
   actions: {
     open (context, {
@@ -45,11 +47,6 @@ export default {
           .then(() => context.commit('close'))
           .then(resolve);
       });
-    },
-    reset (context) {
-      context.commit('setMessage', []);
-      context.commit('setIcon', undefined);
-      context.commit('close');
     },
   },
 };
