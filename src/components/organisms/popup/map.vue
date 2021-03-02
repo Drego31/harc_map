@@ -40,6 +40,7 @@
 import AIcon from 'atoms/icon';
 import { Popup } from 'map/popup';
 import { mapGetters } from 'vuex';
+import { actionUtils } from 'utils/action';
 
 export default {
   name: 'o-popup-map',
@@ -73,17 +74,8 @@ export default {
       });
     },
     copyToClipboard (key) {
-      function copyToClipboard (node) {
-        const r = document.createRange();
-        r.selectNode(node);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(r);
-        document.execCommand('copy');
-        window.getSelection().removeAllRanges();
-      }
-
       const element = this.$refs.toCopy[key];
-      copyToClipboard(element);
+      actionUtils.copyToClipboard(element);
       this.$store.dispatch('snackbar/openTemporary', {
         message: this.$t('general.copied'),
       });
