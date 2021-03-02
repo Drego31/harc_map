@@ -43,7 +43,7 @@ export default {
     collectedPoints () {
       const propsUserCollectedPoints = [];
       if (this.user !== null) {
-        for (const pointId of getters.collectedPointsIds) {
+        for (const pointId of this.user.collectedPointsIds) {
           const point = this.$store.getters['event/getPointById'](pointId);
           uCheck.isDefined(point) ? propsUserCollectedPoints.push(point) : undefined;
         }

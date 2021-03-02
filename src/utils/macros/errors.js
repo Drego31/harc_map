@@ -66,6 +66,10 @@ export const API_ERRORS = {
         [validateCodes.USER_IS_LOGGED_ON_ANOTHER_DEVICE],
         translator.t('apiError.signInOnOtherDevice'),
       ],
+      [
+        [validateCodes.ACCOUNT_IS_INACTIVE],
+        translator.t('apiError.inactiveAccount'),
+      ],
     ],
   },
   checkYourLoginSession: {

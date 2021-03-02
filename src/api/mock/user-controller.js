@@ -25,6 +25,14 @@ export const userController = {
           collectedPointsIds: ['o05r', '7DIF', 'Xq0B', '1Pr6'],
           accountType: ACCOUNT_TYPES.common,
         },
+        {
+          user: 'dominik.betka@zhp.net.pl',
+          userTeam: 'Rettis',
+          accountIsActive: true,
+          accountCreated: 1614720221776,
+          collectedPointsIds: ['o05r', '1Pr6', '9Enr'],
+          accountType: ACCOUNT_TYPES.common,
+        },
       ],
     }));
   },
