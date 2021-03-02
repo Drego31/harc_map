@@ -14,12 +14,14 @@ export const pl = {
     adminPanel: 'Panel admina',
     editEvent: 'Edycja wydarzenia',
     setMapPosition: 'Ustawienia mapy',
+    scoreboard: 'Tabela wyników',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
       collectedPoints: 'Zebrane',
       adminPanel: 'Admin',
       editEvent: 'Wydarzenie',
+      scoreboard: 'Wyniki',
     },
   },
   general: {

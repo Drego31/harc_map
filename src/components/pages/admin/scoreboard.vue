@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <t-page class="f-text-center">
     <div class="f-line-24">
       <div class="a-text f-title f-table">{{ $t('page.collectedPoints.scoreTitle') }}</div>
       <div class="m-row f-header f-score">
@@ -19,20 +19,19 @@
         :user="user"
       />
     </div>
-
-  </div>
+  </t-page>
 </template>
 
 <script>
+import TPage from 'templates/page';
 import { mapGetters } from 'vuex';
-import MRowCategorySum from 'molecules/row/category-sum';
 import MRowScore from 'molecules/row/score';
 
 export default {
-  name: 'o-admin-collected-points',
+  name: 'p-scoreboards',
   components: {
     MRowScore,
-    MRowCategorySum,
+    TPage,
   },
   computed: {
     ...mapGetters('allUsers', [

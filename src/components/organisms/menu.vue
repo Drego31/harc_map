@@ -45,25 +45,30 @@ import { THEMES } from 'utils/style-manager';
 import { ROUTES } from 'utils/macros/routes';
 import router from 'src/router';
 import AIcon from 'atoms/icon';
+import { uCheck } from '@dbetka/utils';
 
 export default {
   name: 'o-menu',
   components: { AIcon },
   data: () => ({
-    links: [
-      ROUTES.start,
-      ROUTES.temporaryPoints,
-      ROUTES.collectPoint,
-      ROUTES.collectedPoints,
-      ROUTES.map,
-      ROUTES.about,
-    ],
     THEMES,
   }),
   computed: {
     ...mapGetters('menu', [
       'isOpen',
     ]),
+    links () {
+      const isAdmin = this.checkIsAdmin();
+      const links = [
+        ROUTES.start,
+        ROUTES.temporaryPoints,
+        isAdmin ? undefined : ROUTES.collectPoint,
+        isAdmin ? ROUTES.scoreboard : ROUTES.collectedPoints,
+        ROUTES.map,
+        ROUTES.about,
+      ];
+      return links.filter(route => uCheck.isUndefined(route) === false);
+    },
     themeName () {
       return this.$store.getters['theme/name'];
     },

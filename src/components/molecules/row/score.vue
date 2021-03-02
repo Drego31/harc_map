@@ -73,7 +73,6 @@ export default {
 
       for (const pointId of this.user.collectedPointsIds) {
         const point = this.$store.getters['event/getPointById'](pointId);
-        console.log({ point });
         uCheck.isDefined(point) ? collectedPoints.push(point) : undefined;
       }
 
