@@ -19,18 +19,18 @@
       <div class="m-row f-header f-score">
         <div>{{ $t('table.team') }}</div>
         <div>{{ $t('table.score') }}</div>
-        <div>{{ $t('table.expand') }}</div>
+        <div>{{ $t('table.more') }}</div>
       </div>
       <div
-        v-if="collectedPoints.length === 0"
+        v-if="commonUsers.length === 0"
         class="a-message f-table"
       >
         {{ $t('page.collectedPoints.noPoints') }}
       </div>
-      <m-row-point
-        v-for="point of collectedPoints.reverse()"
-        :key="point.pointId"
-        :point="point"
+      <m-row-score
+        v-for="user of commonUsers"
+        :key="user.pointId"
+        :user="user"
       />
     </div>
 
@@ -40,17 +40,17 @@
 <script>
 import { mapGetters } from 'vuex';
 import MRowCategorySum from 'molecules/row/category-sum';
-import MRowPoint from 'molecules/row/point';
+import MRowScore from 'molecules/row/score';
 
 export default {
   name: 'o-admin-collected-points',
   components: {
-    MRowPoint,
+    MRowScore,
     MRowCategorySum,
   },
   computed: {
-    ...mapGetters('user', [
-      'collectedPoints',
+    ...mapGetters('allUsers', [
+      'commonUsers',
     ]),
     ...mapGetters('event', [
       'categories',
@@ -59,6 +59,10 @@ export default {
     filteredCategories () {
       return this.categories.filter(category => category.categoryId !== 0);
     },
+  },
+  mounted () {
+    this.$store.dispatch('allUsers/download')
+      .catch(e => alert(e));
   },
 };
 </script>

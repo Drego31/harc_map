@@ -15,13 +15,15 @@ export const userController = {
           accountIsActive: true,
           accountCreated: 1614675013910,
           collectedPointsIds: [],
+          accountType: ACCOUNT_TYPES.admin,
         },
         {
           user: 'demo@demo.com',
           userTeam: 'Zastęp Demo',
           accountIsActive: true,
           accountCreated: 1614675013911,
-          collectedPointsIds: [],
+          collectedPointsIds: ['o05r', '7DIF', 'Xq0B', '1Pr6'],
+          accountType: ACCOUNT_TYPES.common,
         },
       ],
     }));

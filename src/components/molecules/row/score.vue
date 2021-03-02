@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="m-grid f-score">
-      <div>{{ point.pointId }}</div>
-      <div>{{ getCategoryById(point.pointCategory).pointValue }} pkt</div>
+      <div class="f-text-left">{{ user.userTeam }}</div>
+      <div>{{ userScore }} pkt</div>
       <div>
         <a-icon
           :name="ICONS.more_vert"
@@ -10,31 +10,25 @@
         />
       </div>
     </div>
-    <div v-if="detailsAreOpen" class="f-line-18 f-text-14 f-text-left f-pl-3 f-pb-1">
-      Współrzędne: <span class="f-text-bold">{{ point.pointLatitude }}, {{ point.pointLongitude }}</span> <br>
-      Czas zebrania: <span class="f-text-bold">{{ getCollectionTime }}</span>
-    </div>
   </div>
 </template>
 
 <script>
 import AIcon from 'atoms/icon';
-import AIconCategory from 'atoms/icon/category';
 import { mapGetters } from 'vuex';
-import moment from 'moment';
 import { map } from 'map';
+import { uCheck } from '@dbetka/utils';
 
 export default {
-  name: 'm-row-point',
+  name: 'm-row-score',
   components: {
-    AIconCategory,
     AIcon,
   },
   data: () => ({
     detailsAreOpen: false,
   }),
   props: {
-    point: {
+    user: {
       type: Object,
       required: true,
     },
@@ -43,9 +37,18 @@ export default {
     ...mapGetters('event', [
       'getCategoryById',
     ]),
-    getCollectionTime () {
-      moment.locale('pl');
-      return moment(this.point.pointCollectionTime).calendar();
+    userScore () {
+      const collectedPoints = [];
+
+      for (const pointId of this.user.collectedPointsIds) {
+        const point = this.$store.getters['event/getPointById'](pointId);
+        console.log({ point });
+        uCheck.isDefined(point) ? collectedPoints.push(point) : undefined;
+      }
+
+      return collectedPoints
+        .map(point => this.getCategoryById(point.pointCategory).pointValue)
+        .reduce((a, b) => (a + b), 0);
     },
   },
   methods: {
