@@ -2,6 +2,13 @@ import { makeRequest, request } from 'utils/request';
 import { API_ERRORS } from 'utils/macros/errors';
 
 export const userController = {
+  all () {
+    return makeRequest({
+      method: request.get,
+      url: '/user/all',
+      ...API_ERRORS.all,
+    });
+  },
   signIn ({ user, password }) {
     return makeRequest({
       method: request.post,

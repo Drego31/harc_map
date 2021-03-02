@@ -27,7 +27,7 @@
 <script>
 import TPage from 'templates/page';
 import AButtonSecondary from 'atoms/button/secondary';
-import { api } from 'api/index';
+import { api } from 'api';
 import { mixins } from 'mixins/base';
 import { ROUTES } from 'utils/macros/routes';
 import { uPromise } from '@dbetka/utils';

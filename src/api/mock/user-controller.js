@@ -6,7 +6,30 @@ import { ACCOUNT_TYPES } from 'utils/permissions';
 let globalUser = '';
 
 export const userController = {
-  signIn ({ user, password }) {
+  all () {
+    return makeDelayFakeAnswer(() => ({
+      users: [
+        {
+          user: 'dominik.betka@gmail.com',
+          userTeam: 'Zastęp Orchis',
+          accountIsActive: true,
+          accountCreated: 1614675013910,
+          collectedPointsIds: [],
+        },
+        {
+          user: 'demo@demo.com',
+          userTeam: 'Zastęp Demo',
+          accountIsActive: true,
+          accountCreated: 1614675013911,
+          collectedPointsIds: [],
+        },
+      ],
+    }));
+  },
+  signIn ({
+    user,
+    password,
+  }) {
     globalUser = user;
     return makeDelayFakeAnswer(() => ({
       eventId: '111',
@@ -16,7 +39,12 @@ export const userController = {
       accountType: ACCOUNT_TYPES.common,
     }));
   },
-  signUp ({ user, password, userTeam, eventId }) {
+  signUp ({
+    user,
+    password,
+    userTeam,
+    eventId,
+  }) {
     return makeDelayFakeAnswer(() => ({
       user,
     }));
@@ -31,7 +59,10 @@ export const userController = {
       user: globalUser,
     }));
   },
-  changePassword ({ password, key }) {
+  changePassword ({
+    password,
+    key,
+  }) {
     return makeDelayFakeAnswer(() => ({}));
   },
   checkYourLoginSession () {
