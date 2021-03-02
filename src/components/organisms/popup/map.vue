@@ -82,5 +82,8 @@ export default {
       this.popup.hide();
     },
   },
+  beforeDestroy () {
+    this.popup.destroy();
+  },
 };
 </script>

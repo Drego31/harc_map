@@ -9,12 +9,14 @@ export class Popup {
     this.container = container;
     this.overlay = this.defineOverlay();
     this.hide();
-
-    map.realMap.on('singleclick', (event) => {
+    const onClick = (event) => {
       map.realMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
         this.show(feature.ol_uid);
       });
-    });
+    };
+    this.bindOnClick = (event) => onClick(event);
+
+    map.realMap.on('singleclick', this.bindOnClick);
   }
 
   defineOverlay () {
@@ -27,6 +29,10 @@ export class Popup {
     });
     map.realMap.addOverlay(overlay);
     return overlay;
+  }
+
+  destroy () {
+    map.realMap.un('singleclick', this.bindOnClick);
   }
 
   hide () {

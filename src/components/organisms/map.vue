@@ -39,10 +39,9 @@ export default {
       list: this.$store.getters['user/collectedPoints'],
     });
 
-    if (this.$refs.mapPopup && this.$refs.mapPopup.definePopup) {
-      // Map popup have to define after map creating.
-      this.$refs.mapPopup.definePopup();
-    }
+    // Map popup have to define after map creating.
+    this.$refs.mapPopup && this.$refs.mapPopup.definePopup();
+
     map.realMap.on('moveend', this.saveLastMapPosition);
   },
   methods: {
