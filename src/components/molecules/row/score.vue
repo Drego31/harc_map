@@ -16,8 +16,9 @@
       @click="toggleDetails"
     >
       <div class="o-popup f-score" @click.stop>
+        <div class="f-text-primary f-pb-1">{{ user.userTeam }}</div>
         <div class="f-line-24 f-text-16 f-text-normal">
-          <div class="a-text f-title f-table">{{ $t('page.collectedPoints.sumTitle') }}</div>
+          <div class="a-text f-title f-table f-text-subtext">{{ $t('page.collectedPoints.sumTitle') }}</div>
           <div class="m-row f-header f-category-sum">
             <div>{{ $t('table.category') }}</div>
             <div>{{ $t('table.numberOfCollected') }}</div>

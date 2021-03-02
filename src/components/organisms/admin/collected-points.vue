@@ -1,20 +1,6 @@
 <template>
   <div>
     <div class="f-line-24">
-      <div class="a-text f-title f-table">{{ $t('page.collectedPoints.sumTitle') }}</div>
-      <div class="m-row f-header f-category-sum">
-        <div>{{ $t('table.category') }}</div>
-        <div>{{ $t('table.numberOfCollected') }}</div>
-        <div>{{ $t('table.sumOfValues') }}</div>
-      </div>
-      <m-row-category-sum
-        v-for="category in filteredCategories"
-        :key="category.categoryId"
-        :category="category"
-        allUsers
-      />
-    </div>
-    <div class="f-pt-3 f-line-24">
       <div class="a-text f-title f-table">{{ $t('page.collectedPoints.scoreTitle') }}</div>
       <div class="m-row f-header f-score">
         <div>{{ $t('table.team') }}</div>
