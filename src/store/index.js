@@ -6,6 +6,8 @@ import event from './event';
 import user from './user';
 import header from './header';
 import popup from './popup';
+import mapPopup from './map-popup';
+import snackbar from './snackbar';
 
 Vue.use(Vuex);
 
@@ -17,6 +19,8 @@ export const store = new Vuex.Store({
     user,
     header,
     popup,
+    mapPopup,
+    snackbar,
   },
   state: {
     isLoading: true,

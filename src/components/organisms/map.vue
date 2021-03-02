@@ -2,6 +2,10 @@
   <div>
     <slot/>
     <div class="o-map" id="o-map"></div>
+    <o-popup-map
+      v-if="checkIsAdmin()"
+      ref="mapPopup"
+    />
   </div>
 </template>
 
@@ -9,10 +13,15 @@
 import { map } from 'map';
 import { mapMutations } from 'vuex';
 import { toLonLat } from 'ol/proj';
+import OPopupMap from 'organisms/popup/map';
 import Cookies from 'js-cookie';
 
 export default {
   name: 'o-map',
+  components: { OPopupMap },
+  data: () => ({
+    popup: null,
+  }),
   mounted () {
     const appEvent = this.$store.getters['event/event'];
 
@@ -29,6 +38,11 @@ export default {
     map.lines.create({
       list: this.$store.getters['user/collectedPoints'],
     });
+
+    if (this.$refs.mapPopup && this.$refs.mapPopup.definePopup) {
+      // Map popup have to define after map creating.
+      this.$refs.mapPopup.definePopup();
+    }
     map.realMap.on('moveend', this.saveLastMapPosition);
   },
   methods: {
