@@ -2,7 +2,7 @@ import Vue from 'vue';
 import i18n from './dictionary';
 import router from './router';
 import uuidInit from './utils/uuid';
-import { store } from './store';
+import { store } from 'store';
 import { styleManager } from 'utils/style-manager';
 import './directives';
 import './validation';
