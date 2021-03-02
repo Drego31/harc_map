@@ -39,7 +39,7 @@ export default {
       list: this.$store.getters['user/collectedPoints'],
     });
 
-    if (this.checkIsAdmin()) {
+    if (this.$refs.mapPopup && this.$refs.mapPopup.definePopup) {
       // Map popup have to define after map creating.
       this.$refs.mapPopup.definePopup();
     }
