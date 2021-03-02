@@ -2,6 +2,7 @@ import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
+import { updateMapFeatures } from 'map';
 
 export default {
   namespaced: true,
@@ -163,7 +164,7 @@ export default {
     addPoint (context, point, eventId = context.getters.eventId) {
       return new Promise((resolve, reject) => {
         api.addPoint({ point, eventId })
-          .then(() => context.commit('addPoint', point))
+          .then(() => updateMapFeatures())
           .then(resolve)
           .catch(reject);
       });

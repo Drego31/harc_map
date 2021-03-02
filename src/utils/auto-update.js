@@ -1,35 +1,21 @@
-import { store } from 'store';
-import { map } from 'map';
-import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
+import { updateMapFeatures } from 'map';
 
 const oneSecond = 1000;
 const intervalTime = 60 * oneSecond;
 let intervalID = null;
 let timeoutID = null;
 
-function intervalMethod () {
-  store.dispatch('event/download')
-    .then(() => {
-      if (uCheck.isObject(map.realMap)) {
-        map.points.create({
-          list: store.getters['event/getPointsVisibleOnMap'],
-        });
-      }
-    })
-    .catch(() => undefined);
-}
-
 export const autoUpdate = {
   run () {
     const secondsToFullMinute = 60 - Number(moment().format('s'));
     timeoutID = setTimeout(() => {
       autoUpdate.once();
-      intervalID = setInterval(intervalMethod, intervalTime);
+      intervalID = setInterval(updateMapFeatures, intervalTime);
     }, secondsToFullMinute * oneSecond);
   },
   once () {
-    intervalMethod();
+    updateMapFeatures();
   },
   stop () {
     clearTimeout(timeoutID);
