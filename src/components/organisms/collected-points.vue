@@ -11,6 +11,7 @@
         v-for="category in filteredCategories"
         :key="category.categoryId"
         :category="category"
+        :collected-points="collectedPoints"
       />
     </div>
     <div class="f-pt-3 f-line-24">
@@ -52,15 +53,10 @@ export default {
   props: {
     collectedPoints: {
       type: Array,
-      default () {
-        return this.currentUserCollectedPoints;
-      },
+      required: true,
     },
   },
   computed: {
-    ...mapGetters('user', {
-      currentUserCollectedPoints: 'collectedPoints',
-    }),
     ...mapGetters('event', [
       'categories',
     ]),
