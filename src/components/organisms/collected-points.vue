@@ -49,10 +49,18 @@ export default {
     MRowPoint,
     MRowCategorySum,
   },
+  props: {
+    collectedPoints: {
+      type: Array,
+      default () {
+        return this.currentUserCollectedPoints;
+      },
+    },
+  },
   computed: {
-    ...mapGetters('user', [
-      'collectedPoints',
-    ]),
+    ...mapGetters('user', {
+      currentUserCollectedPoints: 'collectedPoints',
+    }),
     ...mapGetters('event', [
       'categories',
     ]),
