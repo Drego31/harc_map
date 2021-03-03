@@ -8,32 +8,28 @@ let globalUser = '';
 export const userController = {
   allUsers () {
     return makeDelayFakeAnswer(() => ({
-      users: [
-        {
-          user: 'dominik.betka@gmail.com',
-          userTeam: 'Zastęp Orchis',
-          accountIsActive: true,
-          accountCreated: 1614675013910,
-          collectedPointsIds: [],
-          accountType: ACCOUNT_TYPES.admin,
-        },
-        {
-          user: 'demo@demo.com',
-          userTeam: 'Zastęp Demo',
-          accountIsActive: true,
-          accountCreated: 1614675013911,
-          collectedPointsIds: ['o05r', '7DIF', 'Xq0B', '1Pr6'],
-          accountType: ACCOUNT_TYPES.common,
-        },
-        {
-          user: 'dominik.betka@zhp.net.pl',
-          userTeam: 'Rettis',
-          accountIsActive: true,
-          accountCreated: 1614720221776,
-          collectedPointsIds: ['o05r', '1Pr6', '9Enr'],
-          accountType: ACCOUNT_TYPES.common,
-        },
-      ],
+      'users': [{
+        'user': 'dominik.betka@gmail.com',
+        'userTeam': 'Zastęp Orchis',
+        'accountIsActive': true,
+        'accountCreated': 1614779590554,
+        'collectedPointsIds': [],
+        'accountType': ACCOUNT_TYPES.admin,
+      }, {
+        'user': 'demo@demo.com',
+        'userTeam': 'Zastęp Demo',
+        'accountIsActive': true,
+        'accountCreated': 1614779590555,
+        'collectedPointsIds': ['cMLY', 'UZ7X', '31ty', 'uWAj', 'rk7p', 'n9jC', 'GrbI', 'Q5Qe'],
+        'accountType': ACCOUNT_TYPES.common,
+      }, {
+        'user': 'demo2@demo.com',
+        'userTeam': 'Zastęp Demo2',
+        'accountIsActive': true,
+        'accountCreated': 1614779590556,
+        'collectedPointsIds': ['rEIq', 'FD8Q', 'SOz8', 'qj7Q', 'Ssij', '373z', 'NeIB'],
+        'accountType': ACCOUNT_TYPES.common,
+      }],
     }));
   },
   signIn ({

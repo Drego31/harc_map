@@ -3,9 +3,13 @@ import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
 import Cookies from 'js-cookie';
+import points from 'store/event/points';
 
 export default {
   namespaced: true,
+  modules: {
+    points,
+  },
   state: {
     eventId: '',
     eventName: '',
@@ -23,6 +27,7 @@ export default {
     event: state => state,
     eventName: state => state.eventName,
     eventId: state => state.eventId,
+    points: state => state.points,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
