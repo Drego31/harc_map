@@ -19,9 +19,7 @@
 
 <script>
 import AIcon from 'atoms/icon';
-import { uCheck } from '@dbetka/utils';
 import OPopupScore from 'organisms/popup/score';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'm-row-score',
@@ -34,22 +32,9 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  computed: {
-    ...mapGetters('event', [
-      'getCategoryById',
-    ]),
-    userScore () {
-      const collectedPoints = [];
-
-      for (const pointId of this.user.collectedPointsIds) {
-        const point = this.$store.getters['event/getPointById'](pointId);
-        uCheck.isDefined(point) ? collectedPoints.push(point) : undefined;
-      }
-
-      return collectedPoints
-        .map(point => this.getCategoryById(point.pointCategory).pointValue)
-        .reduce((a, b) => (a + b), 0);
+    userScore: {
+      type: Number,
+      required: true,
     },
   },
   methods: {

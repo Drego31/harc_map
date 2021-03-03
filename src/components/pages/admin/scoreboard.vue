@@ -33,9 +33,11 @@
         v-text="$t('page.collectedPoints.noPoints')"
       />
       <m-row-score
-        v-for="user of commonUsers"
+        v-for="[key, {user, userScore}] of sortedUsers.entries()"
+        :class="{ 'f-text-bold': key < 3 }"
         :key="user.pointId"
         :user="user"
+        :user-score="userScore"
       />
     </div>
   </t-page>
@@ -46,6 +48,7 @@ import TPage from 'templates/page';
 import { mapGetters } from 'vuex';
 import MRowScore from 'molecules/row/score';
 import MCircleProgress from 'molecules/circle-progress';
+import { uCheck } from '@dbetka/utils';
 
 export default {
   name: 'p-scoreboards',
@@ -57,6 +60,15 @@ export default {
     MRowScore,
     TPage,
   },
+  mounted () {
+    this.$store.dispatch('allUsers/download')
+      .then(() => {
+        this.errorMessage = '';
+      })
+      .catch(e => {
+        this.errorMessage = e.message;
+      });
+  },
   computed: {
     ...mapGetters('allUsers', [
       'commonUsers',
@@ -66,22 +78,36 @@ export default {
       'allCollectedPoints',
       'numberOfCollectedPointsByCategoryId',
       'numberOfPointsByCategoryId',
+      'getCategoryById',
     ]),
     ...mapGetters('theme', [
       'categoryColorById',
     ]),
+    sortedUsers () {
+      return this.commonUsers
+        .map(user => ({
+          user,
+          userScore: this.userScore(user),
+        }))
+        .sort((a, b) => b.userScore - a.userScore);
+    },
     filteredCategories () {
       return this.categories.filter(category => category.categoryId !== 0);
     },
   },
-  mounted () {
-    this.$store.dispatch('allUsers/download')
-      .then(() => {
-        this.errorMessage = '';
-      })
-      .catch(e => {
-        this.errorMessage = e.message;
-      });
+  methods: {
+    userScore (user) {
+      const collectedPoints = [];
+
+      for (const pointId of user.collectedPointsIds) {
+        const point = this.$store.getters['event/getPointById'](pointId);
+        uCheck.isDefined(point) ? collectedPoints.push(point) : undefined;
+      }
+
+      return collectedPoints
+        .map(point => this.getCategoryById(point.pointCategory).pointValue)
+        .reduce((a, b) => (a + b), 0);
+    },
   },
 };
 </script>
