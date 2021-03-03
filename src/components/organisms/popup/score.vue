@@ -5,6 +5,7 @@
     @click="toggle"
   >
     <div class="o-popup f-score" @click.stop>
+      <a-icon-close-popup @click="toggle"/>
       <div class="f-text-primary f-pb-1">{{ user.userTeam }}</div>
       <o-collected-points
         class="f-text-16 f-text-normal"
@@ -17,10 +18,11 @@
 <script>
 import { mapGetters } from 'vuex';
 import OCollectedPoints from 'organisms/collected-points';
+import AIconClosePopup from 'atoms/icon/close-popup';
 
 export default {
   name: 'o-popup-score',
-  components: { OCollectedPoints },
+  components: { AIconClosePopup, OCollectedPoints },
   data: () => ({
     detailsAreOpen: false,
   }),
