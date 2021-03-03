@@ -23,11 +23,15 @@
         <div>{{ $t('table.more') }}</div>
       </div>
       <div
-        v-if="commonUsers.length === 0"
+        v-if="errorMessage"
+        class="a-message f-table f-error"
+        v-text="errorMessage"
+      />
+      <div
+        v-else-if="commonUsers.length === 0"
         class="a-message f-table"
-      >
-        {{ $t('page.collectedPoints.noPoints') }}
-      </div>
+        v-text="$t('page.collectedPoints.noPoints')"
+      />
       <m-row-score
         v-for="user of commonUsers"
         :key="user.pointId"
@@ -45,6 +49,9 @@ import MCircleProgress from 'molecules/circle-progress';
 
 export default {
   name: 'p-scoreboards',
+  data: () => ({
+    errorMessage: '',
+  }),
   components: {
     MCircleProgress,
     MRowScore,
@@ -69,7 +76,12 @@ export default {
   },
   mounted () {
     this.$store.dispatch('allUsers/download')
-      .catch(e => alert(e));
+      .then(() => {
+        this.errorMessage = '';
+      })
+      .catch(e => {
+        this.errorMessage = e.message;
+      });
   },
 };
 </script>
