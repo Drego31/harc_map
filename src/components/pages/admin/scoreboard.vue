@@ -1,6 +1,6 @@
 <template>
   <t-page class="f-text-center">
-    <div class="a-text f-title f-table">Poziom realizacji gry</div>
+    <div class="a-text f-title f-table">{{ $t('page.scoreboard.completionLevelOfTheGame') }}</div>
     <div class="f-pt-1">
       <m-circle-progress
         v-for="[key, {categoryId}] of filteredCategories.entries()"
@@ -13,10 +13,10 @@
       />
     </div>
     <div class="f-pt-1 f-pb-3 f-text-subtext f-text-14">
-      Wykresy przedstawiają ilość zebranych punktów przez uczestników z podziałem na kategorie.
+      {{ $t('page.scoreboard.completionLevelDetails') }}
     </div>
     <div class="f-line-24">
-      <div class="a-text f-title f-table">{{ $t('page.collectedPoints.scoreTitle') }}</div>
+      <div class="a-text f-title f-table">{{ $t('page.scoreboard.scoreboard') }}</div>
       <div class="m-row f-header f-score">
         <div>{{ $t('table.team') }}</div>
         <div>{{ $t('table.score') }}</div>

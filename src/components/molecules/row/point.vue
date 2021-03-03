@@ -5,7 +5,7 @@
         <a-icon-category :category-id="point.pointCategory"/>
       </div>
       <div>{{ point.pointId }}</div>
-      <div>{{ getCategoryById(point.pointCategory).pointValue }} pkt</div>
+      <div>{{ getCategoryById(point.pointCategory).pointValue }} {{ $t('general.pointUnit') }}</div>
       <div>
         <a-icon :name="ICONS.map" @click="panTo(point)"/>
       </div>

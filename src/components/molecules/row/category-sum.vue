@@ -4,7 +4,7 @@
       <a-icon-category :category-id="category.categoryId"/>
     </div>
     <div>{{ getCollectedPointsLengthById(category.categoryId) }}</div>
-    <div>{{ getCollectedPointsValueById(category.categoryId) }} pkt</div>
+    <div>{{ getCollectedPointsValueById(category.categoryId) }} {{ $t('general.pointUnit') }}</div>
   </div>
 </template>
 

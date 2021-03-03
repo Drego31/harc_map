@@ -28,9 +28,11 @@ export const pl = {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
     backToStart: 'Przejdź do startowej',
+    alreadyCollectedShort: 'Zebraliście',
     hide: 'Ukryj',
     edit: 'Edytuj',
     copied: 'Skopiowano do schowka',
+    hello: 'Cześć',
   },
   form: {
     field: {
@@ -99,8 +101,12 @@ export const pl = {
     collectedPoints: {
       sumTitle: 'Suma punktów wg kategorii',
       listTitle: 'Lista zebranych punktów',
-      scoreTitle: 'Tabela wyników',
       noPoints: 'Brak zebranych punktów',
+    },
+    scoreboard: {
+      completionLevelOfTheGame: 'Poziom realizacji gry',
+      scoreboard: 'Tabela wyników',
+      completionLevelDetails: 'Wykresy przedstawiają ilość zebranych punktów przez uczestników z podziałem na kategorie.',
     },
     collectPoint: {
       content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
