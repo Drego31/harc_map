@@ -96,7 +96,7 @@ export const ROUTES = {
   },
   setMapPosition: {
     path: '/set-map-position',
-    name: 'set-map-position',
+    name: 'setMapPosition',
     label: translator.t('title.setMapPosition'),
     shortLabel: translator.t('title.setMapPosition'),
     icon: ICONS.map,
