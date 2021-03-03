@@ -3,20 +3,13 @@
     <div class="a-text f-title f-table">Poziom realizacji gry</div>
     <div class="f-pt-1">
       <m-circle-progress
+        v-for="[key, category] of filteredCategories.entries()"
+        :key="`circle-progress${key}`"
+        class="f-mr-1"
+        :class="{'f-ml-1': key === 0}"
         :progress="33"
         :max-range="50"
-        :color="$store.getters['theme/colors'].info"
-      />
-      <m-circle-progress
-        class="f-mx-1"
-        :progress="15"
-        :max-range="40"
-        :color="$store.getters['theme/colors'].warning"
-      />
-      <m-circle-progress
-        :progress="10"
-        :max-range="20"
-        :color="$store.getters['theme/colors'].danger"
+        :color="categoryColorById(category.categoryId)"
       />
     </div>
     <div class="f-pt-1 f-pb-3 f-text-subtext f-text-14">
@@ -64,6 +57,9 @@ export default {
     ...mapGetters('event', [
       'categories',
       'allCollectedPoints',
+    ]),
+    ...mapGetters('theme', [
+      'categoryColorById',
     ]),
     filteredCategories () {
       return this.categories.filter(category => category.categoryId !== 0);
