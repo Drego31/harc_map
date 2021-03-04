@@ -92,7 +92,7 @@ function createEventPoints () {
 
   Object.keys(points).forEach(index => {
     const point = points[index];
-    point.pointId = utils.generateRandomString(4);
+    point.pointId = utils.generateRandomStringWithoutSimilarChars(4);
     point.pointType = point.pointType || 'permanent';
     point.pointName = point.pointName || 'Empty';
     point.pointExpirationTime = point.pointExpirationTime || null;
