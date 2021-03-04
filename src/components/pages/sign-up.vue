@@ -35,7 +35,7 @@
       <template slot="response">
         <div class="f-py-2">
           <div class="f-pb-2 f-bold">{{ $t('page.signUp.registrationDone') }}</div>
-          {{ $t('form.button.linkHasBeenSent') }}
+          {{ $t('page.signUp.linkHasBeenSent') }}
           <span class="f-bold">{{ values.user }}</span>
         </div>
         <a-button-primary @click="$router.push(ROUTES.signIn.path)">
