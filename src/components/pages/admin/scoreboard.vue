@@ -48,7 +48,6 @@ import TPage from 'templates/page';
 import { mapGetters } from 'vuex';
 import MRowScore from 'molecules/row/score';
 import MCircleProgress from 'molecules/circle-progress';
-import { uCheck } from '@dbetka/utils';
 
 export default {
   name: 'p-scoreboards',
@@ -72,13 +71,12 @@ export default {
   computed: {
     ...mapGetters('allUsers', [
       'commonUsers',
+      'scoreByUser',
     ]),
     ...mapGetters('event', [
       'categories',
-      'allCollectedPoints',
       'numberOfCollectedPointsByCategoryId',
       'numberOfPointsByCategoryId',
-      'getCategoryById',
     ]),
     ...mapGetters('theme', [
       'categoryColorById',
@@ -87,26 +85,12 @@ export default {
       return this.commonUsers
         .map(user => ({
           user,
-          userScore: this.userScore(user),
+          userScore: this.scoreByUser(user),
         }))
         .sort((a, b) => b.userScore - a.userScore);
     },
     filteredCategories () {
       return this.categories.filter(category => category.categoryId !== 0);
-    },
-  },
-  methods: {
-    userScore (user) {
-      const collectedPoints = [];
-
-      for (const pointId of user.collectedPointsIds) {
-        const point = this.$store.getters['event/getPointById'](pointId);
-        uCheck.isDefined(point) ? collectedPoints.push(point) : undefined;
-      }
-
-      return collectedPoints
-        .map(point => this.getCategoryById(point.pointCategory).pointValue)
-        .reduce((a, b) => (a + b), 0);
     },
   },
 };
