@@ -2,7 +2,7 @@ const database = require('../lib/mongodb');
 const utils = require('../lib/utils');
 
 function removePointCategories () {
-  return database.remove('point_categories_kO6f', { categoryId: { $in: [1, 2, 3] } })
+  return database.remove('point_categories_ks6f', { categoryId: { $in: [1, 2, 3] } })
     .then(result => {
       console.log(result);
     })
@@ -12,7 +12,7 @@ function removePointCategories () {
 }
 
 function removeEvents () {
-  return database.remove('events', { eventId: 'kO6f' })
+  return database.remove('events', { eventId: 'ks6f' })
     .then(result => {
       console.log(result);
     }).catch(error => {
@@ -21,7 +21,7 @@ function removeEvents () {
 }
 
 function removeEventPoints () {
-  return database.remove('event_kO6f', {})
+  return database.remove('event_ks6f', {})
     .then(result => {
       console.log(result);
     })
@@ -54,7 +54,7 @@ function createPointCategories () {
     },
   ];
 
-  return database.create('point_categories_kO6f', categories)
+  return database.create('point_categories_ks6f', categories)
     .then(result => {
       console.log(result);
     })
@@ -66,7 +66,7 @@ function createPointCategories () {
 
 function createEvent () {
   const event = {
-    eventId: 'kO6f',
+    eventId: 'ks6f',
     eventName: 'Rajd „Tajna Lilijka”',
     mapZoom: 11,
     mapLongitude: 18.4735,
@@ -100,7 +100,7 @@ function createEventPoints () {
     readyPoints.push(point);
   });
 
-  return database.create('event_kO6f', readyPoints)
+  return database.create('event_ks6f', readyPoints)
     .then(result => {
       console.log(result);
     })
