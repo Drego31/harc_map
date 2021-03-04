@@ -4,7 +4,7 @@
       <template slot="text">{{ $t('page.admin.setNewPointPosition.content') }}</template>
       <template slot="button-name">{{ $t('form.button.save') }}</template>
     </m-banner-map>
-    <div class="m-pointer" :style="{backgroundColor: getPointColor}"></div>
+    <m-map-pointer :point-color="getPointColor"></m-map-pointer>
   </o-map>
 </template>
 
@@ -12,10 +12,12 @@
 import OMap from 'organisms/map';
 import MBannerMap from 'molecules/banner-map';
 import { mapGetters } from 'vuex';
+import MMapPointer from 'molecules/map-pointer';
 
 export default {
   name: 'o-admin-set-new-point-position',
   components: {
+    MMapPointer,
     MBannerMap,
     OMap,
   },
