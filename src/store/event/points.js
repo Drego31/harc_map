@@ -16,5 +16,9 @@ export default {
       });
       return (listOfPoints || []).length;
     },
+    pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategory => {
+      const category = rootGetters['event/getCategoryById'](pointCategory);
+      return (category || {}).pointValue;
+    },
   },
 };

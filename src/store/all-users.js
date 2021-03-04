@@ -23,7 +23,7 @@ export default {
     },
     scoreByUser: (state, getters, rootState, rootGetters) => user => {
       return getters.collectedPointsByUser(user)
-        .map(point => rootGetters['event/getCategoryById'](point.pointCategory).pointValue)
+        .map(point => rootGetters['event/pointValueByPointCategory'](point.pointCategory))
         .reduce((a, b) => (a + b), 0);
     },
   },
