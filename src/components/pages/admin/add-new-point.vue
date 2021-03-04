@@ -27,6 +27,13 @@
       >
       </m-select>
 
+      <div
+        class="f-text-center f-relative"
+        style="top:160px"
+        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
+        v-text="message"
+      />
+
       <a-button-submit
         style="position: relative; top:70px"
         :disabled="blockForm || !hasPositionSet"
@@ -35,8 +42,8 @@
       />
     </o-form>
     <a-button-secondary
-      class="f-text-center"
-      style="position: relative; top:-70px"
+      class="f-text-center f-relative"
+      style="top:-70px"
       @click="pushToMap">
       {{$t('form.button.setPointMapPosition')}}
     </a-button-secondary>
