@@ -55,14 +55,21 @@ router.route('/')
         const filteredUsersList = results.map(userObject => ({
           user: userObject.user,
           userTeam: userObject.userTeam,
+          accountType: userObject.accountType,
           accountIsActive: userObject.accountIsActive,
           accountCreated: userObject.accountCreated,
           collectedPointsIds: userObject.collectedPointsIds,
         }));
-        res.send(filteredUsersList);
+        res.send({
+          users: filteredUsersList,
+          error: null,
+        });
       })
       .catch(errorCode => {
-        utils.responseUserError(res, 400, errorsCodes.DATABASE_DATA_ERROR);
+        res.status(400).send({
+          users: null,
+          error: errorsCodes.DATABASE_DATA_ERROR,
+        });
       });
   });
 
