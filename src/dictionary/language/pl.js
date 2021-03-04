@@ -31,6 +31,9 @@ export const pl = {
     pointTemporary: 'Czasowy',
     pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
+    hide: 'Ukryj',
+    edit: 'Edytuj',
+    copied: 'Skopiowano do schowka',
   },
   form: {
     field: {
@@ -141,6 +144,7 @@ export const pl = {
   },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
+    unauthorizedAccess: 'Brak uprawnień do wykonania tej akcji.',
 
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
@@ -151,10 +155,14 @@ export const pl = {
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
     addPoint: 'Dodanie punktu nie powiodło się',
 
+    all: 'Pobranie listy użytkowników nie powiodło się ze względu na błąd serwera.',
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
     signInData: 'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
+    signInOnOtherDevice: 'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
     checkYourLoginSession: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
     signUp: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
+    eventIdNotExist: 'Podany kod wydarzenia jest niepoprawny.',
+    userExist: 'Użytkownik o podanym e-mail już istnieje.',
     remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się ze względu na błąd serwera.',
     signOut: 'Wylogowanie po stronie serwera nie powiodło. Zostałeś wylogowany lokalnie.',
     changePassword: 'Zmiana hasła się nie powiodła ze względu na błąd serwera.',

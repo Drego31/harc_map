@@ -3,6 +3,7 @@ import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
 import { updateMapFeatures } from 'map';
+import Cookies from 'js-cookie';
 
 export default {
   namespaced: true,
@@ -26,6 +27,9 @@ export default {
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
+    getPointByOlUid: state => pointOlUid => {
+      return state.points.find(point => point.olUid === pointOlUid);
+    },
     getCategoryById: state => categoryId => {
       return state.categories.find(category => category.categoryId === categoryId);
     },
@@ -44,6 +48,7 @@ export default {
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
           if (uCheck.isNull(pointCollectionTime)) return true;
+          if (permissions.checkIsAdmin()) return true;
 
           // Display points collected by user
           if (rootGetters['user/collectedPointsIds'].includes(pointId) === true) return true;
@@ -79,6 +84,13 @@ export default {
       state.mapDefaultLatitude = data.mapLatitude;
       state.mapDefaultLongitude = data.mapLongitude;
       state.mapDefaultZoom = data.mapZoom;
+      const cookieJSON = Cookies.get('mapPosition');
+      if (cookieJSON) {
+        const cookie = JSON.parse(cookieJSON);
+        state.mapLatitude = cookie.mapLatitude;
+        state.mapLongitude = cookie.mapLongitude;
+        state.mapZoom = cookie.mapZoom;
+      }
     },
     addPoint: (state, point) => {
       state.points.push(point);

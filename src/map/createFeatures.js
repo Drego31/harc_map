@@ -26,12 +26,14 @@ export function createFeatures ({ list = [] }) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;
     const shape = point.pointCategory;
+    const pointIsCollected = point.pointCollectionTime !== null;
     const collectedPointsIds = store.getters['user/collectedPointsIds'];
     const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
-    const isCollected = point.pointCollectionTime != null && collectedByLoginUser;
+    const isAdmin = permissions.checkIsAdmin();
+    const showCollected = pointIsCollected && (collectedByLoginUser || isAdmin);
 
-    const stroke = getStroke(shape, isCollected);
-    const fill = getFill(shape, isCollected);
+    const stroke = getStroke(shape, showCollected);
+    const fill = getFill(shape, showCollected);
 
     const position = Projection.fromLonLat([lon, lat]);
 

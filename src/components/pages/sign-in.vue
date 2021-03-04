@@ -84,7 +84,7 @@ export default {
     signInAutomatically () {
       this.isSending = true;
       this.blockForm = true;
-      this.values.user = USER;
+      this.values.user = 'dominik.betka@gmail.com';
       this.values.password = PASSWORD;
       uPromise.timeout(500)
         .then(() => this.signIn());

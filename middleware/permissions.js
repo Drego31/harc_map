@@ -39,6 +39,9 @@ const permissionsList = {
   '/admin/collected/stats': {
     'GET': new Permissions('A'),
   },
+  '/user/all': {
+    'GET': new Permissions('A'),
+  },
 };
 
 class PermissionsMiddleware {
@@ -70,7 +73,6 @@ class PermissionsMiddleware {
   }
 
   checkPermissions (permissions) {
-    console.log(permissions);
     if (permissions.admin()) {
       if (this.isSuperUser()) return true;
     }

@@ -2,6 +2,10 @@
   <div style="height: 100%; position: relative">
     <slot/>
     <div class="o-map" id="o-map"></div>
+    <o-popup-map
+      v-if="checkIsAdmin()"
+      ref="mapPopup"
+    />
   </div>
 </template>
 
@@ -9,9 +13,15 @@
 import { map } from 'map';
 import { mapMutations } from 'vuex';
 import { toLonLat } from 'ol/proj';
+import OPopupMap from 'organisms/popup/map';
+import Cookies from 'js-cookie';
 
 export default {
   name: 'o-map',
+  components: { OPopupMap },
+  data: () => ({
+    popup: null,
+  }),
   mounted () {
     const appEvent = this.$store.getters['event/event'];
 
@@ -28,6 +38,11 @@ export default {
     map.lines.create({
       list: this.$store.getters['user/collectedPoints'],
     });
+
+    // Map popup have to define after map creating.
+    this.$refs.mapPopup && this.$refs.mapPopup.definePopup();
+
+    map.realMap.on('moveend', this.saveLastMapPosition);
   },
   methods: {
     ...mapMutations('event', [
@@ -37,7 +52,9 @@ export default {
     saveLastMapPosition () {
       this.setMapPosition(this.getLastMapCords());
       this.setMapZoom(this.getLastMapZoom());
+      this.updateMapPositionCookies();
     },
+
     getLastMapCords () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
@@ -46,13 +63,21 @@ export default {
         mapLongitude,
       };
     },
+    updateMapPositionCookies () {
+      const cookieDate = {
+        ...this.getLastMapCords(),
+        mapZoom: this.getLastMapZoom(),
+      };
+      Cookies.remove('mapPosition');
+      Cookies.set('mapPosition', cookieDate, { expires: 7 });
+    },
     getLastMapZoom () {
       const mapView = map.realMap.getView();
       return mapView.getZoom();
     },
 
     beforeDestroy () {
-      this.saveLastMapPosition();
+      map.realMap.un('moveend', this.saveLastMapPosition);
     },
   },
 };
