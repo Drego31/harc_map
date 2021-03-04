@@ -11,12 +11,14 @@ export const pl = {
     collectPoint: 'Zbierz punkt',
     collectedPoints: 'Zebrane punkty',
     map: 'Mapa',
+    adminPanel: 'Panel admina',
     editEvent: 'Edycja wydarzenia',
     setMapPosition: 'Ustawienia mapy',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
       collectedPoints: 'Zebrane',
+      adminPanel: 'Admin',
       editEvent: 'Wydarzenie',
     },
   },
@@ -24,6 +26,9 @@ export const pl = {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
     backToStart: 'Przejdź do startowej',
+    hide: 'Ukryj',
+    edit: 'Edytuj',
+    copied: 'Skopiowano do schowka',
   },
   form: {
     field: {
@@ -36,6 +41,7 @@ export const pl = {
       eventName: 'Nazwa wydarzenia',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
+      mapRefreshTime: 'Odświeżanie punktów na mapie co',
     },
     assist: {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
@@ -82,6 +88,7 @@ export const pl = {
       success: 'Link do odzyskania hasła wysłano na podany email.',
     },
     error: {
+      title: 'Błąd 404',
       content: `Cześć! <br>
         Wygląda na to, że znajdujesz się nie tam gdzie trzeba... <br>
         <br>
@@ -90,6 +97,7 @@ export const pl = {
     collectedPoints: {
       sumTitle: 'Suma punktów wg kategorii',
       listTitle: 'Lista zebranych punktów',
+      noPoints: 'Brak zebranych punktów',
     },
     collectPoint: {
       content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
@@ -122,6 +130,7 @@ export const pl = {
   },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
+    unauthorizedAccess: 'Brak uprawnień do wykonania tej akcji.',
 
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
@@ -131,8 +140,10 @@ export const pl = {
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany już wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
 
+    all: 'Pobranie listy użytkowników nie powiodło się ze względu na błąd serwera.',
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
     signInData: 'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
+    signInOnOtherDevice: 'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
     checkYourLoginSession: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
     signUp: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
     remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się ze względu na błąd serwera.',
@@ -156,6 +167,14 @@ export const pl = {
     },
     changePassword: {
       success: 'Twoje hasło zostało zmienione!',
+    },
+  },
+  features: {
+    timer: {
+      toUpdate: 'Aktualizacja',
+    },
+    bannerMap: {
+      defaultSuccessMessage: 'Nowa pozycja została zapisana.',
     },
   },
 };

@@ -12,6 +12,11 @@
         v-model="values.eventId"
         :assist="$t('form.assist.eventId')"
       />
+      <m-select
+        :options="options"
+        :placeholder="$t('form.field.mapRefreshTime')"
+        v-model="values.mapRefreshTime"
+      />
       <div
         class="f-text-center"
         :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
@@ -23,7 +28,7 @@
         :text="$t('form.button.save')"
       />
     </o-form>
-    <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)" >
+    <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)">
       {{ $t('form.button.setDefaultMapPositionAndZoom') }}
     </a-button-secondary>
   </t-page>
@@ -37,11 +42,13 @@ import OForm from 'organisms/form';
 import { mixins } from 'mixins/base';
 import { mapGetters } from 'vuex';
 import AButtonSecondary from 'atoms/button/secondary';
+import MSelect from 'molecules/select';
 
 export default {
   name: 'p-admin-edit-event',
   mixins: [mixins.form],
   components: {
+    MSelect,
     TPage,
     AButtonSecondary,
     OForm,
@@ -49,29 +56,51 @@ export default {
     MInput,
   },
   data () {
+    const minute = 60;
     return {
       values: {
         eventName: '',
         eventId: '',
+        mapRefreshTime: 60,
       },
       blockForm: false,
       isSending: false,
       isServerError: false,
       message: '',
+      options: [
+        {
+          label: '1 min',
+          value: minute,
+        }, {
+          label: '5 min',
+          value: 5 * minute,
+        }, {
+          label: '10 min',
+          value: 10 * minute,
+        }, {
+          label: '15 min',
+          value: 15 * minute,
+        }, {
+          label: '30 min',
+          value: 30 * minute,
+        },
+      ],
     };
   },
   created () {
     this.values.eventName = this.event.eventName;
     this.values.eventId = this.event.eventId;
+    this.values.mapRefreshTime = this.event.mapRefreshTime;
   },
   computed: {
-    ...mapGetters('event', ['event', 'getEventBasicInformation']),
+    ...mapGetters('event', ['event', 'eventBasicInformation']),
   },
   methods: {
     updateEvent () {
       const updatedEvent = {
-        ...this.getEventBasicInformation,
+        ...this.eventBasicInformation,
         eventName: this.values.eventName,
+        mapRefreshTime: this.values.mapRefreshTime,
       };
       this.$store.dispatch('event/updateEvent', updatedEvent)
         .then(this.onEventUpdate)

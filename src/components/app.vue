@@ -15,6 +15,7 @@
       <o-loading v-show="isLoading"/>
     </transition>
     <o-popup/>
+    <m-snackbar/>
   </div>
 </template>
 
@@ -25,9 +26,11 @@ import OFooter from 'organisms/footer';
 import OLoading from 'organisms/loading';
 import { mapGetters, mapMutations } from 'vuex';
 import OPopup from 'organisms/popup';
+import MSnackbar from 'molecules/snackbar';
 
 export default {
   components: {
+    MSnackbar,
     OPopup,
     OHeader,
     OMenu,

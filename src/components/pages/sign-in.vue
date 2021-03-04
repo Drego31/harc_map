@@ -27,7 +27,7 @@
 <script>
 import TPage from 'templates/page';
 import AButtonSecondary from 'atoms/button/secondary';
-import { api } from 'api/index';
+import { api } from 'api';
 import { mixins } from 'mixins/base';
 import { ROUTES } from 'utils/macros/routes';
 import { uPromise } from '@dbetka/utils';
@@ -84,7 +84,7 @@ export default {
     signInAutomatically () {
       this.isSending = true;
       this.blockForm = true;
-      this.values.user = USER;
+      this.values.user = 'dominik.betka@gmail.com';
       this.values.password = PASSWORD;
       uPromise.timeout(500)
         .then(() => this.signIn());

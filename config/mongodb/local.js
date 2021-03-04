@@ -11,13 +11,10 @@ db.events.insert({
   'mapZoom': NumberInt(11),
   'mapLongitude': 18.4735,
   'mapLatitude': 54.4787,
+  'mapRefreshTime': 60,
 });
 
 db.point_categories_ab12.insertMany([{
-  'categoryId': NumberInt(0),
-  'pointValue': NumberInt(0),
-  'pointShape': NumberInt(0),
-}, {
   'categoryId': NumberInt(1),
   'pointValue': NumberInt(1),
   'pointShape': NumberInt(1),
@@ -96,7 +93,25 @@ db.users.insert({
   'userEvents': [
     'kO6f',
   ],
-  'accountType': 'common',
+  'accountType': 'admin',
+  'accountIsActive': true,
+  'activationKey': null,
+  'forgotKey': null,
+  'forgotTimestamp': null,
+  'accountCreated': Date.now(),
+  'collectedPointsIds': [],
+});
+
+// Create example user in "users" collection
+db.users.insert({
+  'user': 'kosz@henouser.pl',
+  'userTeam': 'FonzieBoys',
+  // Password: HarcMap1
+  'password': 'f363cc9abf38511a7efd11554c346d6106bea3156e24f0322cb4659d3871baf1584a348916c43eaeca94e6fa0048d1a35905fa3dfd752c427a1b9993ab120bb9',
+  'userEvents': [
+    'ab12',
+  ],
+  'accountType': 'admin',
   'accountIsActive': true,
   'activationKey': null,
   'forgotKey': null,
@@ -109,6 +124,24 @@ db.users.insert({
 db.users.insert({
   'user': 'demo@demo.com',
   'userTeam': 'Zastęp Demo',
+  // Password: HarcMap1
+  'password': 'f363cc9abf38511a7efd11554c346d6106bea3156e24f0322cb4659d3871baf1584a348916c43eaeca94e6fa0048d1a35905fa3dfd752c427a1b9993ab120bb9',
+  'userEvents': [
+    'kO6f',
+  ],
+  'accountType': 'common',
+  'accountIsActive': true,
+  'activationKey': null,
+  'forgotKey': null,
+  'forgotTimestamp': null,
+  'accountCreated': Date.now(),
+  'collectedPointsIds': [],
+});
+
+// Create example user in "users" collection
+db.users.insert({
+  'user': 'demo2@demo.com',
+  'userTeam': 'Zastęp Demo2',
   // Password: HarcMap1
   'password': 'f363cc9abf38511a7efd11554c346d6106bea3156e24f0322cb4659d3871baf1584a348916c43eaeca94e6fa0048d1a35905fa3dfd752c427a1b9993ab120bb9',
   'userEvents': [

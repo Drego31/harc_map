@@ -40,6 +40,15 @@ export const API_ERRORS = {
   },
 
   // USER
+  all: {
+    defaultError: translator.t('apiError.all'),
+    errors: [
+      [
+        [validateCodes.UNAUTHORIZED_ACCESS],
+        translator.t('apiError.unauthorizedAccess'),
+      ],
+    ],
+  },
   signIn: {
     defaultError: translator.t('apiError.signIn'),
     errors: [
@@ -48,12 +57,14 @@ export const API_ERRORS = {
           validateCodes.IS_NOT_EMAIL,
           validateCodes.PASSWORD_TOO_SHORT,
           validateCodes.PASSWORD_HAS_NOT_NUMBER,
+          validateCodes.LOGIN_INVALID_PASSWORD,
+          validateCodes.LOGIN_INVALID_USER,
         ],
         translator.t('apiError.signInData'),
       ],
       [
-        [validateCodes.SESSION_ERROR],
-        'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
+        [validateCodes.USER_IS_LOGGED_ON_ANOTHER_DEVICE],
+        translator.t('apiError.signInOnOtherDevice'),
       ],
     ],
   },

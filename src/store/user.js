@@ -15,7 +15,7 @@ export default {
   getters: {
     user: state => state.user,
     userTeam: state => state.userTeam,
-    accountType: state => ACCOUNT_TYPES.admin, // state.accountType,
+    accountType: state => state.accountType,
     isLogin: state => state.user !== '',
     collectedPointsIds: state => state.collectedPointsIds,
     collectedPoints (state, getters, rootState, rootGetters) {
