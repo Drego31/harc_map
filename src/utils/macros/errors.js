@@ -73,6 +73,16 @@ export const API_ERRORS = {
   },
   signUp: {
     defaultError: translator.t('apiError.signUp'),
+    errors: [
+      [
+        [validateCodes.EVENT_ID_NOT_EXIST],
+        translator.t('apiError.eventIdNotExist'),
+      ],
+      [
+        [validateCodes.USER_EXIST],
+        translator.t('apiError.userExist'),
+      ],
+    ],
   },
   remindPassword: {
     defaultError: translator.t('apiError.remindPassword'),
