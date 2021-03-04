@@ -59,6 +59,7 @@ export default {
       return this.pageTitle === '' || this.pageTitle === 'Start';
     },
     pathBackButton () {
+      if (this.$route.meta.adminOnly) return ROUTES.adminPanel.path;
       return this.isLogin ? ROUTES.start.path : ROUTES.welcome.path;
     },
   },
