@@ -40,6 +40,15 @@ export const API_ERRORS = {
   },
 
   // USER
+  all: {
+    defaultError: translator.t('apiError.all'),
+    errors: [
+      [
+        [validateCodes.UNAUTHORIZED_ACCESS],
+        translator.t('apiError.unauthorizedAccess'),
+      ],
+    ],
+  },
   signIn: {
     defaultError: translator.t('apiError.signIn'),
     errors: [
@@ -55,7 +64,7 @@ export const API_ERRORS = {
       ],
       [
         [validateCodes.USER_IS_LOGGED_ON_ANOTHER_DEVICE],
-        'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
+        translator.t('apiError.signInOnOtherDevice'),
       ],
     ],
   },
