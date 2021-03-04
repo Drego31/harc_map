@@ -40,8 +40,8 @@ export default {
     getPointPosition () {
       const mapPosition = this.$refs.oMap.getLastMapCords();
       return {
-        pointLongitude: mapPosition.mapLongitude,
-        pointLatitude: mapPosition.mapLatitude,
+        pointLongitude: mapPosition.mapLongitude.toFixed(4),
+        pointLatitude: mapPosition.mapLatitude.toFixed(4),
       };
     },
   },
