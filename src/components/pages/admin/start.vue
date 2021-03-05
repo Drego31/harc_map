@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import AButtonFillSecondary from 'atoms/button/fill/secondary';
 import AButtonFillPrimary from 'atoms/button/fill/primary';
 import TStart from 'templates/start';
@@ -29,11 +28,6 @@ export default {
     TStart,
     AButtonFillPrimary,
     AButtonFillSecondary,
-  },
-  computed: {
-    ...mapGetters('user', [
-      'sumOfCollectedPoints',
-    ]),
   },
 };
 </script>
