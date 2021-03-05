@@ -1,31 +1,31 @@
 <template>
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="addPoint">
-      <m-input
+      <m-field-text
         :disabled="blockForm"
-        :placeholder="$t('form.field.pointName')"
+        :label="$t('form.field.pointName')"
         v-model="values.pointName"
-        :assist="$t('form.assist.fieldNotRequired')"
-      >
-      </m-input>
+        :rules="rulesForName"
+        :assist="isPermanent ? $t('form.assist.fieldNotRequired') : ''"
+      />
       <m-select
         :options="typeOptions"
         :placeholder="$t('form.field.pointName')"
         v-model="values.pointType"
-      >
-      </m-select>
+      />
       <m-field-datetime
-        v-if="values.pointType === 'timeout'"
+        v-if="isTimeout"
         :label="$t('form.field.pointDateAndExpirationTime')"
         v-model="values.pointExpirationTime"
+        :rules="rules.required"
         :disabled="blockForm"
       />
       <m-select
+        v-if="isPermanent"
         :options="categoryOptions"
         :placeholder="$t('form.field.pointCategory')"
         v-model="values.pointCategory"
-      >
-      </m-select>
+      />
 
       <div
         class="f-text-center f-relative"
@@ -45,7 +45,7 @@
       class="f-text-center f-relative"
       style="top:-70px"
       @click="pushToMap">
-      {{$t('form.button.setPointMapPosition')}}
+      {{ $t('form.button.setPointMapPosition') }}
     </a-button-secondary>
   </t-page>
 </template>
@@ -53,7 +53,6 @@
 <script>
 import TPage from 'templates/page';
 import OForm from 'organisms/form';
-import MInput from 'molecules/input';
 import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
@@ -61,15 +60,16 @@ import { MACROS } from 'utils/macros';
 import { mapGetters, mapMutations } from 'vuex';
 import { mixins } from 'mixins/base';
 import MFieldDatetime from 'molecules/field/datetime';
+import MFieldText from 'molecules/field/text';
 
 export default {
   name: 'p-admin-add-new-point',
-  mixins: [mixins.form],
+  mixins: [mixins.form, mixins.validation],
   components: {
+    MFieldText,
     MFieldDatetime,
     TPage,
     MSelect,
-    MInput,
     OForm,
     AButtonSecondary,
     AButtonSubmit,
@@ -105,6 +105,16 @@ export default {
     ...mapGetters('point', [
       'getPointBasicInformation', 'point', 'hasPositionSet',
     ]),
+    rulesForName () {
+      const rules = this.rules;
+      return this.isTimeout ? `${rules.required}|${rules.name}` : rules.name;
+    },
+    isTimeout () {
+      return this.values.pointType === MACROS.pointType.timeout;
+    },
+    isPermanent () {
+      return this.values.pointType === MACROS.pointType.permanent;
+    },
   },
   methods: {
     ...mapMutations('point', [
@@ -134,6 +144,9 @@ export default {
     },
 
     addPoint () {
+      if (this.values.pointType === MACROS.pointType.timeout) {
+        this.values.pointCategory = 0;
+      }
       this.setPointBasicInformation(this.values);
       this.$store.dispatch('event/addPoint', this.point)
         .then(this.onAddPoint)
