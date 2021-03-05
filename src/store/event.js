@@ -27,6 +27,16 @@ export default {
     event: state => state,
     eventName: state => state.eventName,
     eventId: state => state.eventId,
+    mapPosition: state => ({
+      mapLongitude: state.mapLongitude,
+      mapLatitude: state.mapLatitude,
+      mapZoom: state.mapZoom,
+    }),
+    mapDefaultPosition: state => ({
+      mapDefaultLongitude: state.mapDefaultLongitude,
+      mapDefaultLatitude: state.mapDefaultLatitude,
+      mapDefaultZoom: state.mapDefaultZoom,
+    }),
     points: state => state.points,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
@@ -124,10 +134,8 @@ export default {
     removePoint: (state, point) => {
       Vue.delete(state.points, state.points.indexOf(point));
     },
-    setMapPosition: (state, {
-      mapLatitude,
-      mapLongitude,
-    }) => {
+    setMapPosition: (state, { mapLatitude, mapLongitude }) => {
+      console.trace();
       state.mapLatitude = mapLatitude;
       state.mapLongitude = mapLongitude;
     },
