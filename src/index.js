@@ -10,6 +10,7 @@ import { ROUTES } from 'utils/macros/routes';
 import { ICONS } from './__jscash__/icons-names-list';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
+import VueEllipseProgress from 'vue-ellipse-progress';
 
 styleManager.init();
 uuidInit();
@@ -32,6 +33,8 @@ Vue.mixin({
     checkIsCommon: permissions.checkIsCommon,
   },
 });
+
+Vue.use(VueEllipseProgress);
 
 new Vue({
   router,

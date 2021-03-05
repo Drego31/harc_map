@@ -133,6 +133,16 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.scoreboard.path,
+    name: ROUTES.scoreboard.name,
+    component: () => import('pages/admin/scoreboard.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
     path: '*',
     name: 'error',
     component: PError,

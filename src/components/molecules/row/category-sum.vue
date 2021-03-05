@@ -4,7 +4,7 @@
       <a-icon-category :category-id="category.categoryId"/>
     </div>
     <div>{{ getCollectedPointsLengthById(category.categoryId) }}</div>
-    <div>{{ getCollectedPointsValueById(category.categoryId) }} pkt</div>
+    <div>{{ getCollectedPointsValueById(category.categoryId) }} {{ $t('general.pointUnit') }}</div>
   </div>
 </template>
 
@@ -18,17 +18,19 @@ export default {
     AIconCategory,
   },
   props: {
+    collectedPoints: {
+      type: Array,
+      required: true,
+    },
     category: {
       type: Object,
       required: true,
     },
   },
   computed: {
-    ...mapGetters('user', [
-      'collectedPoints',
-    ]),
     ...mapGetters('event', [
       'getCategoryById',
+      'allCollectedPoints',
     ]),
   },
   methods: {

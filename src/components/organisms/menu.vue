@@ -1,9 +1,12 @@
 <template>
   <div class="o-menu" :class="isOpen ? 'f-open' : ''">
-    <div class="a-text f-title f-menu">Cześć, {{ $store.getters['user/userTeam'] }}</div>
+    <div class="a-text f-title f-menu">{{ $t('general.hello') }}, {{ $store.getters['user/userTeam'] }}</div>
 
     <div class="a-text f-subtitle f-menu">
-      Zebraliście <span class="f-text-primary-contrast">{{ $store.getters['user/sumOfCollectedPoints'] }} pkt</span>
+      {{ $t('general.alreadyCollectedShort') }}
+      <span class="f-text-primary-contrast">
+        {{ $store.getters['user/sumOfCollectedPoints'] }} {{ $t('general.pointUnit') }}
+      </span>
     </div>
 
     <router-link
@@ -45,25 +48,30 @@ import { THEMES } from 'utils/style-manager';
 import { ROUTES } from 'utils/macros/routes';
 import router from 'src/router';
 import AIcon from 'atoms/icon';
+import { uCheck } from '@dbetka/utils';
 
 export default {
   name: 'o-menu',
   components: { AIcon },
   data: () => ({
-    links: [
-      ROUTES.start,
-      ROUTES.temporaryPoints,
-      ROUTES.collectPoint,
-      ROUTES.collectedPoints,
-      ROUTES.map,
-      ROUTES.about,
-    ],
     THEMES,
   }),
   computed: {
     ...mapGetters('menu', [
       'isOpen',
     ]),
+    links () {
+      const isAdmin = this.checkIsAdmin();
+      const links = [
+        ROUTES.start,
+        ROUTES.temporaryPoints,
+        isAdmin ? undefined : ROUTES.collectPoint,
+        isAdmin ? ROUTES.scoreboard : ROUTES.collectedPoints,
+        ROUTES.map,
+        ROUTES.about,
+      ];
+      return links.filter(route => uCheck.isUndefined(route) === false);
+    },
     themeName () {
       return this.$store.getters['theme/name'];
     },

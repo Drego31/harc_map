@@ -2,7 +2,7 @@ import { makeRequest, request } from 'utils/request';
 import { API_ERRORS } from 'utils/macros/errors';
 
 export const userController = {
-  all () {
+  allUsers () {
     return makeRequest({
       method: request.get,
       url: '/user/all',

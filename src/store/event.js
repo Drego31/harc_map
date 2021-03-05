@@ -3,9 +3,13 @@ import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
 import Cookies from 'js-cookie';
+import pointsModule from 'store/event/points';
 
 export default {
   namespaced: true,
+  modules: {
+    pointsModule,
+  },
   state: {
     eventId: '',
     eventName: '',
@@ -23,6 +27,7 @@ export default {
     event: state => state,
     eventName: state => state.eventName,
     eventId: state => state.eventId,
+    points: state => state.points,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
@@ -36,7 +41,8 @@ export default {
     getTemporaryPoints: state => state.points
       .filter(point => point.pointType === MACROS.pointType.temporary)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
-
+    allCollectedPoints: state => state.points
+      .filter(point => point.pointCollectionTime !== null),
     getPointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
       return state.points.filter(({
         pointId,
