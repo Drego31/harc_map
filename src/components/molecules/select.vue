@@ -101,6 +101,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    assist: {
+      type: String,
+      default: '',
+    },
   },
   data: () => ({
     id: '',
