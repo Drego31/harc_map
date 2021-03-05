@@ -52,20 +52,14 @@ export default {
     saveLastMapPositionToDatabase () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({
-        mapLatitude,
-        mapLongitude,
-      });
+      this.setMapPosition({ mapLatitude, mapLongitude });
       this.setMapZoom(mapView.getZoom());
       api.updateEvent(this.$store.getters['event/eventBasicInformation']);
     },
     saveLastMapPositionToCookies () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({
-        mapLatitude,
-        mapLongitude,
-      });
+      this.setMapPosition({ mapLatitude, mapLongitude });
       this.setMapZoom(mapView.getZoom());
       const dataForCookies = {
         mapLatitude,
