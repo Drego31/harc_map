@@ -14,7 +14,7 @@
         v-model="values.pointType"
       >
       </m-select>
-      <m-field-date
+      <m-field-datetime
         v-if="values.pointType === 'timeout'"
         :label="$t('form.field.pointDateAndExpirationTime')"
         v-model="values.pointExpirationTime"
@@ -55,19 +55,19 @@ import TPage from 'templates/page';
 import OForm from 'organisms/form';
 import MInput from 'molecules/input';
 import MSelect from 'molecules/select';
-import MFieldDate from 'molecules/field/date';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
 import { MACROS } from 'utils/macros';
 import { mapGetters, mapMutations } from 'vuex';
 import { mixins } from 'mixins/base';
+import MFieldDatetime from 'molecules/field/datetime';
 
 export default {
   name: 'p-admin-add-new-point',
   mixins: [mixins.form],
   components: {
+    MFieldDatetime,
     TPage,
-    MFieldDate,
     MSelect,
     MInput,
     OForm,
