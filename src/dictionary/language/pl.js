@@ -129,13 +129,18 @@ export const pl = {
       setMapPosition: {
         content: 'Ustaw mapę w wybranej pozycji i zapisz.',
       },
+      start: {
+        message: 'Jesteś zalogowany jako administrator',
+        editEvent: 'Edytuj wydarzenie',
+        checkScoreboard: 'Sprawdź tabelę wyników',
+      },
     },
   },
   error: {
     eventIdIsRequired: 'Kod wydarzenia jest wymagany',
     elementIdIsRequiredForMap: 'Kod wydarzenia jest wymagany, by uruchomić mapę',
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
-    dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta.',
+    dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
   },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
