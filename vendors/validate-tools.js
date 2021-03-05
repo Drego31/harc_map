@@ -1,3 +1,5 @@
+const utils = require('../lib/utils');
+
 class ValidateTools {
   hasNumber (data) {
     return /\d/.test(data);
@@ -26,6 +28,10 @@ class ValidateTools {
 
   isNullOrEmpty (data) {
     return ['', undefined, null].includes(data);
+  }
+
+  isEasyToRead (data) {
+    return utils.checkIfStringIsReadable(data);
   }
 
   isUndefined (data) {
