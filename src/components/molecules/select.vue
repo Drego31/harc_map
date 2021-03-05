@@ -49,6 +49,12 @@
         {{ option.label }}
       </div>
     </div>
+    <div
+      class="a-assist"
+      :class="{ 'f-error': error, 'f-disabled': disabled}"
+    >
+      {{ assist }}
+    </div>
   </div>
 </template>
 
@@ -75,6 +81,10 @@ export default {
     /**
      * options: [{label: String, value: String}]
      */
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     options: {
       type: Array,
       required: true,
