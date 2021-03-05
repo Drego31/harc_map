@@ -6,6 +6,7 @@ export const ERRORS = {
   elementIdIsRequiredForMap: translator.t('error.elementIdIsRequiredForMap'),
   fakeErrorInMockApi: translator.t('error.fakeErrorInMockApi'),
   dataAfterSignIn: translator.t('error.dataAfterSignIn'),
+  signOut: translator.t('apiError.signOut'),
 };
 
 export const API_ERRORS = {

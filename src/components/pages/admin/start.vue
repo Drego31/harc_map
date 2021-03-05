@@ -1,0 +1,39 @@
+<template>
+  <t-start>
+    <template slot="message">
+      <div>
+        {{ $t('page.admin.start.message') }}
+      </div>
+    </template>
+
+    <template slot="buttons">
+      <a-button-fill-primary @click="$router.push(ROUTES.scoreboard.path)">
+        {{ $t('page.admin.start.checkScoreboard') }}
+      </a-button-fill-primary>
+      <a-button-fill-secondary @click="$router.push(ROUTES.editEvent.path)">
+        {{ $t('page.admin.start.editEvent') }}
+      </a-button-fill-secondary>
+    </template>
+  </t-start>
+</template>
+
+<script>
+import { mapGetters } from 'vuex';
+import AButtonFillSecondary from 'atoms/button/fill/secondary';
+import AButtonFillPrimary from 'atoms/button/fill/primary';
+import TStart from 'templates/start';
+
+export default {
+  name: 'p-start',
+  components: {
+    TStart,
+    AButtonFillPrimary,
+    AButtonFillSecondary,
+  },
+  computed: {
+    ...mapGetters('user', [
+      'sumOfCollectedPoints',
+    ]),
+  },
+};
+</script>
