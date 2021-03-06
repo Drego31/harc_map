@@ -48,22 +48,29 @@ export default {
       return state.categories.find(category => category.categoryId === categoryId);
     },
     categories: state => state.categories,
+    permanentCategories: state => state.categories
+      .filter(category => category.pointType === MACROS.pointType.permanent),
+    timeoutCategories: state => state.categories
+      .filter(category => category.pointType === MACROS.pointType.timeout),
     getTemporaryPoints: state => state.points
-      .filter(point => point.pointType === MACROS.pointType.temporary)
+      .filter(point => point.pointType === MACROS.pointType.timeout)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
     allCollectedPoints: state => state.points
       .filter(point => point.pointCollectionTime !== null),
-    getPointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
+    pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
       return state.points.filter(({
         pointId,
         pointCollectionTime,
         pointType,
+        pointAppearanceTime,
         pointExpirationTime,
       }) => {
+        // Admin can see all points on map
+        if (permissions.checkIsAdmin()) return true;
+
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
           if (uCheck.isNull(pointCollectionTime)) return true;
-          if (permissions.checkIsAdmin()) return true;
 
           // Display points collected by user
           if (rootGetters['user/collectedPointsIds'].includes(pointId) === true) return true;
@@ -77,11 +84,10 @@ export default {
           return isBeforeLastGapEndTime === false;
         }
 
-        // Point is temporary - should be visible in interval => pointExpirationTime +/- time range
-        const timeRange = 1000 * 60 * 60; // 1H
-        const expirationTime = moment((new Date(pointExpirationTime)).valueOf());
-        const expirationTimeDiffNow = expirationTime.diff(moment());
-        return expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
+        return rootGetters['event/checkTemporaryPointIsVisible']({
+          pointAppearanceTime,
+          pointExpirationTime,
+        });
       });
     },
     eventBasicInformation: (state) => ({
@@ -135,7 +141,6 @@ export default {
       Vue.delete(state.points, state.points.indexOf(point));
     },
     setMapPosition: (state, { mapLatitude, mapLongitude }) => {
-      console.trace();
       state.mapLatitude = mapLatitude;
       state.mapLongitude = mapLongitude;
     },

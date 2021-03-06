@@ -18,14 +18,17 @@ db.point_categories_ab12.insertMany([{
   'categoryId': NumberInt(1),
   'pointValue': NumberInt(1),
   'pointShape': NumberInt(1),
+  'pointType': 'permanent',
 }, {
   'categoryId': NumberInt(2),
   'pointValue': NumberInt(2),
   'pointShape': NumberInt(2),
+  'pointType': 'permanent',
 }, {
   'categoryId': NumberInt(3),
   'pointValue': NumberInt(3),
   'pointShape': NumberInt(3),
+  'pointType': 'permanent',
 }]);
 
 db.event_ab12.insertMany([{
@@ -35,6 +38,7 @@ db.event_ab12.insertMany([{
   'pointId': '4lwg',
   'pointType': 'permanent',
   'pointName': 'Some point',
+  'pointAppearanceTime': null,
   'pointExpirationTime': null,
   'pointCollectionTime': null,
 }, {
@@ -44,6 +48,7 @@ db.event_ab12.insertMany([{
   'pointId': 'QFpj',
   'pointType': 'permanent',
   'pointName': 'Some point',
+  'pointAppearanceTime': null,
   'pointExpirationTime': null,
   'pointCollectionTime': null,
 }, {
@@ -53,6 +58,7 @@ db.event_ab12.insertMany([{
   'pointId': 'WpTo',
   'pointType': 'permanent',
   'pointName': 'Some point',
+  'pointAppearanceTime': null,
   'pointExpirationTime': null,
   'pointCollectionTime': null,
 }, {
@@ -62,6 +68,7 @@ db.event_ab12.insertMany([{
   'pointId': '3gvy',
   'pointType': 'permanent',
   'pointName': 'Some point',
+  'pointAppearanceTime': null,
   'pointExpirationTime': null,
   'pointCollectionTime': null,
 }]);

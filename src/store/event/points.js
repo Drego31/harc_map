@@ -20,5 +20,9 @@ export default {
       const category = rootGetters['event/getCategoryById'](pointCategory);
       return (category || {}).pointValue;
     },
+    checkTemporaryPointIsVisible: () => ({ pointAppearanceTime, pointExpirationTime }) => {
+      const now = (new Date()).getTime();
+      return pointAppearanceTime < now && now < pointExpirationTime;
+    },
   },
 };

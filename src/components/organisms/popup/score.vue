@@ -33,15 +33,9 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('event', [
-      'categories',
-    ]),
     ...mapGetters('allUsers', [
       'collectedPointsByUser',
     ]),
-    filteredCategories () {
-      return this.categories.filter(category => category.categoryId !== 0);
-    },
   },
   methods: {
     toggle () {
