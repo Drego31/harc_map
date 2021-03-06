@@ -58,7 +58,7 @@ export default {
         pointId,
         pointCollectionTime,
         pointType,
-        pointStartingTime,
+        pointAppearanceTime,
         pointExpirationTime,
       }) => {
         if (pointType === MACROS.pointType.permanent) {

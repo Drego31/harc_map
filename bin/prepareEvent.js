@@ -99,7 +99,7 @@ function createEventPoints () {
     point.pointId = utils.generateRandomString(4);
     point.pointType = point.pointType || 'permanent';
     point.pointName = point.pointName || 'Empty';
-    point.pointStartingTime = point.pointStartingTime || null;
+    point.pointAppearanceTime = point.pointAppearanceTime || null;
     point.pointExpirationTime = point.pointExpirationTime || null;
     point.pointCollectionTime = null;
     readyPoints.push(point);

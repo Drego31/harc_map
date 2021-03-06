@@ -16,7 +16,7 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Tajemnice jeńca',
-          pointStartingTime: Date.now(),
+          pointAppearanceTime: Date.now(),
           pointExpirationTime: Date.now() + oneMinute * 15,
         },
         {
@@ -25,7 +25,7 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Opowieść o holokauście',
-          pointStartingTime: Date.now() + oneMinute * 30,
+          pointAppearanceTime: Date.now() + oneMinute * 30,
           pointExpirationTime: Date.now() + oneMinute * 60, // Date + 1h
         },
         {
@@ -34,7 +34,7 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Rota Przyrzeczenia THH',
-          pointStartingTime: Date.now() + oneMinute * 15, // Date + 0.5h
+          pointAppearanceTime: Date.now() + oneMinute * 15, // Date + 0.5h
           pointExpirationTime: Date.now() + oneMinute * 30, // Date + 0.5h
         },
       ];

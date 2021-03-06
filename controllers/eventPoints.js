@@ -58,7 +58,7 @@ class PostRequestService extends Endpoint {
         pointId: point.pointId,
         pointType: point.pointType,
         pointName: point.pointName,
-        pointStartingTime: point.pointStartingTime,
+        pointAppearanceTime: point.pointAppearanceTime,
         pointExpirationTime: point.pointExpirationTime,
         pointCollectionTime: point.pointCollectionTime,
         pointLongitude: point.pointLongitude,
