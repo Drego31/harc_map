@@ -22,15 +22,15 @@
         :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
         v-text="message"
       />
+      <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)">
+        {{ $t('form.button.setDefaultMapPositionAndZoom') }}
+      </a-button-secondary>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
         :text="$t('form.button.save')"
       />
     </o-form>
-    <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)">
-      {{ $t('form.button.setDefaultMapPositionAndZoom') }}
-    </a-button-secondary>
   </t-page>
 </template>
 
