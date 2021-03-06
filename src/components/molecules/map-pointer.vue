@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'm-map-pointer',
+  name: 'm-pointer-map',
   props: {
     pointColor: {
       type: String,

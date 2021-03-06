@@ -4,6 +4,7 @@
     :add-class="['f-primary', addClass]"
     :loading="loading"
     :disabled="disabled"
+    :type="type"
     loading-img="/img/zhp-52.png"
   >
     <slot/>
@@ -28,6 +29,10 @@ export default {
     addClass: {
       type: [Array, String],
       default: '',
+    },
+    type: {
+      type: String,
+      default: 'button',
     },
   },
 };
