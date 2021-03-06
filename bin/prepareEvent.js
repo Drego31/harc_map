@@ -36,21 +36,25 @@ function createPointCategories () {
       categoryId: 0,
       pointValue: 0,
       pointShape: 0,
+      pointType: 'timeout',
     },
     {
       categoryId: 1,
       pointValue: 1,
       pointShape: 1,
+      pointType: 'permanent',
     },
     {
       categoryId: 2,
       pointValue: 2,
       pointShape: 2,
+      pointType: 'permanent',
     },
     {
       categoryId: 3,
       pointValue: 3,
       pointShape: 3,
+      pointType: 'permanent',
     },
   ];
 
@@ -95,6 +99,7 @@ function createEventPoints () {
     point.pointId = utils.generateRandomString(4);
     point.pointType = point.pointType || 'permanent';
     point.pointName = point.pointName || 'Empty';
+    point.pointStartingTime = point.pointStartingTime || null;
     point.pointExpirationTime = point.pointExpirationTime || null;
     point.pointCollectionTime = null;
     readyPoints.push(point);

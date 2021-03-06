@@ -7,6 +7,7 @@ export class MapPoint {
     pointType,
     pointCategory,
     pointCollectionTime,
+    pointStartingTime,
     pointExpirationTime,
   }) {
     this.pointId = pointId;
@@ -16,6 +17,7 @@ export class MapPoint {
     this.pointType = pointType;
     this.pointCategory = pointCategory;
     this.pointCollectionTime = pointCollectionTime;
+    this.pointStartingTime = pointStartingTime;
     this.pointExpirationTime = pointExpirationTime;
     this.olUid = null;
   }

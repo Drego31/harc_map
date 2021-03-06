@@ -4,6 +4,8 @@
  * @returns {({pointLatitude: number, pointCategory: number, pointLongitude: number})[]}
  */
 
+const oneMinute = 1000 * 60;
+
 module.exports =
   {
     temporaryPointsForDatabase: function () {
@@ -14,7 +16,8 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Tajemnice jeńca',
-          pointExpirationTime: Date.now(),
+          pointStartTime: Date.now(),
+          pointExpirationTime: Date.now() + oneMinute * 15,
         },
         {
           pointLatitude: 54.5161,
@@ -22,7 +25,8 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Opowieść o holokauście',
-          pointExpirationTime: Date.now() + 1000 * 60 * 60, // Date + 1h
+          pointStartTime: Date.now() + oneMinute * 30,
+          pointExpirationTime: Date.now() + oneMinute * 60, // Date + 1h
         },
         {
           pointLatitude: 54.5228,
@@ -30,7 +34,8 @@ module.exports =
           pointType: 'temporary',
           pointCategory: 0,
           pointName: 'Rota Przyrzeczenia THH',
-          pointExpirationTime: Date.now() + 1000 * 60 * 30, // Date + 0.5h
+          pointStartTime: Date.now() + oneMinute * 15, // Date + 0.5h
+          pointExpirationTime: Date.now() + oneMinute * 30, // Date + 0.5h
         },
       ];
     },

@@ -35,6 +35,7 @@ db.event_ab12.insertMany([{
   'pointId': '4lwg',
   'pointType': 'permanent',
   'pointName': 'Some point',
+  'pointStartingTime': null,
   'pointExpirationTime': null,
   'pointCollectionTime': null,
 }, {
@@ -44,6 +45,7 @@ db.event_ab12.insertMany([{
   'pointId': 'QFpj',
   'pointType': 'permanent',
   'pointName': 'Some point',
+  'pointStartingTime': null,
   'pointExpirationTime': null,
   'pointCollectionTime': null,
 }, {
@@ -53,6 +55,7 @@ db.event_ab12.insertMany([{
   'pointId': 'WpTo',
   'pointType': 'permanent',
   'pointName': 'Some point',
+  'pointStartingTime': null,
   'pointExpirationTime': null,
   'pointCollectionTime': null,
 }, {
@@ -62,6 +65,7 @@ db.event_ab12.insertMany([{
   'pointId': '3gvy',
   'pointType': 'permanent',
   'pointName': 'Some point',
+  'pointStartingTime': null,
   'pointExpirationTime': null,
   'pointCollectionTime': null,
 }]);
