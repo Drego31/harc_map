@@ -64,10 +64,12 @@ export default {
       ].includes(this.$route.name);
     },
     pathBackButton () {
-      if (this.backRouteName) return ROUTES[this.backRouteName].path;
+      // : TODO Why checking name?
+      if (this.backRouteName.params) return this.backRouteName;
+      if (this.backRouteName.name) return ROUTES[this.backRouteName.name].path;
       if (this.$route.meta.adminOnly) return ROUTES.adminPanel.path;
       if (this.isLogin) return ROUTES.start.path;
-      else return ROUTES.welcome.path;
+      return ROUTES.welcome.path;
     },
   },
   methods: {
