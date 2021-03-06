@@ -13,6 +13,7 @@ import OMap from 'organisms/map';
 import MBannerMap from 'molecules/banner-map';
 import { mapGetters } from 'vuex';
 import MMapPointer from 'molecules/map-pointer';
+import { map } from 'map';
 
 export default {
   name: 'o-admin-set-new-point-position',
@@ -38,10 +39,10 @@ export default {
       this.$refs.banner.emitSuccessMessage(this.ROUTES.addNewPoint.path);
     },
     getPointPosition () {
-      const mapPosition = this.$refs.oMap.getLastMapCords();
+      const mapPosition = map.getMapPosition();
       return {
-        pointLongitude: mapPosition.mapLongitude.toFixed(4),
-        pointLatitude: mapPosition.mapLatitude.toFixed(4),
+        pointLongitude: mapPosition.mapLongitude.toFixed(5),
+        pointLatitude: mapPosition.mapLatitude.toFixed(5),
       };
     },
   },

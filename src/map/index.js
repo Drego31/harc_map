@@ -4,7 +4,7 @@ import { ROUTES } from 'utils/macros/routes';
 import { store } from 'store';
 import router from 'src/router';
 import { lines } from 'map/lines';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
 import { uCheck } from '@dbetka/utils';
 
 export const map = {
@@ -41,6 +41,15 @@ export const map = {
       zoom: 16,
     });
     router.push(ROUTES.map.path);
+  },
+  getMapPosition () {
+    const mapView = map.realMap.getView();
+    const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
+    return {
+      mapLongitude,
+      mapLatitude,
+      mapZoom: mapView.getZoom(),
+    }
   },
 };
 export function updateMapFeatures () {
