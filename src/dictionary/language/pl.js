@@ -31,6 +31,7 @@ export const pl = {
     alreadyCollectedShort: 'Zebraliście',
     hide: 'Ukryj',
     edit: 'Edytuj',
+    remove: 'Usuń',
     copied: 'Skopiowano do schowka',
     hello: 'Cześć',
   },

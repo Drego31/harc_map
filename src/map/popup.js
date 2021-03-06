@@ -83,15 +83,19 @@ export class Popup {
   }
 
   getPermanentPointDetails (point) {
-    return [
-      {
-        icon: ICONS.place,
-        value: point.pointLongitude + ',' + point.pointLatitude,
-      },
-      {
-        icon: ICONS.vpn_key,
-        value: point.pointId,
-      },
-    ];
+    const detailsList = [];
+    detailsList.push({
+      icon: ICONS.place,
+      value: point.pointLongitude + ',' + point.pointLatitude,
+    });
+    point.pointName && detailsList.push({
+      icon: ICONS.title,
+      value: point.pointName,
+    });
+    detailsList.push({
+      icon: ICONS.vpn_key,
+      value: point.pointId,
+    });
+    return detailsList;
   }
 }
