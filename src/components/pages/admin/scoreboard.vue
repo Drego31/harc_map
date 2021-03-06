@@ -3,7 +3,7 @@
     <div class="a-text f-title f-table">{{ $t('page.scoreboard.completionLevelOfTheGame') }}</div>
     <div class="f-pt-1">
       <m-circle-progress
-        v-for="[key, {categoryId}] of filteredCategories.entries()"
+        v-for="[key, {categoryId}] of permanentCategories.entries()"
         :key="`circle-progress${key}`"
         class="f-mr-1"
         :class="{'f-ml-1': key === 0}"
@@ -74,7 +74,7 @@ export default {
       'scoreByUser',
     ]),
     ...mapGetters('event', [
-      'categories',
+      'permanentCategories',
       'numberOfCollectedPointsByCategoryId',
       'numberOfPointsByCategoryId',
     ]),
@@ -88,9 +88,6 @@ export default {
           userScore: this.scoreByUser(user),
         }))
         .sort((a, b) => b.userScore - a.userScore);
-    },
-    filteredCategories () {
-      return this.categories.filter(category => category.categoryId !== 0);
     },
   },
 };

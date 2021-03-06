@@ -48,6 +48,10 @@ export default {
       return state.categories.find(category => category.categoryId === categoryId);
     },
     categories: state => state.categories,
+    permanentCategories: state => state.categories
+      .filter(category => category.pointType === MACROS.pointType.permanent),
+    timeoutCategories: state => state.categories
+      .filter(category => category.pointType === MACROS.pointType.timeout),
     getTemporaryPoints: state => state.points
       .filter(point => point.pointType === MACROS.pointType.timeout)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),

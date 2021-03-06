@@ -18,14 +18,17 @@ db.point_categories_ab12.insertMany([{
   'categoryId': NumberInt(1),
   'pointValue': NumberInt(1),
   'pointShape': NumberInt(1),
+  'pointType': 'permanent',
 }, {
   'categoryId': NumberInt(2),
   'pointValue': NumberInt(2),
   'pointShape': NumberInt(2),
+  'pointType': 'permanent',
 }, {
   'categoryId': NumberInt(3),
   'pointValue': NumberInt(3),
   'pointShape': NumberInt(3),
+  'pointType': 'permanent',
 }]);
 
 db.event_ab12.insertMany([{
