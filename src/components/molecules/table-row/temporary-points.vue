@@ -1,9 +1,9 @@
 <template>
   <div class="m-grid f-temporary-points">
     <a-icon
-      :name="ICONS.watch_later"
+      :name="timerIcon"
       :size="24"
-      :class="classByPointExpirationStatus"
+      :class="classForTimer"
     />
 
     <div>
@@ -12,9 +12,10 @@
     </div>
 
     <a-icon
+      v-show="checkIfPointIsPast() === false || checkIsAdmin()"
       :name="ICONS.map"
       :size="24"
-      :class="classByPointExpirationStatus"
+      :class="classForMap"
       @click="panTo(point)"
     />
   </div>
@@ -44,32 +45,42 @@ export default {
     },
   },
   computed: {
+    timerIcon () {
+      if (this.checkIfPointIsFuture()) return this.ICONS.access_time;
+      if (this.checkIfPointIsActive()) return this.ICONS.watch_later;
+      else return this.ICONS.history_toggle_off;
+    },
     availabilityTimeAsString () {
       return getHoursAndMinutesAsString(this.pointAppearanceTime) + ' - ' + getHoursAndMinutesAsString(this.pointExpirationTime);
     },
-    classByPointExpirationStatus () {
-      const now = new Date().getTime();
-
-      if (this.pointAppearanceTime >= now) {
-        return 'f-future-point';
-      } else if (this.pointExpirationTime >= now) {
-        return 'f-active-point';
-      } else {
-        return 'f-disabled-point';
-      }
+    classForMap () {
+      if (this.checkIsAdmin() || this.checkIfPointIsActive()) return '';
+      else return 'f-disabled-point';
+    },
+    classForTimer () {
+      if (this.checkIfPointIsFuture()) return 'f-future-point';
+      if (this.checkIfPointIsActive()) return 'f-active-point';
+      else return 'f-disabled-point';
     },
   },
   methods: {
+    checkIfPointIsActive () {
+      return this.$store.getters['event/checkTemporaryPointIsVisible'](this.point);
+    },
+    checkIfPointIsFuture () {
+      const now = (new Date()).getTime();
+      return this.pointAppearanceTime > now;
+    },
+    checkIfPointIsPast () {
+      const now = (new Date()).getTime();
+      return this.pointExpirationTime < now;
+    },
     panTo (point) {
       if (this.checkIsAdmin()) {
         this.$emit('panTo', point);
         return;
       }
-
-      const now = new Date().getTime();
-      if (this.pointExpirationTime >= now) {
-        this.$emit('panTo', point);
-      }
+      this.checkIfPointIsActive() && this.$emit('panTo', point);
     },
   },
 

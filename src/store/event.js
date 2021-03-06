@@ -80,8 +80,10 @@ export default {
           return isBeforeLastGapEndTime === false;
         }
 
-        const now = (new Date()).getTime();
-        return pointAppearanceTime < now && now < pointExpirationTime;
+        return rootGetters['event/checkTemporaryPointIsVisible']({
+          pointAppearanceTime,
+          pointExpirationTime,
+        });
       });
     },
     eventBasicInformation: (state) => ({

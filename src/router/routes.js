@@ -76,7 +76,7 @@ export const routes = [
   {
     path: ROUTES.temporaryPoints.path,
     name: ROUTES.temporaryPoints.name,
-    component: () => import('pages/temporary-points.vue'),
+    component: () => import('pages/timeout-points.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
