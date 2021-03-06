@@ -49,7 +49,7 @@ export const map = {
       mapLongitude,
       mapLatitude,
       mapZoom: mapView.getZoom(),
-    }
+    };
   },
 };
 export function updateMapFeatures () {
