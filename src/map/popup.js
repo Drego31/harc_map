@@ -3,6 +3,8 @@ import { store } from 'store';
 import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
 import { ICONS } from 'src/__jscash__/icons-names-list';
+import { MACROS } from 'utils/macros';
+import moment from 'moment';
 
 export class Popup {
   constructor ({ container }) {
@@ -44,7 +46,37 @@ export class Popup {
   show (pointOlUid) {
     const point = store.getters['event/getPointByOlUid'](pointOlUid);
     const coordinates = fromLonLat([point.pointLongitude, point.pointLatitude]);
-    store.commit('mapPopup/setData', [
+    const permanentPoint = point.pointType === MACROS.pointType.permanent;
+    const details = permanentPoint ? this.getPermanentPointDetails(point) : this.getTimeoutPointDetails(point);
+    store.commit('mapPopup/setData', details);
+    this.overlay.setPosition(coordinates);
+    this.container.style.visibility = 'visible';
+  }
+
+  getTimeoutPointDetails (point) {
+    const dateFormat = 'HH:mm DD.MM.YYYY';
+    return [
+      {
+        icon: ICONS.place,
+        value: point.pointLongitude + ',' + point.pointLatitude,
+      },
+      {
+        icon: ICONS.title,
+        value: point.pointName,
+      },
+      {
+        icon: ICONS.watch_later,
+        value: moment(new Date(point.pointAppearanceTime)).format(dateFormat),
+      },
+      {
+        icon: ICONS.history_toggle_off,
+        value: moment(new Date(point.pointExpirationTime)).format(dateFormat),
+      },
+    ];
+  }
+
+  getPermanentPointDetails (point) {
+    return [
       {
         icon: ICONS.place,
         value: point.pointLongitude + ',' + point.pointLatitude,
@@ -53,8 +85,6 @@ export class Popup {
         icon: ICONS.vpn_key,
         value: point.pointId,
       },
-    ]);
-    this.overlay.setPosition(coordinates);
-    this.container.style.visibility = 'visible';
+    ];
   }
 }

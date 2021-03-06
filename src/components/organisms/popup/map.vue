@@ -12,7 +12,7 @@
         :size="20"
       />
       <div
-        class="f-flex-1 f-pl-1"
+        class="f-flex-1 f-pl-1 f-py-1"
         ref="toCopy"
       >
         {{ singleData.value }}
@@ -29,7 +29,7 @@
         :name="button.icon"
         :size="20"
       />
-      <div class="f-flex-1 f-pl-1">
+      <div class="f-flex-1 f-pl-1  f-py-1">
         {{ button.label }}
       </div>
     </div>

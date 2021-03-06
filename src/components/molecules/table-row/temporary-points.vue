@@ -61,6 +61,11 @@ export default {
   },
   methods: {
     panTo (point) {
+      if (this.checkIsAdmin()) {
+        this.$emit('panTo', point);
+        return;
+      }
+
       const now = new Date().getTime();
       if (this.pointExpirationTime >= now) {
         this.$emit('panTo', point);
