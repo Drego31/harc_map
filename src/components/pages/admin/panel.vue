@@ -24,7 +24,7 @@ export default {
   computed: {
     links () {
       return [
-        ROUTES.collectedPoints,
+        ROUTES.scoreboard,
         ROUTES.editEvent,
         ROUTES.setMapPosition,
         ROUTES.addNewPoint,

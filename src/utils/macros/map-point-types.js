@@ -14,7 +14,7 @@ function getColor (color) {
 export const MAP_POINTS = {
   0: () => ({
     strokeColor: getColor(availableColors.stroke),
-    fillColor: getColor(availableColors.danger),
+    fillColor: getColor(availableColors.info),
   }),
   1: () => ({
     strokeColor: getColor(availableColors.stroke),
@@ -26,10 +26,6 @@ export const MAP_POINTS = {
   }),
   3: () => ({
     strokeColor: getColor(availableColors.stroke),
-    fillColor: getColor(availableColors.danger),
-  }),
-  4: () => ({
-    strokeColor: getColor(availableColors.info),
     fillColor: getColor(availableColors.danger),
   }),
 };

@@ -81,7 +81,7 @@ const getFill = (shape, isCollected) => {
 };
 
 const getFinalPoints = (shape, fill, stroke) => {
-  const starShape = 4;
+  const starShape = 0;
   const pointValues = {
     fill,
     stroke,

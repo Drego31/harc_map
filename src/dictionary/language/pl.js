@@ -14,6 +14,7 @@ export const pl = {
     adminPanel: 'Panel admina',
     editEvent: 'Edycja wydarzenia',
     setMapPosition: 'Ustawienia mapy',
+    scoreboard: 'Tabela wyników',
     setNewPointPosition: 'Lokalizacja nowego punktu',
     addNewPoint: 'Nowy punkt',
     short: {
@@ -22,6 +23,7 @@ export const pl = {
       collectedPoints: 'Zebrane',
       adminPanel: 'Admin',
       editEvent: 'Wydarzenie',
+      scoreboard: 'Wyniki',
     },
   },
   general: {
@@ -31,9 +33,12 @@ export const pl = {
     pointTemporary: 'Czasowy',
     pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
+    alreadyCollectedShort: 'Zebraliście',
     hide: 'Ukryj',
     edit: 'Edytuj',
+    remove: 'Usuń',
     copied: 'Skopiowano do schowka',
+    hello: 'Cześć',
   },
   form: {
     field: {
@@ -110,6 +115,11 @@ export const pl = {
       listTitle: 'Lista zebranych punktów',
       noPoints: 'Brak zebranych punktów',
     },
+    scoreboard: {
+      completionLevelOfTheGame: 'Poziom realizacji gry',
+      scoreboard: 'Tabela wyników',
+      completionLevelDetails: 'Wykresy przedstawiają ilość zebranych punktów przez uczestników z podziałem na kategorie.',
+    },
     collectPoint: {
       content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
         i wpisz do poniższego pola tekstowego kod z koperty znajdującej się 
@@ -134,13 +144,18 @@ export const pl = {
       setNewPointPosition: {
         content: 'Ustaw punkt w wybranej pozycji i zapisz.',
       },
+      start: {
+        message: 'Jesteś zalogowany jako administrator',
+        editEvent: 'Edytuj wydarzenie',
+        checkScoreboard: 'Sprawdź tabelę wyników',
+      },
     },
   },
   error: {
     eventIdIsRequired: 'Kod wydarzenia jest wymagany',
     elementIdIsRequiredForMap: 'Kod wydarzenia jest wymagany, by uruchomić mapę',
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
-    dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta.',
+    dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
   },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
@@ -159,6 +174,7 @@ export const pl = {
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
     signInData: 'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
     signInOnOtherDevice: 'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
+    inactiveAccount: 'Konto jest nieaktywne - sprawdź e-mail i zaktywuj konto.',
     checkYourLoginSession: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
     signUp: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
     eventIdNotExist: 'Podany kod wydarzenia jest niepoprawny.',
@@ -173,9 +189,12 @@ export const pl = {
     shortCategory: 'Kat.',
     category: 'Kategoria',
     shortPointId: 'Kod',
+    team: 'Patrol',
     value: 'Wartość',
+    score: 'Wynik',
     place: 'Miejsce',
     expand: 'Rozwiń',
+    more: 'Więcej',
   },
   communicate: {
     collectPoint: {

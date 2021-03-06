@@ -1,8 +1,7 @@
 export const MACROS = {
   pointType: {
-    temporary: 'temporary',
-    permanent: 'permanent',
     timeout: 'timeout',
+    permanent: 'permanent',
   },
   pointDurationTime: 1, // 1000 * 60 * 60 temporary in hours
   pointCategory: [

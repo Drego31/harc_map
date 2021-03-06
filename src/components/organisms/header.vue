@@ -31,7 +31,7 @@
         :size="28"
         class="f-header"
         :class="{ 'f-hidden': isLogin === false }"
-        @click="$router.push(ROUTES.collectedPoints.path)"
+        @click="redirectToCollectedPointsOrScoreboard"
       />
     </div>
   </div>
@@ -59,7 +59,14 @@ export default {
       return this.pageTitle === '' || this.pageTitle === 'Start';
     },
     pathBackButton () {
+      if (this.$route.meta.adminOnly) return ROUTES.adminPanel.path;
       return this.isLogin ? ROUTES.start.path : ROUTES.welcome.path;
+    },
+  },
+  methods: {
+    redirectToCollectedPointsOrScoreboard () {
+      const route = this.checkIsAdmin() ? ROUTES.scoreboard : ROUTES.collectedPoints;
+      this.$router.push(route.path);
     },
   },
 };

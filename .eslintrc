@@ -33,6 +33,7 @@
     "vue/html-indent": [
       "error",
       2
-    ]
+    ],
+    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }]
   }
 }

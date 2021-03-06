@@ -3,6 +3,8 @@ import { store } from 'store';
 import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
 import { ICONS } from 'src/__jscash__/icons-names-list';
+import { MACROS } from 'utils/macros';
+import moment from 'moment';
 
 export class Popup {
   constructor ({ container }) {
@@ -10,9 +12,14 @@ export class Popup {
     this.overlay = this.defineOverlay();
     this.hide();
     const onClick = (event) => {
+      let featureWasClick = false;
       map.realMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
-        this.show(feature.ol_uid);
+        if (layer === map.points.layer) {
+          featureWasClick = true;
+          this.show(feature.ol_uid);
+        }
       });
+      featureWasClick === false && this.hide();
     };
     this.bindOnClick = (event) => onClick(event);
 
@@ -43,18 +50,52 @@ export class Popup {
 
   show (pointOlUid) {
     const point = store.getters['event/getPointByOlUid'](pointOlUid);
+    if (point === undefined) return;
+
     const coordinates = fromLonLat([point.pointLongitude, point.pointLatitude]);
-    store.commit('mapPopup/setData', [
+    const permanentPoint = point.pointType === MACROS.pointType.permanent;
+    const details = permanentPoint ? this.getPermanentPointDetails(point) : this.getTimeoutPointDetails(point);
+    store.commit('mapPopup/setData', details);
+    this.overlay.setPosition(coordinates);
+    this.container.style.visibility = 'visible';
+  }
+
+  getTimeoutPointDetails (point) {
+    const dateFormat = 'HH:mm DD.MM.YYYY';
+    return [
       {
         icon: ICONS.place,
         value: point.pointLongitude + ',' + point.pointLatitude,
       },
       {
-        icon: ICONS.vpn_key,
-        value: point.pointId,
+        icon: ICONS.title,
+        value: point.pointName,
       },
-    ]);
-    this.overlay.setPosition(coordinates);
-    this.container.style.visibility = 'visible';
+      {
+        icon: ICONS.watch_later,
+        value: moment(new Date(point.pointAppearanceTime)).format(dateFormat),
+      },
+      {
+        icon: ICONS.history_toggle_off,
+        value: moment(new Date(point.pointExpirationTime)).format(dateFormat),
+      },
+    ];
+  }
+
+  getPermanentPointDetails (point) {
+    const detailsList = [];
+    detailsList.push({
+      icon: ICONS.place,
+      value: point.pointLongitude + ',' + point.pointLatitude,
+    });
+    point.pointName && detailsList.push({
+      icon: ICONS.title,
+      value: point.pointName,
+    });
+    detailsList.push({
+      icon: ICONS.vpn_key,
+      value: point.pointId,
+    });
+    return detailsList;
   }
 }

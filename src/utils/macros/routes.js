@@ -115,4 +115,11 @@ export const ROUTES = {
     shortLabel: translator.t('title.addNewPoint'),
     icon: ICONS.map,
   },
+  scoreboard: {
+    path: '/scoreboard',
+    name: 'scoreboard',
+    label: translator.t('title.scoreboard'),
+    shortLabel: translator.t('title.short.scoreboard'),
+    icon: ICONS.view_list,
+  },
 };

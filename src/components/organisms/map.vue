@@ -32,8 +32,7 @@ export default {
       zoom: appEvent.mapZoom,
     });
     map.points.create({
-      list: this.$store.getters['event/getPointsVisibleOnMap'],
-      listOfCollectedPoints: this.$store.getters['user/collectedPoints'],
+      list: this.$store.getters['event/pointsVisibleOnMap'],
     });
     map.lines.create({
       list: this.$store.getters['user/collectedPoints'],
@@ -42,43 +41,36 @@ export default {
     // Map popup have to define after map creating.
     this.$refs.mapPopup && this.$refs.mapPopup.definePopup();
 
-    map.realMap.on('moveend', this.saveLastMapPosition);
+    map.realMap.on('moveend', this.saveLastMapPositionToCookies);
   },
   methods: {
     ...mapMutations('event', [
       'setMapPosition',
       'setMapZoom',
     ]),
-    saveLastMapPosition () {
-      this.setMapPosition(this.getLastMapCords());
-      this.setMapZoom(this.getLastMapZoom());
-      this.updateMapPositionCookies();
-    },
-
-    getLastMapCords () {
+    saveLastMapPositionToDatabase () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      return {
+      this.setMapPosition({ mapLatitude, mapLongitude });
+      this.setMapZoom(mapView.getZoom());
+      api.updateEvent(this.$store.getters['event/eventBasicInformation']);
+    },
+    saveLastMapPositionToCookies () {
+      const mapView = map.realMap.getView();
+      const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
+      this.setMapPosition({ mapLatitude, mapLongitude });
+      this.setMapZoom(mapView.getZoom());
+      const dataForCookies = {
         mapLatitude,
         mapLongitude,
-      };
-    },
-    updateMapPositionCookies () {
-      const cookieDate = {
-        ...this.getLastMapCords(),
-        mapZoom: this.getLastMapZoom(),
+        mapZoom: mapView.getZoom(),
       };
       Cookies.remove('mapPosition');
-      Cookies.set('mapPosition', cookieDate, { expires: 7 });
+      Cookies.set('mapPosition', dataForCookies, { expires: 7 });
     },
-    getLastMapZoom () {
-      const mapView = map.realMap.getView();
-      return mapView.getZoom();
-    },
-
-    beforeDestroy () {
-      map.realMap.un('moveend', this.saveLastMapPosition);
-    },
+  },
+  beforeDestroy () {
+    map.realMap.un('moveend', this.saveLastMapPositionToCookies);
   },
 };
 </script>

@@ -6,6 +6,7 @@ export const ERRORS = {
   elementIdIsRequiredForMap: translator.t('error.elementIdIsRequiredForMap'),
   fakeErrorInMockApi: translator.t('error.fakeErrorInMockApi'),
   dataAfterSignIn: translator.t('error.dataAfterSignIn'),
+  signOut: translator.t('apiError.signOut'),
 };
 
 export const API_ERRORS = {
@@ -68,6 +69,10 @@ export const API_ERRORS = {
       [
         [validateCodes.USER_IS_LOGGED_ON_ANOTHER_DEVICE],
         translator.t('apiError.signInOnOtherDevice'),
+      ],
+      [
+        [validateCodes.ACCOUNT_IS_INACTIVE],
+        translator.t('apiError.inactiveAccount'),
       ],
     ],
   },
