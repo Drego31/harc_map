@@ -5,7 +5,6 @@
       v-for="point in points"
       :point="point"
       :key="point.pointId"
-      :pointDurationTime="pointDurationTime"
       @panTo="panToPointLocationOnMap"
     />
   </div>
@@ -15,8 +14,7 @@
 import MTableRowTemporaryPoints from 'molecules/table-row/temporary-points';
 import MClock from 'molecules/clock.vue';
 import { mapGetters } from 'vuex';
-import { MACROS } from 'utils/macros';
-import { map } from 'map/index';
+import { map } from 'map';
 
 export default {
   name: 'o-temporary-points',
@@ -24,9 +22,6 @@ export default {
     MTableRowTemporaryPoints,
     MClock,
   },
-  data: () => ({
-    pointDurationTime: MACROS.pointDurationTime,
-  }),
   computed: {
     ...mapGetters('event', {
       points: 'getTemporaryPoints',

@@ -38,10 +38,6 @@ export default {
     this.pointExpirationTime = new Date(this.point.pointExpirationTime);
   },
   props: {
-    pointDurationTime: {
-      required: true,
-      type: Number,
-    },
     point: {
       required: true,
       type: Object,

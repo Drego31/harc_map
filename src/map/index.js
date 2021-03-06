@@ -11,7 +11,7 @@ export const map = {
   create: config => createMap(map, config),
   panTo ({ latitude, longitude, zoom }) {
     function panToView () {
-      const view = map.realMap.getView()
+      const view = map.realMap.getView();
       view.setCenter(fromLonLat([longitude, latitude]));
       view.setZoom(zoom);
     }
