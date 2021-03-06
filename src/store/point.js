@@ -1,14 +1,17 @@
 import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { MACROS } from 'utils/macros';
-import generateRandomString from 'utils/macros/random';
-const random = generateRandomString;
+import generateRandomString from 'utils/random';
+import { ROUTES } from 'utils/macros/routes';
+
 const getDefaultState = () => ({
-  pointId: random(4),
+  isUpdateMode: false,
+  pointId: generateRandomString(4),
   pointName: '',
   pointLongitude: null,
   pointLatitude: null,
   pointType: MACROS.pointType.permanent,
   pointCategory: MACROS.pointCategory[0].categoryId,
+  pointAppearanceTime: null,
   pointCollectionTime: null,
   pointExpirationTime: null,
 });
@@ -18,18 +21,33 @@ export default {
   state: getDefaultState(),
   getters: {
     point: state => state,
+    pointId: state => state.pointId,
     pointCategory: state => state.pointCategory,
     pointPosition: state => (
-      { pointLatitude: state.pointLatitude, pointLongitude: state.pointLongitude }
+      {
+        pointLatitude: state.pointLatitude,
+        pointLongitude: state.pointLongitude,
+      }
     ),
     getPointColor: state => MAP_POINTS[state.pointCategory]().fillColor,
-    hasPositionSet: state => state.pointLongitude && state.pointLatitude,
+    hasPositionSet: state => (state.pointLongitude && state.pointLatitude),
     getPointBasicInformation: state => ({
       pointName: state.pointName,
       pointType: state.pointType,
       pointCategory: state.pointCategory,
-      expirationTime: state.pointExpirationTime,
+      pointExpirationTime: state.pointExpirationTime,
+      pointAppearanceTime: state.pointAppearanceTime,
     }),
+    isUpdateMode: state => state.isUpdateMode,
+    routeBackFromMap: state => state.isUpdateMode
+      ? {
+        name: ROUTES.editPoint.name,
+        params: { pointId: state.pointId },
+      }
+      : {
+        name: ROUTES.addNewPoint.path,
+      },
+
   },
   mutations: {
     setPointPosition: (state, {
@@ -44,17 +62,42 @@ export default {
       pointType,
       pointCategory,
       pointExpirationTime = null,
+      pointAppearanceTime = null,
     }) => {
       state.pointName = pointName;
       state.pointType = pointType;
       state.pointCategory = pointCategory;
       state.pointExpirationTime = pointExpirationTime;
+      state.pointAppearanceTime = pointAppearanceTime;
+    },
+    setPointFullInformation: (state, {
+      pointName,
+      pointType,
+      pointCategory,
+      pointExpirationTime,
+      pointAppearanceTime,
+      pointId,
+      pointLongitude,
+      pointLatitude,
+    }) => {
+      state.pointName = pointName;
+      state.pointType = pointType;
+      state.pointCategory = pointCategory;
+      state.pointExpirationTime = pointExpirationTime;
+      state.pointAppearanceTime = pointAppearanceTime;
+      state.pointId = pointId;
+      state.pointLongitude = pointLongitude;
+      state.pointLatitude = pointLatitude;
     },
     resetPointState: (state) => {
       Object.assign(state, getDefaultState());
     },
+    setUpdateMode: (state) => {
+      state.isUpdateMode = true;
+    },
+    unsetUpdateMode: (state) => {
+      state.isUpdateMode = false;
+    },
   },
-  actions: {
-
-  },
+  actions: {},
 };

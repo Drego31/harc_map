@@ -1,6 +1,6 @@
 <template>
   <t-page class="f-flex f-flex-col">
-    <o-form :on-submit="addPoint">
+    <o-form :on-submit="onSubmit">
       <m-field-text
         :disabled="blockForm"
         :label="$t('form.field.pointName')"
@@ -34,18 +34,17 @@
         v-model="values.pointCategory"
       />
 
-      <div
-        class="f-text-center f-relative"
-        style="top:160px"
-        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
-        v-text="message"
-      />
-
       <a-button-secondary
         class="f-text-center f-mt-0"
         @click="pushToMap">
         {{ $t('form.button.setPointMapPosition') }}
       </a-button-secondary>
+
+      <div
+        class="f-text-center f-relative"
+        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
+        v-text="message"
+      />
 
       <a-button-submit
         :disabled="blockForm || !hasPositionSet"
@@ -106,12 +105,26 @@ export default {
     };
   },
   created () {
+    const pointId = this.$route.params.pointId;
+    if (!pointId) {
+      this.unsetUpdateMode();
+    }
+    if (pointId) {
+      const firstVisitOrChangedPoint = this.isUpdateMode === false || pointId !== this.pointId;
+      if (firstVisitOrChangedPoint) {
+        this.setUpdateMode();
+        const point = this.getPointById(pointId);
+        this.setPointFullInformation(point);
+      }
+
+    }
     this.updateBasicData();
   },
   computed: {
     ...mapGetters('point', [
-      'getPointBasicInformation', 'point', 'hasPositionSet',
+      'getPointBasicInformation', 'point', 'hasPositionSet', 'isUpdateMode', 'pointId',
     ]),
+    ...mapGetters('event', ['getPointById']),
     rulesForName () {
       const rules = this.rules;
       return this.isTimeout ? `${rules.required}|${rules.name}` : rules.name;
@@ -125,7 +138,7 @@ export default {
   },
   methods: {
     ...mapMutations('point', [
-      'setPointBasicInformation', 'resetPointState',
+      'setPointBasicInformation', 'setPointFullInformation', 'resetPointState', 'setUpdateMode', 'unsetUpdateMode',
     ]),
 
     updateBasicData () {
@@ -150,28 +163,39 @@ export default {
       this.$router.push(this.ROUTES.setNewPointPosition.path);
     },
 
-    addPoint () {
+    onSubmit () {
       if (this.values.pointType === MACROS.pointType.timeout) {
         this.values.pointCategory = 0;
       }
       this.setPointBasicInformation(this.values);
+      this.isUpdateMode ? this.editPoint() : this.addPoint();
+
+    },
+    addPoint () {
       this.$store.dispatch('event/addPoint', this.point)
-        .then(this.onAddPoint)
+        .then(this.onAdd)
         .catch(this.onErrorOccurs);
     },
-    onAddPoint () {
+    onAdd () {
       this.isServerError = false;
       this.message = this.$t('communicate.addPoint.success');
-      this.resetForm();
+      this.resetPointState();
+      this.updateBasicData();
       setTimeout(() => this.clearMessage(), 3000);
+    },
+    editPoint () {
+      this.$store.dispatch('event/editPoint', this.point)
+        .then(this.onEdit)
+        .catch(this.onErrorOccurs);
+    },
+    onEdit () {
+      this.resetPointState();
+      this.$router.push(this.ROUTES.map.path);
     },
     clearMessage () {
       this.message = '';
     },
-    resetForm () {
-      this.resetPointState();
-      this.updateBasicData();
-    },
   },
+
 };
 </script>

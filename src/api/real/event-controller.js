@@ -59,6 +59,20 @@ export const eventController = {
       ...API_ERRORS.addPoint,
     });
   },
+  editPoint ({
+    point,
+    eventId,
+  }) {
+    return makeRequest({
+      method: request.put,
+      url: '/event/point',
+      data: {
+        point,
+        eventId,
+      },
+      ...API_ERRORS.editPoint,
+    });
+  },
   updateEvent ({
     eventId,
     eventName,

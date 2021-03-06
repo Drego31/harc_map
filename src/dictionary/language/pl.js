@@ -17,6 +17,7 @@ export const pl = {
     scoreboard: 'Tabela wyników',
     setNewPointPosition: 'Lokalizacja nowego punktu',
     addNewPoint: 'Nowy punkt',
+    editPoint: 'Edycja punktu',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
@@ -29,7 +30,7 @@ export const pl = {
   general: {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
-    pointCategoryLevel: 'pozion',
+    pointCategoryLevel: 'poziom',
     pointTemporary: 'Czasowy',
     pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
@@ -170,6 +171,7 @@ export const pl = {
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany już wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
     addPoint: 'Dodanie punktu nie powiodło się',
+    editPoint: 'Edycja punktu nie powiodło się',
 
     all: 'Pobranie listy użytkowników nie powiodło się ze względu na błąd serwera.',
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',

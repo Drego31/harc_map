@@ -200,6 +200,14 @@ export default {
           .catch(reject);
       });
     },
+    editPoint (context, point, eventId = context.getters.eventId) {
+      return new Promise((resolve, reject) => {
+        api.editPoint({ point, eventId })
+          .then(() => updateMapFeatures())
+          .then(resolve)
+          .catch(reject);
+      });
+    },
     updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {
       return new Promise((resolve, reject) => {
         api.updateEvent(updatedEvent)

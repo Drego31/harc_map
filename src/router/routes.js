@@ -160,6 +160,16 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.editPoint.path + '/:pointId',
+    name: ROUTES.editPoint.name,
+    component: () => import('pages/admin/add-new-point.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
     path: ROUTES.addNewPoint.path,
     name: ROUTES.addNewPoint.name,
     component: () => import('pages/admin/add-new-point.vue'),

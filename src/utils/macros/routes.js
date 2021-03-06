@@ -115,6 +115,13 @@ export const ROUTES = {
     shortLabel: translator.t('title.addNewPoint'),
     icon: ICONS.map,
   },
+  editPoint: {
+    path: '/edit-point',
+    name: 'editPoint',
+    label: translator.t('title.editPoint'),
+    shortLabel: translator.t('title.editPoint'),
+    icons: ICONS.map,
+  },
   scoreboard: {
     path: '/scoreboard',
     name: 'scoreboard',
