@@ -15,6 +15,13 @@
       />
       <m-field-datetime
         v-if="isTimeout"
+        :label="$t('form.field.pointDateAndAppearanceTime')"
+        v-model="values.pointAppearanceTime"
+        :rules="rules.required"
+        :disabled="blockForm"
+      />
+      <m-field-datetime
+        v-if="isTimeout"
         :label="$t('form.field.pointDateAndExpirationTime')"
         v-model="values.pointExpirationTime"
         :rules="rules.required"
@@ -34,19 +41,18 @@
         v-text="message"
       />
 
+      <a-button-secondary
+        class="f-text-center f-mt-0"
+        @click="pushToMap">
+        {{ $t('form.button.setPointMapPosition') }}
+      </a-button-secondary>
+
       <a-button-submit
-        style="position: relative; top:70px"
         :disabled="blockForm || !hasPositionSet"
         :is-sending="isSending"
         :text="$t('form.button.save')"
       />
     </o-form>
-    <a-button-secondary
-      class="f-text-center f-relative"
-      style="top:-70px"
-      @click="pushToMap">
-      {{ $t('form.button.setPointMapPosition') }}
-    </a-button-secondary>
   </t-page>
 </template>
 
@@ -80,6 +86,7 @@ export default {
         pointName: '',
         pointCategory: 1,
         pointType: 1,
+        pointAppearanceTime: null,
         pointExpirationTime: null,
       },
       typeOptions: [

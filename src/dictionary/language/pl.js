@@ -53,6 +53,7 @@ export const pl = {
       pointId: 'Kod punktu',
       pointName: 'Nazwa punktu',
       pointType: 'Typ punktu',
+      pointDateAndAppearanceTime: 'Data i czas pojawienia się punktu',
       pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
       pointCategory: 'Kategoria punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
