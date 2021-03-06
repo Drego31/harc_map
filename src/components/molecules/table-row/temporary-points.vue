@@ -3,25 +3,25 @@
     <a-icon
       :name="ICONS.watch_later"
       :size="24"
-      :class="classByPointExpirationStatus(pointExpirationTime)"
+      :class="classByPointExpirationStatus"
     />
 
     <div>
       <div class="f-text-left">{{ point.pointName }}</div>
-      <div class="f-text-14"> {{ getAvailabilityTimeAsString(pointExpirationTime) }}</div>
+      <div class="f-text-14"> {{ availabilityTimeAsString }}</div>
     </div>
 
     <a-icon
       :name="ICONS.map"
       :size="24"
-      :class="classByPointExpirationStatus(pointExpirationTime)"
+      :class="classByPointExpirationStatus"
       @click="panTo(point)"
     />
   </div>
 </template>
 
 <script>
-import { getHoursAndMinutesAsString, modifyDateHours } from 'utils/date';
+import { getHoursAndMinutesAsString } from 'utils/date';
 import AIcon from 'atoms/icon';
 
 export default {
@@ -34,8 +34,8 @@ export default {
     pointExpirationTime: null,
   }),
   created () {
+    this.pointAppearanceTime = new Date(this.point.pointAppearanceTime);
     this.pointExpirationTime = new Date(this.point.pointExpirationTime);
-    this.pointAppearanceTime = modifyDateHours(this.pointExpirationTime, -this.pointDurationTime);
   },
   props: {
     pointDurationTime: {
@@ -47,21 +47,23 @@ export default {
       type: Object,
     },
   },
-  methods: {
-    getAvailabilityTimeAsString (expirationDate) {
-      return getHoursAndMinutesAsString(this.pointAppearanceTime) + ' - ' + getHoursAndMinutesAsString(expirationDate);
+  computed: {
+    availabilityTimeAsString () {
+      return getHoursAndMinutesAsString(this.pointAppearanceTime) + ' - ' + getHoursAndMinutesAsString(this.pointExpirationTime);
     },
-    classByPointExpirationStatus (pointExpirationTime) {
+    classByPointExpirationStatus () {
       const now = new Date().getTime();
 
       if (this.pointAppearanceTime >= now) {
         return 'f-future-point';
-      } else if (pointExpirationTime >= now) {
+      } else if (this.pointExpirationTime >= now) {
         return 'f-active-point';
       } else {
         return 'f-disabled-point';
       }
     },
+  },
+  methods: {
     panTo (point) {
       const now = new Date().getTime();
       if (this.pointExpirationTime >= now) {
