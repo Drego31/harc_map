@@ -12,9 +12,14 @@ export class Popup {
     this.overlay = this.defineOverlay();
     this.hide();
     const onClick = (event) => {
+      let featureWasClick = false;
       map.realMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
-        this.show(feature.ol_uid);
+        if (layer === map.points.layer) {
+          featureWasClick = true;
+          this.show(feature.ol_uid);
+        }
       });
+      featureWasClick === false && this.hide();
     };
     this.bindOnClick = (event) => onClick(event);
 
@@ -45,6 +50,8 @@ export class Popup {
 
   show (pointOlUid) {
     const point = store.getters['event/getPointByOlUid'](pointOlUid);
+    if (point === undefined) return;
+
     const coordinates = fromLonLat([point.pointLongitude, point.pointLatitude]);
     const permanentPoint = point.pointType === MACROS.pointType.permanent;
     const details = permanentPoint ? this.getPermanentPointDetails(point) : this.getTimeoutPointDetails(point);

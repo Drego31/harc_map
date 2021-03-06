@@ -8,6 +8,8 @@ import { fromLonLat } from 'ol/proj';
 
 export const map = {
   realMap: null,
+  points,
+  lines,
   create: config => createMap(map, config),
   panTo ({ latitude, longitude, zoom }) {
     function panToView () {
@@ -39,6 +41,4 @@ export const map = {
     });
     router.push(ROUTES.map.path);
   },
-  points,
-  lines,
 };
