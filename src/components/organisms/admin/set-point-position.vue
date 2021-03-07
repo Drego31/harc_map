@@ -1,7 +1,7 @@
 <template>
   <o-map ref="oMap">
     <m-banner-map ref="banner" @actionTriggered="onSavePosition">
-      <template slot="text">{{ $t('page.admin.setNewPointPosition.content') }}</template>
+      <template slot="text">{{ $t('page.admin.setPointPosition.content') }}</template>
       <template slot="button-name">{{ $t('form.button.save') }}</template>
     </m-banner-map>
     <m-pointer-map :point-color="getPointColor"></m-pointer-map>

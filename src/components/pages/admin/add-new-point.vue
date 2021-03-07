@@ -106,19 +106,18 @@ export default {
   },
   created () {
     const pointId = this.$route.params.pointId;
+    const firstVisitOrChangedPoint = this.isUpdateMode === false || pointId !== this.pointId;
+
     if (!pointId) {
       this.unsetUpdateMode();
+    } else if (firstVisitOrChangedPoint) {
+      this.setUpdateMode();
+      const point = this.getPointById(pointId);
+      this.setPointFullInformation(point);
     }
-    if (pointId) {
-      const firstVisitOrChangedPoint = this.isUpdateMode === false || pointId !== this.pointId;
-      if (firstVisitOrChangedPoint) {
-        this.setUpdateMode();
-        const point = this.getPointById(pointId);
-        this.setPointFullInformation(point);
-      }
 
-    }
     this.updateBasicData();
+
   },
   computed: {
     ...mapGetters('point', [
@@ -160,7 +159,10 @@ export default {
     },
     pushToMap () {
       this.setPointBasicInformation(this.values);
-      this.$router.push(this.ROUTES.setNewPointPosition.path);
+      this.$router.push({
+        name: this.ROUTES.setPointPosition.name,
+        params: this.pointId,
+      });
     },
 
     onSubmit () {

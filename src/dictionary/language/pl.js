@@ -15,7 +15,7 @@ export const pl = {
     editEvent: 'Edycja wydarzenia',
     setMapPosition: 'Ustawienia mapy',
     scoreboard: 'Tabela wyników',
-    setNewPointPosition: 'Lokalizacja nowego punktu',
+    setPointPosition: 'Lokalizacja punktu',
     addNewPoint: 'Nowy punkt',
     editPoint: 'Edycja punktu',
     short: {
@@ -143,7 +143,7 @@ export const pl = {
       setMapPosition: {
         content: 'Ustaw mapę w wybranej pozycji i zapisz.',
       },
-      setNewPointPosition: {
+      setPointPosition: {
         content: 'Ustaw punkt w wybranej pozycji i zapisz.',
       },
       start: {

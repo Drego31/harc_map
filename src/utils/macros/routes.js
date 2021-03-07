@@ -101,11 +101,11 @@ export const ROUTES = {
     shortLabel: translator.t('title.setMapPosition'),
     icon: ICONS.map,
   },
-  setNewPointPosition: {
-    path: '/set-new-point-position',
-    name: 'setNewPointPosition',
-    label: translator.t('title.setNewPointPosition'),
-    shortLabel: translator.t('title.setNewPointPosition'),
+  setPointPosition: {
+    path: '/set-point-position/:pointId',
+    name: 'setPointPosition',
+    label: translator.t('title.setPointPosition'),
+    shortLabel: translator.t('title.setPointPosition'),
     icon: ICONS.map,
   },
   addNewPoint: {
@@ -116,7 +116,7 @@ export const ROUTES = {
     icon: ICONS.map,
   },
   editPoint: {
-    path: '/edit-point',
+    path: '/edit-point/:pointId',
     name: 'editPoint',
     label: translator.t('title.editPoint'),
     shortLabel: translator.t('title.editPoint'),

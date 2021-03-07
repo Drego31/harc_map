@@ -150,9 +150,9 @@ export const routes = [
     },
   },
   {
-    path: ROUTES.setNewPointPosition.path,
-    name: ROUTES.setNewPointPosition.name,
-    component: () => import('pages/admin/set-new-point-position.vue'),
+    path: ROUTES.setPointPosition.path,
+    name: ROUTES.setPointPosition.name,
+    component: () => import('pages/admin/set-point-position.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
@@ -160,7 +160,7 @@ export const routes = [
     },
   },
   {
-    path: ROUTES.editPoint.path + '/:pointId',
+    path: ROUTES.editPoint.path,
     name: ROUTES.editPoint.name,
     component: () => import('pages/admin/add-new-point.vue'),
     meta: {
