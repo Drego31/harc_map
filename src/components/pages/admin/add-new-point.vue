@@ -161,7 +161,7 @@ export default {
       this.setPointBasicInformation(this.values);
       this.$router.push({
         name: this.ROUTES.setPointPosition.name,
-        params: this.pointId,
+        params: { pointId: this.pointId },
       });
     },
 
