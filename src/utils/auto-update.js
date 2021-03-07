@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { updateMapFeatures } from 'map';
+import { map } from 'map';
 
 const oneSecond = 1000;
 const intervalTime = 60 * oneSecond;
@@ -11,11 +11,15 @@ export const autoUpdate = {
     const secondsToFullMinute = 60 - Number(moment().format('s'));
     timeoutID = setTimeout(() => {
       autoUpdate.once();
-      intervalID = setInterval(updateMapFeatures, intervalTime);
+      intervalID = setInterval(
+        map.updateMapFeatures()
+          .then()
+          .catch(() => undefined),
+        intervalTime);
     }, secondsToFullMinute * oneSecond);
   },
   once () {
-    updateMapFeatures();
+    map.updateMapFeatures().then().catch(() => undefined);
   },
   stop () {
     clearTimeout(timeoutID);

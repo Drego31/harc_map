@@ -12,12 +12,17 @@ export const map = {
   points,
   lines,
   create: config => createMap(map, config),
-  panTo ({ latitude, longitude, zoom }) {
+  panTo ({
+    latitude,
+    longitude,
+    zoom,
+  }) {
     function panToView () {
       const view = map.realMap.getView();
       view.setCenter(fromLonLat([longitude, latitude]));
       view.setZoom(zoom);
     }
+
     const mapPosition = {
       mapLatitude: latitude,
       mapLongitude: longitude,
@@ -26,6 +31,7 @@ export const map = {
     zoom && store.commit('event/setMapZoom', zoom);
     map.realMap !== null && panToView();
   },
+
   panToDefault () {
     const position = store.getters['event/mapDefaultPosition'];
     map.panTo({
@@ -34,7 +40,11 @@ export const map = {
       zoom: position.mapDefaultZoom,
     });
   },
-  panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
+
+  panToPointLocationOnMap ({
+    pointLatitude,
+    pointLongitude,
+  }) {
     map.panTo({
       latitude: pointLatitude,
       longitude: pointLongitude,
@@ -42,6 +52,7 @@ export const map = {
     });
     router.push(ROUTES.map.path);
   },
+
   getMapPosition () {
     const mapView = map.realMap.getView();
     const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
@@ -51,15 +62,15 @@ export const map = {
       mapZoom: mapView.getZoom(),
     };
   },
+  updateMapFeatures () {
+    return store.dispatch('event/download')
+      .then(() => {
+        if (uCheck.isObject(map.realMap)) {
+          map.points.create({
+            list: store.getters['event/pointsVisibleOnMap'],
+          });
+        }
+      });
+
+  },
 };
-export function updateMapFeatures () {
-  store.dispatch('event/download')
-    .then(() => {
-      if (uCheck.isObject(map.realMap)) {
-        map.points.create({
-          list: store.getters['event/pointsVisibleOnMap'],
-        });
-      }
-    })
-    .catch(() => undefined);
-}

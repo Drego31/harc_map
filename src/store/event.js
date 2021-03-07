@@ -2,7 +2,7 @@ import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
-import { updateMapFeatures } from 'map';
+import { map } from 'map';
 import Cookies from 'js-cookie';
 import pointsModule from 'store/event/points';
 
@@ -195,7 +195,7 @@ export default {
     addPoint (context, point, eventId = context.getters.eventId) {
       return new Promise((resolve, reject) => {
         api.addPoint({ point, eventId })
-          .then(() => updateMapFeatures())
+          .then(() => map.updateMapFeatures())
           .then(resolve)
           .catch(reject);
       });
@@ -203,7 +203,7 @@ export default {
     editPoint (context, point, eventId = context.getters.eventId) {
       return new Promise((resolve, reject) => {
         api.editPoint({ point, eventId })
-          .then(() => updateMapFeatures())
+          .then(() => map.updateMapFeatures())
           .then(resolve)
           .catch(reject);
       });
