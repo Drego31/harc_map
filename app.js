@@ -28,6 +28,7 @@ const specs = require('./spec/swagger.js');
 
 // Controllers
 const userController = require('./controllers/user/index');
+const pointController = require('./controllers/point/index');
 const eventController = require('./controllers/event');
 const eventPointController = require('./controllers/eventPoint');
 const eventPointsController = require('./controllers/eventPoints');
@@ -96,6 +97,7 @@ app.use(express.static('vendors', {
 
 // user controller
 app.use('/user', userController);
+app.use('/point', pointController);
 app.use('/event', eventController);
 app.use('/event/point', eventPointController);
 app.use('/event/points', eventPointsController);

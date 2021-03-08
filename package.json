@@ -12,8 +12,7 @@
     "run:pm2": "pm2 start app.js",
     "run:mongodb": "docker run -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
     "fill-database": "NODE_ENV=development node bin/prepareEvent.js",
-    "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi",
-    "export-points-to-csv": "NODE_ENV=production node ./bin/exportPointsToCsv.js"
+    "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
   },
   "repository": {
     "type": "git",

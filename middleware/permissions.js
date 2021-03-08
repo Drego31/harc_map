@@ -42,6 +42,9 @@ const permissionsList = {
   '/user/all': {
     'GET': new Permissions('A'),
   },
+  '/point/all': {
+    'GET': new Permissions('A'),
+  },
 };
 
 class PermissionsMiddleware {
