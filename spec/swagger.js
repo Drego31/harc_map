@@ -7,6 +7,7 @@ const options = {
     './spec/swagger/components/responses.yaml',
     './spec/swagger/components/properties.yaml',
     './controllers/user/*',
+    './controllers/point/*',
   ],
   definition: {
     openapi: '3.0.0',
@@ -23,6 +24,9 @@ const options = {
     tags: [{
       name: 'User',
       description: 'User endpoint',
+    }, {
+      name: 'Point',
+      description: 'Point endpoint',
     }],
     // List of servers environments
     // DOC: https://swagger.io/specification/#server-object
