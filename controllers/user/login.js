@@ -117,7 +117,6 @@ router.route('/')
           return database.read(eventCollection, filters);
         })
         .then(event => {
-          console.log({ event });
           if (event.eventEndDate < Date.now()) {
             utils.responseUserError(res, 200, errorsCodes.EVENT_IS_OUT_OF_DATE);
             return Promise.reject(new Error());

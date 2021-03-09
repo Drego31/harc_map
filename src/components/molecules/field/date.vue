@@ -6,7 +6,7 @@
       v-slot="{ errors }"
     >
       <m-input
-        type="date"
+        type="datetime-local"
         v-model="vModel"
         :disabled="disabled"
         :placeholder="label"

@@ -14,6 +14,7 @@ export default {
   state: {
     eventId: '',
     eventName: '',
+    eventEndDate: null,
     mapLongitude: 0,
     mapLatitude: 0,
     mapDefaultLongitude: 0,
@@ -27,6 +28,7 @@ export default {
   getters: {
     event: state => state,
     eventName: state => state.eventName,
+    eventEndDate: state => state.eventEndDate,
     eventId: state => state.eventId,
     mapPosition: state => ({
       mapLongitude: state.mapLongitude,
@@ -94,6 +96,7 @@ export default {
     eventBasicInformation: (state) => ({
       eventId: state.eventId,
       eventName: state.eventName,
+      eventEndDate: state.eventEndDate,
       mapZoom: state.mapZoom,
       mapLongitude: state.mapLongitude,
       mapLatitude: state.mapLatitude,
