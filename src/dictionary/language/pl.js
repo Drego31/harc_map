@@ -143,6 +143,10 @@ export const pl = {
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
     dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
   },
+  apiWarn: {
+    undefined: 'Wystąpiło niezdefiniowane ostrzeżenie. Skontaktuj się z twórcą aplikacji.',
+    tooManyDevices: 'Nie loguj się tak często na różnych urządzeniach. W innym wypadku zostanie nałożona czasowa blokada na twoje konto.',
+  },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
     unauthorizedAccess: 'Brak uprawnień do wykonania tej akcji.',

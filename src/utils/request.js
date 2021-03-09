@@ -9,6 +9,7 @@ export function makeRequest ({
   transformResponseData = data => data,
   defaultError,
   errors = [],
+  warns = [],
 }) {
   return new Promise((resolve, reject) => {
     method({
@@ -22,6 +23,7 @@ export function makeRequest ({
         onError: reject,
         defaultError,
         errors,
+        warns,
       }))
       .catch(apiResponseService.catchConnectionError(reject));
   });

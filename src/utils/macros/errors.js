@@ -9,6 +9,20 @@ export const ERRORS = {
   signOut: translator.t('apiError.signOut'),
 };
 
+export const API_WARNS = {
+  undefined: {
+    defaultWarn: translator.t('apiWarn.undefined'),
+  },
+  signIn: {
+    warns: [
+      [
+        [validateCodes.TO_MANY_DEVICES],
+        translator.t('apiWarn.tooManyDevices'),
+      ],
+    ],
+  },
+};
+
 export const API_ERRORS = {
   undefined: {
     defaultError: translator.t('apiError.undefined'),
