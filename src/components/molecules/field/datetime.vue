@@ -29,6 +29,7 @@
 <script>
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
+import moment from 'moment';
 
 export default {
   name: 'm-field-datetime',
@@ -47,6 +48,16 @@ export default {
     assist: {
       type: String,
       default: '',
+    },
+  },
+  computed: {
+    vModel: {
+      get () {
+        return moment(new Date(this.value)).format('YYYY-MM-DDThh:mm');
+      },
+      set (value) {
+        this.$emit('input', moment(value, 'YYYY-MM-DDThh:mm').valueOf());
+      },
     },
   },
 };
