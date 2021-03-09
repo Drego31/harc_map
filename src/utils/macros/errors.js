@@ -46,6 +46,10 @@ export const API_ERRORS = {
         [validateCodes.DATABASE_NO_RESULT_ERROR],
         translator.t('apiError.pointNoExist'),
       ],
+      [
+        [validateCodes.EVENT_IS_OUT_OF_DATE],
+        translator.t('apiError.eventIsOutOfDate'),
+      ],
     ],
   },
   addPoint: {

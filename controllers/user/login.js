@@ -109,54 +109,37 @@ router.route('/')
       utils.responseUserError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
 
     } else {
-      const { user } = req.body;
-      database.read('users', { user })
-        .then(result => {
-          const eventCollection = 'events';
-          const filters = { eventId: result.userEvents[0] };
-          return database.read(eventCollection, filters);
-        })
-        .then(event => {
-          if (event.eventEndDate < Date.now()) {
-            utils.responseUserError(res, 200, errorsCodes.EVENT_IS_OUT_OF_DATE);
-            return Promise.reject(new Error());
-          }
-          return Promise.resolve();
-        })
-        .then(() => {
-          // User data validation
-          const requestBodyValidationError = validator.validate(
-            validator.methods.validateUserLoginPostRequest, req.body,
-          );
-          if (!requestBodyValidationError) {
-            passport.authenticate('local', (error, userData) => {
-              if (error || !userData) {
-                // failed login
-                utils.responseUserError(res, 401, error, error);
-              } else {
-                req.login(userData, error => {
-                  // error with setting session
-                  if (error) {
-                    utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
-                  } else {
-                    const { user } = userData;
-                    database.read('users', { user })
-                      .then(utils.throwIfEmpty)
-                      .then(result => {
-                        res.send(__getUserDataForResponse(userData, result.collectedPointsIds));
-                      })
-                      .catch(errorMsg => {
-                        utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR, errorMsg);
-                      });
-                  }
-                });
-              }
-            })(req, res, next);
+      // User data validation
+      const requestBodyValidationError = validator.validate(
+        validator.methods.validateUserLoginPostRequest, req.body,
+      );
+      if (!requestBodyValidationError) {
+        passport.authenticate('local', (error, userData) => {
+          if (error || !userData) {
+            // failed login
+            utils.responseUserError(res, 401, error, error);
           } else {
-            utils.responseUserError(res, 400, requestBodyValidationError);
+            req.login(userData, error => {
+              // error with setting session
+              if (error) {
+                utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
+              } else {
+                const { user } = userData;
+                database.read('users', { user })
+                  .then(utils.throwIfEmpty)
+                  .then(result => {
+                    res.send(__getUserDataForResponse(userData, result.collectedPointsIds));
+                  })
+                  .catch(errorMsg => {
+                    utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR, errorMsg);
+                  });
+              }
+            });
           }
-        })
-        .catch(() => undefined);
+        })(req, res, next);
+      } else {
+        utils.responseUserError(res, 400, requestBodyValidationError);
+      }
     }
   })
   /**
