@@ -97,12 +97,8 @@ export default {
         mapRefreshTime: this.values.mapRefreshTime,
       };
       this.$store.dispatch('event/updateEvent', updatedEvent)
-        .then(this.onEventUpdate)
+        .then(this.onSuccessOccurs)
         .catch(this.onErrorOccurs);
-    },
-    onEventUpdate () {
-      this.isServerError = false;
-      this.showSuccessMessage(this.$t('general.saved'));
     },
   },
 };
