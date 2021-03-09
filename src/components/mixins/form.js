@@ -2,16 +2,23 @@
 export const formMixin = {
   data: () => ({
     _errors: [],
-    message: '',
     isSending: false,
     blockForm: false,
     isServerError: false,
   }),
   methods: {
+    showSuccessMessage (message) {
+      this.$store.dispatch('snackbar/openTemporary', {
+        message: message,
+        success: true,
+      });
+    },
     onErrorOccurs (errorMessage) {
-      console.error(errorMessage);
       this.isServerError = true;
-      this.message = errorMessage.message;
+      this.$store.dispatch('snackbar/openTemporary', {
+        message: errorMessage.message,
+        error: true,
+      });
       this.isSending = false;
       this.blockForm = false;
     },

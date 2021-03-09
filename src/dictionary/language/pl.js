@@ -34,6 +34,7 @@ export const pl = {
     remove: 'Usuń',
     copied: 'Skopiowano do schowka',
     hello: 'Cześć',
+    saved: 'Zapisano!',
   },
   form: {
     field: {
