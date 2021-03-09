@@ -32,8 +32,7 @@ export default {
       zoom: appEvent.mapZoom,
     });
     map.points.create({
-      list: this.$store.getters['event/getPointsVisibleOnMap'],
-      listOfCollectedPoints: this.$store.getters['user/collectedPoints'],
+      list: this.$store.getters['event/pointsVisibleOnMap'],
     });
     map.lines.create({
       list: this.$store.getters['user/collectedPoints'],
@@ -42,20 +41,24 @@ export default {
     // Map popup have to define after map creating.
     this.$refs.mapPopup && this.$refs.mapPopup.definePopup();
 
-    map.realMap.on('moveend', this.saveLastMapPosition);
+    map.realMap.on('moveend', this.saveLastMapPositionToCookies);
   },
   methods: {
     ...mapMutations('event', [
       'setMapPosition',
       'setMapZoom',
     ]),
-    saveLastMapPosition () {
+    saveLastMapPositionToDatabase () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({
-        mapLatitude,
-        mapLongitude,
-      });
+      this.setMapPosition({ mapLatitude, mapLongitude });
+      this.setMapZoom(mapView.getZoom());
+      api.updateEvent(this.$store.getters['event/eventBasicInformation']);
+    },
+    saveLastMapPositionToCookies () {
+      const mapView = map.realMap.getView();
+      const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
+      this.setMapPosition({ mapLatitude, mapLongitude });
       this.setMapZoom(mapView.getZoom());
       const dataForCookies = {
         mapLatitude,
@@ -67,7 +70,7 @@ export default {
     },
   },
   beforeDestroy () {
-    map.realMap.un('moveend', this.saveLastMapPosition);
+    map.realMap.un('moveend', this.saveLastMapPositionToCookies);
   },
 };
 </script>

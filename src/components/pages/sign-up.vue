@@ -25,17 +25,17 @@
           v-model="values.eventId"
           :disabled="blockForm"
         />
+        <div class="f-text-center f-text-danger" v-text="message"/>
         <a-button-submit
           :disabled="blockForm"
           :is-sending="isSending"
-          :message="message"
         />
       </template>
 
       <template slot="response">
         <div class="f-py-2">
           <div class="f-pb-2 f-bold">{{ $t('page.signUp.registrationDone') }}</div>
-          {{ $t('form.button.linkHasBeenSent') }}
+          {{ $t('page.signUp.linkHasBeenSent') }}
           <span class="f-bold">{{ values.user }}</span>
         </div>
         <a-button-primary @click="$router.push(ROUTES.signIn.path)">
@@ -48,7 +48,7 @@
 
 <script>
 import TPage from 'templates/page';
-import { api } from 'api/index';
+import { api } from 'api';
 import { mixins } from 'mixins/base';
 import AButtonSubmit from 'atoms/button/submit';
 import MFieldEmail from 'molecules/field/email';
@@ -92,7 +92,7 @@ export default {
       this.blockForm = true;
       api.signUp(this.values)
         .then(this.onSignUp)
-        .catch(this.onError);
+        .catch(this.onErrorOccurs);
     },
   },
 };

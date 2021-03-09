@@ -8,9 +8,10 @@
         <div>{{ $t('table.sumOfValues') }}</div>
       </div>
       <m-row-category-sum
-        v-for="category in filteredCategories"
+        v-for="category in permanentCategories"
         :key="category.categoryId"
         :category="category"
+        :collected-points="collectedPoints"
       />
     </div>
     <div class="f-pt-3 f-line-24">
@@ -49,16 +50,16 @@ export default {
     MRowPoint,
     MRowCategorySum,
   },
-  computed: {
-    ...mapGetters('user', [
-      'collectedPoints',
-    ]),
-    ...mapGetters('event', [
-      'categories',
-    ]),
-    filteredCategories () {
-      return this.categories.filter(category => category.categoryId !== 0);
+  props: {
+    collectedPoints: {
+      type: Array,
+      required: true,
     },
+  },
+  computed: {
+    ...mapGetters('event', [
+      'permanentCategories',
+    ]),
   },
 };
 </script>

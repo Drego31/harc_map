@@ -4,6 +4,7 @@ import menu from './menu';
 import theme from './theme';
 import event from './event';
 import user from './user';
+import allUsers from './all-users';
 import header from './header';
 import popup from './popup';
 import mapPopup from './map-popup';
@@ -17,6 +18,7 @@ export const store = new Vuex.Store({
     theme,
     event,
     user,
+    allUsers,
     header,
     popup,
     mapPopup,

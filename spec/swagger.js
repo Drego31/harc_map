@@ -8,6 +8,7 @@ const options = {
     './spec/swagger/components/properties.yaml',
     './controllers/user/*',
     './controllers/point/*',
+    './controllers/eventPoint.js',
   ],
   definition: {
     openapi: '3.0.0',
@@ -27,6 +28,9 @@ const options = {
     }, {
       name: 'Point',
       description: 'Point endpoint',
+    }, {
+      name: 'Event',
+      description: 'Event endpoint',
     }],
     // List of servers environments
     // DOC: https://swagger.io/specification/#server-object

@@ -10,6 +10,7 @@
 <script>
 import OMap from 'organisms/map';
 import MBannerMap from 'molecules/banner-map';
+import { map } from 'map';
 
 export default {
   name: 'o-admin-set-map-position',
@@ -17,9 +18,12 @@ export default {
     MBannerMap,
     OMap,
   },
+  mounted () {
+    map.panToDefault();
+  },
   methods: {
     onSavePosition () {
-      this.$refs.oMap.saveLastMapPosition();
+      this.$refs.oMap.saveLastMapPositionToDatabase();
       this.$store.dispatch('event/updateEvent')
         .then(() => this.$refs.banner.emitSuccessMessage());
     },

@@ -1,5 +1,5 @@
 <template>
-  <a-icon :name="ICONS.stop_circle" :class="categoryClassById"/>
+  <a-icon :name="ICONS.stop_circle" :class="categoryStyleById(categoryId)"/>
 </template>
 
 <script>
@@ -16,22 +16,9 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('event', [
-      'getCategoryById',
+    ...mapGetters('theme', [
+      'categoryStyleById',
     ]),
-    categoryClassById () {
-      const pointShape = this.getCategoryById(this.categoryId).pointShape;
-      switch (pointShape) {
-        case 1:
-          return 'f-text-info';
-        case 2:
-          return 'f-text-warning';
-        case 3:
-          return 'f-text-danger';
-        default:
-          return '';
-      }
-    },
   },
 };
 </script>

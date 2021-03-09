@@ -3,9 +3,13 @@ import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
 import Cookies from 'js-cookie';
+import pointsModule from 'store/event/points';
 
 export default {
   namespaced: true,
+  modules: {
+    pointsModule,
+  },
   state: {
     eventId: '',
     eventName: '',
@@ -23,6 +27,17 @@ export default {
     event: state => state,
     eventName: state => state.eventName,
     eventId: state => state.eventId,
+    mapPosition: state => ({
+      mapLongitude: state.mapLongitude,
+      mapLatitude: state.mapLatitude,
+      mapZoom: state.mapZoom,
+    }),
+    mapDefaultPosition: state => ({
+      mapDefaultLongitude: state.mapDefaultLongitude,
+      mapDefaultLatitude: state.mapDefaultLatitude,
+      mapDefaultZoom: state.mapDefaultZoom,
+    }),
+    points: state => state.points,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
@@ -33,21 +48,29 @@ export default {
       return state.categories.find(category => category.categoryId === categoryId);
     },
     categories: state => state.categories,
+    permanentCategories: state => state.categories
+      .filter(category => category.pointType === MACROS.pointType.permanent),
+    timeoutCategories: state => state.categories
+      .filter(category => category.pointType === MACROS.pointType.timeout),
     getTemporaryPoints: state => state.points
-      .filter(point => point.pointType === MACROS.pointType.temporary)
+      .filter(point => point.pointType === MACROS.pointType.timeout)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
-
-    getPointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
+    allCollectedPoints: state => state.points
+      .filter(point => point.pointCollectionTime !== null),
+    pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
       return state.points.filter(({
         pointId,
         pointCollectionTime,
         pointType,
+        pointAppearanceTime,
         pointExpirationTime,
       }) => {
+        // Admin can see all points on map
+        if (permissions.checkIsAdmin()) return true;
+
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
           if (uCheck.isNull(pointCollectionTime)) return true;
-          if (permissions.checkIsAdmin()) return true;
 
           // Display points collected by user
           if (rootGetters['user/collectedPointsIds'].includes(pointId) === true) return true;
@@ -61,11 +84,10 @@ export default {
           return isBeforeLastGapEndTime === false;
         }
 
-        // Point is temporary - should be visible in interval => pointExpirationTime +/- time range
-        const timeRange = 1000 * 60 * 60; // 1H
-        const expirationTime = moment((new Date(pointExpirationTime)).valueOf());
-        const expirationTimeDiffNow = expirationTime.diff(moment());
-        return expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
+        return rootGetters['event/checkTemporaryPointIsVisible']({
+          pointAppearanceTime,
+          pointExpirationTime,
+        });
       });
     },
     eventBasicInformation: (state) => ({
@@ -118,10 +140,7 @@ export default {
     removePoint: (state, point) => {
       Vue.delete(state.points, state.points.indexOf(point));
     },
-    setMapPosition: (state, {
-      mapLatitude,
-      mapLongitude,
-    }) => {
+    setMapPosition: (state, { mapLatitude, mapLongitude }) => {
       state.mapLatitude = mapLatitude;
       state.mapLongitude = mapLongitude;
     },

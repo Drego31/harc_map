@@ -6,6 +6,7 @@ export const ERRORS = {
   elementIdIsRequiredForMap: translator.t('error.elementIdIsRequiredForMap'),
   fakeErrorInMockApi: translator.t('error.fakeErrorInMockApi'),
   dataAfterSignIn: translator.t('error.dataAfterSignIn'),
+  signOut: translator.t('apiError.signOut'),
 };
 
 export const API_ERRORS = {
@@ -29,12 +30,24 @@ export const API_ERRORS = {
     defaultError: translator.t('apiError.collectPoint'),
     errors: [
       [
-        [validateCodes.DATABASE_DATA_CONFLICT_ERROR],
+        [
+          validateCodes.DATABASE_DATA_CONFLICT_ERROR,
+          validateCodes.POINT_ALREADY_COLLECTED,
+        ],
         translator.t('apiError.pointCollectedEarlier'),
       ],
       [
         [validateCodes.DATABASE_NO_RESULT_ERROR],
         translator.t('apiError.pointNoExist'),
+      ],
+    ],
+  },
+  removePoint: {
+    defaultError: translator.t('apiError.removePoint'),
+    errors: [
+      [
+        [validateCodes.POINT_ID_OR_EVENT_ID_NOT_EXIST],
+        translator.t('apiError.pointIdOrEventIdNotExist'),
       ],
     ],
   },
@@ -66,6 +79,10 @@ export const API_ERRORS = {
         [validateCodes.USER_IS_LOGGED_ON_ANOTHER_DEVICE],
         translator.t('apiError.signInOnOtherDevice'),
       ],
+      [
+        [validateCodes.ACCOUNT_IS_INACTIVE],
+        translator.t('apiError.inactiveAccount'),
+      ],
     ],
   },
   checkYourLoginSession: {
@@ -73,6 +90,16 @@ export const API_ERRORS = {
   },
   signUp: {
     defaultError: translator.t('apiError.signUp'),
+    errors: [
+      [
+        [validateCodes.EVENT_ID_NOT_EXIST],
+        translator.t('apiError.eventIdNotExist'),
+      ],
+      [
+        [validateCodes.USER_EXIST],
+        translator.t('apiError.userExist'),
+      ],
+    ],
   },
   remindPassword: {
     defaultError: translator.t('apiError.remindPassword'),
