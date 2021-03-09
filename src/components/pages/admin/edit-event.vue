@@ -17,20 +17,15 @@
         :placeholder="$t('form.field.mapRefreshTime')"
         v-model="values.mapRefreshTime"
       />
-      <div
-        class="f-text-center"
-        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
-        v-text="message"
-      />
+      <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)">
+        {{ $t('form.button.setDefaultMapPositionAndZoom') }}
+      </a-button-secondary>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
         :text="$t('form.button.save')"
       />
     </o-form>
-    <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)">
-      {{ $t('form.button.setDefaultMapPositionAndZoom') }}
-    </a-button-secondary>
   </t-page>
 </template>
 
@@ -66,7 +61,6 @@ export default {
       blockForm: false,
       isSending: false,
       isServerError: false,
-      message: '',
       options: [
         {
           label: '1 min',
@@ -108,11 +102,7 @@ export default {
     },
     onEventUpdate () {
       this.isServerError = false;
-      this.message = 'Zapisanie nowych danych wydarzenia się powiodło.';
-      setTimeout(() => this.clearMessage(), 3000);
-    },
-    clearMessage () {
-      this.message = '';
+      this.showSuccessMessage(this.$t('general.saved'));
     },
   },
 };

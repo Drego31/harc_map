@@ -12,7 +12,6 @@
         type="password"
         v-model="values.password"
       />
-      <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
@@ -53,7 +52,6 @@ export default {
     },
     blockForm: false,
     isSending: false,
-    message: '',
   }),
   mounted () {
     if (PRODUCTION === false) {
@@ -68,11 +66,7 @@ export default {
           this.isSending = false;
           this.blockForm = false;
         })
-        .catch(() => {
-          this.message = ERRORS.dataAfterSignIn;
-          this.isSending = false;
-          this.blockForm = false;
-        });
+        .catch(() => this.onErrorOccurs(ERRORS.dataAfterSignIn));
     },
     signIn () {
       this.isSending = true;
