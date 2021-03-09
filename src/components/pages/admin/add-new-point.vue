@@ -115,9 +115,17 @@ export default {
       const point = this.getPointById(pointId);
       this.setPointFullInformation(point);
     }
-
-    this.updateBasicData();
-
+    this.updateFormData();
+  },
+  watch: {
+    values: {
+      handler (val) {
+        if (val.pointCategory === 0 && this.isPermanent) {
+          this.values.pointCategory = 1;
+        }
+      },
+      deep: true,
+    },
   },
   computed: {
     ...mapGetters('point', [
@@ -140,7 +148,7 @@ export default {
       'setPointBasicInformation', 'setPointFullInformation', 'resetPointState', 'setUpdateMode', 'unsetUpdateMode',
     ]),
 
-    updateBasicData () {
+    updateFormData () {
       this.values = { ...this.getPointBasicInformation };
     },
 
@@ -166,9 +174,7 @@ export default {
     },
 
     onSubmit () {
-      if (this.values.pointType === MACROS.pointType.timeout) {
-        this.values.pointCategory = 0;
-      }
+      this.ensureValidDataByPointType();
       this.setPointBasicInformation(this.values);
       this.isUpdateMode ? this.editPoint() : this.addPoint();
 
@@ -182,7 +188,7 @@ export default {
       this.isServerError = false;
       this.message = this.$t('communicate.addPoint.success');
       this.resetPointState();
-      this.updateBasicData();
+      this.updateFormData();
       setTimeout(() => this.clearMessage(), 3000);
     },
     editPoint () {
@@ -193,6 +199,16 @@ export default {
     onEdit () {
       this.resetPointState();
       this.$router.push(this.ROUTES.map.path);
+    },
+
+    ensureValidDataByPointType () {
+      if (this.values.pointType === MACROS.pointType.timeout) {
+        this.values.pointCategory = 0;
+      }
+      if (this.values.pointType === MACROS.pointType.permanent) {
+        this.values.pointExpirationTime = null;
+        this.values.pointAppearanceTime = null;
+      }
     },
     clearMessage () {
       this.message = '';
