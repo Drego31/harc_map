@@ -24,8 +24,8 @@ export default {
   }),
   mounted () {
     const appEvent = this.$store.getters['event/event'];
-    const pointList = this.$store.getters['event/pointsVisibleOnMap'];
-    this.changeInitialStateIfEditPoint(pointList, appEvent);
+    let pointList = this.$store.getters['event/pointsVisibleOnMap'];
+    pointList = this.changeInitialStateIfEditPoint(pointList, appEvent);
 
     map.create({
       elementId: 'o-map',
@@ -80,17 +80,25 @@ export default {
     },
 
     changeInitialStateIfEditPoint (pointList, appEvent) {
-      return; // :TODO to discuss and fix
       const pointId = this.$route.params.pointId;
-      if (pointId) {
-        pointList.filter(point => point.pointId !== pointId);
-
-        if (this.$store.getters['point/hasPositionSet']) {
-          const pointPosition = this.$store.getters['point/pointPosition'];
-          appEvent.mapLatitude = pointPosition.pointLatitude;
-          appEvent.mapLongitude = pointPosition.pointLongitude;
-        }
+      if (!pointId) return pointList;
+      // :TODO Problem that this point is already filtered after second visit
+      const filteredList = pointList.filter(point => point.pointId !== pointId);
+      if (filteredList.length !== pointList.length) {
+        this.handleEditMode(appEvent, pointId);
       }
+      return filteredList;
+    },
+
+    handleEditMode (appEvent, pointId) {
+      this.$store.state.point.pointId = pointId;
+      this.$store.commit('point/setUpdateMode');
+      const pointPosition = this.$store.getters['point/hasPositionSet']
+        ? this.$store.getters['point/pointPosition']
+        : this.$store.getters['event/getPointPositionById'](pointId);
+
+      appEvent.mapLatitude = pointPosition.pointLatitude;
+      appEvent.mapLongitude = pointPosition.pointLongitude;
     },
   },
   beforeDestroy () {
