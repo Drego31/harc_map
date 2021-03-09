@@ -168,10 +168,12 @@ export const pl = {
     getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
     updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła',
     collectPoint: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
-    pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany już wcześniej.',
+    pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
     addPoint: 'Dodanie punktu nie powiodło się',
     editPoint: 'Edycja punktu nie powiodło się',
+    removePoint: 'Usuwanie punktu nie powiodło się przez błąd serwera.',
+    pointIdOrEventIdNotExist: 'Kod punktu lub wydarzenia jest niepoprawny.',
 
     all: 'Pobranie listy użytkowników nie powiodło się ze względu na błąd serwera.',
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',

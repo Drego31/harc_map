@@ -16,11 +16,11 @@ export default {
   components: { AIcon },
   props: {
     size: {
-      type: Number,
+      type: [Number, String],
       default: 32,
     },
     addClass: {
-      type: String || Array,
+      type: [String, Array],
       default: '',
     },
   },

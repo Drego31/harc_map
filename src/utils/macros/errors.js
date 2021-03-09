@@ -30,7 +30,10 @@ export const API_ERRORS = {
     defaultError: translator.t('apiError.collectPoint'),
     errors: [
       [
-        [validateCodes.DATABASE_DATA_CONFLICT_ERROR],
+        [
+          validateCodes.DATABASE_DATA_CONFLICT_ERROR,
+          validateCodes.POINT_ALREADY_COLLECTED,
+        ],
         translator.t('apiError.pointCollectedEarlier'),
       ],
       [
@@ -44,6 +47,15 @@ export const API_ERRORS = {
   },
   editPoint: {
     defaultError: translator.t('apiError.editPoint'),
+  },
+  removePoint: {
+    defaultError: translator.t('apiError.removePoint'),
+    errors: [
+      [
+        [validateCodes.POINT_ID_OR_EVENT_ID_NOT_EXIST],
+        translator.t('apiError.pointIdOrEventIdNotExist'),
+      ],
+    ],
   },
 
   // USER
