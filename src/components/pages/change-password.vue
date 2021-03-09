@@ -35,7 +35,7 @@
 <script>
 import TPage from 'templates/page';
 import AButtonSubmit from 'atoms/button/submit';
-import { api } from 'api/index';
+import { api } from 'api';
 import { mixins } from 'mixins/base';
 import MFieldSetPassword from 'molecules/field/set-password';
 import OForm from 'organisms/form';

@@ -7,6 +7,11 @@ export const formMixin = {
     isServerError: false,
   }),
   methods: {
+    onSuccessOccurs (message) {
+      this.isSending = false;
+      this.blockForm = false;
+      this.showSuccessMessage(message);
+    },
     showSuccessMessage (message) {
       this.$store.dispatch('snackbar/openTemporary', {
         message: message,

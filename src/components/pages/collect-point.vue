@@ -10,7 +10,6 @@
         v-model="collectedPointId"
         :disabled="blockForm"
       />
-      <div class="f-text-danger" v-text="message"/>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
@@ -42,7 +41,6 @@ export default {
     collectedPointId: '',
     blockForm: false,
     isSending: false,
-    message: '',
   }),
   methods: {
     onCollectPoint () {
