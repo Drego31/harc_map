@@ -1,11 +1,5 @@
 <template>
   <t-start>
-    <template slot="message">
-      <div>
-        {{ $t('page.admin.start.message') }}
-      </div>
-    </template>
-
     <template slot="buttons">
       <a-button-fill-primary @click="$router.push(ROUTES.scoreboard.path)">
         {{ $t('page.admin.start.checkScoreboard') }}

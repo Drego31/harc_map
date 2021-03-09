@@ -100,6 +100,9 @@ export const pl = {
       checkResults: 'Sprawdź swoje wyniki',
       alreadyCollected: 'Zebraliście już',
       nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
+      timeToEndEvent: 'Wydarzenie kończy się o ',
+      datetimeToEndEvent: 'Wydarzenie kończy się ',
+      eventFinished: 'Wydarzenie zostało zakończone!',
     },
     remindPassword: {
       content: `Wpisz swój e-mail, naciśnij przycisk „Dalej”, a my wyślemy 
