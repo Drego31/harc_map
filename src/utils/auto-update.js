@@ -12,14 +12,13 @@ export const autoUpdate = {
     timeoutID = setTimeout(() => {
       autoUpdate.once();
       intervalID = setInterval(
-        map.updateMapFeatures()
-          .then()
-          .catch(() => undefined),
+        autoUpdate.once,
         intervalTime);
     }, secondsToFullMinute * oneSecond);
   },
   once () {
-    map.updateMapFeatures().then().catch(() => undefined);
+    map.updateMapFeatures()
+      .catch(() => undefined);
   },
   stop () {
     clearTimeout(timeoutID);

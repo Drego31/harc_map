@@ -63,14 +63,15 @@ export const map = {
     };
   },
   updateMapFeatures () {
-    return store.dispatch('event/download')
-      .then(() => {
-        if (uCheck.isObject(map.realMap)) {
-          map.points.create({
-            list: store.getters['event/pointsVisibleOnMap'],
-          });
-        }
-      });
+    const promise = store.dispatch('event/download');
+    promise.then(() => {
+      if (uCheck.isObject(map.realMap)) {
+        map.points.create({
+          list: store.getters['event/pointsVisibleOnMap'],
+        });
+      }
+    });
+    return promise;
 
   },
 };
