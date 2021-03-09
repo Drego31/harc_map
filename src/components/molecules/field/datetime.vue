@@ -53,10 +53,12 @@ export default {
   computed: {
     vModel: {
       get () {
-        return moment(new Date(this.value)).format('YYYY-MM-DDThh:mm');
+        if (this.value) return moment(new Date(this.value)).format('YYYY-MM-DDTHH:mm');
+        else return null;
       },
       set (value) {
-        this.$emit('input', moment(value, 'YYYY-MM-DDThh:mm').valueOf());
+        if (value) this.$emit('input', moment(value, 'YYYY-MM-DDTHH:mm').valueOf());
+        else return null;
       },
     },
   },
