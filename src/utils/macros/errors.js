@@ -30,7 +30,10 @@ export const API_ERRORS = {
     defaultError: translator.t('apiError.collectPoint'),
     errors: [
       [
-        [validateCodes.DATABASE_DATA_CONFLICT_ERROR],
+        [
+          validateCodes.DATABASE_DATA_CONFLICT_ERROR,
+          validateCodes.POINT_ALREADY_COLLECTED,
+        ],
         translator.t('apiError.pointCollectedEarlier'),
       ],
       [

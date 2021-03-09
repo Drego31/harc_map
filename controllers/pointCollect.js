@@ -12,6 +12,7 @@ class PutRequestService extends Endpoint {
   }
 
   databasePartValidatePoint (point) {
+    this.makeThrowIf(point.pointCollectionTime !== null, validateCodes.POINT_ALREADY_COLLECTED);
     this.makeThrowIf(point.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR);
   }
 
