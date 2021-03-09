@@ -2,6 +2,7 @@ import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
+import { map } from 'map';
 import Cookies from 'js-cookie';
 import pointsModule from 'store/event/points';
 
@@ -113,6 +114,9 @@ export default {
         state.mapZoom = cookie.mapZoom;
       }
     },
+    addPoint: (state, point) => {
+      state.points.push(point);
+    },
     setDefaultMapPositionAndZoom: (state) => {
       state.mapLatitude = state.mapDefaultLatitude;
       state.mapLongitude = state.mapDefaultLongitude;
@@ -186,6 +190,22 @@ export default {
           .catch(error => {
             reject(error);
           });
+      });
+    },
+    addPoint (context, point, eventId = context.getters.eventId) {
+      return new Promise((resolve, reject) => {
+        api.addPoint({ point, eventId })
+          .then(() => map.updateMapFeatures())
+          .then(resolve)
+          .catch(reject);
+      });
+    },
+    editPoint (context, point, eventId = context.getters.eventId) {
+      return new Promise((resolve, reject) => {
+        api.editPoint({ point, eventId })
+          .then(() => map.updateMapFeatures())
+          .then(resolve)
+          .catch(reject);
       });
     },
     updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {

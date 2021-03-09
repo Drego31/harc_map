@@ -42,6 +42,12 @@ export const API_ERRORS = {
       ],
     ],
   },
+  addPoint: {
+    defaultError: translator.t('apiError.addPoint'),
+  },
+  editPoint: {
+    defaultError: translator.t('apiError.editPoint'),
+  },
   removePoint: {
     defaultError: translator.t('apiError.removePoint'),
     errors: [

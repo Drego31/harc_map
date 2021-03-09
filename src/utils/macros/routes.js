@@ -101,6 +101,27 @@ export const ROUTES = {
     shortLabel: translator.t('title.setMapPosition'),
     icon: ICONS.map,
   },
+  setPointPosition: {
+    path: '/set-point-position/:pointId',
+    name: 'setPointPosition',
+    label: translator.t('title.setPointPosition'),
+    shortLabel: translator.t('title.setPointPosition'),
+    icon: ICONS.map,
+  },
+  addNewPoint: {
+    path: '/add-new-point',
+    name: 'addNewPoint',
+    label: translator.t('title.addNewPoint'),
+    shortLabel: translator.t('title.addNewPoint'),
+    icon: ICONS.map,
+  },
+  editPoint: {
+    path: '/edit-point/:pointId',
+    name: 'editPoint',
+    label: translator.t('title.editPoint'),
+    shortLabel: translator.t('title.editPoint'),
+    icons: ICONS.map,
+  },
   scoreboard: {
     path: '/scoreboard',
     name: 'scoreboard',

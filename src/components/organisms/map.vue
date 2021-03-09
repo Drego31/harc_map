@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%; position: relative">
     <slot/>
     <div class="o-map" id="o-map"></div>
     <o-popup-map
@@ -24,6 +24,8 @@ export default {
   }),
   mounted () {
     const appEvent = this.$store.getters['event/event'];
+    const pointList = this.$store.getters['event/pointsVisibleOnMap'];
+    this.changeInitialStateIfEditPoint(pointList, appEvent);
 
     map.create({
       elementId: 'o-map',
@@ -31,9 +33,11 @@ export default {
       lon: appEvent.mapLongitude,
       zoom: appEvent.mapZoom,
     });
+
     map.points.create({
-      list: this.$store.getters['event/pointsVisibleOnMap'],
+      list: pointList,
     });
+
     map.lines.create({
       list: this.$store.getters['user/collectedPoints'],
     });
@@ -51,14 +55,20 @@ export default {
     saveLastMapPositionToDatabase () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({ mapLatitude, mapLongitude });
+      this.setMapPosition({
+        mapLatitude,
+        mapLongitude,
+      });
       this.setMapZoom(mapView.getZoom());
       api.updateEvent(this.$store.getters['event/eventBasicInformation']);
     },
     saveLastMapPositionToCookies () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({ mapLatitude, mapLongitude });
+      this.setMapPosition({
+        mapLatitude,
+        mapLongitude,
+      });
       this.setMapZoom(mapView.getZoom());
       const dataForCookies = {
         mapLatitude,
@@ -67,6 +77,20 @@ export default {
       };
       Cookies.remove('mapPosition');
       Cookies.set('mapPosition', dataForCookies, { expires: 7 });
+    },
+
+    changeInitialStateIfEditPoint (pointList, appEvent) {
+      return; // :TODO to discuss and fix
+      const pointId = this.$route.params.pointId;
+      if (pointId) {
+        pointList.filter(point => point.pointId !== pointId);
+
+        if (this.$store.getters['point/hasPositionSet']) {
+          const pointPosition = this.$store.getters['point/pointPosition'];
+          appEvent.mapLatitude = pointPosition.pointLatitude;
+          appEvent.mapLongitude = pointPosition.pointLongitude;
+        }
+      }
     },
   },
   beforeDestroy () {

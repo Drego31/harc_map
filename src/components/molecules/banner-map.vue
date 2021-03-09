@@ -26,7 +26,6 @@
     </transition>
   </div>
 </template>
-
 <script>
 import AButtonPrimary from 'atoms/button/primary';
 import { translator } from 'src/dictionary';
@@ -45,10 +44,13 @@ export default {
     },
   },
   methods: {
-    emitSuccessMessage () {
+    emitSuccessMessage (pathToNavigateAfterMessage = null) {
       this.showSuccessMessage = true;
       setTimeout(() => {
         this.showSuccessMessage = false;
+        if (pathToNavigateAfterMessage) {
+          this.$router.push(pathToNavigateAfterMessage);
+        }
       }, this.successMessageDuration);
     },
   },

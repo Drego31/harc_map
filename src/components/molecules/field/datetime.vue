@@ -2,12 +2,11 @@
   <validation-observer>
     <validation-provider
       :name="label.toLowerCase()"
-      :rules="rules.password"
+      :rules="rules"
       v-slot="{ errors }"
-      vid="password"
     >
       <m-input
-        type="password"
+        type="datetime-local"
         v-model="vModel"
         :disabled="disabled"
         :placeholder="label"
@@ -18,23 +17,47 @@
   </validation-observer>
 </template>
 
+<!-- USAGE EXAMPLE
+  <m-field-datetime
+    :label="$t('form.field.date')"
+    v-model="date"
+    :rules="rules.date"
+    :disabled="blockForm"
+  />
+-->
+
 <script>
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
+import moment from 'moment';
 
 export default {
-  name: 'm-field-password',
-  mixins: [mixins.vModel, mixins.validation],
+  name: 'm-field-datetime',
+  mixins: [mixins.vModel],
   components: { MInput },
   props: {
     disabled: Boolean,
     label: {
       type: String,
-      default: 'E-mail',
+      default: '',
+    },
+    rules: {
+      type: String,
+      default: '',
     },
     assist: {
       type: String,
       default: '',
+    },
+  },
+  computed: {
+    vModel: {
+      get () {
+        return moment(new Date(this.value)).format('YYYY-MM-DDThh:mm');
+      },
+      set (value) {
+        this.$emit('input', moment(value, 'YYYY-MM-DDThh:mm').valueOf());
+      },
     },
   },
 };
