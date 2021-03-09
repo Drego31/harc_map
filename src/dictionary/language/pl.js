@@ -154,6 +154,8 @@ export const pl = {
     collectPoint: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
+    removePoint: 'Usuwanie punktu nie powiodło się przez błąd serwera.',
+    pointIdOrEventIdNotExist: 'Kod punktu lub wydarzenia jest niepoprawny.',
 
     all: 'Pobranie listy użytkowników nie powiodło się ze względu na błąd serwera.',
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
