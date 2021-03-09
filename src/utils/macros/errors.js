@@ -42,6 +42,15 @@ export const API_ERRORS = {
       ],
     ],
   },
+  removePoint: {
+    defaultError: translator.t('apiError.removePoint'),
+    errors: [
+      [
+        [validateCodes.POINT_ID_OR_EVENT_ID_NOT_EXIST],
+        translator.t('apiError.pointIdOrEventIdNotExist'),
+      ],
+    ],
+  },
 
   // USER
   all: {

@@ -23,6 +23,7 @@ const permissionsList = {
     'GET': new Permissions('AU'),
     'POST': new Permissions('A'),
     'PUT': new Permissions('A'),
+    'DELETE': new Permissions('A'),
   },
   '/event/points': {
     'GET': new Permissions('AU'),
