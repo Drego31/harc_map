@@ -12,11 +12,7 @@ export const map = {
   points,
   lines,
   create: config => createMap(map, config),
-  panTo ({
-    latitude,
-    longitude,
-    zoom,
-  }) {
+  panTo ({ latitude, longitude, zoom }) {
     function panToView () {
       const view = map.realMap.getView();
       view.setCenter(fromLonLat([longitude, latitude]));
@@ -41,10 +37,7 @@ export const map = {
     });
   },
 
-  panToPointLocationOnMap ({
-    pointLatitude,
-    pointLongitude,
-  }) {
+  panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
     map.panTo({
       latitude: pointLatitude,
       longitude: pointLongitude,
