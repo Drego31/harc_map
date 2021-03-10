@@ -40,12 +40,6 @@
         {{ $t('form.button.setPointMapPosition') }}
       </a-button-secondary>
 
-      <div
-        class="f-text-center f-relative"
-        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
-        v-text="message"
-      />
-
       <a-button-submit
         :disabled="blockForm || !hasPositionSet"
         :is-sending="isSending"
@@ -101,7 +95,6 @@ export default {
       blockForm: false,
       isSending: false,
       isServerError: false,
-      message: '',
     };
   },
   created () {
@@ -185,11 +178,9 @@ export default {
         .catch(this.onErrorOccurs);
     },
     onAdd () {
-      this.isServerError = false;
-      this.message = this.$t('communicate.addPoint.success');
+      this.onSuccessOccurs(this.$t('communicate.addPoint.success'));
       this.resetPointState();
       this.updateFormData();
-      setTimeout(() => this.clearMessage(), 3000);
     },
     editPoint () {
       this.$store.dispatch('event/editPoint', this.point)
@@ -209,9 +200,6 @@ export default {
         this.values.pointExpirationTime = null;
         this.values.pointAppearanceTime = null;
       }
-    },
-    clearMessage () {
-      this.message = '';
     },
   },
 
