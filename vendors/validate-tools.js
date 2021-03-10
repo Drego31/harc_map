@@ -1,4 +1,4 @@
-const utils = require('../lib/utils');
+const random = require('../vendors/random');
 
 class ValidateTools {
   hasNumber (data) {
@@ -31,7 +31,7 @@ class ValidateTools {
   }
 
   isEasyToRead (data) {
-    return utils.checkIfStringIsReadable(data);
+    return random.checkIfStringIsReadable(data);
   }
 
   isUndefined (data) {
