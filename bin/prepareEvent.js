@@ -4,7 +4,7 @@ const utils = require('../lib/utils');
 function removePointCategories () {
   return database.remove('point_categories_kO6f', { categoryId: { $in: [1, 2, 3] } })
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log(error.toString());
@@ -14,7 +14,7 @@ function removePointCategories () {
 function removeEvents () {
   return database.remove('events', { eventId: 'kO6f' })
     .then(result => {
-      console.log(result);
+      // console.log(result);
     }).catch(error => {
       console.log(error.toString());
     });
@@ -23,7 +23,7 @@ function removeEvents () {
 function removeEventPoints () {
   return database.remove('event_kO6f', {})
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log(error.toString());
@@ -60,7 +60,7 @@ function createPointCategories () {
 
   return database.create('point_categories_kO6f', categories)
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log('error');
@@ -80,7 +80,7 @@ function createEvent () {
 
   return database.create('events', [event])
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log('error');
@@ -88,15 +88,31 @@ function createEvent () {
     });
 }
 
+function generateUniqueId (storeArray, length) {
+  let generatedId = utils.generateRandomString(length);
+
+  // is unique
+  if (storeArray.indexOf(generatedId) < 0) {
+    storeArray.push(generatedId);
+  } else {
+    console.error('conflict:', generatedId);
+    generatedId = generateUniqueId(storeArray);
+    console.error('conflict new:', generatedId);
+  }
+
+  return generatedId;
+}
+
 function createEventPoints () {
   const permanentPoints = require('../points').pointsForDatabase();
   const temporaryPoints = require('../temporary-points').temporaryPointsForDatabase();
   const readyPoints = [];
   const points = permanentPoints.concat(temporaryPoints);
+  const pointsIds = [];
 
   Object.keys(points).forEach(index => {
     const point = points[index];
-    point.pointId = utils.generateRandomString(4);
+    point.pointId = generateUniqueId(pointsIds, 4);
     point.pointType = point.pointType || 'permanent';
     point.pointName = point.pointName || '';
     point.pointAppearanceTime = point.pointAppearanceTime || null;
@@ -107,7 +123,7 @@ function createEventPoints () {
 
   return database.create('event_kO6f', readyPoints)
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log('error');
