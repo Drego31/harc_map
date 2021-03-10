@@ -59,6 +59,7 @@ export const pl = {
       pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
       pointCategory: 'Kategoria punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
+      eventEndDate: 'Data i czas zakończenia wydarzenia',
     },
     assist: {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
@@ -100,6 +101,9 @@ export const pl = {
       checkResults: 'Sprawdź swoje wyniki',
       alreadyCollected: 'Zebraliście już',
       nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
+      timeToEndEvent: 'Wydarzenie kończy się o ',
+      datetimeToEndEvent: 'Wydarzenie kończy się ',
+      eventFinished: 'Wydarzenie zostało zakończone!',
     },
     remindPassword: {
       content: `Wpisz swój e-mail, naciśnij przycisk „Dalej”, a my wyślemy 
@@ -167,12 +171,14 @@ export const pl = {
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
     getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
-    updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła',
-    collectPoint: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
+    updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła.',
+    eventEndDateIsEmpty: 'Data i czas zakończenia wydarzenia musi być uzupełniona.',
+    eventIsOutOfDate: 'Punkt nie został zebrany, ponieważ wydarzenie zostało zakończone.',
+    collectPoint: 'Zebranie punktu nie powiodło się przez błąd serwera.',
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
-    addPoint: 'Dodanie punktu nie powiodło się',
-    editPoint: 'Edycja punktu nie powiodło się',
+    addPoint: 'Dodanie punktu nie powiodło się.',
+    editPoint: 'Edycja punktu nie powiodła się.',
     removePoint: 'Usuwanie punktu nie powiodło się przez błąd serwera.',
     pointIdOrEventIdNotExist: 'Kod punktu lub wydarzenia jest niepoprawny.',
 

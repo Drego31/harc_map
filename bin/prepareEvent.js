@@ -72,6 +72,7 @@ function createEvent () {
   const event = {
     eventId: 'ks6f',
     eventName: 'Rajd „Tajna Lilijka”',
+    eventEndDate: Date.now() + 1000 * 60 * 60 * 24 * 2, // 24h * 2
     mapZoom: 11,
     mapLongitude: 18.4735,
     mapLatitude: 54.4787,
