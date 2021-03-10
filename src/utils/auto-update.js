@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { map } from 'map';
+import { ErrorMessage } from 'utils/error-message';
 
 const oneSecond = 1000;
 const intervalTime = 60 * oneSecond;
@@ -18,7 +19,7 @@ export const autoUpdate = {
   },
   once () {
     map.updateMapFeatures()
-      .catch(() => undefined);
+      .catch((error) => (new ErrorMessage(error)).showMessage());
   },
   stop () {
     clearTimeout(timeoutID);
