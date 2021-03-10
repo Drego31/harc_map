@@ -12,7 +12,6 @@
           :disabled="blockForm"
           v-model="user"
         />
-        <div class="f-text-center f-text-danger" v-text="message"/>
         <a-button-submit
           :disabled="blockForm"
           :is-sending="isSending"
@@ -34,7 +33,7 @@
 <script>
 import TPage from 'templates/page';
 import AButtonSubmit from 'atoms/button/submit';
-import { api } from 'api/index';
+import { api } from 'api';
 import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldEmail from 'molecules/field/email';
@@ -55,7 +54,6 @@ export default {
     blockForm: false,
     isSending: false,
     formSend: false,
-    message: '',
   }),
   methods: {
     remindPassword () {
