@@ -22,12 +22,9 @@ export const formMixin = {
     },
     onErrorOccurs (errorMessage) {
       this.isServerError = true;
-      this.$store.dispatch('snackbar/openTemporary', {
-        message: errorMessage.message,
-        error: true,
-      });
       this.isSending = false;
       this.blockForm = false;
+      errorMessage.showMessageTemporary();
     },
   },
 };

@@ -41,7 +41,7 @@
       </a-button-secondary>
 
       <a-button-submit
-        :disabled="blockForm || !hasPositionSet"
+        :disabled="blockForm"
         :is-sending="isSending"
         :text="$t('form.button.save')"
       />
@@ -60,6 +60,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import { mixins } from 'mixins/base';
 import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
+import { ErrorMessage } from 'utils/error-message';
 
 export default {
   name: 'p-admin-add-new-point',
@@ -167,10 +168,13 @@ export default {
     },
 
     onSubmit () {
+      if (!this.hasPositionSet) {
+        this.onErrorOccurs(new ErrorMessage(this.$t('communicate.addPoint.positionIsRequired')));
+        return;
+      }
       this.ensureValidDataByPointType();
       this.setPointBasicInformation(this.values);
       this.isUpdateMode ? this.editPoint() : this.addPoint();
-
     },
     addPoint () {
       this.$store.dispatch('event/addPoint', this.point)

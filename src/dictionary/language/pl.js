@@ -215,6 +215,7 @@ export const pl = {
     },
     addPoint: {
       success: 'Zapisanie danych punktu się powiodło.',
+      positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
   },
   features: {

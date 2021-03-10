@@ -13,4 +13,12 @@ export class ErrorMessage extends Error {
       error: true,
     });
   }
+
+  showMessageTemporary (humanMessage = this.message) {
+    this.humanMessage = humanMessage;
+    store.dispatch('snackbar/openTemporary', {
+      message: humanMessage,
+      error: true,
+    });
+  }
 }

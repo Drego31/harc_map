@@ -34,6 +34,7 @@ import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
 import { ERRORS } from 'utils/macros/errors';
+import { ErrorMessage } from 'utils/error-message';
 
 export default {
   name: 'p-sign-in',
@@ -66,7 +67,7 @@ export default {
           this.isSending = false;
           this.blockForm = false;
         })
-        .catch(() => this.onErrorOccurs(ERRORS.dataAfterSignIn));
+        .catch(() => this.onErrorOccurs(new ErrorMessage(ERRORS.dataAfterSignIn)));
     },
     signIn () {
       this.isSending = true;
