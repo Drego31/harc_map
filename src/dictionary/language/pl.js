@@ -14,21 +14,33 @@ export const pl = {
     adminPanel: 'Panel admina',
     editEvent: 'Edycja wydarzenia',
     setMapPosition: 'Ustawienia mapy',
+    scoreboard: 'Tabela wyników',
+    setPointPosition: 'Lokalizacja punktu',
+    addNewPoint: 'Nowy punkt',
+    editPoint: 'Edycja punktu',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
       collectedPoints: 'Zebrane',
       adminPanel: 'Admin',
       editEvent: 'Wydarzenie',
+      scoreboard: 'Wyniki',
     },
   },
   general: {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
+    pointCategoryLevel: 'poziom',
+    pointTemporary: 'Czasowy',
+    pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
+    alreadyCollectedShort: 'Zebraliście',
     hide: 'Ukryj',
     edit: 'Edytuj',
+    remove: 'Usuń',
     copied: 'Skopiowano do schowka',
+    hello: 'Cześć',
+    saved: 'Zapisano!',
   },
   form: {
     field: {
@@ -41,10 +53,16 @@ export const pl = {
       eventName: 'Nazwa wydarzenia',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
+      pointName: 'Nazwa punktu',
+      pointType: 'Typ punktu',
+      pointDateAndAppearanceTime: 'Data i czas pojawienia się punktu',
+      pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
+      pointCategory: 'Kategoria punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
     },
     assist: {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
+      fieldNotRequired: 'Pole jest nieobowiązkowe',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -61,6 +79,7 @@ export const pl = {
       next: 'Dalej',
       goToLogin: 'Przejdź do logowania',
       setDefaultMapPositionAndZoom: 'Ustaw domyślną pozycję mapy',
+      setPointMapPosition: 'Ustaw lokalizację punktu',
     },
   },
   page: {
@@ -99,6 +118,11 @@ export const pl = {
       listTitle: 'Lista zebranych punktów',
       noPoints: 'Brak zebranych punktów',
     },
+    scoreboard: {
+      completionLevelOfTheGame: 'Poziom realizacji gry',
+      scoreboard: 'Tabela wyników',
+      completionLevelDetails: 'Wykresy przedstawiają ilość zebranych punktów przez uczestników z podziałem na kategorie.',
+    },
     collectPoint: {
       content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
         i wpisz do poniższego pola tekstowego kod z koperty znajdującej się 
@@ -120,13 +144,21 @@ export const pl = {
       setMapPosition: {
         content: 'Ustaw mapę w wybranej pozycji i zapisz.',
       },
+      setPointPosition: {
+        content: 'Ustaw punkt w wybranej pozycji i zapisz.',
+      },
+      start: {
+        message: 'Jesteś zalogowany jako administrator',
+        editEvent: 'Edytuj wydarzenie',
+        checkScoreboard: 'Sprawdź tabelę wyników',
+      },
     },
   },
   error: {
     eventIdIsRequired: 'Kod wydarzenia jest wymagany',
     elementIdIsRequiredForMap: 'Kod wydarzenia jest wymagany, by uruchomić mapę',
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
-    dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta.',
+    dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
   },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
@@ -137,13 +169,18 @@ export const pl = {
     getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
     updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła',
     collectPoint: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
-    pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany już wcześniej.',
+    pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
+    addPoint: 'Dodanie punktu nie powiodło się',
+    editPoint: 'Edycja punktu nie powiodło się',
+    removePoint: 'Usuwanie punktu nie powiodło się przez błąd serwera.',
+    pointIdOrEventIdNotExist: 'Kod punktu lub wydarzenia jest niepoprawny.',
 
     all: 'Pobranie listy użytkowników nie powiodło się ze względu na błąd serwera.',
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
     signInData: 'Logowanie nie powiodło się z powodu błędnego e-mail lub hasła.',
     signInOnOtherDevice: 'Nie możesz się zalogować — jesteś zalogowany na innym urządzeniu.',
+    inactiveAccount: 'Konto jest nieaktywne - sprawdź e-mail i zaktywuj konto.',
     checkYourLoginSession: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
     signUp: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
     eventIdNotExist: 'Podany kod wydarzenia jest niepoprawny.',
@@ -158,9 +195,12 @@ export const pl = {
     shortCategory: 'Kat.',
     category: 'Kategoria',
     shortPointId: 'Kod',
+    team: 'Patrol',
     value: 'Wartość',
+    score: 'Wynik',
     place: 'Miejsce',
     expand: 'Rozwiń',
+    more: 'Więcej',
   },
   communicate: {
     collectPoint: {
@@ -169,6 +209,13 @@ export const pl = {
     },
     changePassword: {
       success: 'Twoje hasło zostało zmienione!',
+    },
+    editEvent: {
+      success: 'Zapisanie nowych danych wydarzenia się powiodło.',
+    },
+    addPoint: {
+      success: 'Zapisanie danych punktu się powiodło.',
+      positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
   },
   features: {

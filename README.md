@@ -9,7 +9,8 @@ Content:
 3. [Local Database](#local-database)
     1. Database installation
     2. Default data in local database
-    3. Adding "RTL Gdynia" points to database 
+    3. Adding "RTL Gdynia" points to database
+4. [Swagger API documentation](#swagger-documentation)
 
 
 
@@ -75,4 +76,10 @@ All initialized data are setting from `/config/mongodb/local.js` script!
 
 `fill-database` script, add only example "RTL Gdynia" data to database!
 
++
+## Swagger documentation
+Swagger documentation is easy to see. You just have to:
+1. Run app in DEVELOPMENT env `npm run run:dev`.
+2. Go to url: https://localhost:3030/api-docs
 
+View of swagger documentation are group by main endpoint categories like: User, Point, Event(part of them are still todo).

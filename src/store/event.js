@@ -2,10 +2,16 @@ import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
+import { map } from 'map';
 import Cookies from 'js-cookie';
+import pointsModule from 'store/event/points';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   namespaced: true,
+  modules: {
+    pointsModule,
+  },
   state: {
     eventId: '',
     eventName: '',
@@ -23,8 +29,26 @@ export default {
     event: state => state,
     eventName: state => state.eventName,
     eventId: state => state.eventId,
+    mapPosition: state => ({
+      mapLongitude: state.mapLongitude,
+      mapLatitude: state.mapLatitude,
+      mapZoom: state.mapZoom,
+    }),
+    mapDefaultPosition: state => ({
+      mapDefaultLongitude: state.mapDefaultLongitude,
+      mapDefaultLatitude: state.mapDefaultLatitude,
+      mapDefaultZoom: state.mapDefaultZoom,
+    }),
+    points: state => state.points,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
+    },
+    getPointPositionById: state => pointId => {
+      const point = state.points.find(point => point.pointId === pointId);
+      return {
+        pointLatitude: point.pointLatitude,
+        pointLongitude: point.pointLongitude,
+      };
     },
     getPointByOlUid: state => pointOlUid => {
       return state.points.find(point => point.olUid === pointOlUid);
@@ -33,21 +57,33 @@ export default {
       return state.categories.find(category => category.categoryId === categoryId);
     },
     categories: state => state.categories,
+    permanentCategories: state => state.categories
+      .filter(category => category.pointType === MACROS.pointType.permanent),
+    timeoutCategories: state => state.categories
+      .filter(category => category.pointType === MACROS.pointType.timeout),
     getTemporaryPoints: state => state.points
-      .filter(point => point.pointType === MACROS.pointType.temporary)
+      .filter(point => point.pointType === MACROS.pointType.timeout)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
+    allCollectedPoints: state => state.points
+      .filter(point => point.pointCollectionTime !== null),
 
-    getPointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
+    pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
+      const isEditPointPositionView = rootGetters['point/routeBackFromMap'].name === ROUTES.editPoint.name;
+      const editingPointId = isEditPointPositionView ? rootGetters['point/pointId'] : undefined;
+
       return state.points.filter(({
         pointId,
         pointCollectionTime,
         pointType,
+        pointAppearanceTime,
         pointExpirationTime,
       }) => {
+        // Admin can see all points on map except point in edit position mode
+        if (permissions.checkIsAdmin()) return pointId !== editingPointId;
+
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
           if (uCheck.isNull(pointCollectionTime)) return true;
-          if (permissions.checkIsAdmin()) return true;
 
           // Display points collected by user
           if (rootGetters['user/collectedPointsIds'].includes(pointId) === true) return true;
@@ -61,11 +97,10 @@ export default {
           return isBeforeLastGapEndTime === false;
         }
 
-        // Point is temporary - should be visible in interval => pointExpirationTime +/- time range
-        const timeRange = 1000 * 60 * 60; // 1H
-        const expirationTime = moment((new Date(pointExpirationTime)).valueOf());
-        const expirationTimeDiffNow = expirationTime.diff(moment());
-        return expirationTimeDiffNow > 0 && expirationTimeDiffNow < timeRange;
+        return rootGetters['event/checkTemporaryPointIsVisible']({
+          pointAppearanceTime,
+          pointExpirationTime,
+        });
       });
     },
     eventBasicInformation: (state) => ({
@@ -90,6 +125,9 @@ export default {
         state.mapLongitude = cookie.mapLongitude;
         state.mapZoom = cookie.mapZoom;
       }
+    },
+    addPoint: (state, point) => {
+      state.points.push(point);
     },
     setDefaultMapPositionAndZoom: (state) => {
       state.mapLatitude = state.mapDefaultLatitude;
@@ -167,6 +205,28 @@ export default {
           .catch(error => {
             reject(error);
           });
+      });
+    },
+    addPoint (context, point, eventId = context.getters.eventId) {
+      return new Promise((resolve, reject) => {
+        api.addPoint({
+          point,
+          eventId,
+        })
+          .then(() => map.updateMapFeatures())
+          .then(resolve)
+          .catch(reject);
+      });
+    },
+    editPoint (context, point, eventId = context.getters.eventId) {
+      return new Promise((resolve, reject) => {
+        api.editPoint({
+          point,
+          eventId,
+        })
+          .then(() => map.updateMapFeatures())
+          .then(resolve)
+          .catch(reject);
       });
     },
     updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {

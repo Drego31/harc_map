@@ -5,7 +5,7 @@
         <a-icon-category :category-id="point.pointCategory"/>
       </div>
       <div>{{ point.pointId }}</div>
-      <div>{{ getCategoryById(point.pointCategory).pointValue }} pkt</div>
+      <div>{{ getCategoryById(point.pointCategory).pointValue }} {{ $t('general.pointUnit') }}</div>
       <div>
         <a-icon :name="ICONS.map" @click="panTo(point)"/>
       </div>
@@ -28,7 +28,7 @@ import AIcon from 'atoms/icon';
 import AIconCategory from 'atoms/icon/category';
 import { mapGetters } from 'vuex';
 import moment from 'moment';
-import { map } from 'map/index';
+import { map } from 'map';
 
 export default {
   name: 'm-row-point',

@@ -12,7 +12,6 @@
         type="password"
         v-model="values.password"
       />
-      <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
@@ -35,6 +34,7 @@ import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
 import { ERRORS } from 'utils/macros/errors';
+import { ErrorMessage } from 'utils/error-message';
 
 export default {
   name: 'p-sign-in',
@@ -53,7 +53,6 @@ export default {
     },
     blockForm: false,
     isSending: false,
-    message: '',
   }),
   mounted () {
     if (PRODUCTION === false) {
@@ -68,11 +67,7 @@ export default {
           this.isSending = false;
           this.blockForm = false;
         })
-        .catch(() => {
-          this.message = ERRORS.dataAfterSignIn;
-          this.isSending = false;
-          this.blockForm = false;
-        });
+        .catch(() => this.onErrorOccurs(new ErrorMessage(ERRORS.dataAfterSignIn)));
     },
     signIn () {
       this.isSending = true;
@@ -84,7 +79,7 @@ export default {
     signInAutomatically () {
       this.isSending = true;
       this.blockForm = true;
-      this.values.user = 'dominik.betka@gmail.com';
+      this.values.user = USER;
       this.values.password = PASSWORD;
       uPromise.timeout(500)
         .then(() => this.signIn());

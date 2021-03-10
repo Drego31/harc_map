@@ -31,7 +31,7 @@
         :size="28"
         class="f-header"
         :class="{ 'f-hidden': isLogin === false }"
-        @click="$router.push(ROUTES.collectedPoints.path)"
+        @click="redirectToCollectedPointsOrScoreboard"
       />
     </div>
   </div>
@@ -54,12 +54,27 @@ export default {
     ]),
     ...mapGetters('header', [
       'pageTitle',
+      'backRouteName',
     ]),
     isMainPage () {
-      return this.pageTitle === '' || this.pageTitle === 'Start';
+      return [
+        ROUTES.welcome.name,
+        ROUTES.start.name,
+        ROUTES.adminPanel.name,
+      ].includes(this.$route.name);
     },
     pathBackButton () {
-      return this.isLogin ? ROUTES.start.path : ROUTES.welcome.path;
+      if (this.backRouteName.params) return this.backRouteName;
+      if (this.backRouteName.name) return ROUTES[this.backRouteName.name].path;
+      if (this.$route.meta.adminOnly) return ROUTES.adminPanel.path;
+      if (this.isLogin) return ROUTES.start.path;
+      else return ROUTES.welcome.path;
+    },
+  },
+  methods: {
+    redirectToCollectedPointsOrScoreboard () {
+      const route = this.checkIsAdmin() ? ROUTES.scoreboard : ROUTES.collectedPoints;
+      this.$router.push(route.path);
     },
   },
 };

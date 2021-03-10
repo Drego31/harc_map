@@ -1,6 +1,7 @@
 import { ROUTES } from 'utils/macros/routes';
 import PWelcome from 'pages/welcome';
 import PError from 'pages/error';
+import { store } from 'store';
 
 export const routes = [
   {
@@ -60,7 +61,13 @@ export const routes = [
   {
     path: ROUTES.start.path,
     name: ROUTES.start.name,
-    component: () => import('pages/start.vue'),
+    component: () => {
+      if (store) {
+        const isAdmin = permissions.checkIsAdmin();
+        return isAdmin ? import('pages/admin/start.vue') : import('pages/start.vue');
+      }
+      return import('pages/start.vue');
+    },
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
@@ -69,7 +76,7 @@ export const routes = [
   {
     path: ROUTES.temporaryPoints.path,
     name: ROUTES.temporaryPoints.name,
-    component: () => import('pages/temporary-points.vue'),
+    component: () => import('pages/timeout-points.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
@@ -126,6 +133,46 @@ export const routes = [
     path: ROUTES.setMapPosition.path,
     name: ROUTES.setMapPosition.name,
     component: () => import('pages/admin/set-map-position.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.scoreboard.path,
+    name: ROUTES.scoreboard.name,
+    component: () => import('pages/admin/scoreboard.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.setPointPosition.path,
+    name: ROUTES.setPointPosition.name,
+    component: () => import('pages/admin/set-point-position.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.editPoint.path,
+    name: ROUTES.editPoint.name,
+    component: () => import('pages/admin/add-new-point.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.addNewPoint.path,
+    name: ROUTES.addNewPoint.name,
+    component: () => import('pages/admin/add-new-point.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,

@@ -6,22 +6,44 @@ import { ACCOUNT_TYPES } from 'utils/permissions';
 let globalUser = '';
 
 export const userController = {
-  all () {
+  allUsers () {
     return makeDelayFakeAnswer(() => ({
-      users: [
+      'users': [
         {
-          user: 'dominik.betka@gmail.com',
-          userTeam: 'Zastęp Orchis',
-          accountIsActive: true,
-          accountCreated: 1614675013910,
-          collectedPointsIds: [],
-        },
-        {
-          user: 'demo@demo.com',
-          userTeam: 'Zastęp Demo',
-          accountIsActive: true,
-          accountCreated: 1614675013911,
-          collectedPointsIds: [],
+          'user': 'dominik.betka@gmail.com',
+          'userTeam': 'Zastęp Orchis',
+          'accountIsActive': true,
+          'accountCreated': 1614779590554,
+          'collectedPointsIds': [],
+          'accountType': ACCOUNT_TYPES.admin,
+        }, {
+          'user': 'demo@demo.com',
+          'userTeam': 'Zastęp Demo',
+          'accountIsActive': true,
+          'accountCreated': 1614779590555,
+          'collectedPointsIds': ['cMLY', 'UZ7X', '31ty', 'uWAj', 'rk7p', 'n9jC', 'GrbI', 'Q5Qe'],
+          'accountType': ACCOUNT_TYPES.common,
+        }, {
+          'user': 'demo2@demo.com',
+          'userTeam': 'Zastęp Demo2',
+          'accountIsActive': true,
+          'accountCreated': 1614779590556,
+          'collectedPointsIds': ['rEIq', 'FD8Q', 'SOz8', 'qj7Q', 'Ssij', '373z', 'NeIB'],
+          'accountType': ACCOUNT_TYPES.common,
+        }, {
+          'user': 'demo3@demo.com',
+          'userTeam': 'Zastęp Demo3',
+          'accountIsActive': true,
+          'accountCreated': 1614779590556,
+          'collectedPointsIds': ['rEIq', 'FD8Q', 'SOz8', 'qj7Q', 'Ssij', '373z', 'NeIB'],
+          'accountType': ACCOUNT_TYPES.common,
+        }, {
+          'user': 'demo4@demo.com',
+          'userTeam': 'Zastęp Demo4',
+          'accountIsActive': true,
+          'accountCreated': 1614779590556,
+          'collectedPointsIds': ['rEIq', 'FD8Q', 'SOz8', 'qj7Q', 'Ssij', '373z', 'NeIB'],
+          'accountType': ACCOUNT_TYPES.common,
         },
       ],
     }));

@@ -26,11 +26,7 @@ export function createFeatures ({ list = [] }) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;
     const shape = point.pointCategory;
-    const pointIsCollected = point.pointCollectionTime !== null;
-    const collectedPointsIds = store.getters['user/collectedPointsIds'];
-    const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
-    const isAdmin = permissions.checkIsAdmin();
-    const showCollected = pointIsCollected && (collectedByLoginUser || isAdmin);
+    const showCollected = shouldBeShownAsCollected(point);
 
     const stroke = getStroke(shape, showCollected);
     const fill = getFill(shape, showCollected);
@@ -57,6 +53,14 @@ export function createFeatures ({ list = [] }) {
   map.points.layer = layer;
 }
 
+const shouldBeShownAsCollected = (point) => {
+  const pointIsCollected = point.pointCollectionTime !== null;
+  const collectedPointsIds = store.getters['user/collectedPointsIds'];
+  const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
+  const isAdmin = permissions.checkIsAdmin();
+  return pointIsCollected && (collectedByLoginUser || isAdmin);
+};
+
 const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
   let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
@@ -81,7 +85,7 @@ const getFill = (shape, isCollected) => {
 };
 
 const getFinalPoints = (shape, fill, stroke) => {
-  const starShape = 4;
+  const starShape = 0;
   const pointValues = {
     fill,
     stroke,

@@ -25,7 +25,6 @@
           v-model="values.eventId"
           :disabled="blockForm"
         />
-        <div class="f-text-center f-text-danger" v-text="message"/>
         <a-button-submit
           :disabled="blockForm"
           :is-sending="isSending"
@@ -35,7 +34,7 @@
       <template slot="response">
         <div class="f-py-2">
           <div class="f-pb-2 f-bold">{{ $t('page.signUp.registrationDone') }}</div>
-          {{ $t('form.button.linkHasBeenSent') }}
+          {{ $t('page.signUp.linkHasBeenSent') }}
           <span class="f-bold">{{ values.user }}</span>
         </div>
         <a-button-primary @click="$router.push(ROUTES.signIn.path)">
@@ -78,7 +77,6 @@ export default {
     },
     blockForm: false,
     isSending: false,
-    message: '',
     formSend: false,
   }),
   methods: {

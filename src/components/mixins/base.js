@@ -1,4 +1,4 @@
-import { vueModel } from '../extends/base';
+import { vueModel } from 'extends/base';
 import { formMixin as form } from './form';
 import { validationMixin as validation } from './validation';
 

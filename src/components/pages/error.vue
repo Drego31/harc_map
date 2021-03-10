@@ -14,7 +14,7 @@
     <div class="m-collection f-button f-px-2">
       <div class="f-pt-3 f-text-bold" v-html="$t('page.error.content')"/>
       <div class="f-pt-1">
-        <a-button-primary @click="$router.push(ROUTES.welcome.path)">
+        <a-button-primary @click="redirectToMainPage">
           {{ $t('general.backToStart') }}
         </a-button-primary>
       </div>
@@ -47,6 +47,13 @@ export default {
       styles[THEMES.dark] = 'background-size: auto 100%';
       styles[THEMES.light] = 'background-size: auto 100%';
       return styles;
+    },
+  },
+  methods: {
+    redirectToMainPage () {
+      const isLogin = this.$store.getters['user/isLogin'];
+      const route = isLogin ? this.ROUTES.start : this.ROUTES.welcome;
+      this.$router.push(route.path);
     },
   },
 };
