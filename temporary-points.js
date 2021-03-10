@@ -11,6 +11,15 @@ module.exports =
     temporaryPointsForDatabase: function () {
       return [
         {
+          pointLatitude: 54.558353,
+          pointLongitude: 18.47548,
+          pointType: 'timeout',
+          pointCategory: 0,
+          pointName: 'Miejsce historyczne',
+          pointAppearanceTime: Date.now() - oneMinute * 60 * 24,
+          pointExpirationTime: Date.now() - oneMinute * 60 * 20,
+        },
+        {
           pointLatitude: 54.50606,
           pointLongitude: 18.55436,
           pointType: 'timeout',
@@ -20,8 +29,8 @@ module.exports =
           pointExpirationTime: Date.now() - oneMinute * 15,
         },
         {
-          pointLatitude: 54.50606,
-          pointLongitude: 18.55436,
+          pointLatitude: 54.50513,
+          pointLongitude: 18.55744,
           pointType: 'timeout',
           pointCategory: 0,
           pointName: 'Punkt strategiczny',

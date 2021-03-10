@@ -40,14 +40,8 @@
         {{ $t('form.button.setPointMapPosition') }}
       </a-button-secondary>
 
-      <div
-        class="f-text-center f-relative"
-        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
-        v-text="message"
-      />
-
       <a-button-submit
-        :disabled="blockForm || !hasPositionSet"
+        :disabled="blockForm"
         :is-sending="isSending"
         :text="$t('form.button.save')"
       />
@@ -66,6 +60,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import { mixins } from 'mixins/base';
 import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
+import { ErrorMessage } from 'utils/error-message';
 
 export default {
   name: 'p-admin-add-new-point',
@@ -101,7 +96,6 @@ export default {
       blockForm: false,
       isSending: false,
       isServerError: false,
-      message: '',
     };
   },
   created () {
@@ -115,9 +109,17 @@ export default {
       const point = this.getPointById(pointId);
       this.setPointFullInformation(point);
     }
-
-    this.updateBasicData();
-
+    this.updateFormData();
+  },
+  watch: {
+    values: {
+      handler (val) {
+        if (val.pointCategory === 0 && this.isPermanent) {
+          this.values.pointCategory = 1;
+        }
+      },
+      deep: true,
+    },
   },
   computed: {
     ...mapGetters('point', [
@@ -140,7 +142,7 @@ export default {
       'setPointBasicInformation', 'setPointFullInformation', 'resetPointState', 'setUpdateMode', 'unsetUpdateMode',
     ]),
 
-    updateBasicData () {
+    updateFormData () {
       this.values = { ...this.getPointBasicInformation };
     },
 
@@ -166,12 +168,13 @@ export default {
     },
 
     onSubmit () {
-      if (this.values.pointType === MACROS.pointType.timeout) {
-        this.values.pointCategory = 0;
+      if (!this.hasPositionSet) {
+        this.onErrorOccurs(new ErrorMessage(this.$t('communicate.addPoint.positionIsRequired')));
+        return;
       }
+      this.ensureValidDataByPointType();
       this.setPointBasicInformation(this.values);
       this.isUpdateMode ? this.editPoint() : this.addPoint();
-
     },
     addPoint () {
       this.$store.dispatch('event/addPoint', this.point)
@@ -179,11 +182,9 @@ export default {
         .catch(this.onErrorOccurs);
     },
     onAdd () {
-      this.isServerError = false;
-      this.message = this.$t('communicate.addPoint.success');
+      this.onSuccessOccurs(this.$t('communicate.addPoint.success'));
       this.resetPointState();
-      this.updateBasicData();
-      setTimeout(() => this.clearMessage(), 3000);
+      this.updateFormData();
     },
     editPoint () {
       this.$store.dispatch('event/editPoint', this.point)
@@ -194,8 +195,15 @@ export default {
       this.resetPointState();
       this.$router.push(this.ROUTES.map.path);
     },
-    clearMessage () {
-      this.message = '';
+
+    ensureValidDataByPointType () {
+      if (this.values.pointType === MACROS.pointType.timeout) {
+        this.values.pointCategory = 0;
+      }
+      if (this.values.pointType === MACROS.pointType.permanent) {
+        this.values.pointExpirationTime = null;
+        this.values.pointAppearanceTime = null;
+      }
     },
   },
 

@@ -23,12 +23,6 @@
         v-model="values.eventEndDate"
         :rules="rules.date"
       />
-      <div
-        v-if="message"
-        class="f-text-center"
-        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
-        v-text="message"
-      />
       <a-button-secondary class="f-mt-0" @click="$router.push(ROUTES.setMapPosition)">
         {{ $t('form.button.setDefaultMapPositionAndZoom') }}
       </a-button-secondary>
@@ -76,7 +70,6 @@ export default {
       blockForm: false,
       isSending: false,
       isServerError: false,
-      message: '',
       options: [
         {
           label: '1 min',
@@ -115,16 +108,8 @@ export default {
         eventEndDate: this.values.eventEndDate,
       };
       this.$store.dispatch('event/updateEvent', updatedEvent)
-        .then(this.onEventUpdate)
+        .then(this.onSuccessOccurs)
         .catch(this.onErrorOccurs);
-    },
-    onEventUpdate () {
-      this.isServerError = false;
-      this.message = this.$t('communicate.editEvent.success');
-      setTimeout(() => this.clearMessage(), 3000);
-    },
-    clearMessage () {
-      this.message = '';
     },
   },
 };

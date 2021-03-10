@@ -12,11 +12,7 @@ export const map = {
   points,
   lines,
   create: config => createMap(map, config),
-  panTo ({
-    latitude,
-    longitude,
-    zoom,
-  }) {
+  panTo ({ latitude, longitude, zoom }) {
     function panToView () {
       const view = map.realMap.getView();
       view.setCenter(fromLonLat([longitude, latitude]));
@@ -41,10 +37,7 @@ export const map = {
     });
   },
 
-  panToPointLocationOnMap ({
-    pointLatitude,
-    pointLongitude,
-  }) {
+  panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
     map.panTo({
       latitude: pointLatitude,
       longitude: pointLongitude,
@@ -63,14 +56,15 @@ export const map = {
     };
   },
   updateMapFeatures () {
-    return store.dispatch('event/download')
-      .then(() => {
-        if (uCheck.isObject(map.realMap)) {
-          map.points.create({
-            list: store.getters['event/pointsVisibleOnMap'],
-          });
-        }
-      });
+    const promise = store.dispatch('event/download');
+    promise.then(() => {
+      if (uCheck.isObject(map.realMap)) {
+        map.points.create({
+          list: store.getters['event/pointsVisibleOnMap'],
+        });
+      }
+    });
+    return promise;
 
   },
 };

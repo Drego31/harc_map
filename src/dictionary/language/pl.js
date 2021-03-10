@@ -40,6 +40,7 @@ export const pl = {
     remove: 'Usuń',
     copied: 'Skopiowano do schowka',
     hello: 'Cześć',
+    saved: 'Zapisano!',
   },
   form: {
     field: {
@@ -220,6 +221,7 @@ export const pl = {
     },
     addPoint: {
       success: 'Zapisanie danych punktu się powiodło.',
+      positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
   },
   features: {

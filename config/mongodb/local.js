@@ -99,7 +99,7 @@ db.users.insert({
   // Password: HarcMap1
   'password': 'f363cc9abf38511a7efd11554c346d6106bea3156e24f0322cb4659d3871baf1584a348916c43eaeca94e6fa0048d1a35905fa3dfd752c427a1b9993ab120bb9',
   'userEvents': [
-    'kO6f',
+    'ks6f',
   ],
   'accountType': 'admin',
   'accountIsActive': true,
@@ -135,7 +135,7 @@ db.users.insert({
   // Password: HarcMap1
   'password': 'f363cc9abf38511a7efd11554c346d6106bea3156e24f0322cb4659d3871baf1584a348916c43eaeca94e6fa0048d1a35905fa3dfd752c427a1b9993ab120bb9',
   'userEvents': [
-    'kO6f',
+    'ks6f',
   ],
   'accountType': 'common',
   'accountIsActive': true,
@@ -153,7 +153,7 @@ db.users.insert({
   // Password: HarcMap1
   'password': 'f363cc9abf38511a7efd11554c346d6106bea3156e24f0322cb4659d3871baf1584a348916c43eaeca94e6fa0048d1a35905fa3dfd752c427a1b9993ab120bb9',
   'userEvents': [
-    'kO6f',
+    'ks6f',
   ],
   'accountType': 'common',
   'accountIsActive': true,

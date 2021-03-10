@@ -1,11 +1,11 @@
 import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { MACROS } from 'utils/macros';
-import generateRandomString from 'utils/random';
+import { generateRandomStringWithoutSimilarChars } from 'vendors/random';
 import { ROUTES } from 'utils/macros/routes';
 
 const getDefaultState = () => ({
   isUpdateMode: false,
-  pointId: generateRandomString(4),
+  pointId: generateRandomStringWithoutSimilarChars(4),
   pointName: '',
   pointLongitude: null,
   pointLatitude: null,

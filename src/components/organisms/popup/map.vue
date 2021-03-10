@@ -69,7 +69,7 @@ export default {
           method: () => {
             this.$router.push({
               name: this.ROUTES.editPoint.name,
-              params: { pointId: this.data.find(d => d.icon === 'vpn_key').value },
+              params: { pointId: this.$store.getters['mapPopup/pointId'] },
             });
           },
         },
