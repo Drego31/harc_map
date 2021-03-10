@@ -31,3 +31,7 @@
 
   &.f-correct
     border-color: $color-primary
+
+  &[type=date], &[type=datetime-local]
+    &::-webkit-calendar-picker-indicator
+      +invert-if-dark

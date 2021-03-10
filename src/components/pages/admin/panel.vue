@@ -27,6 +27,7 @@ export default {
         ROUTES.scoreboard,
         ROUTES.editEvent,
         ROUTES.setMapPosition,
+        ROUTES.addNewPoint,
       ];
     },
   },

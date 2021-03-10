@@ -2,8 +2,10 @@ import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
+import { map } from 'map';
 import Cookies from 'js-cookie';
 import pointsModule from 'store/event/points';
+import { ROUTES } from 'utils/macros/routes';
 
 export default {
   namespaced: true,
@@ -41,6 +43,13 @@ export default {
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
     },
+    getPointPositionById: state => pointId => {
+      const point = state.points.find(point => point.pointId === pointId);
+      return {
+        pointLatitude: point.pointLatitude,
+        pointLongitude: point.pointLongitude,
+      };
+    },
     getPointByOlUid: state => pointOlUid => {
       return state.points.find(point => point.olUid === pointOlUid);
     },
@@ -57,7 +66,11 @@ export default {
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
     allCollectedPoints: state => state.points
       .filter(point => point.pointCollectionTime !== null),
+
     pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
+      const isEditPointPositionView = rootGetters['point/routeBackFromMap'].name === ROUTES.editPoint.name;
+      const editingPointId = isEditPointPositionView ? rootGetters['point/pointId'] : undefined;
+
       return state.points.filter(({
         pointId,
         pointCollectionTime,
@@ -65,8 +78,8 @@ export default {
         pointAppearanceTime,
         pointExpirationTime,
       }) => {
-        // Admin can see all points on map
-        if (permissions.checkIsAdmin()) return true;
+        // Admin can see all points on map except point in edit position mode
+        if (permissions.checkIsAdmin()) return pointId !== editingPointId;
 
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
@@ -113,6 +126,9 @@ export default {
         state.mapZoom = cookie.mapZoom;
       }
     },
+    addPoint: (state, point) => {
+      state.points.push(point);
+    },
     setDefaultMapPositionAndZoom: (state) => {
       state.mapLatitude = state.mapDefaultLatitude;
       state.mapLongitude = state.mapDefaultLongitude;
@@ -140,7 +156,10 @@ export default {
     removePoint: (state, point) => {
       Vue.delete(state.points, state.points.indexOf(point));
     },
-    setMapPosition: (state, { mapLatitude, mapLongitude }) => {
+    setMapPosition: (state, {
+      mapLatitude,
+      mapLongitude,
+    }) => {
       state.mapLatitude = mapLatitude;
       state.mapLongitude = mapLongitude;
     },
@@ -186,6 +205,28 @@ export default {
           .catch(error => {
             reject(error);
           });
+      });
+    },
+    addPoint (context, point, eventId = context.getters.eventId) {
+      return new Promise((resolve, reject) => {
+        api.addPoint({
+          point,
+          eventId,
+        })
+          .then(() => map.updateMapFeatures())
+          .then(resolve)
+          .catch(reject);
+      });
+    },
+    editPoint (context, point, eventId = context.getters.eventId) {
+      return new Promise((resolve, reject) => {
+        api.editPoint({
+          point,
+          eventId,
+        })
+          .then(() => map.updateMapFeatures())
+          .then(resolve)
+          .catch(reject);
       });
     },
     updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {

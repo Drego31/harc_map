@@ -12,7 +12,7 @@
         :disabled="disabled"
         :placeholder="label"
         :error="errors.length > 0"
-        :assist="errors[0]"
+        :assist="errors[0] || assist"
       />
     </validation-provider>
   </validation-observer>
@@ -31,6 +31,10 @@ export default {
     label: {
       type: String,
       default: 'E-mail',
+    },
+    assist: {
+      type: String,
+      default: '',
     },
   },
 };

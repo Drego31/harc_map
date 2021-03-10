@@ -150,6 +150,36 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.setPointPosition.path,
+    name: ROUTES.setPointPosition.name,
+    component: () => import('pages/admin/set-point-position.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.editPoint.path,
+    name: ROUTES.editPoint.name,
+    component: () => import('pages/admin/add-new-point.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: ROUTES.addNewPoint.path,
+    name: ROUTES.addNewPoint.name,
+    component: () => import('pages/admin/add-new-point.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
     path: '*',
     name: 'error',
     component: PError,
