@@ -1,5 +1,5 @@
 <template>
-  <div style="position:relative; z-index: 6">
+  <div class="f-relative f-z-index-6">
     <div class="m-pointer" :style="{backgroundColor: pointColor}"></div>
   </div>
 </template>

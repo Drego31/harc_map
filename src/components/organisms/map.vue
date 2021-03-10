@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%; position: relative">
+  <div class="f-relative f-height-100">
     <slot/>
     <div class="o-map" id="o-map"></div>
     <o-popup-map
