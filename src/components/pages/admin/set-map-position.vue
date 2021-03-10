@@ -1,5 +1,5 @@
 <template>
-  <t-page class="f-map">
+  <t-page class="f-map" :backRoute="ROUTES.editEvent">
     <o-admin-set-map-position/>
   </t-page>
 </template>

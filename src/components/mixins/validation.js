@@ -7,6 +7,8 @@ export const validationMixin = {
       userTeam: 'required|min:4',
       eventId: 'required|length:4',
       pointId: 'required|length:4',
+      required: 'required',
+      name: 'max:128',
       date: 'required',
     },
   }),
