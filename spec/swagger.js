@@ -7,6 +7,7 @@ const options = {
     './spec/swagger/components/responses.yaml',
     './spec/swagger/components/properties.yaml',
     './controllers/user/*',
+    './controllers/point/*',
     './controllers/eventPoint.js',
   ],
   definition: {
@@ -24,6 +25,9 @@ const options = {
     tags: [{
       name: 'User',
       description: 'User endpoint',
+    }, {
+      name: 'Point',
+      description: 'Point endpoint',
     }, {
       name: 'Event',
       description: 'Event endpoint',
