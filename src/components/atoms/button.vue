@@ -4,6 +4,7 @@
       class="a-button"
       :class="getClass"
       ref="button"
+      :type="type"
       :disabled="disabled"
     >
       <slot v-if="loading === false"/>
@@ -35,6 +36,10 @@ export default {
     loadingImg: {
       type: String,
       default: '',
+    },
+    type: {
+      type: String,
+      default: 'button',
     },
   },
   computed: {

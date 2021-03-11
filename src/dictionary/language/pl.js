@@ -15,6 +15,9 @@ export const pl = {
     editEvent: 'Edycja wydarzenia',
     setMapPosition: 'Ustawienia mapy',
     scoreboard: 'Tabela wyników',
+    setPointPosition: 'Lokalizacja punktu',
+    addNewPoint: 'Nowy punkt',
+    editPoint: 'Edycja punktu',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
@@ -27,6 +30,9 @@ export const pl = {
   general: {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
+    pointCategoryLevel: 'poziom',
+    pointTemporary: 'Czasowy',
+    pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
     alreadyCollectedShort: 'Zebraliście',
     hide: 'Ukryj',
@@ -34,6 +40,7 @@ export const pl = {
     remove: 'Usuń',
     copied: 'Skopiowano do schowka',
     hello: 'Cześć',
+    saved: 'Zapisano!',
   },
   form: {
     field: {
@@ -46,10 +53,17 @@ export const pl = {
       eventName: 'Nazwa wydarzenia',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
+      pointName: 'Nazwa punktu',
+      pointType: 'Typ punktu',
+      pointDateAndAppearanceTime: 'Data i czas pojawienia się punktu',
+      pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
+      pointCategory: 'Kategoria punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
+      eventEndDate: 'Data i czas zakończenia wydarzenia',
     },
     assist: {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
+      fieldNotRequired: 'Pole jest nieobowiązkowe',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -66,6 +80,7 @@ export const pl = {
       next: 'Dalej',
       goToLogin: 'Przejdź do logowania',
       setDefaultMapPositionAndZoom: 'Ustaw domyślną pozycję mapy',
+      setPointMapPosition: 'Ustaw lokalizację punktu',
     },
   },
   page: {
@@ -86,6 +101,9 @@ export const pl = {
       checkResults: 'Sprawdź swoje wyniki',
       alreadyCollected: 'Zebraliście już',
       nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
+      timeToEndEvent: 'Wydarzenie kończy się o ',
+      datetimeToEndEvent: 'Wydarzenie kończy się ',
+      eventFinished: 'Wydarzenie zostało zakończone!',
     },
     remindPassword: {
       content: `Wpisz swój e-mail, naciśnij przycisk „Dalej”, a my wyślemy 
@@ -130,6 +148,9 @@ export const pl = {
       setMapPosition: {
         content: 'Ustaw mapę w wybranej pozycji i zapisz.',
       },
+      setPointPosition: {
+        content: 'Ustaw punkt w wybranej pozycji i zapisz.',
+      },
       start: {
         message: 'Jesteś zalogowany jako administrator',
         editEvent: 'Edytuj wydarzenie',
@@ -150,10 +171,14 @@ export const pl = {
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
     getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
-    updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła',
-    collectPoint: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
+    updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła.',
+    eventEndDateIsEmpty: 'Data i czas zakończenia wydarzenia musi być uzupełniona.',
+    eventIsOutOfDate: 'Punkt nie został zebrany, ponieważ wydarzenie zostało zakończone.',
+    collectPoint: 'Zebranie punktu nie powiodło się przez błąd serwera.',
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
+    addPoint: 'Dodanie punktu nie powiodło się.',
+    editPoint: 'Edycja punktu nie powiodła się.',
     removePoint: 'Usuwanie punktu nie powiodło się przez błąd serwera.',
     pointIdOrEventIdNotExist: 'Kod punktu lub wydarzenia jest niepoprawny.',
 
@@ -190,6 +215,13 @@ export const pl = {
     },
     changePassword: {
       success: 'Twoje hasło zostało zmienione!',
+    },
+    editEvent: {
+      success: 'Zapisanie nowych danych wydarzenia się powiodło.',
+    },
+    addPoint: {
+      success: 'Zapisanie danych punktu się powiodło.',
+      positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
   },
   features: {

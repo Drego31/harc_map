@@ -11,7 +11,7 @@
         :placeholder="labels[0]"
         type="password"
         :error="errors.length > 0"
-        :assist="errors[0]"
+        :assist="errors[0] || assist"
         v-model="vModel"
       />
     </validation-provider>
@@ -25,7 +25,7 @@
         :placeholder="labels[1]"
         type="password"
         :error="errors.length > 0"
-        :assist="errors[0]"
+        :assist="errors[0] || assist"
         v-model="passwordConfirmation"
       />
     </validation-provider>
@@ -52,6 +52,10 @@ export default {
         translator.t('form.field.password'),
         translator.t('form.field.rePassword'),
       ],
+    },
+    assist: {
+      type: String,
+      default: '',
     },
   },
 };

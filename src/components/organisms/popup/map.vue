@@ -2,7 +2,7 @@
   <div ref="mapPopup" class="o-popup f-map">
     <a-icon-close-popup
       add-class="f-map"
-      size="20"
+      :size="20"
       @click="popup.hide()"
     />
     <div
@@ -26,7 +26,7 @@
     <div
       v-for="[key, button] of buttons.entries()"
       :key="'popup-map-button-' + key"
-      @click="button.method()"
+      @click="button.method(data.entries())"
       class="m-list-element f-popup"
     >
       <a-icon
@@ -50,7 +50,10 @@ import AIconClosePopup from 'atoms/icon/close-popup';
 
 export default {
   name: 'o-popup-map',
-  components: { AIconClosePopup, AIcon },
+  components: {
+    AIconClosePopup,
+    AIcon,
+  },
   data: () => ({
     popup: null,
   }),
@@ -63,7 +66,12 @@ export default {
         {
           icon: this.ICONS.edit,
           label: this.$t('general.edit'),
-          method: () => this.$router.push(this.ROUTES.adminPanel),
+          method: () => {
+            this.$router.push({
+              name: this.ROUTES.editPoint.name,
+              params: { pointId: this.$store.getters['mapPopup/pointId'] },
+            });
+          },
         },
         {
           icon: this.ICONS.delete,

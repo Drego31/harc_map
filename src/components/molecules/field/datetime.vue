@@ -18,7 +18,7 @@
 </template>
 
 <!-- USAGE EXAMPLE
-  <m-field-date
+  <m-field-datetime
     :label="$t('form.field.date')"
     v-model="date"
     :rules="rules.date"
@@ -32,7 +32,7 @@ import { mixins } from 'mixins/base';
 import moment from 'moment';
 
 export default {
-  name: 'm-field-date',
+  name: 'm-field-datetime',
   mixins: [mixins.vModel],
   components: { MInput },
   props: {
@@ -53,10 +53,12 @@ export default {
   computed: {
     vModel: {
       get () {
-        return moment(new Date(this.value)).format('YYYY-MM-DD');
+        if (this.value) return moment(new Date(this.value)).format('YYYY-MM-DDTHH:mm');
+        else return null;
       },
       set (value) {
-        this.$emit('input', moment(value, 'YYYY-MM-DD').valueOf());
+        if (value) this.$emit('input', moment(value, 'YYYY-MM-DDTHH:mm').valueOf());
+        else return null;
       },
     },
   },

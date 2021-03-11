@@ -7,6 +7,7 @@ import user from './user';
 import allUsers from './all-users';
 import header from './header';
 import popup from './popup';
+import point from './point';
 import mapPopup from './map-popup';
 import snackbar from './snackbar';
 
@@ -21,6 +22,7 @@ export const store = new Vuex.Store({
     allUsers,
     header,
     popup,
+    point,
     mapPopup,
     snackbar,
   },

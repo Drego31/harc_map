@@ -26,7 +26,7 @@ export default {
       return [
         { route: ROUTES.scoreboard },
         { route: ROUTES.editEvent },
-        { route: ROUTES.setMapPosition },
+        { route: ROUTES.addNewPoint },
         { url: '/point/all', label: 'Pobierz listę punktów' },
       ];
     },

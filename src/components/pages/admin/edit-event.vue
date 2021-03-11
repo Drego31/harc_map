@@ -1,14 +1,15 @@
 <template>
   <t-page>
     <o-form :on-submit="updateEvent">
-      <m-input
+      <m-field-text
         :disabled="blockForm"
-        :placeholder="$t('form.field.eventName')"
+        :label="$t('form.field.eventName')"
         v-model="values.eventName"
+        rules="max:45"
       />
-      <m-input
+      <m-field-text
         disabled
-        :placeholder="$t('form.field.eventId')"
+        :label="$t('form.field.eventId')"
         v-model="values.eventId"
         :assist="$t('form.assist.eventId')"
       />
@@ -17,43 +18,45 @@
         :placeholder="$t('form.field.mapRefreshTime')"
         v-model="values.mapRefreshTime"
       />
-      <div
-        class="f-text-center"
-        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
-        v-text="message"
+      <m-field-datetime
+        :label="$t('form.field.eventEndDate')"
+        v-model="values.eventEndDate"
+        :rules="rules.date"
       />
+      <a-button-secondary class="f-mt-0" @click="$router.push(ROUTES.setMapPosition)">
+        {{ $t('form.button.setDefaultMapPositionAndZoom') }}
+      </a-button-secondary>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
         :text="$t('form.button.save')"
       />
     </o-form>
-    <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)">
-      {{ $t('form.button.setDefaultMapPositionAndZoom') }}
-    </a-button-secondary>
   </t-page>
 </template>
 
 <script>
 import TPage from 'templates/page';
-import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
 import { mixins } from 'mixins/base';
 import { mapGetters } from 'vuex';
 import AButtonSecondary from 'atoms/button/secondary';
 import MSelect from 'molecules/select';
+import MFieldDatetime from 'molecules/field/datetime';
+import MFieldText from 'molecules/field/text';
 
 export default {
   name: 'p-admin-edit-event',
-  mixins: [mixins.form],
+  mixins: [mixins.form, mixins.validation],
   components: {
+    MFieldText,
+    MFieldDatetime,
     MSelect,
     TPage,
     AButtonSecondary,
     OForm,
     AButtonSubmit,
-    MInput,
   },
   data () {
     const minute = 60;
@@ -62,11 +65,11 @@ export default {
         eventName: '',
         eventId: '',
         mapRefreshTime: 60,
+        eventEndDate: null,
       },
       blockForm: false,
       isSending: false,
       isServerError: false,
-      message: '',
       options: [
         {
           label: '1 min',
@@ -91,6 +94,7 @@ export default {
     this.values.eventName = this.event.eventName;
     this.values.eventId = this.event.eventId;
     this.values.mapRefreshTime = this.event.mapRefreshTime;
+    this.values.eventEndDate = this.event.eventEndDate;
   },
   computed: {
     ...mapGetters('event', ['event', 'eventBasicInformation']),
@@ -101,18 +105,11 @@ export default {
         ...this.eventBasicInformation,
         eventName: this.values.eventName,
         mapRefreshTime: this.values.mapRefreshTime,
+        eventEndDate: this.values.eventEndDate,
       };
       this.$store.dispatch('event/updateEvent', updatedEvent)
-        .then(this.onEventUpdate)
+        .then(this.onSuccessOccurs)
         .catch(this.onErrorOccurs);
-    },
-    onEventUpdate () {
-      this.isServerError = false;
-      this.message = 'Zapisanie nowych danych wydarzenia się powiodło.';
-      setTimeout(() => this.clearMessage(), 3000);
-    },
-    clearMessage () {
-      this.message = '';
     },
   },
 };
