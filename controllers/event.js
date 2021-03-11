@@ -43,6 +43,7 @@ class PostRequestService extends Endpoint {
     const toSave = {
       eventId: json.eventId,
       eventName: json.eventName,
+      eventStartDate: json.eventStartDate,
       eventEndDate: json.eventEndDate,
       mapLongitude: json.mapLongitude,
       mapLatitude: json.mapLatitude,
@@ -75,6 +76,7 @@ class PutRequestService extends Endpoint {
     const toUpdate = {
       eventId: json.eventId,
       eventName: json.eventName,
+      eventStartDate: json.eventStartDate,
       eventEndDate: json.eventEndDate,
       mapLongitude: json.mapLongitude,
       mapLatitude: json.mapLatitude,

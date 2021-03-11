@@ -9,6 +9,7 @@ class PutRequestService extends Endpoint {
 
   databasePartValidateEvent (event) {
     this.makeThrowIf(event === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(event.eventStartDate > Date.now(), validateCodes.EVENT_BEFORE_START_DATE);
     this.makeThrowIf(event.eventEndDate < Date.now(), validateCodes.EVENT_IS_OUT_OF_DATE);
   }
 
