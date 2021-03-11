@@ -59,6 +59,7 @@ export const pl = {
       pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
       pointCategory: 'Kategoria punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
+      eventStartDate: 'Data i czas rozpoczęcia wydarzenia',
       eventEndDate: 'Data i czas zakończenia wydarzenia',
     },
     assist: {
@@ -172,6 +173,7 @@ export const pl = {
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
     getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
     updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła.',
+    eventStartDateIsEmpty: 'Data i czas rozpoczęcia wydarzenia musi być uzupełniona.',
     eventEndDateIsEmpty: 'Data i czas zakończenia wydarzenia musi być uzupełniona.',
     eventIsOutOfDate: 'Punkt nie został zebrany, ponieważ wydarzenie zostało zakończone.',
     collectPoint: 'Zebranie punktu nie powiodło się przez błąd serwera.',

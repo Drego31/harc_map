@@ -30,6 +30,10 @@ export const API_ERRORS = {
         [validateCodes.EVENT_END_DATE_IS_EMPTY],
         translator.t('apiError.eventEndDateIsEmpty'),
       ],
+      [
+        [validateCodes.EVENT_START_DATE_IS_EMPTY],
+        translator.t('apiError.eventStartDateIsEmpty'),
+      ],
     ],
   },
   collectPoint: {

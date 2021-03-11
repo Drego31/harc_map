@@ -80,6 +80,7 @@ export const eventController = {
   updateEvent ({
     eventId,
     eventName,
+    eventStartDate,
     eventEndDate,
     mapLongitude,
     mapLatitude,
@@ -92,6 +93,7 @@ export const eventController = {
       data: {
         eventId,
         eventName,
+        eventStartDate,
         eventEndDate,
         mapLongitude,
         mapLatitude,
