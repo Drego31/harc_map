@@ -176,6 +176,7 @@ export const pl = {
     eventStartDateIsEmpty: 'Data i czas rozpoczęcia wydarzenia musi być uzupełniona.',
     eventEndDateIsEmpty: 'Data i czas zakończenia wydarzenia musi być uzupełniona.',
     eventIsOutOfDate: 'Punkt nie został zebrany, ponieważ wydarzenie zostało zakończone.',
+    eventBeforeStart: 'Punkt nie został zebrany, ponieważ wydarzenie nie zostało rozpoczęte.',
     collectPoint: 'Zebranie punktu nie powiodło się przez błąd serwera.',
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',

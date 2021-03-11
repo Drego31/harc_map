@@ -54,6 +54,10 @@ export const API_ERRORS = {
         [validateCodes.EVENT_IS_OUT_OF_DATE],
         translator.t('apiError.eventIsOutOfDate'),
       ],
+      [
+        [validateCodes.EVENT_BEFORE_START_DATE],
+        translator.t('apiError.eventBeforeStart'),
+      ],
     ],
   },
   addPoint: {
