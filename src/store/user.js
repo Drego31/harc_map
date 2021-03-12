@@ -60,8 +60,7 @@ export default {
         context.dispatch('event/download', undefined, { root: true })
           .then(() => {
             autoUpdate.run();
-            throw new ErrorMessage('Coś');
-            // resolve();
+            resolve();
           })
           .catch(() => {
             context.dispatch('signOut').catch(() => undefined);
