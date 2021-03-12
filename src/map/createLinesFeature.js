@@ -6,6 +6,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Stroke, Style } from 'ol/style';
 import { mapConfig } from 'map/config';
+import { ErrorMessage } from 'utils/error-message';
 
 const getLineStyle = () => {
   return new Style({
@@ -25,7 +26,7 @@ export function createLinesFeature ({ list = [] }) {
   if (mapConfig.lineConnectingPoints.visible === false) return false;
   if (notEnoughPoints) return false;
   if (mapIsNotDefined) {
-    console.error(new Error('Map is undefined'));
+    console.error(new ErrorMessage('Map is undefined'));
     return false;
   }
 

@@ -67,7 +67,7 @@ export default {
           this.isSending = false;
           this.blockForm = false;
         })
-        .catch(() => this.onErrorOccurs(new ErrorMessage(ERRORS.dataAfterSignIn)));
+        .catch(() => this.onErrorOccurs(new ErrorMessage(ERRORS.dataAfterSignIn, { hard: true })));
     },
     signIn () {
       this.isSending = true;
