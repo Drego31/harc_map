@@ -2,9 +2,9 @@ const database = require('../lib/mongodb');
 const utils = require('../lib/utils');
 
 function removePointCategories () {
-  return database.remove('point_categories_kO6f', { categoryId: { $in: [1, 2, 3] } })
+  return database.remove('point_categories_ks6f', { categoryId: { $in: [1, 2, 3] } })
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log(error.toString());
@@ -12,18 +12,18 @@ function removePointCategories () {
 }
 
 function removeEvents () {
-  return database.remove('events', { eventId: 'kO6f' })
+  return database.remove('events', { eventId: 'ks6f' })
     .then(result => {
-      console.log(result);
+      // console.log(result);
     }).catch(error => {
       console.log(error.toString());
     });
 }
 
 function removeEventPoints () {
-  return database.remove('event_kO6f', {})
+  return database.remove('event_ks6f', {})
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log(error.toString());
@@ -36,27 +36,31 @@ function createPointCategories () {
       categoryId: 0,
       pointValue: 0,
       pointShape: 0,
+      pointType: 'timeout',
     },
     {
       categoryId: 1,
       pointValue: 1,
       pointShape: 1,
+      pointType: 'permanent',
     },
     {
       categoryId: 2,
       pointValue: 2,
       pointShape: 2,
+      pointType: 'permanent',
     },
     {
       categoryId: 3,
       pointValue: 3,
       pointShape: 3,
+      pointType: 'permanent',
     },
   ];
 
-  return database.create('point_categories_kO6f', categories)
+  return database.create('point_categories_ks6f', categories)
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log('error');
@@ -66,16 +70,19 @@ function createPointCategories () {
 
 function createEvent () {
   const event = {
-    eventId: 'kO6f',
+    eventId: 'ks6f',
     eventName: 'Rajd „Tajna Lilijka”',
+    eventStartDate: Date.now() - 1000 * 60 * 60, // - 1h
+    eventEndDate: Date.now() + 1000 * 60 * 60 * 24 * 2, // + 24h * 2
     mapZoom: 11,
     mapLongitude: 18.4735,
     mapLatitude: 54.4787,
+    mapRefreshTime: 60 * 15,
   };
 
   return database.create('events', [event])
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log('error');
@@ -83,25 +90,42 @@ function createEvent () {
     });
 }
 
+function generateUniqueId (storeArray, length) {
+  let generatedId = utils.generateRandomStringWithoutSimilarChars(length);
+
+  // is unique
+  if (storeArray.indexOf(generatedId) < 0) {
+    storeArray.push(generatedId);
+  } else {
+    console.error('conflict:', generatedId);
+    generatedId = generateUniqueId(storeArray);
+    console.error('conflict new:', generatedId);
+  }
+
+  return generatedId;
+}
+
 function createEventPoints () {
   const permanentPoints = require('../points').pointsForDatabase();
   const temporaryPoints = require('../temporary-points').temporaryPointsForDatabase();
   const readyPoints = [];
   const points = permanentPoints.concat(temporaryPoints);
+  const pointsIds = [];
 
   Object.keys(points).forEach(index => {
     const point = points[index];
-    point.pointId = utils.generateRandomString(4);
+    point.pointId = generateUniqueId(pointsIds, 4);
     point.pointType = point.pointType || 'permanent';
-    point.pointName = point.pointName || 'Empty';
+    point.pointName = point.pointName || '';
+    point.pointAppearanceTime = point.pointAppearanceTime || null;
     point.pointExpirationTime = point.pointExpirationTime || null;
     point.pointCollectionTime = null;
     readyPoints.push(point);
   });
 
-  return database.create('event_kO6f', readyPoints)
+  return database.create('event_ks6f', readyPoints)
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(error => {
       console.log('error');

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import { store } from 'store';
 import { ROUTES } from 'utils/macros/routes';
-import { api } from 'api/index';
+import { api } from 'api';
 import { promise } from 'utils/promise';
 import { routes } from './routes';
 
@@ -18,7 +18,6 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   let promise;
-
   if (firstRun) {
     firstRun = false;
     promise = makeFirstRun();
@@ -53,11 +52,20 @@ function makeFirstRun () {
 
 function redirectIfNotAuth (to, from, next) {
   const isLogin = store.getters['user/isLogin'] === true;
+  const adminRequired = to.meta.adminOnly === true;
+  const isAdmin = permissions.checkIsAdmin();
 
   if (to === from) {
     next(false);
   }
-
+  if (adminRequired && isAdmin === false) {
+    if (isLogin) {
+      next(ROUTES.start.path);
+    } else {
+      next(ROUTES.welcome.path);
+    }
+    return;
+  }
   if (isLogin) {
     if (to.meta.onlyBeforeLogin) {
       next(ROUTES.start.path);

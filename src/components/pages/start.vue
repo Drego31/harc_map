@@ -1,36 +1,27 @@
 <template>
-  <t-page title="Start" class="f-start">
-    <o-start></o-start>
-    <div class="f-p-2">
-      <a-button-primary
-        class="f-fill f-mt-3 f-mb-4"
-        @click="$router.push(ROUTES.map.path)"
-      >
-        Rozpocznij poszukiwania!
-      </a-button-primary>
-      <a-button-secondary
-        class="f-fill"
-        @click="$router.push(ROUTES.collectedPoints.path)"
-      >
-        Sprawdź swoje wyniki
-      </a-button-secondary>
-    </div>
-  </t-page>
+  <t-start>
+    <template slot="buttons">
+      <a-button-fill-primary @click="$router.push(ROUTES.map.path)">
+        {{ $t('page.start.search') }}
+      </a-button-fill-primary>
+      <a-button-fill-secondary @click="$router.push(ROUTES.collectedPoints.path)">
+        {{ $t('page.start.checkResults') }}
+      </a-button-fill-secondary>
+    </template>
+  </t-start>
 </template>
 
 <script>
-import TPage from 'templates/page';
-import OStart from 'organisms/start';
-import AButtonPrimary from 'atoms/button/primary';
-import AButtonSecondary from 'atoms/button/secondary';
+import AButtonFillSecondary from 'atoms/button/fill/secondary';
+import AButtonFillPrimary from 'atoms/button/fill/primary';
+import TStart from 'templates/start';
 
 export default {
   name: 'p-start',
   components: {
-    AButtonSecondary,
-    AButtonPrimary,
-    TPage,
-    OStart,
+    TStart,
+    AButtonFillPrimary,
+    AButtonFillSecondary,
   },
 };
 </script>

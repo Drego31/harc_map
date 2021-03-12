@@ -11,12 +11,10 @@
   margin: 0
   background-color: transparent
   color: inherit
-  transition-property: all
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1)
-  transition-duration: 200ms
+  @extend %field-animation
 
   &:disabled
-    border-color: $color-disabled
+    opacity: 0.5
 
   &:focus, &:focus-within, &.f-correct, &.f-error
     padding: 14px
@@ -32,4 +30,8 @@
     padding-right: 52px
 
   &.f-correct
-    border-color: $color-correct
+    border-color: $color-primary
+
+  &[type=date], &[type=datetime-local]
+    &::-webkit-calendar-picker-indicator
+      +invert-if-dark

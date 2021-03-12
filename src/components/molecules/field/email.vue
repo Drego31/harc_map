@@ -11,7 +11,7 @@
         :disabled="disabled"
         :placeholder="label"
         :error="errors.length > 0"
-        :assist="errors[0]"
+        :assist="errors[0] || assist"
       />
     </validation-provider>
   </validation-observer>
@@ -20,6 +20,7 @@
 <script>
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
+import { translator } from 'src/dictionary';
 
 export default {
   name: 'm-field-email',
@@ -29,7 +30,11 @@ export default {
     disabled: Boolean,
     label: {
       type: String,
-      default: 'E-mail',
+      default: translator.t('form.field.email'),
+    },
+    assist: {
+      type: String,
+      default: '',
     },
   },
 };

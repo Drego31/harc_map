@@ -1,31 +1,30 @@
-import { store } from 'store';
+import moment from 'moment';
 import { map } from 'map';
-import { uCheck } from '@dbetka/utils';
+import { ErrorMessage } from 'utils/error-message';
 
-const intervalTime = 60 * 1000; // 60s
+const oneSecond = 1000;
+const intervalTime = 60 * oneSecond;
 let intervalID = null;
-
-function intervalMethod () {
-  store.dispatch('event/download')
-    .then(() => {
-      if (uCheck.isObject(map.realMap)) {
-        map.points.create({
-          list: this.$store.getters['event/notCollectedPoints'],
-        });
-      }
-    })
-    .catch(() => undefined);
-}
+let timeoutID = null;
 
 export const autoUpdate = {
   run () {
-    intervalID = setInterval(intervalMethod, intervalTime);
+    const secondsToFullMinute = 60 - Number(moment().format('s'));
+    timeoutID = setTimeout(() => {
+      autoUpdate.once();
+      intervalID = setInterval(
+        autoUpdate.once,
+        intervalTime);
+    }, secondsToFullMinute * oneSecond);
   },
   once () {
-    intervalMethod();
+    map.updateMapFeatures()
+      .catch((error) => (new ErrorMessage(error)).showMessage());
   },
   stop () {
+    clearTimeout(timeoutID);
     clearInterval(intervalID);
+    timeoutID = null;
     intervalID = null;
   },
 };

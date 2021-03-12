@@ -5,18 +5,23 @@
 </template>
 
 <script>
+import { ROUTES } from 'utils/macros/routes';
+
 export default {
   name: 't-page',
   props: {
-    title: {
-      type: String,
-      required: true,
+    backRoute: {
+      type: Object,
+      default: () => ({ name: '' }),
     },
   },
   mounted () {
-    this.$store.commit('header/setPageTitle', this.title);
-    if (this.title) {
-      document.title = `${this.title} - ${APP_NAME}`;
+    const route = ROUTES[this.$router.currentRoute.name] || {};
+    const title = route.label;
+    this.$store.commit('header/setPageTitle', title);
+    this.$store.commit('header/setBackRouteName', this.backRoute);
+    if (title) {
+      document.title = `${title} - ${APP_NAME}`;
     } else {
       document.title = APP_NAME;
     }

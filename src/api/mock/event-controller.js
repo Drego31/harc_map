@@ -6,7 +6,7 @@ import { getPointsByEventIdMock } from 'api/mock/mockMethods/get-points';
 import { MapPoint } from 'src/structures/map-point';
 
 export const eventController = {
-  getEventById (eventId) {
+  getEventById ({ eventId }) {
     if (eventId) {
       return makeDelayFakeAnswer(() => getEventByIdMock(eventId));
     } else {
@@ -28,6 +28,11 @@ export const eventController = {
       error: null,
       user: user,
       pointCollectionTime: 1596649311754, // Wed Aug 05 2020 19:41:51 GMT+0200 (Central European Summer Time)
+    }));
+  },
+  removePoint ({ eventId, pointId }) {
+    return makeDelayFakeAnswer(() => ({
+      error: null,
     }));
   },
 };

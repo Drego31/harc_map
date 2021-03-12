@@ -11,7 +11,7 @@
         :placeholder="labels[0]"
         type="password"
         :error="errors.length > 0"
-        :assist="errors[0]"
+        :assist="errors[0] || assist"
         v-model="vModel"
       />
     </validation-provider>
@@ -25,7 +25,7 @@
         :placeholder="labels[1]"
         type="password"
         :error="errors.length > 0"
-        :assist="errors[0]"
+        :assist="errors[0] || assist"
         v-model="passwordConfirmation"
       />
     </validation-provider>
@@ -35,6 +35,7 @@
 <script>
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
+import { translator } from 'src/dictionary';
 
 export default {
   name: 'm-field-set-password',
@@ -48,9 +49,13 @@ export default {
     labels: {
       type: Array,
       default: () => [
-        'Hasło',
-        'Powtórz hasło',
+        translator.t('form.field.password'),
+        translator.t('form.field.rePassword'),
       ],
+    },
+    assist: {
+      type: String,
+      default: '',
     },
   },
 };

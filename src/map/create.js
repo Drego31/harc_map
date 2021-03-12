@@ -5,11 +5,9 @@ import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
-import { apply } from 'ol-mapbox-style';
-import { store } from 'store/index';
+import { store } from 'store';
 import { Attribution, defaults as defaultControls } from 'ol/control';
 import { mapConfig } from 'map/config';
-import { uCheck } from '@dbetka/utils';
 
 export function createMap (map, config) {
   const {
@@ -47,13 +45,10 @@ function addMapTilesSuitToTheme (map) {
   const theme = store.getters['theme/name'];
   const source = mapConfig.sources[theme];
 
-  if (uCheck.isObject(source)) {
-    map.realMap.addLayer(
-      new TileLayer({
-        source: source,
-      }),
-    );
-  } else if (uCheck.isString(source)) {
-    apply(map.realMap, mapConfig.sources.dark);
-  }
+  map.realMap.addLayer(
+    new TileLayer({
+      className: theme + '-map-layer',
+      source: source,
+    }),
+  );
 }

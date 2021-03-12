@@ -8,7 +8,7 @@
 import { getMinutesAsString, getSecondsAsString } from 'utils/date';
 
 export default {
-  name: 'clock.vue',
+  name: 'm-clock',
 
   data: () => ({
     hours: 0,

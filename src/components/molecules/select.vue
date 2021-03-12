@@ -3,8 +3,7 @@
     <div
       class="a-field f-select"
       :class="additionalClasses"
-      @click="toggleOptions"
-      v-click-outside="closeOptions"
+      @click="makeFocus($event)"
     >
       <input
         :id="id"
@@ -13,7 +12,9 @@
         ref="input"
         :value="label"
         readonly
-        @focusout="closeOptions"
+        @click="focusIn"
+        @focusin="focusIn"
+        @focusout="focusOut"
         @keyup.esc.prevent="closeOptions"
         @keyup.enter.space.prevent="chooseAndToggleOptions"
         @keyup.up.prevent="optionUp"
@@ -28,9 +29,9 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="ICONS.cancel"
+      :name="ICONS.arrow_drop_down"
       class="f-input"
-      @click.stop="focusAndToggle"
+      @click.stop="makeFocus($event)"
     />
     <div
       class="m-options"
@@ -48,8 +49,22 @@
         {{ option.label }}
       </div>
     </div>
+    <div
+      class="a-assist"
+      :class="{ 'f-error': error, 'f-disabled': disabled}"
+    >
+      {{ assist }}
+    </div>
   </div>
 </template>
+
+<!-- USAGE EXAMPLE
+  <m-select
+    :options="[{label: '5 min', value: 5 * 60}]"
+    :placeholder="$t('form.field.mapRefreshTime')"
+    v-model="values.mapRefreshTime"
+  />
+-->
 
 <script>
 import { mixins } from 'mixins/base';
@@ -66,6 +81,10 @@ export default {
     /**
      * options: [{label: String, value: String}]
      */
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     options: {
       type: Array,
       required: true,
@@ -81,6 +100,10 @@ export default {
     correct: {
       type: Boolean,
       default: false,
+    },
+    assist: {
+      type: String,
+      default: '',
     },
   },
   data: () => ({
@@ -108,6 +131,18 @@ export default {
     },
   },
   methods: {
+    focusIn () {
+      clearTimeout(this.$options.timeoutId);
+      this.$options.timeoutId = setTimeout(() => {
+        this.toggleOptions(true);
+      }, 100);
+    },
+    focusOut () {
+      clearTimeout(this.$options.timeoutId);
+      this.$options.timeoutId = setTimeout(() => {
+        this.toggleOptions(false);
+      }, 100);
+    },
     resetPointedOption (value = this.vModel) {
       if (logical.isNull(value)) {
         this.pointedOption = -1;
@@ -115,9 +150,9 @@ export default {
         this.pointedOption = this.options.findIndex(option => option.value === value);
       }
     },
-    focusAndToggle () {
+    makeFocus (event) {
+      event.preventDefault();
       this.$refs.input.focus();
-      this.toggleOptions();
     },
     closeOptions (config = { resetPointedOption: true }) {
       return new Promise((resolve) => {
@@ -130,8 +165,9 @@ export default {
         });
       });
     },
-    toggleOptions () {
-      this.optionsAreOpen = this.optionsAreOpen === false;
+    toggleOptions (newState) {
+      const oppositeState = this.optionsAreOpen === false;
+      this.optionsAreOpen = newState !== undefined ? newState : oppositeState;
       this.resetPointedOption();
 
       if (this.optionsAreOpen) {
@@ -147,7 +183,10 @@ export default {
         this.optionsAreOutsideWindow = false;
       }
     },
-    chooseOption ({ value, index }) {
+    chooseOption ({
+      value,
+      index,
+    }) {
       if (logical.isDefined(index)) {
         value = this.options[index].value;
       }

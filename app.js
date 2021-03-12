@@ -19,6 +19,7 @@ const path = require('path');
 const passportConfig = require('./lib/passportConfig');
 const connectionString = require('./lib/mongodb').connectionString;
 const appConfig = utils.getSystemConfig().app;
+const permissions = require('./middleware/permissions');
 
 // Swagger
 const swaggerUi = require('swagger-ui-express');
@@ -26,7 +27,8 @@ const specs = require('./spec/swagger.js');
 // const swaggerDocument = require('./swagger.json');
 
 // Controllers
-const userController = require('./controllers/user');
+const userController = require('./controllers/user/index');
+const pointController = require('./controllers/point/index');
 const eventController = require('./controllers/event');
 const eventPointController = require('./controllers/eventPoint');
 const eventPointsController = require('./controllers/eventPoints');
@@ -74,6 +76,9 @@ app.use(expressSession(Object.assign(sessionConfig, {
 app.use(passport.initialize());
 app.use(passport.session());
 
+// access middleware - permissions
+app.use(permissions);
+
 passport.serializeUser(passportConfig.serializeUser);
 passport.deserializeUser(passportConfig.deserializeUser);
 passportConfig.setStrategy(passport);
@@ -92,6 +97,7 @@ app.use(express.static('vendors', {
 
 // user controller
 app.use('/user', userController);
+app.use('/point', pointController);
 app.use('/event', eventController);
 app.use('/event/point', eventPointController);
 app.use('/event/points', eventPointsController);
