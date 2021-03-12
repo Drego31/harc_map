@@ -1,19 +1,20 @@
-import { store } from 'store';
+import moment from 'moment';
 
 export const eventUtils = {
-  checkIfIsBeforeStart ({ eventStartDate = store.getters['event/eventStartDate'] }) {
+  checkIfIsBeforeStart ({ eventStartDate }) {
     return eventStartDate > Date.now();
   },
-  checkIfIsAfterStart ({ eventStartDate = store.getters['event/eventStartDate'] }) {
+  checkIfIsAfterStart ({ eventStartDate }) {
     return eventStartDate < Date.now();
   },
-  checkIfIsOnGoing ({
-    eventStartDate = store.getters['event/eventStartDate'],
-    eventEndDate = store.getters['event/eventEndDate'],
-  }) {
+  checkIfIsOnGoing ({ eventStartDate, eventEndDate }) {
     return eventStartDate < Date.now() && Date.now() < eventEndDate;
   },
-  checkIfIsOutOfDate ({ eventEndDate = store.getters['event/eventEndDate'] }) {
+  checkIfIsOutOfDate ({ eventEndDate }) {
     return eventEndDate < Date.now();
+  },
+  checkIfEndDateIsToday ({ eventEndDate }) {
+    const eventEndDateMoment = moment(new Date(eventEndDate));
+    return eventEndDateMoment.diff(moment(), 'days') === 0;
   },
 };
