@@ -103,7 +103,7 @@ export const pl = {
       alreadyCollected: 'Zebraliście już',
       eventEndTime: 'Wydarzenie kończy się o ',
       eventEndDate: 'Wydarzenie kończy się ',
-      eventStartDate: 'Wydarzenie rozpocznie się ',
+      eventStartDate: 'Wydarzenie zaczynie się ',
       eventIsOutOfDate: 'Wydarzenie zostało zakończone!',
     },
     remindPassword: {
@@ -132,6 +132,9 @@ export const pl = {
       content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
         i wpisz do poniższego pola tekstowego kod z koperty znajdującej się 
         na miejscu. Następnie wciśnij przycisk „Dalej”.`,
+    },
+    timeoutPoints: {
+      noResults: 'Brak aktywnych punktów!',
     },
     changePassword: {
       content: `Żeby zmienić swoje hasło, wpisz nowe hasło w poniższe pola, 
