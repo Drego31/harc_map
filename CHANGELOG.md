@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Edit event view
 - Show collected point on map
 ### Fixed
+- Correct error messages on sign in
 - Point id should be easy to read
 - Make point id unique
 - Collecting point with wrong point id makes pending
