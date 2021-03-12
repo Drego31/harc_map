@@ -10,13 +10,14 @@ import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 import { colorsUtils } from 'utils/colors';
+import { ErrorMessage } from 'utils/error-message';
 
 export function createFeatures ({ list = [] }) {
   const mapIsNotDefined = uCheck.isNotObject(map.realMap);
   const listOfFeatures = [];
 
   if (mapIsNotDefined) {
-    console.error(new Error('Map is undefined'));
+    console.error(new ErrorMessage('Map is undefined'));
     return false;
   }
 
