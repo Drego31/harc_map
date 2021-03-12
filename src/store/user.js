@@ -64,7 +64,7 @@ export default {
           })
           .catch(() => {
             context.dispatch('signOut').catch(() => undefined);
-            reject(new ErrorMessage(ERRORS.signIn));
+            reject(new ErrorMessage(ERRORS.signIn, { hard: true }));
           });
       });
     },
@@ -77,8 +77,8 @@ export default {
             resolve();
           })
           .catch(() => {
-            const error = new ErrorMessage('Method signOut on server side went wrong');
-            error.showMessage(ERRORS.signOut);
+            const error = new ErrorMessage(ERRORS.signOut);
+            error.showMessage();
             reject(error);
           });
       });

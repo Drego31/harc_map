@@ -35,7 +35,7 @@ export const styleManager = {
         sheets[sheetName].disabled = name !== sheetName;
       });
     } else {
-      throw new Error('This styleSheet does not exist');
+      throw new ErrorMessage('This styleSheet does not exist');
     }
   },
   switchTo: {
