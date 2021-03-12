@@ -6,7 +6,7 @@
       :styles-for-images="panelStylesForImages"
     >
       <div>
-        {{ timeToEndEvent }}
+        {{ mainMessage }}
       </div>
     </m-panel>
 
@@ -21,6 +21,7 @@ import TPage from 'templates/page';
 import MPanel from 'molecules/panel';
 import { mapGetters } from 'vuex';
 import { THEMES } from 'utils/style-manager';
+import { eventUtils } from 'utils/event';
 import moment from 'moment';
 
 export default {
@@ -30,17 +31,19 @@ export default {
     TPage,
   },
   data: () => ({
-    timeToEndEvent: '',
+    mainMessage: '',
   }),
   mounted () {
-    this.updateTimeToEndEvent();
-    setInterval(this.updateTimeToEndEvent, 1000 * 60);
+    this.updateMainMessage();
+    this.$options.interval = setInterval(this.updateMainMessage, 1000 * 60);
   },
   computed: {
     ...mapGetters('event', [
       'eventName',
-      'eventEndDate',
     ]),
+    ...mapGetters('event', {
+      event: 'eventBasicInformation',
+    }),
     panelImages () {
       const images = {};
       images[THEMES.dark] = '/img/compass.jpg';
@@ -55,21 +58,30 @@ export default {
     },
   },
   methods: {
-    updateTimeToEndEvent () {
-      const eventEndDate = moment(this.eventEndDate);
-      const now = moment();
-      const days = eventEndDate.diff(now, 'days');
-      const minutes = eventEndDate.diff(now, 'minutes');
-      if (minutes <= 0) {
-        this.timeToEndEvent = this.$t('page.start.eventFinished');
-      } else {
-        if (days > 0) {
-          this.timeToEndEvent = this.$t('page.start.datetimeToEndEvent') + eventEndDate.format('DD.MM.YYYY HH:mm');
-        } else {
-          this.timeToEndEvent = this.$t('page.start.timeToEndEvent') + eventEndDate.format('HH:mm');
-        }
-      }
+    updateMainMessage () {
+      this.mainMessage = this.createMainMessage();
     },
+    createMainMessage () {
+      const datetimeFormat = 'DD.MM.YYYY HH:mm';
+      const timeFormat = 'HH:mm';
+      const eventStartDate = moment(new Date(this.event.eventStartDate));
+      const eventEndDate = moment(new Date(this.event.eventEndDate));
+
+      if (eventUtils.checkIfIsBeforeStart(this.event)) {
+        return this.$t('page.start.eventStartDate') + eventStartDate.format(datetimeFormat);
+      }
+
+      if (eventUtils.checkIfIsOnGoing(this.event)) {
+        if (eventUtils.checkIfEndDateIsToday(this.event)) {
+          return this.$t('page.start.eventEndTime') + eventEndDate.format(timeFormat);
+        }
+        return this.$t('page.start.eventEndDate') + eventEndDate.format(datetimeFormat);
+      }
+      return this.$t('page.start.eventIsOutOfDate');
+    },
+  },
+  beforeDestroy () {
+    clearInterval(this.$options.interval);
   },
 };
 </script>

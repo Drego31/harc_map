@@ -59,6 +59,7 @@ export const pl = {
       pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
       pointCategory: 'Kategoria punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
+      eventStartDate: 'Data i czas rozpoczęcia wydarzenia',
       eventEndDate: 'Data i czas zakończenia wydarzenia',
     },
     assist: {
@@ -100,10 +101,10 @@ export const pl = {
       search: 'Rozpocznij poszukiwania!',
       checkResults: 'Sprawdź swoje wyniki',
       alreadyCollected: 'Zebraliście już',
-      nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
-      timeToEndEvent: 'Wydarzenie kończy się o ',
-      datetimeToEndEvent: 'Wydarzenie kończy się ',
-      eventFinished: 'Wydarzenie zostało zakończone!',
+      eventEndTime: 'Wydarzenie kończy się o ',
+      eventEndDate: 'Wydarzenie kończy się ',
+      eventStartDate: 'Wydarzenie zaczynie się ',
+      eventIsOutOfDate: 'Wydarzenie zostało zakończone!',
     },
     remindPassword: {
       content: `Wpisz swój e-mail, naciśnij przycisk „Dalej”, a my wyślemy 
@@ -131,6 +132,9 @@ export const pl = {
       content: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie
         i wpisz do poniższego pola tekstowego kod z koperty znajdującej się 
         na miejscu. Następnie wciśnij przycisk „Dalej”.`,
+    },
+    timeoutPoints: {
+      noResults: 'Brak aktywnych punktów!',
     },
     changePassword: {
       content: `Żeby zmienić swoje hasło, wpisz nowe hasło w poniższe pola, 
@@ -172,8 +176,10 @@ export const pl = {
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
     getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
     updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła.',
+    eventStartDateIsEmpty: 'Data i czas rozpoczęcia wydarzenia musi być uzupełniona.',
     eventEndDateIsEmpty: 'Data i czas zakończenia wydarzenia musi być uzupełniona.',
     eventIsOutOfDate: 'Punkt nie został zebrany, ponieważ wydarzenie zostało zakończone.',
+    eventBeforeStart: 'Punkt nie został zebrany, ponieważ wydarzenie nie zostało rozpoczęte.',
     collectPoint: 'Zebranie punktu nie powiodło się przez błąd serwera.',
     pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',

@@ -8,7 +8,8 @@ db = db.getSiblingDB('harcmap');
 db.events.insert({
   'eventId': 'ab12',
   'eventName': 'HarcEvent',
-  'eventEndDate': Date.now() + 1000 * 60 * 60 * 24 * 2, // 24h * 2
+  'eventStartDate': Date.now() - 1000 * 60 * 60, // - 1h
+  'eventEndDate': Date.now() + 1000 * 60 * 60 * 24 * 2, // + 24h * 2
   'mapZoom': NumberInt(11),
   'mapLongitude': 18.4735,
   'mapLatitude': 54.4787,

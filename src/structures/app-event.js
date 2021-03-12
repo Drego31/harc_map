@@ -2,6 +2,7 @@ export class AppEvent {
   constructor ({
     eventId = '',
     eventName = '',
+    eventStartDate = null,
     eventEndDate = null,
     mapLatitude,
     mapLongitude,
@@ -10,6 +11,7 @@ export class AppEvent {
   }) {
     this.eventId = eventId;
     this.eventName = eventName;
+    this.eventStartDate = eventStartDate;
     this.eventEndDate = eventEndDate;
     this.mapLatitude = mapLatitude;
     this.mapLongitude = mapLongitude;

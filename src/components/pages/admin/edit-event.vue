@@ -19,6 +19,11 @@
         v-model="values.mapRefreshTime"
       />
       <m-field-datetime
+        :label="$t('form.field.eventStartDate')"
+        v-model="values.eventStartDate"
+        :rules="rules.date"
+      />
+      <m-field-datetime
         :label="$t('form.field.eventEndDate')"
         v-model="values.eventEndDate"
         :rules="rules.date"
@@ -65,6 +70,7 @@ export default {
         eventName: '',
         eventId: '',
         mapRefreshTime: 60,
+        eventStartDate: null,
         eventEndDate: null,
       },
       blockForm: false,
@@ -94,6 +100,7 @@ export default {
     this.values.eventName = this.event.eventName;
     this.values.eventId = this.event.eventId;
     this.values.mapRefreshTime = this.event.mapRefreshTime;
+    this.values.eventStartDate = this.event.eventStartDate;
     this.values.eventEndDate = this.event.eventEndDate;
   },
   computed: {
@@ -105,6 +112,7 @@ export default {
         ...this.eventBasicInformation,
         eventName: this.values.eventName,
         mapRefreshTime: this.values.mapRefreshTime,
+        eventStartDate: this.values.eventStartDate,
         eventEndDate: this.values.eventEndDate,
       };
       this.$store.dispatch('event/updateEvent', updatedEvent)
