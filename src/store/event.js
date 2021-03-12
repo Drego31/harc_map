@@ -6,6 +6,7 @@ import { map } from 'map';
 import Cookies from 'js-cookie';
 import pointsModule from 'store/event/points';
 import { ROUTES } from 'utils/macros/routes';
+import { eventUtils } from 'utils/event';
 
 export default {
   namespaced: true,
@@ -182,9 +183,11 @@ export default {
           .then(api.getCategoriesByEventId)
           .then(categories => {
             event.categories = categories;
-            return event;
           })
-          .then(api.getPointsByEventId)
+          .then(() => {
+            if (eventUtils.checkIfIsBeforeStart(event)) return [];
+            else return api.getPointsByEventId(event);
+          })
           .then(points => {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);
