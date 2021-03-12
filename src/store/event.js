@@ -185,7 +185,9 @@ export default {
             event.categories = categories;
           })
           .then(() => {
-            if (eventUtils.checkIfIsBeforeStart(event)) return [];
+            const IsBeforeStart = eventUtils.checkIfIsBeforeStart(event);
+            const IsCommonUser = permissions.checkIsCommon();
+            if (IsBeforeStart && IsCommonUser) return [];
             else return api.getPointsByEventId(event);
           })
           .then(points => {
