@@ -122,14 +122,13 @@ function middlewareCall (request, response, next) {
   const middleware = new PermissionsMiddleware(request, response);
   if (middleware.validate()) {
     next();
-    return;
+  } else {
+    const responseObject = {
+      error: validateCodes.UNAUTHORIZED_ACCESS,
+    };
+
+    response.status(200).send(responseObject);
   }
-
-  const responseObject = {
-    error: validateCodes.UNAUTHORIZED_ACCESS,
-  };
-
-  response.status(200).send(responseObject);
 }
 
 module.exports = middlewareCall;
