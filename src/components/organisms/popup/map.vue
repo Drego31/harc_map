@@ -47,6 +47,8 @@ import { Popup } from 'map/popup';
 import { mapGetters } from 'vuex';
 import { actionUtils } from 'utils/action';
 import AIconClosePopup from 'atoms/icon/close-popup';
+import { translator } from 'src/dictionary';
+import { communicates } from 'utils/communicates';
 
 export default {
   name: 'o-popup-map',
@@ -76,7 +78,15 @@ export default {
         {
           icon: this.ICONS.delete,
           label: this.$t('general.remove'),
-          method: () => this.$router.push(this.ROUTES.adminPanel),
+          method: () => {
+            if (confirm(translator.t('communicate.map.confirmPointRemove'))) {
+              communicates.showSuccess(translator.t('communicate.map.pointRemovingInProgress'));
+              this.popup.hide();
+              this.$store.dispatch('event/removePoint', this.$store.getters['mapPopup/pointId'])
+                .then(() => communicates.showSuccessTemporary(translator.t('communicate.map.pointRemoved')))
+                .catch(em => em.showMessage());
+            }
+          },
         },
       ];
     },
@@ -90,9 +100,7 @@ export default {
     copyToClipboard (key) {
       const element = this.$refs.toCopy[key];
       actionUtils.copyToClipboard(element);
-      this.$store.dispatch('snackbar/openTemporary', {
-        message: this.$t('general.copied'),
-      });
+      communicates.showSuccessTemporary(this.$t('general.copied'));
       this.popup.hide();
     },
   },

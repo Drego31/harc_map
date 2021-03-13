@@ -94,6 +94,7 @@ export const pl = {
       authors: 'O twórcach',
       leader: 'Team leader',
       frontDev: 'Front-end Developer',
+      fullstack: 'Full-stack Developer',
       backDev: 'Back-end Developer',
       uxDesigner: 'UX Designer',
     },
@@ -215,6 +216,11 @@ export const pl = {
     more: 'Więcej',
   },
   communicate: {
+    map: {
+      confirmPointRemove: 'Czy na pewno chcesz usunąć punkt?',
+      pointRemovingInProgress: 'Trwa usuwanie punktu...',
+      pointRemoved: 'Punkt został usunięty',
+    },
     collectPoint: {
       congratulation: 'Gratulujemy!',
       youCollectedPoint: 'Zdobyłeś punkt!',
