@@ -3,7 +3,7 @@
     <slot/>
     <div class="o-map" id="o-map"></div>
     <o-popup-map
-      v-if="checkIsAdmin()"
+      v-if="checkIsAdmin() && pointOptions"
       ref="mapPopup"
     />
   </div>
@@ -19,9 +19,12 @@ import Cookies from 'js-cookie';
 export default {
   name: 'o-map',
   components: { OPopupMap },
-  data: () => ({
-    popup: null,
-  }),
+  props: {
+    pointOptions: {
+      type: Boolean,
+      default: true,
+    },
+  },
   mounted () {
     const appEvent = this.$store.getters['event/event'];
     let pointList = this.$store.getters['event/pointsVisibleOnMap'];
