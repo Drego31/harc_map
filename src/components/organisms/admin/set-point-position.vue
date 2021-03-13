@@ -29,6 +29,8 @@ export default {
     },
   },
   mounted () {
+    this.$store.commit('event/setHidePoint', this.point);
+    map.updateMapFeatures();
     if (uCheck.isNotNull(this.point.pointLatitude) && uCheck.isNotNull(this.point.pointLongitude)) {
       map.panToPointLocationOnMap(this.point, { goToMap: false });
     }
@@ -45,6 +47,10 @@ export default {
         pointLatitude: mapPosition.mapLatitude.toFixed(5),
       };
     },
+  },
+  beforeDestroy () {
+    this.$store.commit('event/clearHidePoint');
+    map.updateMapFeatures();
   },
 };
 </script>

@@ -26,6 +26,7 @@ export default {
     mapRefreshTime: 60,
     points: [],
     categories: [],
+    hidePoint: {},
   },
   getters: {
     event: state => state,
@@ -43,6 +44,7 @@ export default {
       mapDefaultLatitude: state.mapDefaultLatitude,
       mapDefaultZoom: state.mapDefaultZoom,
     }),
+    hidePoint: state => state.hidePoint,
     points: state => state.points,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
@@ -72,9 +74,6 @@ export default {
       .filter(point => point.pointCollectionTime !== null),
 
     pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
-      // Admin can see all points on map
-      if (permissions.checkIsAdmin()) return state.points;
-
       return state.points.filter(({
         pointId,
         pointCollectionTime,
@@ -82,6 +81,12 @@ export default {
         pointAppearanceTime,
         pointExpirationTime,
       }) => {
+        // Hide if it's hide point
+        if (pointId === getters.hidePoint.pointId) return false;
+
+        // Admin can see all points on map
+        if (permissions.checkIsAdmin()) return true;
+
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
           if (uCheck.isNull(pointCollectionTime)) return true;
@@ -162,6 +167,8 @@ export default {
       state.mapLongitude = mapLongitude;
     },
     setMapZoom: (state, mapZoom) => (state.mapZoom = mapZoom),
+    setHidePoint: (state, payload) => (state.hidePoint = payload),
+    clearHidePoint: (state) => (state.hidePoint = {}),
   },
   actions: {
     download (context, eventId = context.state.eventId) {

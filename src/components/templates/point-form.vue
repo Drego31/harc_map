@@ -2,16 +2,17 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
-        :disabled="blockForm"
         :label="$t('form.field.pointName')"
         v-model="values.pointName"
         :rules="rulesForName"
         :assist="isPermanent ? $t('form.assist.fieldNotRequired') : ''"
+        :disabled="blockForm"
       />
       <m-select
         :options="typeOptions"
-        :placeholder="$t('form.field.pointName')"
+        :placeholder="$t('form.field.pointType')"
         v-model="values.pointType"
+        :disabled="blockForm"
       />
       <m-field-datetime
         v-if="isTimeout"
@@ -32,6 +33,7 @@
         :options="categoryOptions"
         :placeholder="$t('form.field.pointCategory')"
         v-model="values.pointCategory"
+        :disabled="blockForm"
       />
 
       <a-button-secondary
@@ -70,6 +72,7 @@ import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
+import { idUtils } from 'utils/id';
 
 export default {
   name: 't-point-form',
@@ -87,17 +90,7 @@ export default {
   },
   data () {
     return {
-      values: {
-        pointId: null,
-        pointName: '',
-        pointCategory: MACROS.pointCategory[0].categoryId,
-        pointType: MACROS.pointType.permanent,
-        pointAppearanceTime: null,
-        pointExpirationTime: null,
-        pointLongitude: null,
-        pointLatitude: null,
-        pointCollectionTime: null,
-      },
+      values: {},
       typeOptions: [
         {
           label: this.$t('general.pointPermanent'),
@@ -125,7 +118,7 @@ export default {
     },
   },
   mounted () {
-    Object.assign(this.values, this.defaultValues);
+    this.restartValues();
   },
   computed: {
     rulesForName () {
@@ -169,14 +162,32 @@ export default {
         this.values.pointAppearanceTime = null;
       }
     },
+    restartValues () {
+      this.values = {
+        pointId: idUtils.generateNewId(),
+        pointName: '',
+        pointCategory: MACROS.pointCategory[0].categoryId,
+        pointType: MACROS.pointType.permanent,
+        pointAppearanceTime: null,
+        pointExpirationTime: null,
+        pointLongitude: null,
+        pointLatitude: null,
+        pointCollectionTime: null,
+      };
+      Object.assign(this.values, this.defaultValues);
+    },
     onSubmit () {
+      this.blockForm = true;
       if (this.hasSetPosition === false) {
         this.onErrorOccurs(new ErrorMessage(this.$t('communicate.addPoint.positionIsRequired')));
         return;
       }
       this.ensureValidDataByPointType();
       this.onSave(this.values)
-        .then(this.onSuccessOccurs)
+        .then(message => {
+          this.restartValues();
+          this.onSuccessOccurs(message);
+        })
         .catch(this.onErrorOccurs);
     },
   },

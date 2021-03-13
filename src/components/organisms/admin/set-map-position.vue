@@ -25,7 +25,6 @@ export default {
     },
   },
   mounted () {
-    console.log('event', this.event);
     map.panTo({
       latitude: this.event.mapLatitude,
       longitude: this.event.mapLongitude,
