@@ -94,6 +94,7 @@ export const pl = {
       authors: 'O twórcach',
       leader: 'Team leader',
       frontDev: 'Front-end Developer',
+      fullstack: 'Full-stack Developer',
       backDev: 'Back-end Developer',
       uxDesigner: 'UX Designer',
     },
