@@ -13,9 +13,7 @@ export const pl = {
     map: 'Mapa',
     adminPanel: 'Panel admina',
     editEvent: 'Edycja wydarzenia',
-    setMapPosition: 'Ustawienia mapy',
     scoreboard: 'Tabela wyników',
-    setPointPosition: 'Lokalizacja punktu',
     newPoint: 'Nowy punkt',
     editPoint: 'Edycja punktu',
     short: {

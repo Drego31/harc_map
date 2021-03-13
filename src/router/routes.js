@@ -130,29 +130,9 @@ export const routes = [
     },
   },
   {
-    path: ROUTES.setMapPosition.path,
-    name: ROUTES.setMapPosition.name,
-    component: () => import('pages/admin/set-map-position.vue'),
-    meta: {
-      onlyBeforeLogin: false,
-      requiredAuth: true,
-      adminOnly: true,
-    },
-  },
-  {
     path: ROUTES.scoreboard.path,
     name: ROUTES.scoreboard.name,
     component: () => import('pages/admin/scoreboard.vue'),
-    meta: {
-      onlyBeforeLogin: false,
-      requiredAuth: true,
-      adminOnly: true,
-    },
-  },
-  {
-    path: ROUTES.setPointPosition.path,
-    name: ROUTES.setPointPosition.name,
-    component: () => import('pages/admin/set-point-position.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
