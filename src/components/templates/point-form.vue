@@ -45,9 +45,14 @@
       <a-button-secondary
         :disabled="blockForm"
         class="f-text-center f-mt-0"
+        add-class="f-icon-inside"
         @click="pointPositionIsSetting = true"
       >
-        {{ $t('form.button.setPointMapPosition') }}
+        <a-icon
+          :name="hasSetPosition ? ICONS.check_box : ICONS.check_box_outline_blank"
+          class="f-mr-1"
+        />
+        <div>{{ $t('form.button.setPointMapPosition') }}</div>
       </a-button-secondary>
 
       <a-button-submit
@@ -60,6 +65,7 @@
       <o-admin-set-new-point-position
         :point="values"
         @save="saveNewPosition"
+        @cancel="pointPositionIsSetting = false"
       />
     </o-float-container>
   </t-page>
@@ -80,11 +86,13 @@ import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
 import { idUtils } from 'utils/id';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 't-point-form',
   mixins: [mixins.form, mixins.validation],
   components: {
+    AIcon,
     OAdminSetNewPointPosition,
     OFloatContainer,
     MFieldText,
@@ -139,7 +147,7 @@ export default {
       return this.values.pointType === MACROS.pointType.permanent;
     },
     hasSetPosition () {
-      return uCheck.isDefined(this.values.pointLatitude) && uCheck.isDefined(this.values.pointLongitude);
+      return uCheck.isNotNull(this.values.pointLatitude) && uCheck.isNotNull(this.values.pointLongitude);
     },
   },
   methods: {

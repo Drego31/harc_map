@@ -35,9 +35,14 @@
       <a-button-secondary
         :disabled="blockForm"
         class="f-text-center f-mt-0"
+        add-class="f-icon-inside"
         @click="eventPositionIsSetting = true"
       >
-        {{ $t('form.button.setPointMapPosition') }}
+        <a-icon
+          :name="hasSetPosition ? ICONS.check_box : ICONS.check_box_outline_blank"
+          class="f-mr-1"
+        />
+        <div>{{ $t('form.button.setDefaultMapPositionAndZoom') }}</div>
       </a-button-secondary>
 
       <a-button-submit
@@ -50,6 +55,7 @@
       <o-admin-set-map-position
         :event="values"
         @save="saveNewPosition"
+        @cancel="eventPositionIsSetting = false"
       />
     </o-float-container>
   </t-page>
@@ -68,11 +74,13 @@ import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetMapPosition from 'organisms/admin/set-map-position';
+import AIcon from 'atoms/icon';
 
 export default {
   name: 't-event-form',
   mixins: [mixins.form, mixins.validation],
   components: {
+    AIcon,
     OAdminSetMapPosition,
     OFloatContainer,
     MFieldText,
@@ -134,7 +142,7 @@ export default {
   },
   computed: {
     hasSetPosition () {
-      return uCheck.isDefined(this.values.mapLatitude) && uCheck.isDefined(this.values.mapLongitude);
+      return uCheck.isNotNull(this.values.mapLatitude) && uCheck.isNotNull(this.values.mapLongitude);
     },
   },
   methods: {
