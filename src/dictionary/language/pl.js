@@ -224,6 +224,7 @@ export const pl = {
     },
     editEvent: {
       success: 'Zapisanie nowych danych wydarzenia się powiodło.',
+      positionIsRequired: 'Wymagane jest ustawienie pozycji mapy.',
     },
     addPoint: {
       positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',

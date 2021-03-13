@@ -176,7 +176,7 @@ export default {
       }
       this.ensureValidDataByPointType();
       this.onSave(this.values)
-        .then(() => this.onSuccessOccurs())
+        .then(this.onSuccessOccurs)
         .catch(this.onErrorOccurs);
     },
   },

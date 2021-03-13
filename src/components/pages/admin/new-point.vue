@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import { api } from 'api';
 import { mapGetters } from 'vuex';
 import { idUtils } from 'utils/id';
 import { mixins } from 'mixins/base';
@@ -33,7 +32,7 @@ export default {
   },
   methods: {
     createNewPoint (point) {
-      return api.addPoint({
+      return this.$store.dispatch('event/addPoint', {
         point,
         eventId: this.eventId,
       });

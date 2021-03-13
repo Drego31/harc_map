@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import { api } from 'api';
 import { mapGetters } from 'vuex';
 import TPointForm from 'templates/point-form';
 
@@ -28,7 +27,7 @@ export default {
   },
   methods: {
     editPoint (point) {
-      return api.editPoint({
+      return this.$store.dispatch('event/editPoint', {
         point,
         eventId: this.eventId,
       });
