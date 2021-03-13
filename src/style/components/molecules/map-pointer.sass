@@ -1,11 +1,10 @@
 $diameter: 16px
 $border: 2px
 $line-width: 2px
-$footer-height: 72px
 
 .m-pointer
   position: relative
-  top: calc(50vh - #{$footer-height})
+  top: calc(50vh - #{$diameter} / 2)
   left: calc(50% - #{$diameter} / 2)
 
   width: $diameter
@@ -30,10 +29,10 @@ $footer-height: 72px
     content: ''
     position: absolute
     left: calc((#{$diameter} - #{2 * $border} - #{$line-width}) / 2)
-    top: calc(-50vh + (#{$diameter - $border - $line-width}) / 2)
+    top: calc(-50vh + #{2 * $border} + #{$line-width})
     z-index: -1
 
     display: block
     width: $line-width
-    height: calc(100vh - #{$footer-height})
+    height: 100vh
     background: rgba(black, 0.6)

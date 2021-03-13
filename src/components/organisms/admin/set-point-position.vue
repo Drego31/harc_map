@@ -4,7 +4,7 @@
       <template slot="text">{{ $t('page.admin.setPointPosition.content') }}</template>
       <template slot="button-name">{{ $t('form.button.save') }}</template>
     </m-banner-map>
-    <m-pointer-map :point-color="getPointColor"></m-pointer-map>
+    <m-pointer-map ref="map-pointer" :point-color="getPointColor"></m-pointer-map>
   </o-map>
 </template>
 
