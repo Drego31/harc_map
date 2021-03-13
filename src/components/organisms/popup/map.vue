@@ -47,6 +47,8 @@ import { Popup } from 'map/popup';
 import { mapGetters } from 'vuex';
 import { actionUtils } from 'utils/action';
 import AIconClosePopup from 'atoms/icon/close-popup';
+import { translator } from 'src/dictionary';
+import { communicates } from 'utils/communicates';
 
 export default {
   name: 'o-popup-map',
@@ -90,9 +92,7 @@ export default {
     copyToClipboard (key) {
       const element = this.$refs.toCopy[key];
       actionUtils.copyToClipboard(element);
-      this.$store.dispatch('snackbar/openTemporary', {
-        message: this.$t('general.copied'),
-      });
+      communicates.showSuccessTemporary(this.$t('general.copied'));
       this.popup.hide();
     },
   },

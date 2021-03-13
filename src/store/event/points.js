@@ -1,4 +1,5 @@
 import { uCheck } from '@dbetka/utils';
+import { map } from 'map';
 
 export default {
   getters: {
@@ -23,6 +24,16 @@ export default {
     checkTemporaryPointIsVisible: () => ({ pointAppearanceTime, pointExpirationTime }) => {
       const now = (new Date()).getTime();
       return pointAppearanceTime < now && now < pointExpirationTime;
+    },
+  },
+  actions: {
+    removePoint (context, pointId) {
+      return new Promise((resolve, reject) => {
+        api.addPoint({ pointId, eventId: context.rootGetters['event/eventId'] })
+          .then(() => map.updateMapFeatures())
+          .then(() => resolve())
+          .catch(reject);
+      });
     },
   },
 };

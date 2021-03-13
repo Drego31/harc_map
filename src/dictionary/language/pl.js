@@ -216,6 +216,9 @@ export const pl = {
     more: 'Więcej',
   },
   communicate: {
+    map: {
+      pointRemoved: 'Punkt został usunięty',
+    },
     collectPoint: {
       congratulation: 'Gratulujemy!',
       youCollectedPoint: 'Zdobyłeś punkt!',
