@@ -43,7 +43,8 @@ export default {
   methods: {
     onSavePosition () {
       this.$store.commit('point/setPointPosition', this.getNewPointPosition());
-      this.$refs.banner.emitSuccessMessage(this.routeBackFromMap);
+      this.$refs.banner.emitSuccessMessage()
+        .then(() => this.$emit('close'));
     },
     getNewPointPosition () {
       const mapPosition = map.getMapPosition();

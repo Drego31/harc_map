@@ -44,14 +44,14 @@ export default {
     },
   },
   methods: {
-    emitSuccessMessage (pathToNavigateAfterMessage = null) {
-      this.showSuccessMessage = true;
-      setTimeout(() => {
-        this.showSuccessMessage = false;
-        if (pathToNavigateAfterMessage) {
-          this.$router.push(pathToNavigateAfterMessage);
-        }
-      }, this.successMessageDuration);
+    emitSuccessMessage () {
+      return new Promise(resolve => {
+        this.showSuccessMessage = true;
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+          resolve();
+        }, this.successMessageDuration);
+      });
     },
   },
 };

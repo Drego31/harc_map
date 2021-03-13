@@ -36,7 +36,8 @@
 
       <a-button-secondary
         class="f-text-center f-mt-0"
-        @click="pushToMap">
+        @click="pointPositionIsSetting = true"
+      >
         {{ $t('form.button.setPointMapPosition') }}
       </a-button-secondary>
 
@@ -46,6 +47,9 @@
         :text="$t('form.button.save')"
       />
     </o-form>
+    <o-float-container v-if="pointPositionIsSetting">
+      <o-admin-set-new-point-position @close="pointPositionIsSetting = false"/>
+    </o-float-container>
   </t-page>
 </template>
 
@@ -61,11 +65,15 @@ import { mixins } from 'mixins/base';
 import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
+import OFloatContainer from 'organisms/float-container';
+import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
 
 export default {
   name: 'p-admin-add-new-point',
   mixins: [mixins.form, mixins.validation],
   components: {
+    OAdminSetNewPointPosition,
+    OFloatContainer,
     MFieldText,
     MFieldDatetime,
     TPage,
@@ -93,6 +101,7 @@ export default {
         },
       ],
       categoryOptions: this.createCategoryOptions(),
+      pointPositionIsSetting: false,
       blockForm: false,
       isSending: false,
       isServerError: false,
