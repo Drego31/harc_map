@@ -82,7 +82,7 @@ export const pl = {
       choose: 'wybierz',
       next: 'Dalej',
       goToLogin: 'Przejdź do logowania',
-      setDefaultMapPositionAndZoom: 'Ustaw domyślną pozycję mapy',
+      setDefaultMapPositionAndZoom: 'Ustaw pozycję mapy',
       setPointMapPosition: 'Ustaw lokalizację punktu',
     },
   },
