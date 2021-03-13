@@ -29,7 +29,7 @@ export default {
   actions: {
     removePoint (context, pointId) {
       return new Promise((resolve, reject) => {
-        api.addPoint({ pointId, eventId: context.rootGetters['event/eventId'] })
+        api.removePoint({ pointId, eventId: context.rootGetters['event/eventId'] })
           .then(() => map.updateMapFeatures())
           .then(() => resolve())
           .catch(reject);

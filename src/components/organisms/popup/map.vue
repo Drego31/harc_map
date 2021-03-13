@@ -78,7 +78,13 @@ export default {
         {
           icon: this.ICONS.delete,
           label: this.$t('general.remove'),
-          method: () => this.$router.push(this.ROUTES.adminPanel),
+          method: () => {
+            communicates.showSuccess('Trwa usuwanie punktu...');
+            this.popup.hide();
+            this.$store.dispatch('event/removePoint', this.$store.getters['mapPopup/pointId'])
+              .then(() => communicates.showSuccessTemporary(translator.t('communicate.map.pointRemoved')))
+              .catch(em => em.showMessage());
+          },
         },
       ];
     },
