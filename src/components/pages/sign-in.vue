@@ -17,7 +17,10 @@
         :is-sending="isSending"
       />
     </o-form>
-    <a-button-secondary @click="$router.push(ROUTES.remindPassword.path)">
+    <a-button-secondary
+      @click="$router.push(ROUTES.remindPassword.path)"
+      :disabled="blockForm"
+    >
       {{ ROUTES.remindPassword.label }}
     </a-button-secondary>
   </t-page>

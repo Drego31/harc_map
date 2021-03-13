@@ -5,7 +5,6 @@ import Vue from 'vue';
 import { map } from 'map';
 import Cookies from 'js-cookie';
 import pointsModule from 'store/event/points';
-import { ROUTES } from 'utils/macros/routes';
 import { eventUtils } from 'utils/event';
 
 export default {
@@ -27,6 +26,7 @@ export default {
     mapRefreshTime: 60,
     points: [],
     categories: [],
+    hidePoint: {},
   },
   getters: {
     event: state => state,
@@ -44,6 +44,7 @@ export default {
       mapDefaultLatitude: state.mapDefaultLatitude,
       mapDefaultZoom: state.mapDefaultZoom,
     }),
+    hidePoint: state => state.hidePoint,
     points: state => state.points,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
@@ -73,9 +74,6 @@ export default {
       .filter(point => point.pointCollectionTime !== null),
 
     pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
-      const isEditPointPositionView = rootGetters['point/routeBackFromMap'].name === ROUTES.editPoint.name;
-      const editingPointId = isEditPointPositionView ? rootGetters['point/pointId'] : undefined;
-
       return state.points.filter(({
         pointId,
         pointCollectionTime,
@@ -83,8 +81,11 @@ export default {
         pointAppearanceTime,
         pointExpirationTime,
       }) => {
-        // Admin can see all points on map except point in edit position mode
-        if (permissions.checkIsAdmin()) return pointId !== editingPointId;
+        // Hide if it's hide point
+        if (pointId === getters.hidePoint.pointId) return false;
+
+        // Admin can see all points on map
+        if (permissions.checkIsAdmin()) return true;
 
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
@@ -133,9 +134,7 @@ export default {
         state.mapZoom = cookie.mapZoom;
       }
     },
-    addPoint: (state, point) => {
-      state.points.push(point);
-    },
+    addPoint: (state, point) => state.points.push(point),
     setDefaultMapPositionAndZoom: (state) => {
       state.mapLatitude = state.mapDefaultLatitude;
       state.mapLongitude = state.mapDefaultLongitude;
@@ -163,16 +162,13 @@ export default {
     removePoint: (state, point) => {
       Vue.delete(state.points, state.points.indexOf(point));
     },
-    setMapPosition: (state, {
-      mapLatitude,
-      mapLongitude,
-    }) => {
+    setMapPosition: (state, { mapLatitude, mapLongitude }) => {
       state.mapLatitude = mapLatitude;
       state.mapLongitude = mapLongitude;
     },
-    setMapZoom: (state, mapZoom) => {
-      state.mapZoom = mapZoom;
-    },
+    setMapZoom: (state, mapZoom) => (state.mapZoom = mapZoom),
+    setHidePoint: (state, payload) => (state.hidePoint = payload),
+    clearHidePoint: (state) => (state.hidePoint = {}),
   },
   actions: {
     download (context, eventId = context.state.eventId) {
@@ -181,9 +177,7 @@ export default {
         api.getEventById({ eventId })
           .then(data => (event = data))
           .then(api.getCategoriesByEventId)
-          .then(categories => {
-            event.categories = categories;
-          })
+          .then(categories => (event.categories = categories))
           .then(() => {
             const IsBeforeStart = eventUtils.checkIfIsBeforeStart(event);
             const IsCommonUser = permissions.checkIsCommon();
@@ -218,34 +212,27 @@ export default {
           });
       });
     },
-    addPoint (context, point, eventId = context.getters.eventId) {
+    addPoint (context, { point, eventId = context.getters.eventId }) {
       return new Promise((resolve, reject) => {
-        api.addPoint({
-          point,
-          eventId,
-        })
+        api.addPoint({ point, eventId })
           .then(() => map.updateMapFeatures())
-          .then(resolve)
+          .then(() => resolve())
           .catch(reject);
       });
     },
-    editPoint (context, point, eventId = context.getters.eventId) {
+    editPoint (context, { point, eventId = context.getters.eventId }) {
       return new Promise((resolve, reject) => {
-        api.editPoint({
-          point,
-          eventId,
-        })
+        api.editPoint({ point, eventId })
           .then(() => map.updateMapFeatures())
-          .then(resolve)
+          .then(() => resolve())
           .catch(reject);
       });
     },
     updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {
       return new Promise((resolve, reject) => {
         api.updateEvent(updatedEvent)
-          .then(api.getEventById)
-          .then(eventData => context.commit('setEvent', eventData))
-          .then(resolve)
+          .then(() => map.updateMapFeatures())
+          .then(() => resolve())
           .catch(reject);
       });
     },

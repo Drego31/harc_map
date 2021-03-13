@@ -16,7 +16,7 @@ export const pl = {
     setMapPosition: 'Ustawienia mapy',
     scoreboard: 'Tabela wyników',
     setPointPosition: 'Lokalizacja punktu',
-    addNewPoint: 'Nowy punkt',
+    newPoint: 'Nowy punkt',
     editPoint: 'Edycja punktu',
     short: {
       temporaryPoints: 'Czasowe',
@@ -63,6 +63,7 @@ export const pl = {
       eventEndDate: 'Data i czas zakończenia wydarzenia',
     },
     assist: {
+      pointId: 'Kod punktu jest generowany automatycznie',
       eventId: 'Kod wydarzenia jest generowany automatycznie',
       fieldNotRequired: 'Pole jest nieobowiązkowe',
     },
@@ -78,6 +79,7 @@ export const pl = {
     },
     button: {
       save: 'Zapisz',
+      choose: 'wybierz',
       next: 'Dalej',
       goToLogin: 'Przejdź do logowania',
       setDefaultMapPositionAndZoom: 'Ustaw domyślną pozycję mapy',
@@ -150,10 +152,10 @@ export const pl = {
     },
     admin: {
       setMapPosition: {
-        content: 'Ustaw mapę w wybranej pozycji i zapisz.',
+        content: 'Wybierz pozycję mapy dla wydarzenia.',
       },
       setPointPosition: {
-        content: 'Ustaw punkt w wybranej pozycji i zapisz.',
+        content: 'Wybierz nową pozycję punktu.',
       },
       start: {
         message: 'Jesteś zalogowany jako administrator',
@@ -224,9 +226,9 @@ export const pl = {
     },
     editEvent: {
       success: 'Zapisanie nowych danych wydarzenia się powiodło.',
+      positionIsRequired: 'Wymagane jest ustawienie pozycji mapy.',
     },
     addPoint: {
-      success: 'Zapisanie danych punktu się powiodło.',
       positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
   },
@@ -235,7 +237,7 @@ export const pl = {
       toUpdate: 'Aktualizacja',
     },
     bannerMap: {
-      defaultSuccessMessage: 'Nowa pozycja została zapisana.',
+      defaultSuccessMessage: 'Nowa pozycja została wybrana.',
     },
   },
 };

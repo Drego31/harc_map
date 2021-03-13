@@ -2,16 +2,23 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
-        :disabled="blockForm"
+        disabled
+        :label="$t('form.field.pointId')"
+        v-model="values.pointId"
+        :assist="$t('form.assist.pointId')"
+      />
+      <m-field-text
         :label="$t('form.field.pointName')"
         v-model="values.pointName"
         :rules="rulesForName"
         :assist="isPermanent ? $t('form.assist.fieldNotRequired') : ''"
+        :disabled="blockForm"
       />
       <m-select
         :options="typeOptions"
-        :placeholder="$t('form.field.pointName')"
+        :placeholder="$t('form.field.pointType')"
         v-model="values.pointType"
+        :disabled="blockForm"
       />
       <m-field-datetime
         v-if="isTimeout"
@@ -32,11 +39,14 @@
         :options="categoryOptions"
         :placeholder="$t('form.field.pointCategory')"
         v-model="values.pointCategory"
+        :disabled="blockForm"
       />
 
       <a-button-secondary
+        :disabled="blockForm"
         class="f-text-center f-mt-0"
-        @click="pushToMap">
+        @click="pointPositionIsSetting = true"
+      >
         {{ $t('form.button.setPointMapPosition') }}
       </a-button-secondary>
 
@@ -46,6 +56,12 @@
         :text="$t('form.button.save')"
       />
     </o-form>
+    <o-float-container v-if="pointPositionIsSetting">
+      <o-admin-set-new-point-position
+        :point="values"
+        @save="saveNewPosition"
+      />
+    </o-float-container>
   </t-page>
 </template>
 
@@ -56,16 +72,21 @@ import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
 import { MACROS } from 'utils/macros';
-import { mapGetters, mapMutations } from 'vuex';
+import { uCheck } from '@dbetka/utils';
 import { mixins } from 'mixins/base';
 import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
+import OFloatContainer from 'organisms/float-container';
+import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
+import { idUtils } from 'utils/id';
 
 export default {
-  name: 'p-admin-add-new-point',
+  name: 't-point-form',
   mixins: [mixins.form, mixins.validation],
   components: {
+    OAdminSetNewPointPosition,
+    OFloatContainer,
     MFieldText,
     MFieldDatetime,
     TPage,
@@ -76,13 +97,7 @@ export default {
   },
   data () {
     return {
-      values: {
-        pointName: '',
-        pointCategory: 1,
-        pointType: 1,
-        pointAppearanceTime: null,
-        pointExpirationTime: null,
-      },
+      values: {},
       typeOptions: [
         {
           label: this.$t('general.pointPermanent'),
@@ -93,39 +108,26 @@ export default {
         },
       ],
       categoryOptions: this.createCategoryOptions(),
+      pointPositionIsSetting: false,
       blockForm: false,
       isSending: false,
       isServerError: false,
     };
   },
-  created () {
-    const pointId = this.$route.params.pointId;
-    const firstVisitOrChangedPoint = this.isUpdateMode === false || pointId !== this.pointId;
-
-    if (!pointId) {
-      this.unsetUpdateMode();
-    } else if (firstVisitOrChangedPoint) {
-      this.setUpdateMode();
-      const point = this.getPointById(pointId);
-      this.setPointFullInformation(point);
-    }
-    this.updateFormData();
-  },
-  watch: {
-    values: {
-      handler (val) {
-        if (val.pointCategory === 0 && this.isPermanent) {
-          this.values.pointCategory = 1;
-        }
-      },
-      deep: true,
+  props: {
+    defaultValues: {
+      type: Object,
+      default: () => ({}),
+    },
+    onSave: {
+      type: Function,
+      required: true,
     },
   },
+  mounted () {
+    this.restartValues();
+  },
   computed: {
-    ...mapGetters('point', [
-      'getPointBasicInformation', 'point', 'hasPositionSet', 'isUpdateMode', 'pointId',
-    ]),
-    ...mapGetters('event', ['getPointById']),
     rulesForName () {
       const rules = this.rules;
       return this.isTimeout ? `${rules.required}|${rules.name}` : rules.name;
@@ -136,16 +138,15 @@ export default {
     isPermanent () {
       return this.values.pointType === MACROS.pointType.permanent;
     },
+    hasSetPosition () {
+      return uCheck.isDefined(this.values.pointLatitude) && uCheck.isDefined(this.values.pointLongitude);
+    },
   },
   methods: {
-    ...mapMutations('point', [
-      'setPointBasicInformation', 'setPointFullInformation', 'resetPointState', 'setUpdateMode', 'unsetUpdateMode',
-    ]),
-
-    updateFormData () {
-      this.values = { ...this.getPointBasicInformation };
+    saveNewPosition (newPosition) {
+      Object.assign(this.values, newPosition);
+      this.pointPositionIsSetting = false;
     },
-
     createCategoryOptions () {
       return MACROS.pointCategory.map((category) =>
         ({
@@ -159,43 +160,6 @@ export default {
       const unit = this.$t('general.pointUnit');
       return `${id} ${level} - ${value} ${unit}`;
     },
-    pushToMap () {
-      this.setPointBasicInformation(this.values);
-      this.$router.push({
-        name: this.ROUTES.setPointPosition.name,
-        params: { pointId: this.pointId },
-      });
-    },
-
-    onSubmit () {
-      if (!this.hasPositionSet) {
-        this.onErrorOccurs(new ErrorMessage(this.$t('communicate.addPoint.positionIsRequired')));
-        return;
-      }
-      this.ensureValidDataByPointType();
-      this.setPointBasicInformation(this.values);
-      this.isUpdateMode ? this.editPoint() : this.addPoint();
-    },
-    addPoint () {
-      this.$store.dispatch('event/addPoint', this.point)
-        .then(this.onAdd)
-        .catch(this.onErrorOccurs);
-    },
-    onAdd () {
-      this.onSuccessOccurs(this.$t('communicate.addPoint.success'));
-      this.resetPointState();
-      this.updateFormData();
-    },
-    editPoint () {
-      this.$store.dispatch('event/editPoint', this.point)
-        .then(this.onEdit)
-        .catch(this.onErrorOccurs);
-    },
-    onEdit () {
-      this.resetPointState();
-      this.$router.push(this.ROUTES.map.path);
-    },
-
     ensureValidDataByPointType () {
       if (this.values.pointType === MACROS.pointType.timeout) {
         this.values.pointCategory = 0;
@@ -204,6 +168,34 @@ export default {
         this.values.pointExpirationTime = null;
         this.values.pointAppearanceTime = null;
       }
+    },
+    restartValues () {
+      this.values = {
+        pointId: idUtils.generateNewId(),
+        pointName: '',
+        pointCategory: MACROS.pointCategory[0].categoryId,
+        pointType: MACROS.pointType.permanent,
+        pointAppearanceTime: null,
+        pointExpirationTime: null,
+        pointLongitude: null,
+        pointLatitude: null,
+        pointCollectionTime: null,
+      };
+      Object.assign(this.values, this.defaultValues);
+    },
+    onSubmit () {
+      this.blockForm = true;
+      if (this.hasSetPosition === false) {
+        this.onErrorOccurs(new ErrorMessage(this.$t('communicate.addPoint.positionIsRequired')));
+        return;
+      }
+      this.ensureValidDataByPointType();
+      this.onSave(this.values)
+        .then(message => {
+          this.restartValues();
+          this.onSuccessOccurs(message);
+        })
+        .catch(this.onErrorOccurs);
     },
   },
 

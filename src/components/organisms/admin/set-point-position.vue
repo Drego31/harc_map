@@ -1,19 +1,19 @@
 <template>
-  <o-map ref="oMap">
+  <o-map ref="oMap" :point-options="false">
     <m-banner-map ref="banner" @actionTriggered="onSavePosition">
       <template slot="text">{{ $t('page.admin.setPointPosition.content') }}</template>
-      <template slot="button-name">{{ $t('form.button.save') }}</template>
+      <template slot="button-name">{{ $t('form.button.choose') }}</template>
     </m-banner-map>
-    <m-pointer-map :point-color="getPointColor"></m-pointer-map>
+    <m-pointer-map ref="map-pointer"/>
   </o-map>
 </template>
 
 <script>
 import OMap from 'organisms/map';
 import MBannerMap from 'molecules/banner-map';
-import { mapGetters } from 'vuex';
 import MPointerMap from 'molecules/map-pointer';
 import { map } from 'map';
+import { uCheck } from '@dbetka/utils';
 
 export default {
   name: 'o-admin-set-new-point-position',
@@ -23,27 +23,22 @@ export default {
     OMap,
   },
   props: {
-    pointCategory: {
-      default: 2,
-      type: Number,
+    point: {
+      type: Object,
+      required: true,
     },
   },
-  computed: {
-    ...mapGetters('point', [
-      'point',
-      'getPointColor',
-      'isUpdateMode',
-      'pointId',
-      'routeBackFromMap',
-    ]),
-  },
   mounted () {
-    map.panToPointLocationOnMap(this.point, { goToMap: false });
+    this.$store.commit('event/setHidePoint', this.point);
+    map.updateMapFeatures();
+    if (uCheck.isNotNull(this.point.pointLatitude) && uCheck.isNotNull(this.point.pointLongitude)) {
+      map.panToPointLocationOnMap(this.point, { goToMap: false });
+    }
   },
   methods: {
     onSavePosition () {
-      this.$store.commit('point/setPointPosition', this.getNewPointPosition());
-      this.$refs.banner.emitSuccessMessage(this.routeBackFromMap);
+      this.$refs.banner.emitSuccessMessage()
+        .then(() => this.$emit('save', this.getNewPointPosition()));
     },
     getNewPointPosition () {
       const mapPosition = map.getMapPosition();
@@ -52,6 +47,10 @@ export default {
         pointLatitude: mapPosition.mapLatitude.toFixed(5),
       };
     },
+  },
+  beforeDestroy () {
+    this.$store.commit('event/clearHidePoint');
+    map.updateMapFeatures();
   },
 };
 </script>
