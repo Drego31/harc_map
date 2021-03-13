@@ -30,15 +30,22 @@ export default {
   },
   computed: {
     ...mapGetters('point', [
-      'getPointColor', 'isUpdateMode', 'pointId', 'routeBackFromMap',
+      'point',
+      'getPointColor',
+      'isUpdateMode',
+      'pointId',
+      'routeBackFromMap',
     ]),
+  },
+  mounted () {
+    map.panToPointLocationOnMap(this.point, { goToMap: false });
   },
   methods: {
     onSavePosition () {
-      this.$store.commit('point/setPointPosition', this.getPointPosition());
+      this.$store.commit('point/setPointPosition', this.getNewPointPosition());
       this.$refs.banner.emitSuccessMessage(this.routeBackFromMap);
     },
-    getPointPosition () {
+    getNewPointPosition () {
       const mapPosition = map.getMapPosition();
       return {
         pointLongitude: mapPosition.mapLongitude.toFixed(5),
