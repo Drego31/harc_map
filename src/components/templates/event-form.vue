@@ -55,6 +55,7 @@
       <o-admin-set-map-position
         :event="values"
         @save="saveNewPosition"
+        @cancel="eventPositionIsSetting = false"
       />
     </o-float-container>
   </t-page>

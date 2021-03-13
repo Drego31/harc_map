@@ -65,6 +65,7 @@
       <o-admin-set-new-point-position
         :point="values"
         @save="saveNewPosition"
+        @cancel="pointPositionIsSetting = false"
       />
     </o-float-container>
   </t-page>

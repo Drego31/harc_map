@@ -37,11 +37,11 @@ export const map = {
     });
   },
 
-  panToPointLocationOnMap ({ pointLatitude, pointLongitude }, config = { goToMap: true }) {
+  panToPointLocationOnMap ({ pointLatitude, pointLongitude }, config = { goToMap: true, zoom: 16 }) {
     map.panTo({
       latitude: pointLatitude,
       longitude: pointLongitude,
-      zoom: 16,
+      zoom: config.zoom,
     });
     config.goToMap && router.push(ROUTES.map.path);
   },

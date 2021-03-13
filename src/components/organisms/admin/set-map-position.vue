@@ -1,6 +1,10 @@
 <template>
   <o-map ref="oMap" :point-options="false">
-    <m-banner-map ref="banner" @actionTriggered="onSavePosition">
+    <m-banner-map
+      ref="banner"
+      @actionTriggered="onSavePosition"
+      @cancel="$emit('cancel')"
+    >
       <template slot="text">{{ $t('page.admin.setMapPosition.content') }}</template>
       <template slot="button-name">{{ $t('form.button.choose') }}</template>
     </m-banner-map>
