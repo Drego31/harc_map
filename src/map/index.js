@@ -37,13 +37,13 @@ export const map = {
     });
   },
 
-  panToPointLocationOnMap ({ pointLatitude, pointLongitude }) {
+  panToPointLocationOnMap ({ pointLatitude, pointLongitude }, config = { goToMap: true }) {
     map.panTo({
       latitude: pointLatitude,
       longitude: pointLongitude,
       zoom: 16,
     });
-    router.push(ROUTES.map.path);
+    config.goToMap && router.push(ROUTES.map.path);
   },
 
   getMapPosition () {
