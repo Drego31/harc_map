@@ -63,6 +63,7 @@ export const pl = {
       eventEndDate: 'Data i czas zakończenia wydarzenia',
     },
     assist: {
+      pointId: 'Kod punktu jest generowany automatycznie',
       eventId: 'Kod wydarzenia jest generowany automatycznie',
       fieldNotRequired: 'Pole jest nieobowiązkowe',
     },

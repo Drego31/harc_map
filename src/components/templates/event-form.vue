@@ -2,10 +2,10 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
-        :disabled="blockForm"
         :label="$t('form.field.eventName')"
         v-model="values.eventName"
         rules="max:45"
+        :disabled="blockForm"
       />
       <m-field-text
         disabled
@@ -17,16 +17,19 @@
         :options="options"
         :placeholder="$t('form.field.mapRefreshTime')"
         v-model="values.mapRefreshTime"
+        :disabled="blockForm"
       />
       <m-field-datetime
         :label="$t('form.field.eventStartDate')"
         v-model="values.eventStartDate"
         :rules="rules.date"
+        :disabled="blockForm"
       />
       <m-field-datetime
         :label="$t('form.field.eventEndDate')"
         v-model="values.eventEndDate"
         :rules="rules.date"
+        :disabled="blockForm"
       />
 
       <a-button-secondary

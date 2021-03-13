@@ -2,6 +2,12 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
+        disabled
+        :label="$t('form.field.pointId')"
+        v-model="values.pointId"
+        :assist="$t('form.assist.pointId')"
+      />
+      <m-field-text
         :label="$t('form.field.pointName')"
         v-model="values.pointName"
         :rules="rulesForName"
