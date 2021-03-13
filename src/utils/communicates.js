@@ -1,28 +1,30 @@
 import { store } from 'store';
 
+function open (...params) {
+  store.dispatch('snackbar/open', ...params);
+}
+
+function openTemporary (...params) {
+  store.dispatch('snackbar/openTemporary', ...params);
+}
+
 export const communicates = {
+  showMessage (message) {
+    open({ message });
+  },
   showSuccess (message) {
-    store.dispatch('snackbar/open', {
-      message,
-      success: true,
-    });
+    open({ message, success: true });
   },
   showError (message) {
-    store.dispatch('snackbar/open', {
-      message,
-      error: true,
-    });
+    open({ message, error: true });
+  },
+  showMessageTemporary (message) {
+    openTemporary({ message });
   },
   showSuccessTemporary (message) {
-    store.dispatch('snackbar/openTemporary', {
-      message,
-      success: true,
-    });
+    openTemporary({ message, success: true });
   },
   showErrorTemporary (message) {
-    store.dispatch('snackbar/openTemporary', {
-      message,
-      error: true,
-    });
+    openTemporary({ message, error: true });
   },
-}
+};
