@@ -43,6 +43,7 @@
       />
 
       <a-button-secondary
+        :disabled="blockForm"
         class="f-text-center f-mt-0"
         @click="pointPositionIsSetting = true"
       >
