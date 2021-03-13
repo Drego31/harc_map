@@ -16,7 +16,7 @@ export const pl = {
     setMapPosition: 'Ustawienia mapy',
     scoreboard: 'Tabela wyników',
     setPointPosition: 'Lokalizacja punktu',
-    addNewPoint: 'Nowy punkt',
+    newPoint: 'Nowy punkt',
     editPoint: 'Edycja punktu',
     short: {
       temporaryPoints: 'Czasowe',
@@ -226,7 +226,6 @@ export const pl = {
       success: 'Zapisanie nowych danych wydarzenia się powiodło.',
     },
     addPoint: {
-      success: 'Zapisanie danych punktu się powiodło.',
       positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
   },

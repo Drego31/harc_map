@@ -45,7 +45,7 @@ export default {
         params: { pointId: state.pointId },
       }
       : {
-        name: ROUTES.addNewPoint.name,
+        name: ROUTES.newPoint.name,
       },
 
   },

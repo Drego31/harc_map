@@ -23,6 +23,10 @@ export default {
     OMap,
   },
   props: {
+    point: {
+      type: Object,
+      required: true,
+    },
     pointCategory: {
       default: 2,
       type: Number,
@@ -30,7 +34,6 @@ export default {
   },
   computed: {
     ...mapGetters('point', [
-      'point',
       'getPointColor',
       'isUpdateMode',
       'pointId',
@@ -42,9 +45,8 @@ export default {
   },
   methods: {
     onSavePosition () {
-      this.$store.commit('point/setPointPosition', this.getNewPointPosition());
       this.$refs.banner.emitSuccessMessage()
-        .then(() => this.$emit('close'));
+        .then(() => this.$emit('save', this.getNewPointPosition()));
     },
     getNewPointPosition () {
       const mapPosition = map.getMapPosition();
