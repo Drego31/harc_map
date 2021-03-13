@@ -217,6 +217,8 @@ export const pl = {
   },
   communicate: {
     map: {
+      confirmPointRemove: 'Czy na pewno chcesz usunąć punkt?',
+      pointRemovingInProgress: 'Trwa usuwanie punktu...',
       pointRemoved: 'Punkt został usunięty',
     },
     collectPoint: {
