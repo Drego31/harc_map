@@ -8,11 +8,9 @@
 <script>
 import { mapGetters } from 'vuex';
 import { idUtils } from 'utils/id';
-import { mixins } from 'mixins/base';
 import TPointForm from 'templates/point-form';
 
 export default {
-  mixins: [mixins.form],
   name: 'p-new-point',
   components: {
     TPointForm,

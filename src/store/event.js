@@ -209,7 +209,7 @@ export default {
       return new Promise((resolve, reject) => {
         api.addPoint({ point, eventId })
           .then(() => map.updateMapFeatures())
-          .then(resolve)
+          .then(() => resolve())
           .catch(reject);
       });
     },
@@ -217,7 +217,7 @@ export default {
       return new Promise((resolve, reject) => {
         api.editPoint({ point, eventId })
           .then(() => map.updateMapFeatures())
-          .then(resolve)
+          .then(() => resolve())
           .catch(reject);
       });
     },
@@ -225,7 +225,7 @@ export default {
       return new Promise((resolve, reject) => {
         api.updateEvent(updatedEvent)
           .then(() => map.updateMapFeatures())
-          .then(resolve)
+          .then(() => resolve())
           .catch(reject);
       });
     },

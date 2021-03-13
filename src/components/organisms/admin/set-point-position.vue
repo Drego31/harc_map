@@ -2,7 +2,7 @@
   <o-map ref="oMap">
     <m-banner-map ref="banner" @actionTriggered="onSavePosition">
       <template slot="text">{{ $t('page.admin.setPointPosition.content') }}</template>
-      <template slot="button-name">{{ $t('form.button.save') }}</template>
+      <template slot="button-name">{{ $t('form.button.choose') }}</template>
     </m-banner-map>
     <m-pointer-map ref="map-pointer" :point-color="getPointColor"></m-pointer-map>
   </o-map>
@@ -11,7 +11,6 @@
 <script>
 import OMap from 'organisms/map';
 import MBannerMap from 'molecules/banner-map';
-import { mapGetters } from 'vuex';
 import MPointerMap from 'molecules/map-pointer';
 import { map } from 'map';
 
@@ -27,18 +26,6 @@ export default {
       type: Object,
       required: true,
     },
-    pointCategory: {
-      default: 2,
-      type: Number,
-    },
-  },
-  computed: {
-    ...mapGetters('point', [
-      'getPointColor',
-      'isUpdateMode',
-      'pointId',
-      'routeBackFromMap',
-    ]),
   },
   mounted () {
     map.panToPointLocationOnMap(this.point, { goToMap: false });

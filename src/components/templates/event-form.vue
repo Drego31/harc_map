@@ -44,7 +44,7 @@
     </o-form>
     <o-float-container v-if="eventPositionIsSetting">
       <o-admin-set-map-position
-        :point="values"
+        :event="values"
         @save="saveNewPosition"
       />
     </o-float-container>
@@ -144,7 +144,7 @@ export default {
         return;
       }
       this.onSave(this.values)
-        .then(() => this.onSuccessOccurs())
+        .then(this.onSuccessOccurs)
         .catch(this.onErrorOccurs);
     },
   },

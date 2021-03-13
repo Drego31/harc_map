@@ -23,8 +23,9 @@ export default {
     this.defaultValues.mapRefreshTime = this.event.mapRefreshTime;
     this.defaultValues.eventStartDate = this.event.eventStartDate;
     this.defaultValues.eventEndDate = this.event.eventEndDate;
-    this.defaultValues.mapLatitude = this.event.mapLatitude;
-    this.defaultValues.mapLongitude = this.event.mapLongitude;
+    this.defaultValues.mapLatitude = this.event.mapDefaultLatitude;
+    this.defaultValues.mapLongitude = this.event.mapDefaultLongitude;
+    this.defaultValues.mapZoom = this.event.mapDefaultZoom;
   },
   computed: {
     ...mapGetters('event', [
