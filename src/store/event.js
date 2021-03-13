@@ -73,8 +73,8 @@ export default {
       .filter(point => point.pointCollectionTime !== null),
 
     pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
-      const isEditPointPositionView = rootGetters['point/routeBackFromMap'].name === ROUTES.editPoint.name;
-      const editingPointId = isEditPointPositionView ? rootGetters['point/pointId'] : undefined;
+      // Admin can see all points on map
+      if (permissions.checkIsAdmin()) return state.points;
 
       return state.points.filter(({
         pointId,
@@ -83,9 +83,6 @@ export default {
         pointAppearanceTime,
         pointExpirationTime,
       }) => {
-        // Admin can see all points on map except point in edit position mode
-        if (permissions.checkIsAdmin()) return pointId !== editingPointId;
-
         if (pointType === MACROS.pointType.permanent) {
           // Point is not collected
           if (uCheck.isNull(pointCollectionTime)) return true;
