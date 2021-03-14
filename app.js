@@ -36,6 +36,11 @@ const pointCollectController = require('./controllers/pointCollect');
 const pointCategoriesController = require('./controllers/pointCategories');
 const statsOfCollectedController = require('./controllers/statsOfCollected');
 
+// passport configuration
+passportConfig.setStrategy(passport);
+passport.serializeUser(passportConfig.serializeUser);
+passport.deserializeUser(passportConfig.deserializeUser);
+
 // Create express app instance
 const app = express();
 
@@ -44,6 +49,26 @@ const app = express();
  */
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+function sameLength (str) {
+  const maxLength = 50;
+  const cutString = str.substr(0, maxLength);
+  const lengthStr = str.length;
+  let spaces = maxLength - lengthStr;
+  let finalStr = cutString;
+
+  while (spaces--) {
+    finalStr += ' ';
+  }
+  return finalStr;
+}
+
+app.use((req, res, next) => {
+  console.log('###########');
+  console.log(`${sameLength(req.path)}|  cookie: ${req.cookies[appConfig.session.name]}`);
+  console.log(`${req.user}`);
+  next();
+});
 
 // Session
 const sessionConfig = appConfig.session;
@@ -72,16 +97,19 @@ app.use(expressSession(Object.assign(sessionConfig, {
     stringify: false,
   }),
 })));
+
 // console.log(sessionConfig);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  console.log(req.user);
+  console.log('###########');
+  next();
+});
+
 // access middleware - permissions
 app.use(permissions);
-
-passport.serializeUser(passportConfig.serializeUser);
-passport.deserializeUser(passportConfig.deserializeUser);
-passportConfig.setStrategy(passport);
 
 /**
  * Routing
