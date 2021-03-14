@@ -13,8 +13,9 @@ export const pl = {
     map: 'Mapa',
     adminPanel: 'Panel admina',
     editEvent: 'Edycja wydarzenia',
-    setMapPosition: 'Ustawienia mapy',
     scoreboard: 'Tabela wyników',
+    newPoint: 'Nowy punkt',
+    editPoint: 'Edycja punktu',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
@@ -27,6 +28,9 @@ export const pl = {
   general: {
     showMore: 'pokaż&nbsp;więcej...',
     pointUnit: 'pkt',
+    pointCategoryLevel: 'poziom',
+    pointTemporary: 'Czasowy',
+    pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
     alreadyCollectedShort: 'Zebraliście',
     hide: 'Ukryj',
@@ -34,6 +38,7 @@ export const pl = {
     remove: 'Usuń',
     copied: 'Skopiowano do schowka',
     hello: 'Cześć',
+    saved: 'Zapisano!',
   },
   form: {
     field: {
@@ -46,10 +51,19 @@ export const pl = {
       eventName: 'Nazwa wydarzenia',
       eventId: 'Kod wydarzenia',
       pointId: 'Kod punktu',
+      pointName: 'Nazwa punktu',
+      pointType: 'Typ punktu',
+      pointDateAndAppearanceTime: 'Data i czas pojawienia się punktu',
+      pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
+      pointCategory: 'Kategoria punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
+      eventStartDate: 'Data i czas rozpoczęcia wydarzenia',
+      eventEndDate: 'Data i czas zakończenia wydarzenia',
     },
     assist: {
+      pointId: 'Kod punktu jest generowany automatycznie',
       eventId: 'Kod wydarzenia jest generowany automatycznie',
+      fieldNotRequired: 'Pole jest nieobowiązkowe',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -63,9 +77,11 @@ export const pl = {
     },
     button: {
       save: 'Zapisz',
+      choose: 'wybierz',
       next: 'Dalej',
       goToLogin: 'Przejdź do logowania',
-      setDefaultMapPositionAndZoom: 'Ustaw domyślną pozycję mapy',
+      setDefaultMapPositionAndZoom: 'Ustaw pozycję mapy',
+      setPointMapPosition: 'Ustaw lokalizację punktu',
     },
   },
   page: {
@@ -78,6 +94,7 @@ export const pl = {
       authors: 'O twórcach',
       leader: 'Team leader',
       frontDev: 'Front-end Developer',
+      fullstack: 'Full-stack Developer',
       backDev: 'Back-end Developer',
       uxDesigner: 'UX Designer',
     },
@@ -85,7 +102,10 @@ export const pl = {
       search: 'Rozpocznij poszukiwania!',
       checkResults: 'Sprawdź swoje wyniki',
       alreadyCollected: 'Zebraliście już',
-      nothingCollected: 'Nie zebraliście jeszcze żadnych punktów',
+      eventEndTime: 'Wydarzenie kończy się o ',
+      eventEndDate: 'Wydarzenie kończy się ',
+      eventStartDate: 'Wydarzenie zaczynie się ',
+      eventIsOutOfDate: 'Wydarzenie zostało zakończone!',
     },
     remindPassword: {
       content: `Wpisz swój e-mail, naciśnij przycisk „Dalej”, a my wyślemy 
@@ -114,6 +134,9 @@ export const pl = {
         i wpisz do poniższego pola tekstowego kod z koperty znajdującej się 
         na miejscu. Następnie wciśnij przycisk „Dalej”.`,
     },
+    timeoutPoints: {
+      noResults: 'Brak aktywnych punktów!',
+    },
     changePassword: {
       content: `Żeby zmienić swoje hasło, wpisz nowe hasło w poniższe pola, 
         a następnie naciśnij przycisk „Dalej”.`,
@@ -128,7 +151,10 @@ export const pl = {
     },
     admin: {
       setMapPosition: {
-        content: 'Ustaw mapę w wybranej pozycji i zapisz.',
+        content: 'Wybierz pozycję mapy dla wydarzenia.',
+      },
+      setPointPosition: {
+        content: 'Wybierz nową pozycję punktu.',
       },
       start: {
         message: 'Jesteś zalogowany jako administrator',
@@ -150,10 +176,18 @@ export const pl = {
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
     getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
-    updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła',
-    collectPoint: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
-    pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany już wcześniej.',
+    updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła.',
+    eventStartDateIsEmpty: 'Data i czas rozpoczęcia wydarzenia musi być uzupełniona.',
+    eventEndDateIsEmpty: 'Data i czas zakończenia wydarzenia musi być uzupełniona.',
+    eventIsOutOfDate: 'Punkt nie został zebrany, ponieważ wydarzenie zostało zakończone.',
+    eventBeforeStart: 'Punkt nie został zebrany, ponieważ wydarzenie nie zostało rozpoczęte.',
+    collectPoint: 'Zebranie punktu nie powiodło się przez błąd serwera.',
+    pointCollectedEarlier: 'Punkt o podanym kodzie został zebrany wcześniej.',
     pointNoExist: 'Punkt o podanym kodzie nie istnieje.',
+    addPoint: 'Dodanie punktu nie powiodło się.',
+    editPoint: 'Edycja punktu nie powiodła się.',
+    removePoint: 'Usuwanie punktu nie powiodło się przez błąd serwera.',
+    pointIdOrEventIdNotExist: 'Kod punktu lub wydarzenia jest niepoprawny.',
 
     all: 'Pobranie listy użytkowników nie powiodło się ze względu na błąd serwera.',
     signIn: 'Logowanie nie powiodło się ze względu na błąd serwera.',
@@ -182,6 +216,11 @@ export const pl = {
     more: 'Więcej',
   },
   communicate: {
+    map: {
+      confirmPointRemove: 'Czy na pewno chcesz usunąć punkt?',
+      pointRemovingInProgress: 'Trwa usuwanie punktu...',
+      pointRemoved: 'Punkt został usunięty',
+    },
     collectPoint: {
       congratulation: 'Gratulujemy!',
       youCollectedPoint: 'Zdobyłeś punkt!',
@@ -189,13 +228,20 @@ export const pl = {
     changePassword: {
       success: 'Twoje hasło zostało zmienione!',
     },
+    editEvent: {
+      success: 'Zapisanie nowych danych wydarzenia się powiodło.',
+      positionIsRequired: 'Wymagane jest ustawienie pozycji mapy.',
+    },
+    addPoint: {
+      positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
+    },
   },
   features: {
     timer: {
       toUpdate: 'Aktualizacja',
     },
     bannerMap: {
-      defaultSuccessMessage: 'Nowa pozycja została zapisana.',
+      defaultSuccessMessage: 'Nowa pozycja została wybrana.',
     },
   },
 };

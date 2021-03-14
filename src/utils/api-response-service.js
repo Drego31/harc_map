@@ -46,7 +46,7 @@ export const apiResponseService = {
 
 function requireMethod (methodName) {
   return () => {
-    throw new Error(methodName + ' method required');
+    throw new ErrorMessage(methodName + ' method required');
   };
 }
 

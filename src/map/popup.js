@@ -56,6 +56,8 @@ export class Popup {
     const permanentPoint = point.pointType === MACROS.pointType.permanent;
     const details = permanentPoint ? this.getPermanentPointDetails(point) : this.getTimeoutPointDetails(point);
     store.commit('mapPopup/setData', details);
+    store.commit('mapPopup/setPointId', point.pointId);
+
     this.overlay.setPosition(coordinates);
     this.container.style.visibility = 'visible';
   }

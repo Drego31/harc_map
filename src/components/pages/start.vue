@@ -1,17 +1,5 @@
 <template>
   <t-start>
-    <template slot="message">
-      <div v-if="sumOfCollectedPoints > 0">
-        {{ $t('page.start.alreadyCollected') }}
-        <span class="f-text-white">
-          {{ sumOfCollectedPoints }} {{ $t('general.pointUnit') }}
-        </span>
-      </div>
-      <div v-else>
-        {{ $t('page.start.nothingCollected') }}
-      </div>
-    </template>
-
     <template slot="buttons">
       <a-button-fill-primary @click="$router.push(ROUTES.map.path)">
         {{ $t('page.start.search') }}
@@ -24,7 +12,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import AButtonFillSecondary from 'atoms/button/fill/secondary';
 import AButtonFillPrimary from 'atoms/button/fill/primary';
 import TStart from 'templates/start';
@@ -35,11 +22,6 @@ export default {
     TStart,
     AButtonFillPrimary,
     AButtonFillSecondary,
-  },
-  computed: {
-    ...mapGetters('user', [
-      'sumOfCollectedPoints',
-    ]),
   },
 };
 </script>

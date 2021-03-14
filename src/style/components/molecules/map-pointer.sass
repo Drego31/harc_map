@@ -1,0 +1,39 @@
+$diameter: 16px
+$border: 2px
+$line-width: 2px
+
+.m-pointer
+  position: relative
+  top: calc(50vh - #{$diameter} / 2)
+  left: calc(50% - #{$diameter} / 2)
+
+  width: $diameter
+  height: $diameter
+  background-color: transparent
+  border: $border solid black
+  border-radius: 50%
+
+  &:before
+    content: ''
+    position: absolute
+    top: calc((#{$diameter} - #{2 * $border} - #{$line-width}) / 2)
+    left: calc(-50vw + (#{$diameter - $border - $line-width}) / 2)
+    z-index: -1
+
+    display: block
+    width: 100vw
+    height: $line-width
+    background: rgba(black, 0.6)
+
+
+  &:after
+    content: ''
+    position: absolute
+    left: calc((#{$diameter} - #{2 * $border} - #{$line-width}) / 2)
+    top: calc(-50vh + #{2 * $border} + #{$line-width})
+    z-index: -1
+
+    display: block
+    width: $line-width
+    height: 100vh
+    background: rgba(black, 0.6)

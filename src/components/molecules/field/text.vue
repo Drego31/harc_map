@@ -11,7 +11,7 @@
         :disabled="disabled"
         :placeholder="label"
         :error="errors.length > 0"
-        :assist="errors[0]"
+        :assist="errors[0] || assist"
       />
     </validation-provider>
   </validation-observer>
@@ -32,6 +32,10 @@ export default {
       default: '',
     },
     rules: {
+      type: String,
+      default: '',
+    },
+    assist: {
       type: String,
       default: '',
     },

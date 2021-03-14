@@ -10,13 +10,14 @@ import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 import { colorsUtils } from 'utils/colors';
+import { ErrorMessage } from 'utils/error-message';
 
 export function createFeatures ({ list = [] }) {
   const mapIsNotDefined = uCheck.isNotObject(map.realMap);
   const listOfFeatures = [];
 
   if (mapIsNotDefined) {
-    console.error(new Error('Map is undefined'));
+    console.error(new ErrorMessage('Map is undefined'));
     return false;
   }
 
@@ -26,11 +27,7 @@ export function createFeatures ({ list = [] }) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;
     const shape = point.pointCategory;
-    const pointIsCollected = point.pointCollectionTime !== null;
-    const collectedPointsIds = store.getters['user/collectedPointsIds'];
-    const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
-    const isAdmin = permissions.checkIsAdmin();
-    const showCollected = pointIsCollected && (collectedByLoginUser || isAdmin);
+    const showCollected = shouldBeShownAsCollected(point);
 
     const stroke = getStroke(shape, showCollected);
     const fill = getFill(shape, showCollected);
@@ -57,10 +54,18 @@ export function createFeatures ({ list = [] }) {
   map.points.layer = layer;
 }
 
+const shouldBeShownAsCollected = (point) => {
+  const pointIsCollected = point.pointCollectionTime !== null;
+  const collectedPointsIds = store.getters['user/collectedPointsIds'];
+  const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
+  const isAdmin = permissions.checkIsAdmin();
+  return pointIsCollected && (collectedByLoginUser || isAdmin);
+};
+
 const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
   let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
-    const opacity = 0.5;
+    const opacity = 0.3;
     appearance = { ...appearance };
     appearance.strokeColor = colorsUtils.hexOrRGBToRGB(appearance.strokeColor, opacity);
   }
@@ -73,7 +78,7 @@ const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) 
 const getFill = (shape, isCollected) => {
   let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
-    const opacity = 0.5;
+    const opacity = 0.3;
     appearance = { ...appearance };
     appearance.fillColor = colorsUtils.hexOrRGBToRGB(appearance.fillColor, opacity);
   }

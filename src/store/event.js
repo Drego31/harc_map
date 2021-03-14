@@ -2,8 +2,10 @@ import { uCheck } from '@dbetka/utils';
 import moment from 'moment';
 import { MACROS } from 'utils/macros';
 import Vue from 'vue';
+import { map } from 'map';
 import Cookies from 'js-cookie';
 import pointsModule from 'store/event/points';
+import { eventUtils } from 'utils/event';
 
 export default {
   namespaced: true,
@@ -13,6 +15,8 @@ export default {
   state: {
     eventId: '',
     eventName: '',
+    eventStartDate: null,
+    eventEndDate: null,
     mapLongitude: 0,
     mapLatitude: 0,
     mapDefaultLongitude: 0,
@@ -22,10 +26,13 @@ export default {
     mapRefreshTime: 60,
     points: [],
     categories: [],
+    hidePoint: {},
   },
   getters: {
     event: state => state,
     eventName: state => state.eventName,
+    eventStartDate: state => state.eventStartDate,
+    eventEndDate: state => state.eventEndDate,
     eventId: state => state.eventId,
     mapPosition: state => ({
       mapLongitude: state.mapLongitude,
@@ -37,9 +44,17 @@ export default {
       mapDefaultLatitude: state.mapDefaultLatitude,
       mapDefaultZoom: state.mapDefaultZoom,
     }),
+    hidePoint: state => state.hidePoint,
     points: state => state.points,
     getPointById: state => pointId => {
       return state.points.find(point => point.pointId === pointId);
+    },
+    getPointPositionById: state => pointId => {
+      const point = state.points.find(point => point.pointId === pointId);
+      return {
+        pointLatitude: point.pointLatitude,
+        pointLongitude: point.pointLongitude,
+      };
     },
     getPointByOlUid: state => pointOlUid => {
       return state.points.find(point => point.olUid === pointOlUid);
@@ -57,6 +72,7 @@ export default {
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
     allCollectedPoints: state => state.points
       .filter(point => point.pointCollectionTime !== null),
+
     pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
       return state.points.filter(({
         pointId,
@@ -65,6 +81,9 @@ export default {
         pointAppearanceTime,
         pointExpirationTime,
       }) => {
+        // Hide if it's hide point
+        if (pointId === getters.hidePoint.pointId) return false;
+
         // Admin can see all points on map
         if (permissions.checkIsAdmin()) return true;
 
@@ -93,6 +112,8 @@ export default {
     eventBasicInformation: (state) => ({
       eventId: state.eventId,
       eventName: state.eventName,
+      eventStartDate: state.eventStartDate,
+      eventEndDate: state.eventEndDate,
       mapZoom: state.mapZoom,
       mapLongitude: state.mapLongitude,
       mapLatitude: state.mapLatitude,
@@ -113,6 +134,7 @@ export default {
         state.mapZoom = cookie.mapZoom;
       }
     },
+    addPoint: (state, point) => state.points.push(point),
     setDefaultMapPositionAndZoom: (state) => {
       state.mapLatitude = state.mapDefaultLatitude;
       state.mapLongitude = state.mapDefaultLongitude;
@@ -144,9 +166,9 @@ export default {
       state.mapLatitude = mapLatitude;
       state.mapLongitude = mapLongitude;
     },
-    setMapZoom: (state, mapZoom) => {
-      state.mapZoom = mapZoom;
-    },
+    setMapZoom: (state, mapZoom) => (state.mapZoom = mapZoom),
+    setHidePoint: (state, payload) => (state.hidePoint = payload),
+    clearHidePoint: (state) => (state.hidePoint = {}),
   },
   actions: {
     download (context, eventId = context.state.eventId) {
@@ -155,11 +177,13 @@ export default {
         api.getEventById({ eventId })
           .then(data => (event = data))
           .then(api.getCategoriesByEventId)
-          .then(categories => {
-            event.categories = categories;
-            return event;
+          .then(categories => (event.categories = categories))
+          .then(() => {
+            const IsBeforeStart = eventUtils.checkIfIsBeforeStart(event);
+            const IsCommonUser = permissions.checkIsCommon();
+            if (IsBeforeStart && IsCommonUser) return [];
+            else return api.getPointsByEventId(event);
           })
-          .then(api.getPointsByEventId)
           .then(points => {
             event.points = points.map(point => ({ ...point }));
             context.commit('setEvent', event);
@@ -188,12 +212,27 @@ export default {
           });
       });
     },
+    addPoint (context, { point, eventId = context.getters.eventId }) {
+      return new Promise((resolve, reject) => {
+        api.addPoint({ point, eventId })
+          .then(() => map.updateMapFeatures())
+          .then(() => resolve())
+          .catch(reject);
+      });
+    },
+    editPoint (context, { point, eventId = context.getters.eventId }) {
+      return new Promise((resolve, reject) => {
+        api.editPoint({ point, eventId })
+          .then(() => map.updateMapFeatures())
+          .then(() => resolve())
+          .catch(reject);
+      });
+    },
     updateEvent (context, updatedEvent = context.getters.eventBasicInformation) {
       return new Promise((resolve, reject) => {
         api.updateEvent(updatedEvent)
-          .then(api.getEventById)
-          .then(eventData => context.commit('setEvent', eventData))
-          .then(resolve)
+          .then(() => map.updateMapFeatures())
+          .then(() => resolve())
           .catch(reject);
       });
     },

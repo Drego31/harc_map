@@ -24,6 +24,7 @@
 <script>
 import { getHoursAndMinutesAsString } from 'utils/date';
 import AIcon from 'atoms/icon';
+import moment from 'moment';
 
 export default {
   name: 'm-table-row-temporary-points',
@@ -51,7 +52,16 @@ export default {
       else return this.ICONS.history_toggle_off;
     },
     availabilityTimeAsString () {
-      return getHoursAndMinutesAsString(this.pointAppearanceTime) + ' - ' + getHoursAndMinutesAsString(this.pointExpirationTime);
+      const appearanceTime = moment(new Date(this.pointAppearanceTime)).calendar(null, {
+        sameDay: 'HH:mm',
+        nextDay: 'DD.MM.YYYY HH:mm',
+        nextWeek: 'DD.MM.YYYY HH:mm',
+        lastDay: 'DD.MM.YYYY HH:mm',
+        lastWeek: 'DD.MM.YYYY HH:mm',
+        sameElse: 'DD.MM.YYYY HH:mm',
+      });
+      const expirationTime = getHoursAndMinutesAsString(this.pointExpirationTime);
+      return appearanceTime + ' - ' + expirationTime;
     },
     classForMap () {
       if (this.checkIsAdmin() || this.checkIfPointIsActive()) return '';

@@ -49,6 +49,12 @@
         {{ option.label }}
       </div>
     </div>
+    <div
+      class="a-assist"
+      :class="{ 'f-error': error, 'f-disabled': disabled}"
+    >
+      {{ assist }}
+    </div>
   </div>
 </template>
 
@@ -75,6 +81,10 @@ export default {
     /**
      * options: [{label: String, value: String}]
      */
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     options: {
       type: Array,
       required: true,
@@ -90,6 +100,10 @@ export default {
     correct: {
       type: Boolean,
       default: false,
+    },
+    assist: {
+      type: String,
+      default: '',
     },
   },
   data: () => ({
@@ -113,6 +127,7 @@ export default {
         'f-filled': this.label !== '',
         'f-error': this.error,
         'f-correct': this.correct,
+        'f-disabled': this.disabled,
       };
     },
   },
@@ -152,6 +167,8 @@ export default {
       });
     },
     toggleOptions (newState) {
+      if (this.disabled) return;
+
       const oppositeState = this.optionsAreOpen === false;
       this.optionsAreOpen = newState !== undefined ? newState : oppositeState;
       this.resetPointedOption();
@@ -173,6 +190,8 @@ export default {
       value,
       index,
     }) {
+      if (this.disabled) return;
+
       if (logical.isDefined(index)) {
         value = this.options[index].value;
       }
@@ -207,6 +226,8 @@ export default {
       this.optionSwitch(this.pointedOption);
     },
     optionDown () {
+      if (this.disabled) return;
+
       if (this.pointedOption + 1 > this.options.length - 1) {
         this.pointedOption = 0;
       } else {

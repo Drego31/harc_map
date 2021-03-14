@@ -107,6 +107,7 @@ router.route('/')
         });
     } else if (Object.keys(req.body).length === 0) {
       utils.responseUserError(res, 401, errorsCodes.USER_IS_NOT_LOGGED);
+
     } else {
       // User data validation
       const requestBodyValidationError = validator.validate(

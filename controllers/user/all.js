@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../../lib/mongodb');
-const utils = require('../../lib/utils');
 
 // Codes for errorsCodes
 const errorsCodes = require('../../lib/validateCodes');

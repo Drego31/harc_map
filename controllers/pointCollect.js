@@ -8,18 +8,19 @@ const Endpoint = require('../lib/endpoint');
 class PutRequestService extends Endpoint {
 
   databasePartValidateEvent (event) {
-    this.makeThrowIf(event.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(event === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(event.eventStartDate > Date.now(), validateCodes.EVENT_BEFORE_START_DATE);
+    this.makeThrowIf(event.eventEndDate < Date.now(), validateCodes.EVENT_IS_OUT_OF_DATE);
   }
 
   databasePartValidatePoint (point) {
-    this.makeThrowIf(point.length === 0, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(point === null, validateCodes.DATABASE_NO_RESULT_ERROR);
+    this.makeThrowIf(point.pointCollectionTime !== null, validateCodes.POINT_ALREADY_COLLECTED);
   }
 
   databasePartValidateUser (user) {
     const json = this.getRequestJson();
-    if (user === null) {
-      this.makeThrow(validateCodes.DATABASE_NO_RESULT_ERROR);
-    }
+    this.makeThrowIf(user === null, validateCodes.DATABASE_NO_RESULT_ERROR);
     if (user.collectedPointsIds.includes(json.pointId)) {
       this.makeThrow(validateCodes.DATABASE_DATA_CONFLICT_ERROR);
     }

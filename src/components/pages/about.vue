@@ -69,7 +69,7 @@ export default {
       {
         photo: '/img/dbetka.jpeg',
         fullName: 'Dominik Betka',
-        responsibilities: translator.t('page.about.leader') + ', ' + translator.t('page.about.frontDev'),
+        responsibilities: translator.t('page.about.leader') + ', ' + translator.t('page.about.fullstack'),
         links: [
           {
             label: 'GitHub',

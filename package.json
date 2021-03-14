@@ -1,6 +1,6 @@
 {
   "name": "harcmap",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "HarcMap",
   "main": "src/index.js",
   "scripts": {
@@ -67,6 +67,7 @@
     "import-glob-loader": "^1.1.0",
     "jest": "^25.2.7",
     "js-cookie": "^2.2.1",
+    "json2csv": "^5.0.6",
     "moment": "^2.24.0",
     "nodemailer": "^6.4.6",
     "sass": "^1.29.0",

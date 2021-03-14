@@ -39,6 +39,9 @@
       />
       <div class="f-flex-1 f-pl-3">Wyloguj</div>
     </a>
+    <div v-if="isOpen" class="a-version">
+      v{{ VERSION }}
+    </div>
   </div>
 </template>
 
@@ -55,6 +58,7 @@ export default {
   components: { AIcon },
   data: () => ({
     THEMES,
+    VERSION: VERSION,
   }),
   computed: {
     ...mapGetters('menu', [

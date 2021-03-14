@@ -25,7 +25,6 @@
           v-model="values.eventId"
           :disabled="blockForm"
         />
-        <div class="f-text-center f-text-danger" v-text="message"/>
         <a-button-submit
           :disabled="blockForm"
           :is-sending="isSending"
@@ -78,7 +77,6 @@ export default {
     },
     blockForm: false,
     isSending: false,
-    message: '',
     formSend: false,
   }),
   methods: {

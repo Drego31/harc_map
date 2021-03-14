@@ -114,7 +114,62 @@ class PutRequestService extends Endpoint {
 
 }
 
+/**
+ * @swagger
+ *
+ * /event/point:
+ *  delete:
+ *    summary: Delete event point
+ *    tags:
+ *      - Event
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              eventId:
+ *                type: string
+ *              pointId:
+ *                type: string
+ *          example: { "eventId": "ab32", "pointId": "4lag" }
+ *      required: true
+ *    responses:
+ *      200:
+ *        description: Return result (error - Null) or error info (error - Number)
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                error:
+ *                  $ref: '#/components/responses/200/Error'
+ */
+class DeleteRequestService extends Endpoint {
+
+  databasePart () {
+    const json = this.getRequestJson();
+    const pointCollection = 'event_' + json.eventId;
+    const { pointId } = json;
+
+    return database.remove(pointCollection, { pointId })
+      .then(point => {
+        if (point.deletedCount === 0) {
+          this.makeThrow(validateCodes.POINT_ID_OR_EVENT_ID_NOT_EXIST);
+        }
+        return point;
+      })
+      .then(() => this.sendResponse());
+  }
+
+  endpointService () {
+    return this.databasePart();
+  }
+
+}
+
 router.get('/', (request, response) => new GetRequestService(request, response, validator.methods.validatePointGetRequest));
 router.post('/', (request, response) => new PostRequestService(request, response, validator.methods.validatePointPostRequest));
 router.put('/', (request, response) => new PutRequestService(request, response, validator.methods.validatePointPutRequest));
+router.delete('/', (request, response) => new DeleteRequestService(request, response, validator.methods.validatePointDeleteRequest));
 module.exports = router;

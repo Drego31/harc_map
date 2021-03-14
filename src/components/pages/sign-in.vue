@@ -12,13 +12,15 @@
         type="password"
         v-model="values.password"
       />
-      <div class="f-text-center f-text-danger" v-text="message"/>
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
       />
     </o-form>
-    <a-button-secondary @click="$router.push(ROUTES.remindPassword.path)">
+    <a-button-secondary
+      @click="$router.push(ROUTES.remindPassword.path)"
+      :disabled="blockForm"
+    >
       {{ ROUTES.remindPassword.label }}
     </a-button-secondary>
   </t-page>
@@ -35,6 +37,7 @@ import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
 import { ERRORS } from 'utils/macros/errors';
+import { ErrorMessage } from 'utils/error-message';
 
 export default {
   name: 'p-sign-in',
@@ -53,7 +56,6 @@ export default {
     },
     blockForm: false,
     isSending: false,
-    message: '',
   }),
   mounted () {
     if (PRODUCTION === false) {
@@ -68,11 +70,7 @@ export default {
           this.isSending = false;
           this.blockForm = false;
         })
-        .catch(() => {
-          this.message = ERRORS.dataAfterSignIn;
-          this.isSending = false;
-          this.blockForm = false;
-        });
+        .catch(() => this.onErrorOccurs(new ErrorMessage(ERRORS.dataAfterSignIn, { hard: true })));
     },
     signIn () {
       this.isSending = true;

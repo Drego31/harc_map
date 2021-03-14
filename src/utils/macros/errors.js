@@ -25,17 +25,53 @@ export const API_ERRORS = {
   },
   updateEvent: {
     defaultError: translator.t('apiError.updateEvent'),
+    errors: [
+      [
+        [validateCodes.EVENT_END_DATE_IS_EMPTY],
+        translator.t('apiError.eventEndDateIsEmpty'),
+      ],
+      [
+        [validateCodes.EVENT_START_DATE_IS_EMPTY],
+        translator.t('apiError.eventStartDateIsEmpty'),
+      ],
+    ],
   },
   collectPoint: {
     defaultError: translator.t('apiError.collectPoint'),
     errors: [
       [
-        [validateCodes.DATABASE_DATA_CONFLICT_ERROR],
+        [
+          validateCodes.DATABASE_DATA_CONFLICT_ERROR,
+          validateCodes.POINT_ALREADY_COLLECTED,
+        ],
         translator.t('apiError.pointCollectedEarlier'),
       ],
       [
         [validateCodes.DATABASE_NO_RESULT_ERROR],
         translator.t('apiError.pointNoExist'),
+      ],
+      [
+        [validateCodes.EVENT_IS_OUT_OF_DATE],
+        translator.t('apiError.eventIsOutOfDate'),
+      ],
+      [
+        [validateCodes.EVENT_BEFORE_START_DATE],
+        translator.t('apiError.eventBeforeStart'),
+      ],
+    ],
+  },
+  addPoint: {
+    defaultError: translator.t('apiError.addPoint'),
+  },
+  editPoint: {
+    defaultError: translator.t('apiError.editPoint'),
+  },
+  removePoint: {
+    defaultError: translator.t('apiError.removePoint'),
+    errors: [
+      [
+        [validateCodes.POINT_ID_OR_EVENT_ID_NOT_EXIST],
+        translator.t('apiError.pointIdOrEventIdNotExist'),
       ],
     ],
   },

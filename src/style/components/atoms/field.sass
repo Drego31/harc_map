@@ -1,5 +1,6 @@
 .a-field
   @extend .f-text-16
+  width: auto
   height: 56px
   line-height: 24px
   border: 1px solid $color-border
@@ -31,3 +32,7 @@
 
   &.f-correct
     border-color: $color-primary
+
+  &[type=date], &[type=datetime-local]
+    &::-webkit-calendar-picker-indicator
+      +invert-if-dark
