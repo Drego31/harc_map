@@ -65,7 +65,7 @@ const shouldBeShownAsCollected = (point) => {
 const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
   let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
-    const opacity = 0.5;
+    const opacity = 0.3;
     appearance = { ...appearance };
     appearance.strokeColor = colorsUtils.hexOrRGBToRGB(appearance.strokeColor, opacity);
   }
@@ -78,7 +78,7 @@ const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) 
 const getFill = (shape, isCollected) => {
   let appearance = MAP_POINTS[shape]() || {};
   if (isCollected) {
-    const opacity = 0.5;
+    const opacity = 0.3;
     appearance = { ...appearance };
     appearance.fillColor = colorsUtils.hexOrRGBToRGB(appearance.fillColor, opacity);
   }
