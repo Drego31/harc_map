@@ -1,118 +1,45 @@
 <template>
-  <t-page>
-    <o-form :on-submit="updateEvent">
-      <m-input
-        :disabled="blockForm"
-        :placeholder="$t('form.field.eventName')"
-        v-model="values.eventName"
-      />
-      <m-input
-        disabled
-        :placeholder="$t('form.field.eventId')"
-        v-model="values.eventId"
-        :assist="$t('form.assist.eventId')"
-      />
-      <m-select
-        :options="options"
-        :placeholder="$t('form.field.mapRefreshTime')"
-        v-model="values.mapRefreshTime"
-      />
-      <div
-        class="f-text-center"
-        :class="[isServerError ? 'f-text-danger' : 'f-text-primary']"
-        v-text="message"
-      />
-      <a-button-submit
-        :disabled="blockForm"
-        :is-sending="isSending"
-        :text="$t('form.button.save')"
-      />
-    </o-form>
-    <a-button-secondary class="f-text-center" @click="$router.push(ROUTES.setMapPosition)">
-      {{ $t('form.button.setDefaultMapPositionAndZoom') }}
-    </a-button-secondary>
-  </t-page>
+  <t-event-form
+    :default-values="defaultValues"
+    :on-save="updateEvent"
+  />
 </template>
 
 <script>
-import TPage from 'templates/page';
-import MInput from 'molecules/input';
-import AButtonSubmit from 'atoms/button/submit';
-import OForm from 'organisms/form';
-import { mixins } from 'mixins/base';
 import { mapGetters } from 'vuex';
-import AButtonSecondary from 'atoms/button/secondary';
-import MSelect from 'molecules/select';
+import TEventForm from 'templates/event-form';
 
 export default {
   name: 'p-admin-edit-event',
-  mixins: [mixins.form],
   components: {
-    MSelect,
-    TPage,
-    AButtonSecondary,
-    OForm,
-    AButtonSubmit,
-    MInput,
+    TEventForm,
   },
-  data () {
-    const minute = 60;
-    return {
-      values: {
-        eventName: '',
-        eventId: '',
-        mapRefreshTime: 60,
-      },
-      blockForm: false,
-      isSending: false,
-      isServerError: false,
-      message: '',
-      options: [
-        {
-          label: '1 min',
-          value: minute,
-        }, {
-          label: '5 min',
-          value: 5 * minute,
-        }, {
-          label: '10 min',
-          value: 10 * minute,
-        }, {
-          label: '15 min',
-          value: 15 * minute,
-        }, {
-          label: '30 min',
-          value: 30 * minute,
-        },
-      ],
-    };
-  },
+  data: () => ({
+    defaultValues: {},
+  }),
   created () {
-    this.values.eventName = this.event.eventName;
-    this.values.eventId = this.event.eventId;
-    this.values.mapRefreshTime = this.event.mapRefreshTime;
+    this.defaultValues.eventName = this.event.eventName;
+    this.defaultValues.eventId = this.event.eventId;
+    this.defaultValues.mapRefreshTime = this.event.mapRefreshTime;
+    this.defaultValues.eventStartDate = this.event.eventStartDate;
+    this.defaultValues.eventEndDate = this.event.eventEndDate;
+    this.defaultValues.mapLatitude = this.event.mapDefaultLatitude;
+    this.defaultValues.mapLongitude = this.event.mapDefaultLongitude;
+    this.defaultValues.mapZoom = this.event.mapDefaultZoom;
   },
   computed: {
-    ...mapGetters('event', ['event', 'eventBasicInformation']),
+    ...mapGetters('event', [
+      'event',
+      'eventBasicInformation',
+    ]),
   },
   methods: {
-    updateEvent () {
+    updateEvent (event) {
       const updatedEvent = {
         ...this.eventBasicInformation,
-        eventName: this.values.eventName,
-        mapRefreshTime: this.values.mapRefreshTime,
+        ...event,
       };
-      this.$store.dispatch('event/updateEvent', updatedEvent)
-        .then(this.onEventUpdate)
-        .catch(this.onErrorOccurs);
-    },
-    onEventUpdate () {
-      this.isServerError = false;
-      this.message = 'Zapisanie nowych danych wydarzenia się powiodło.';
-      setTimeout(() => this.clearMessage(), 3000);
-    },
-    clearMessage () {
-      this.message = '';
+      return this.$store.dispatch('event/updateEvent', updatedEvent);
     },
   },
 };

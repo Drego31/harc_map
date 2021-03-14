@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="f-relative f-height-100">
     <slot/>
     <div class="o-map" id="o-map"></div>
     <o-popup-map
-      v-if="checkIsAdmin()"
+      v-if="checkIsAdmin() && pointOptions"
       ref="mapPopup"
     />
   </div>
@@ -19,11 +19,15 @@ import Cookies from 'js-cookie';
 export default {
   name: 'o-map',
   components: { OPopupMap },
-  data: () => ({
-    popup: null,
-  }),
+  props: {
+    pointOptions: {
+      type: Boolean,
+      default: true,
+    },
+  },
   mounted () {
     const appEvent = this.$store.getters['event/event'];
+    const pointList = this.$store.getters['event/pointsVisibleOnMap'];
 
     map.create({
       elementId: 'o-map',
@@ -31,9 +35,11 @@ export default {
       lon: appEvent.mapLongitude,
       zoom: appEvent.mapZoom,
     });
+
     map.points.create({
-      list: this.$store.getters['event/pointsVisibleOnMap'],
+      list: pointList,
     });
+
     map.lines.create({
       list: this.$store.getters['user/collectedPoints'],
     });
@@ -51,14 +57,20 @@ export default {
     saveLastMapPositionToDatabase () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({ mapLatitude, mapLongitude });
+      this.setMapPosition({
+        mapLatitude,
+        mapLongitude,
+      });
       this.setMapZoom(mapView.getZoom());
       api.updateEvent(this.$store.getters['event/eventBasicInformation']);
     },
     saveLastMapPositionToCookies () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({ mapLatitude, mapLongitude });
+      this.setMapPosition({
+        mapLatitude,
+        mapLongitude,
+      });
       this.setMapZoom(mapView.getZoom());
       const dataForCookies = {
         mapLatitude,

@@ -1,11 +1,11 @@
 <template>
   <t-page class="f-text-center">
     <a-button-primary
-      v-for="route of links"
-      :key="route.name"
-      @click="$router.push(route)"
+      v-for="link of links"
+      :key="link.name"
+      @click="goTo(link)"
     >
-      {{ route.label }}
+      {{ getLabelFromLink(link) }}
     </a-button-primary>
   </t-page>
 </template>
@@ -24,10 +24,22 @@ export default {
   computed: {
     links () {
       return [
-        ROUTES.scoreboard,
-        ROUTES.editEvent,
-        ROUTES.setMapPosition,
+        { route: ROUTES.scoreboard },
+        { route: ROUTES.editEvent },
+        { route: ROUTES.newPoint },
+        { url: '/point/all', label: 'Pobierz listę punktów' },
       ];
+    },
+  },
+  methods: {
+    getLabelFromLink (link) {
+      return link.route ? link.route.label : link.label;
+    },
+    goTo (link) {
+      link.route ? this.$router.push(link.route) : this.goToUrl(link);
+    },
+    goToUrl (link) {
+      window.location = link.url;
     },
   },
 };

@@ -49,9 +49,39 @@ export const eventController = {
       ...API_ERRORS.removePoint,
     });
   },
+  addPoint ({
+    point,
+    eventId,
+  }) {
+    return makeRequest({
+      method: request.post,
+      url: '/event/point',
+      data: {
+        point,
+        eventId,
+      },
+      ...API_ERRORS.addPoint,
+    });
+  },
+  editPoint ({
+    point,
+    eventId,
+  }) {
+    return makeRequest({
+      method: request.put,
+      url: '/event/point',
+      data: {
+        point,
+        eventId,
+      },
+      ...API_ERRORS.editPoint,
+    });
+  },
   updateEvent ({
     eventId,
     eventName,
+    eventStartDate,
+    eventEndDate,
     mapLongitude,
     mapLatitude,
     mapZoom,
@@ -63,6 +93,8 @@ export const eventController = {
       data: {
         eventId,
         eventName,
+        eventStartDate,
+        eventEndDate,
         mapLongitude,
         mapLatitude,
         mapZoom,

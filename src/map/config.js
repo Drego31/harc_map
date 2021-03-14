@@ -10,7 +10,7 @@ export const mapConfig = {
     lat: 0, // range from -90 to 90 degrees
     lon: 0, // range from -180 to 180 degrees
     zoom: 2,
-    maxZoom: 19,
+    maxZoom: 16,
   },
   features: {
     defaultWidth: 2,
