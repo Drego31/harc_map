@@ -10,6 +10,7 @@ export default {
     user: '',
     userTeam: '',
     accountType: '',
+    firstLogin: false,
     collectedPointsIds: [],
   },
   getters: {
@@ -40,6 +41,7 @@ export default {
     setUser: (state, payload) => (state.user = payload),
     setUserTeam: (state, payload) => (state.userTeam = payload),
     setAccountType: (state, payload) => (state.accountType = payload),
+    setFirstLogin: (state, payload) => (state.firstLogin = payload),
     setCollectedPointsIds: (state, payload) => (state.collectedPointsIds = payload || []),
     addCollectedPointId: (state, payload) => (state.collectedPointsIds.push(payload)),
     signOut: state => {
@@ -50,17 +52,19 @@ export default {
     },
   },
   actions: {
-    signIn (context, { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common }) {
+    signIn (context, data) {
+      const { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common, firstLogin } = data
       return new Promise((resolve, reject) => {
         context.commit('event/setId', eventId, { root: true });
         context.commit('setUser', user);
         context.commit('setUserTeam', userTeam);
         context.commit('setAccountType', accountType);
+        context.commit('setFirstLogin', firstLogin);
         context.commit('setCollectedPointsIds', collectedPointsIds);
         context.dispatch('event/download', undefined, { root: true })
           .then(() => {
             autoUpdate.run();
-            resolve();
+            resolve(data);
           })
           .catch(() => {
             context.dispatch('signOut').catch(() => undefined);

@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    isOpen: true,
+    isOpen: false,
   },
   getters: {
     isOpen: state => state.isOpen,
