@@ -9,6 +9,7 @@ import header from './header';
 import popup from './popup';
 import mapPopup from './map-popup';
 import snackbar from './snackbar';
+import guide from './guide';
 
 Vue.use(Vuex);
 
@@ -23,6 +24,7 @@ export const store = new Vuex.Store({
     popup,
     mapPopup,
     snackbar,
+    guide,
   },
   state: {
     isLoading: true,

@@ -1,8 +1,7 @@
 <template>
-  <o-float-container>
+  <o-float-container v-if="isOpen">
     <a-icon-close-popup add-class="f-mt-1 f-mr-1"/>
-    <slider ref="slider" :options="options">
-      <!-- slideritem wrapped package with the components you need -->
+    <slider ref="slider" @slide="onSlide">
       <slider-item v-for="(slide, index) in slides" :key="index">
         <m-slide
           :title="slide.title"
@@ -10,8 +9,6 @@
           :icon="slide.icon"
         />
       </slider-item>
-      <!-- Customizable loading -->
-      <div slot="loading">loading...</div>
     </slider>
 
   </o-float-container>
@@ -22,6 +19,7 @@ import { slider as Slider, slideritem as SliderItem } from 'vue-concise-slider';
 import OFloatContainer from 'organisms/float-container';
 import MSlide from 'molecules/slide';
 import AIconClosePopup from 'atoms/icon/close-popup';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'o-guide',
@@ -32,12 +30,8 @@ export default {
     MSlide,
     OFloatContainer,
   },
-  data: () => ({
-    options: {
-      currentPage: 0,
-    },
-  }),
   computed: {
+    ...mapGetters('guide', ['isOpen']),
     slides () {
       return [
         {
@@ -56,6 +50,19 @@ export default {
           icon: this.ICONS.watch_later,
         },
       ];
+    },
+  },
+  methods: {
+    ...mapMutations('guide', ['close']),
+    onSlide ({ direction }) {
+      if (direction === 'rebound') {
+        this.close();
+      }
+    },
+  },
+  watch: {
+    isOpen () {
+      this.$refs.slider.$emit('slideTo', 0);
     },
   },
 };
