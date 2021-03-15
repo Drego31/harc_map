@@ -17,7 +17,7 @@ const errorsCodes = require('../../lib/validateCodes');
  * @private
  */
 function __getUserDataForResponse (userStructure = {}, collectedPointsIds) {
-  const { user, userTeam, userEvents, accountType } = userStructure;
+  const { user, userTeam, userEvents, accountType, firstLogin } = userStructure;
 
   // user object schema that's sending to frontend
   return {
@@ -26,6 +26,7 @@ function __getUserDataForResponse (userStructure = {}, collectedPointsIds) {
     collectedPointsIds: collectedPointsIds,
     eventId: userEvents[0],
     accountType,
+    firstLogin,
     error: null,
   };
 }
@@ -125,7 +126,12 @@ router.route('/')
                 utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
               } else {
                 const { user } = userData;
+                console.log(userData);
+                const firstLoginUpdateData = { firstLogin: false };
                 database.read('users', { user })
+                  .then(utils.throwIfEmpty)
+                  .then(result => database.update('users', { _id: database.ObjectId(result._id) }, firstLoginUpdateData))
+                  // successful updated
                   .then(utils.throwIfEmpty)
                   .then(result => {
                     res.send(__getUserDataForResponse(userData, result.collectedPointsIds));
