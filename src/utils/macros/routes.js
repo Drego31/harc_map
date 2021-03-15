@@ -64,14 +64,14 @@ export const ROUTES = {
     name: 'collectPoint',
     label: translator.t('title.collectPoint'),
     shortLabel: translator.t('title.short.collectPoint'),
-    icon: ICONS.star,
+    icon: ICONS.add,
   },
   collectedPoints: {
     path: '/collected-points',
     name: 'collectedPoints',
     label: translator.t('title.collectedPoints'),
     shortLabel: translator.t('title.short.collectedPoints'),
-    icon: ICONS.view_list,
+    icon: ICONS.insert_chart,
   },
   map: {
     path: '/map',
@@ -113,6 +113,6 @@ export const ROUTES = {
     name: 'scoreboard',
     label: translator.t('title.scoreboard'),
     shortLabel: translator.t('title.short.scoreboard'),
-    icon: ICONS.view_list,
+    icon: ICONS.insert_chart,
   },
 };

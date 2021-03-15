@@ -248,6 +248,42 @@ export const pl = {
     },
     guide: {
       howAppWorks: 'Jak to działa?',
+      howItWorks: {
+        title: 'Jak to działa?',
+        description: `Twoim zadaniem jest zebrać jak najwięcej punktów oraz odwiedzić jak największą ilość punktów 
+          czasowych (nie można ich zebrać). Pamiętaj by podczas gry się nie rozdzielać! Unikaj także spotkań z innymi patrolami.`,
+      },
+      eventStart: {
+        title: 'Czas trwania wydarzenia',
+        description: `Wydarzenie będzie aktywne tylko w określonych godzinach. Informację o tym znajdziesz na stronie 
+          "Start" zaraz pod zdjęciem i nazwą wydarzenia. Przed rozpoczęciem wydarzenia punkty są niewidoczne 
+          i nie można ich zebrać. Po wydarzeniu aplikacja będzie nadal dostępna i będzie można sprawdzić na niej swój wynik
+          lub dowiedzieć się jakie punkty nie zostały zebrane, jednak zbieranie punktów będzie zablokowane.`,
+        add0: 'Start: ',
+        add1: 'Koniec: ',
+      },
+      permanentPoints: {
+        title: 'Punkty, które możesz zebrać',
+        description: `Punkty przeznaczone do zbierania oznaczone są na mapie kropami w kolorze niebieskim, pomarańczowym i czerwonym z czarną obwódką.
+          Kolory reprezentują wartość punktu i przedmiotów znajdujących się w nim. Każdy punkt może być zebrany tylko raz,
+          więc spiesz się zanim wszystkie zbiorą przed tobą!`,
+        add0: 'Niebieski ma wartość',
+        add1: 'Pomarańczowy ma wartość',
+        add2: 'Czerwony ma wartość',
+      },
+      seeOnTimeoutPoints: {
+        title: 'Wypatruj punktów czasowych',
+        description: `Punkty czasowe są oznaczone na mapie niebieską gwiazdką. Informacja kiedy są one widoczne na mapie
+          jest dostępna na stronie "Punkty czasowe". `,
+        add0: 'Spóźniłeś się - udaj się na inny punkt.',
+        add1: 'Możesz przyjść na punkt.',
+        add2: 'Punkt nie długo będzie dostępny',
+      },
+      startCollecting: {
+        title: 'Rozpocznij poszukiwania',
+        description: `Punkty podzielone
+          `,
+      },
     },
   },
 };
