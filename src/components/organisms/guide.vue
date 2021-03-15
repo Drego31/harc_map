@@ -56,8 +56,10 @@ export default {
   },
   methods: {
     ...mapMutations('guide', ['close']),
-    onSlide ({ direction }) {
-      if (direction === 'rebound') {
+    onSlide ({ currentPage, direction }) {
+      const isLast = currentPage === this.slides.length - 1;
+      const isRebound = direction === 'rebound';
+      if (isLast && isRebound) {
         this.close();
       }
     },
