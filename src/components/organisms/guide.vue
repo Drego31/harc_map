@@ -1,17 +1,19 @@
 <template>
-  <o-float-container v-if="isOpen">
-    <a-icon-close-popup add-class="f-mt-1 f-mr-1"/>
-    <slider ref="slider" @slide="onSlide">
-      <slider-item v-for="(slide, index) in slides" :key="index">
-        <m-slide
-          :title="slide.title"
-          :description="slide.description"
-          :icon="slide.icon"
-        />
-      </slider-item>
-    </slider>
+  <transition name="fade">
+    <o-float-container v-if="isOpen">
+      <a-icon-close-popup add-class="f-mt-1 f-mr-1"/>
+      <slider ref="slider" @slide="onSlide">
+        <slider-item v-for="(slide, index) in slides" :key="index">
+          <m-slide
+            :title="slide.title"
+            :description="slide.description"
+            :icon="slide.icon"
+          />
+        </slider-item>
+      </slider>
 
-  </o-float-container>
+    </o-float-container>
+  </transition>
 </template>
 
 <script>
