@@ -35,10 +35,13 @@ export const pl = {
     alreadyCollectedShort: 'Zebraliście',
     hide: 'Ukryj',
     edit: 'Edytuj',
+    logout: 'Wyloguj',
     remove: 'Usuń',
     copied: 'Skopiowano do schowka',
     hello: 'Cześć',
     saved: 'Zapisano!',
+    lightTheme: 'Jasny tryb',
+    darkTheme: 'Ciemny tryb',
   },
   form: {
     field: {
@@ -242,6 +245,9 @@ export const pl = {
     },
     bannerMap: {
       defaultSuccessMessage: 'Nowa pozycja została wybrana.',
+    },
+    guide: {
+      howAppWorks: 'Jak to działa?',
     },
   },
 };

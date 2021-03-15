@@ -24,21 +24,24 @@
       <div class="f-flex-1 f-pl-3">{{ route.label }}</div>
     </router-link>
 
-    <a class="a-link f-menu" @click="toggleTheme()">
-      <a-icon
-        :name="ICONS.brightness_4"
-        class="f-menu"
-      />
-      <div class="f-flex-1 f-pl-3">{{ themeName === THEMES.light ? 'Ciemny tryb' : 'Jasny tryb' }}</div>
-    </a>
+    <a-link-menu
+      @click="openGuide()"
+      :icon="ICONS.help"
+      :text="$t('features.guide.howAppWorks')"
+    />
 
-    <a class="a-link f-menu" @click="signOut()">
-      <a-icon
-        :name="ICONS.logout"
-        class="f-menu"
-      />
-      <div class="f-flex-1 f-pl-3">Wyloguj</div>
-    </a>
+    <a-link-menu
+      @click="toggleTheme()"
+      :icon="ICONS.brightness_4"
+      :text="themeName === THEMES.light ? $t('general.darkTheme') : $t('general.lightTheme')"
+    />
+
+    <a-link-menu
+      @click="signOut()"
+      :icon="ICONS.logout"
+      :text="$t('general.logout')"
+    />
+
     <div v-if="isOpen" class="a-version">
       v{{ VERSION }}
     </div>
@@ -52,10 +55,11 @@ import { ROUTES } from 'utils/macros/routes';
 import router from 'src/router';
 import AIcon from 'atoms/icon';
 import { uCheck } from '@dbetka/utils';
+import ALinkMenu from 'atoms/link-menu';
 
 export default {
   name: 'o-menu',
-  components: { AIcon },
+  components: { ALinkMenu, AIcon },
   data: () => ({
     THEMES,
     VERSION: VERSION,
@@ -85,6 +89,10 @@ export default {
       'toggle',
       'close',
     ]),
+    openGuide () {
+      this.$store.commit('guide/open');
+      this.close();
+    },
     isActualPath ({ path = '' }) {
       return this.$route.path === path;
     },

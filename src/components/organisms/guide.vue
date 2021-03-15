@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <o-float-container v-if="isOpen">
-      <a-icon-close-popup add-class="f-mt-1 f-mr-1"/>
+      <a-icon-close-popup add-class="f-mt-1 f-mr-1" @click="close"/>
       <slider ref="slider" @slide="onSlide">
         <slider-item v-for="(slide, index) in slides" :key="index">
           <m-slide
@@ -66,7 +66,7 @@ export default {
   },
   watch: {
     isOpen () {
-      this.$refs.slider.$emit('slideTo', 0);
+      this.$refs.slider && this.$refs.slider.$emit('slideTo', 0);
     },
   },
 };

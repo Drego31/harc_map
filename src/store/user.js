@@ -53,7 +53,7 @@ export default {
   },
   actions: {
     signIn (context, data) {
-      const { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common, firstLogin } = data
+      const { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common, firstLogin } = data;
       return new Promise((resolve, reject) => {
         context.commit('event/setId', eventId, { root: true });
         context.commit('setUser', user);
