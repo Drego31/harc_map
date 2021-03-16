@@ -1,7 +1,6 @@
 import { ROUTES } from 'utils/macros/routes';
 import PWelcome from 'pages/welcome';
 import PError from 'pages/error';
-import { store } from 'store';
 
 export const routes = [
   {
@@ -61,13 +60,7 @@ export const routes = [
   {
     path: ROUTES.start.path,
     name: ROUTES.start.name,
-    component: () => {
-      if (store) {
-        const isAdmin = permissions.checkIsAdmin();
-        return isAdmin ? import('pages/admin/start.vue') : import('pages/start.vue');
-      }
-      return import('pages/start.vue');
-    },
+    component: () => import('pages/start.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
