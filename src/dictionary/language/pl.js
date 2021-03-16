@@ -35,10 +35,13 @@ export const pl = {
     alreadyCollectedShort: 'Zebraliście',
     hide: 'Ukryj',
     edit: 'Edytuj',
+    logout: 'Wyloguj',
     remove: 'Usuń',
     copied: 'Skopiowano do schowka',
     hello: 'Cześć',
     saved: 'Zapisano!',
+    lightTheme: 'Jasny tryb',
+    darkTheme: 'Ciemny tryb',
   },
   form: {
     field: {
@@ -242,6 +245,59 @@ export const pl = {
     },
     bannerMap: {
       defaultSuccessMessage: 'Nowa pozycja została wybrana.',
+    },
+    guide: {
+      howAppWorks: 'Jak to działa?',
+      howItWorks: {
+        title: 'Jak to działa?',
+        description: `Twoim zadaniem jest zebrać jak najwięcej punktów oraz odwiedzić jak największą ilość punktów 
+          czasowych (nie można ich zebrać). Punkty na mapie aktualizują się co pełne `,
+        add0: '. Zegar znajdujący się w lewym dolnym rogu mapy wskaże Ci czas pozostały do aktualizacji punktów.',
+        add1: 'Pamiętaj by podczas gry się nie rozdzielać! Unikaj także spotkań z innymi patrolami.',
+      },
+      eventStart: {
+        title: 'Czas trwania wydarzenia',
+        description: `Wydarzenie będzie aktywne tylko w określonych godzinach. Informację o tym znajdziesz na zakładce 
+          "Start" zaraz pod zdjęciem i nazwą wydarzenia. Przed rozpoczęciem wydarzenia punkty są niewidoczne 
+          i nie można ich zebrać. Po wydarzeniu aplikacja będzie nadal dostępna i będzie można sprawdzić na niej swój wynik
+          lub dowiedzieć się jakie punkty nie zostały zebrane, jednak zbieranie punktów będzie zablokowane.`,
+        add0: 'Start: ',
+        add1: 'Koniec: ',
+      },
+      permanentPoints: {
+        title: 'Punkty, które możesz zebrać',
+        description: `Punkty przeznaczone do zebrania oznaczone są na mapie kropami w kolorze niebieskim, pomarańczowym i czerwonym z czarną obwódką.
+          Kolory reprezentują wartość punktu i przedmiotów znajdujących się na nim. Każdy punkt może być zebrany tylko raz,
+          więc śpiesz się zanim inni zbiorą punkty przed tobą!`,
+        add0: 'Niebieski ma wartość',
+        add1: 'Pomarańczowy ma wartość',
+        add2: 'Czerwony ma wartość',
+      },
+      seeOnTimeoutPoints: {
+        title: 'Wypatruj punktów czasowych',
+        description: `Punkty czasowe są oznaczone na mapie niebieską gwiazdką. Informacja kiedy są one widoczne na mapie
+          jest dostępna na zakładce "Punkty czasowe". Poniżej opisane są stany w jakich występują punkty czasowe.`,
+        add0: 'Spóźniłeś się - udaj się na inny punkt.',
+        add1: 'Możesz przyjść na punkt.',
+        add2: 'Punkt niedługo będzie dostępny',
+      },
+      startCollecting: {
+        title: 'Rozpocznij poszukiwania',
+        description: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie kropką
+        i wpisz do pola tekstowego na zakładce "Zbierz punkt" kod z koperty znajdującej się 
+        na miejscu. Następnie wciśnij przycisk „Dalej” i ruszaj na kolejny punkt!`,
+      },
+      checkYourResults: {
+        title: 'Sprawdź swoje wyniki',
+        description: `Na zakładce "Zebrane punkty" możesz sprawdzić szczegóły na temat swoich zebranych punktów. 
+          Dostępne są tam takie informacje jak:`,
+        add0: 'wynik',
+        add1: 'lista punktów',
+        add2: 'czas zebrania',
+        add3: 'lokalizacja',
+        add4: 'kategoria',
+        add5: 'wartość',
+      },
     },
   },
 };
