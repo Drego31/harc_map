@@ -257,7 +257,7 @@ export const pl = {
       },
       eventStart: {
         title: 'Czas trwania wydarzenia',
-        description: `Wydarzenie będzie aktywne tylko w określonych godzinach. Informację o tym znajdziesz na stronie 
+        description: `Wydarzenie będzie aktywne tylko w określonych godzinach. Informację o tym znajdziesz na zakładce 
           "Start" zaraz pod zdjęciem i nazwą wydarzenia. Przed rozpoczęciem wydarzenia punkty są niewidoczne 
           i nie można ich zebrać. Po wydarzeniu aplikacja będzie nadal dostępna i będzie można sprawdzić na niej swój wynik
           lub dowiedzieć się jakie punkty nie zostały zebrane, jednak zbieranie punktów będzie zablokowane.`,
@@ -268,7 +268,7 @@ export const pl = {
         title: 'Punkty, które możesz zebrać',
         description: `Punkty przeznaczone do zebrania oznaczone są na mapie kropami w kolorze niebieskim, pomarańczowym i czerwonym z czarną obwódką.
           Kolory reprezentują wartość punktu i przedmiotów znajdujących się na nim. Każdy punkt może być zebrany tylko raz,
-          więc spiesz się zanim wszystkie zbiorą przed tobą!`,
+          więc śpiesz się zanim inni zbiorą punkty przed tobą!`,
         add0: 'Niebieski ma wartość',
         add1: 'Pomarańczowy ma wartość',
         add2: 'Czerwony ma wartość',
@@ -276,20 +276,20 @@ export const pl = {
       seeOnTimeoutPoints: {
         title: 'Wypatruj punktów czasowych',
         description: `Punkty czasowe są oznaczone na mapie niebieską gwiazdką. Informacja kiedy są one widoczne na mapie
-          jest dostępna na stronie "Punkty czasowe". Poniżej opisane są stany w jakich występują punkty czasowe.`,
+          jest dostępna na zakładce "Punkty czasowe". Poniżej opisane są stany w jakich występują punkty czasowe.`,
         add0: 'Spóźniłeś się - udaj się na inny punkt.',
         add1: 'Możesz przyjść na punkt.',
-        add2: 'Punkt nie długo będzie dostępny',
+        add2: 'Punkt niedługo będzie dostępny',
       },
       startCollecting: {
         title: 'Rozpocznij poszukiwania',
         description: `Aby zebrać punkt, udaj się do miejsca oznaczonego na mapie kropką
-        i wpisz do pola tekstowego na stronie "Zbierz punkt" kod z koperty znajdującej się 
+        i wpisz do pola tekstowego na zakładce "Zbierz punkt" kod z koperty znajdującej się 
         na miejscu. Następnie wciśnij przycisk „Dalej” i ruszaj na kolejny punkt!`,
       },
       checkYourResults: {
         title: 'Sprawdź swoje wyniki',
-        description: `Na stronie "Zebrane punkty" możesz sprawdzić szczegóły na temat swoich zebranych punktów. 
+        description: `Na zakładce "Zebrane punkty" możesz sprawdzić szczegóły na temat swoich zebranych punktów. 
           Dostępne są tam takie informacje jak:`,
         add0: 'wynik',
         add1: 'lista punktów',
