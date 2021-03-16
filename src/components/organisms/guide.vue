@@ -6,7 +6,10 @@
 
         <slider-item>
           <m-slide :title="this.$t('features.guide.howItWorks.title')" :icon="ICONS.help">
-            {{ this.$t('features.guide.howItWorks.description') }}
+            {{ $t('features.guide.howItWorks.description') }}
+            <span class="f-bold">{{ minutes($store.getters['event/mapRefreshTime']) }}</span>
+            {{ $t('features.guide.howItWorks.add0') }}
+            <div class="f-mt-1">{{ $t('features.guide.howItWorks.add1') }}</div>
           </m-slide>
         </slider-item>
 
@@ -25,7 +28,7 @@
         </slider-item>
 
         <slider-item>
-          <m-slide :title="this.$t('features.guide.permanentPoints.title')" :icon="ICONS.add_circle_outline">
+          <m-slide :title="this.$t('features.guide.permanentPoints.title')" :icon="ICONS.add_circle">
             <div class="f-mb-3">{{ $t('features.guide.permanentPoints.description') }}</div>
             <div class="f-flex">
               <a-icon :name="ICONS.stop_circle" class="f-text-info f-mr-1" size="20"/>
@@ -43,7 +46,7 @@
         </slider-item>
 
         <slider-item>
-          <m-slide :title="this.$t('features.guide.seeOnTimeoutPoints.title')" :icon="ICONS.star">
+          <m-slide :title="this.$t('features.guide.seeOnTimeoutPoints.title')" :icon="ICONS.stars">
             <div class="f-mb-3">{{ $t('features.guide.seeOnTimeoutPoints.description') }}</div>
             <div class="f-flex">
               <a-icon :name="ICONS.history_toggle_off" class="f-disabled-point f-mr-1" size="20"/>
@@ -61,8 +64,22 @@
         </slider-item>
 
         <slider-item>
-          <m-slide :title="this.$t('features.guide.startCollecting.title')" :icon="ICONS.score">
+          <m-slide :title="this.$t('features.guide.startCollecting.title')" :icon="ICONS.map">
             {{ $t('features.guide.startCollecting.description') }}
+          </m-slide>
+        </slider-item>
+
+        <slider-item>
+          <m-slide :title="this.$t('features.guide.checkYourResults.title')" :icon="ICONS.bar_chart">
+            <div class="f-mb-1">{{ $t('features.guide.checkYourResults.description') }}</div>
+            <ul>
+              <li>{{ $t('features.guide.checkYourResults.add0') }}</li>
+              <li>{{ $t('features.guide.checkYourResults.add1') }}</li>
+              <li>{{ $t('features.guide.checkYourResults.add2') }}</li>
+              <li>{{ $t('features.guide.checkYourResults.add3') }}</li>
+              <li>{{ $t('features.guide.checkYourResults.add4') }}</li>
+              <li>{{ $t('features.guide.checkYourResults.add5') }}</li>
+            </ul>
           </m-slide>
         </slider-item>
 
@@ -102,6 +119,10 @@ export default {
       if (isLast && isRebound) {
         // this.close();
       }
+    },
+    minutes (time) {
+      moment.locale('pl');
+      return moment.duration(time, 'seconds').humanize();
     },
     datetime (datetime) {
       return moment(new Date(datetime)).format('DD.MM.YYYY [o] HH:mm');
