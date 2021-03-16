@@ -83,6 +83,9 @@
           </m-slide>
         </slider-item>
 
+        <slider-item>
+        </slider-item>
+
       </slider>
 
     </o-float-container>
@@ -110,15 +113,16 @@ export default {
   },
   computed: {
     ...mapGetters('guide', ['isOpen']),
+    numberOfSlides () {
+      if (this.$refs.slider) return this.$refs.slider.$children.length;
+      else return 0;
+    },
   },
   methods: {
     ...mapMutations('guide', ['close']),
-    onSlide ({ currentPage, direction }) {
-      const isLast = currentPage > 0;
-      const isRebound = direction === 'rebound';
-      if (isLast && isRebound) {
-        // this.close();
-      }
+    onSlide ({ currentPage }) {
+      const isLast = currentPage === this.numberOfSlides - 1;
+      isLast && this.close();
     },
     minutes (time) {
       moment.locale('pl');
