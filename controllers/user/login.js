@@ -126,7 +126,6 @@ router.route('/')
                 utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
               } else {
                 const { user } = userData;
-                console.log(userData);
                 const firstLoginUpdateData = { firstLogin: false };
                 database.read('users', { user })
                   .then(utils.throwIfEmpty)
