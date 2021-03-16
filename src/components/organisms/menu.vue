@@ -1,5 +1,9 @@
 <template>
-  <div class="o-menu" :class="isOpen ? 'f-open' : ''">
+  <div
+    class="o-menu"
+    :class="isOpen ? 'f-open' : ''"
+    v-touch:swipe.right="close"
+  >
     <div class="a-text f-title f-menu">{{ $t('general.hello') }}, {{ $store.getters['user/userTeam'] }}</div>
 
     <div class="a-text f-subtitle f-menu">

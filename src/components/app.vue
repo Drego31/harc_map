@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <o-header/>
-    <div class="f-relative f-flex-1">
+    <div class="f-relative f-flex-1" v-touch:swipe.left="openMenu">
       <router-view :key="routerId"/>
     </div>
-    <o-footer/>
+    <o-footer
+      v-touch:swipe.left="openMenu"
+      v-touch:swipe.right="closeMenu"
+    />
     <o-menu/>
     <div
       class="a-cover f-menu"
       :class="isOpen ? 'f-show' : ''"
-      @click="close"
+      @click="closeMenu"
     />
     <o-popup/>
     <m-snackbar/>
@@ -50,9 +53,10 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations('menu', [
-      'close',
-    ]),
+    ...mapMutations('menu', {
+      openMenu: 'open',
+      closeMenu: 'close',
+    }),
   },
 };
 </script>
