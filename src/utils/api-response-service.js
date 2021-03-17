@@ -1,6 +1,7 @@
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { logical } from 'vendors/logical';
+import { translator } from 'src/dictionary';
 
 /**
  * @param errors - example:
@@ -35,8 +36,8 @@ export const apiResponseService = {
     });
   },
   catchConnectionError (reject) {
-    return function (fetchError) {
-      reject(new ErrorMessage(fetchError));
+    return function () {
+      reject(translator.t('apiError.notOnline'));
     };
   },
   hasNoError (data) {
