@@ -44,6 +44,3 @@ function createListOfIconsFile () {
 cloneMaterialIcons()
   .then(createListOfIconsFile)
   .catch(console.error);
-
-
-
