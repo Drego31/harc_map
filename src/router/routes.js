@@ -153,6 +153,16 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.searchPoint.path,
+    name: ROUTES.searchPoint.name,
+    component: () => import('pages/admin/search-point.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
     path: '*',
     name: 'error',
     component: PError,

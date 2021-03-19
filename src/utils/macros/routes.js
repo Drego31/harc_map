@@ -115,4 +115,11 @@ export const ROUTES = {
     shortLabel: translator.t('title.short.scoreboard'),
     icon: ICONS.bar_chart,
   },
+  searchPoint: {
+    path: '/search-point',
+    name: 'searchPoint',
+    label: translator.t('title.searchPoint'),
+    shortLabel: translator.t('title.short.searchPoint'),
+    icon: ICONS.search,
+  },
 };
