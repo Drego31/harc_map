@@ -3,6 +3,7 @@ import { autoUpdate } from 'utils/auto-update';
 import { ACCOUNT_TYPES } from 'utils/permissions';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
+import { firstLogin } from 'utils/first-login';
 
 export default {
   namespaced: true,
@@ -18,6 +19,7 @@ export default {
     userTeam: state => state.userTeam,
     accountType: state => state.accountType,
     isLogin: state => state.user !== '',
+    firstLogin: state => state.firstLogin,
     collectedPointsIds: state => state.collectedPointsIds,
     collectedPoints (state, getters, rootState, rootGetters) {
       const collectedPoints = [];
@@ -53,18 +55,19 @@ export default {
   },
   actions: {
     signIn (context, data) {
-      const { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common, firstLogin } = data;
+      const { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common } = data;
       return new Promise((resolve, reject) => {
         context.commit('event/setId', eventId, { root: true });
         context.commit('setUser', user);
         context.commit('setUserTeam', userTeam);
         context.commit('setAccountType', accountType);
-        context.commit('setFirstLogin', firstLogin);
+        context.commit('setFirstLogin', firstLogin.state);
+        firstLogin.setCookie();
         context.commit('setCollectedPointsIds', collectedPointsIds);
         context.dispatch('event/download', undefined, { root: true })
           .then(() => {
             autoUpdate.run();
-            resolve(data);
+            resolve();
           })
           .catch(() => {
             context.dispatch('signOut').catch(() => undefined);

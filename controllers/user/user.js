@@ -28,7 +28,6 @@ function __createNewUserObject (information) {
     forgotKey: null,
     forgotTimestamp: null,
     accountCreated: Date.now(),
-    firstLogin: true,
     collectedPointsIds: [],
   };
 }

@@ -65,8 +65,8 @@ export default {
   methods: {
     onSignIn (data) {
       this.$store.dispatch('user/signIn', data)
-        .then(user => {
-          user.firstLogin && this.$store.commit('guide/open');
+        .then(() => {
+          this.$store.getters['user/firstLogin'] && this.$store.commit('guide/open');
           this.$router.push(ROUTES.start.path);
           this.isSending = false;
           this.blockForm = false;
