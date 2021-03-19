@@ -16,6 +16,7 @@ export const pl = {
     scoreboard: 'Tabela wyników',
     newPoint: 'Nowy punkt',
     editPoint: 'Edycja punktu',
+    searchPoint: 'Szukaj punktów',
     short: {
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
@@ -23,6 +24,7 @@ export const pl = {
       adminPanel: 'Admin',
       editEvent: 'Wydarzenie',
       scoreboard: 'Wyniki',
+      searchPoint: 'Szukaj',
     },
   },
   general: {

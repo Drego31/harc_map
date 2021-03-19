@@ -28,6 +28,7 @@ export default {
         { route: ROUTES.editEvent },
         { route: ROUTES.newPoint },
         { url: '/point/all', label: 'Pobierz listę punktów' },
+        { route: ROUTES.searchPoint },
       ];
     },
   },
