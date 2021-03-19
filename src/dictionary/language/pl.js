@@ -166,6 +166,10 @@ export const pl = {
         editEvent: 'Edytuj wydarzenie',
         checkScoreboard: 'Sprawdź tabelę wyników',
       },
+      searchPoint: {
+        search: 'Szukaj',
+        searchAssist: 'Szukaj po kodzie lub nazwie punktu.',
+      },
     },
   },
   error: {

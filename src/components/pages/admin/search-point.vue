@@ -2,8 +2,8 @@
   <t-page>
     <div>
       <m-field-text
-        label="Szukaj..."
-        assist="Szukaj po kodzie lub nazwie punktu."
+        :label="$t('page.admin.searchPoint.search')"
+        :assist="$t('page.admin.searchPoint.searchAssist')"
         v-model="phrase"
       />
     </div>
@@ -47,9 +47,7 @@ export default {
     searcher: new JsSearch.Search('pointId'),
   }),
   mounted () {
-    this.searcher.addIndex('pointId');
-    this.searcher.addIndex('pointName');
-    this.searcher.addDocuments(this.points);
+    this.defineSearcher({ withoutClass: true });
   },
   computed: {
     ...mapGetters('event', [
@@ -64,13 +62,18 @@ export default {
     panToMap (point) {
       map.panToPointLocationOnMap(point);
     },
-  },
-  watch: {
-    points () {
-      this.searcher = new JsSearch.Search('pointId');
+    defineSearcher (config = { withoutClass: false }) {
+      if (config.withoutClass === false) {
+        this.searcher = new JsSearch.Search('pointId');
+      }
       this.searcher.addIndex('pointId');
       this.searcher.addIndex('pointName');
       this.searcher.addDocuments(this.points);
+    },
+  },
+  watch: {
+    points () {
+      this.defineSearcher();
     },
   },
 };
