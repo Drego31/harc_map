@@ -13,6 +13,9 @@
         v-for="[key, point] of filteredPoints.entries()"
         :key="key"
       >
+        <a-button-icon class="f-minimal">
+          <a-icon-category :category-id="point.pointCategory"/>
+        </a-button-icon>
         <div class="f-py-2">{{ point.pointId }}</div>
         <div class="f-pl-1 f-py-2 f-text-subtext f-text-14">
           {{ point.pointName }}
@@ -33,10 +36,12 @@ import MFieldText from 'molecules/field/text';
 import AIcon from 'atoms/icon';
 import { map } from 'map';
 import AButtonIcon from 'atoms/button/icon';
+import AIconCategory from 'atoms/icon/category';
 
 export default {
   name: 'p-search-point',
   components: {
+    AIconCategory,
     AButtonIcon,
     AIcon,
     MFieldText,

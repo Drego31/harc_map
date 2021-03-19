@@ -28,7 +28,7 @@ export default {
       const pointShape = rootGetters['event/getCategoryById'](categoryId).pointShape;
       switch (pointShape) {
         case 0:
-          return 'f-text-white';
+          return 'f-text-subtext';
         case 1:
           return 'f-text-info';
         case 2:
