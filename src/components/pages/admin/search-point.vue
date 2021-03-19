@@ -17,9 +17,7 @@
           <a-icon-category :category-id="point.pointCategory"/>
         </a-button-icon>
         <div class="f-py-2">{{ point.pointId }}</div>
-        <div class="f-pl-1 f-py-2 f-text-subtext f-text-14">
-          {{ point.pointName }}
-        </div>
+        <div class="f-pl-1 f-py-2 f-text-subtext f-text-14">{{ point.pointName }}</div>
         <a-button-icon @click="panToMap(point)">
           <a-icon :name="ICONS.map"/>
         </a-button-icon>
@@ -55,9 +53,7 @@ export default {
     this.defineSearcher({ withoutClass: true });
   },
   computed: {
-    ...mapGetters('event', [
-      'points',
-    ]),
+    ...mapGetters('event', ['points']),
     filteredPoints () {
       const searched = this.searcher.search(this.phrase);
       return this.phrase === '' ? this.points : searched;
