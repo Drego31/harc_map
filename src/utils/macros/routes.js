@@ -87,6 +87,13 @@ export const ROUTES = {
     shortLabel: translator.t('title.short.adminPanel'),
     icon: ICONS.settings,
   },
+  spectatorPanel: {
+    path: '/spectator-panel',
+    name: 'spectatorPanel',
+    label: translator.t('title.spectatorPanel'),
+    shortLabel: translator.t('title.short.spectatorPanel'),
+    icon: ICONS.settings,
+  },
   editEvent: {
     path: '/edit-event',
     name: 'editEvent',

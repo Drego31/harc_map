@@ -20,8 +20,6 @@ import { mapGetters, mapMutations } from 'vuex';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
 import { ROUTES } from 'utils/macros/routes';
-import { store } from 'store';
-import { ACCOUNT_TYPES } from 'utils/permissions';
 
 export default {
   name: 'o-footer',
@@ -55,9 +53,11 @@ export default {
       }
     },
     getShortcuts () {
-      const isAdmin = store.getters['user/accountType'] === ACCOUNT_TYPES.admin;
+      const isAdmin = this.checkIsAdmin();
+      const isLimited = this.checkIsLimited();
+      const adminRoute = isLimited ? ROUTES.spectatorPanel : ROUTES.adminPanel;
       const centralButton = {
-        ...(isAdmin ? ROUTES.adminPanel : ROUTES.collectPoint),
+        ...(isAdmin ? adminRoute : ROUTES.collectPoint),
         big: true,
       };
       return [
