@@ -7,9 +7,9 @@
         v-model="phrase"
       />
     </div>
-    <div class="f-flex-1 f-scroll-default">
+    <div class="f-flex-1 f-scroll-default f-mr--2">
       <div
-        class="m-grid f-search-point"
+        class="m-grid f-search-point f-mr-2"
         v-for="[key, point] of filteredPoints.entries()"
         :key="key"
       >
