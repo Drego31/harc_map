@@ -53,12 +53,22 @@ function makeFirstRun () {
 function redirectIfNotAuth (to, from, next) {
   const isLogin = store.getters['user/isLogin'] === true;
   const adminRequired = to.meta.adminOnly === true;
+  const unlimitedOnly = to.meta.unlimitedOnly === true;
   const isAdmin = permissions.checkIsAdmin();
+  const isLimitedUser = permissions.checkIsLimited();
 
   if (to === from) {
     next(false);
   }
   if (adminRequired && isAdmin === false) {
+    if (isLogin) {
+      next(ROUTES.start.path);
+    } else {
+      next(ROUTES.welcome.path);
+    }
+    return;
+  }
+  if (unlimitedOnly && isLimitedUser) {
     if (isLogin) {
       next(ROUTES.start.path);
     } else {

@@ -61,12 +61,16 @@ export default {
         ROUTES.welcome.name,
         ROUTES.start.name,
         ROUTES.adminPanel.name,
+        ROUTES.spectatorPanel.name,
       ].includes(this.$route.name);
     },
     pathBackButton () {
+      const adminOnly = this.$route.meta.adminOnly;
+      const unlimitedOnly = this.$route.meta.unlimitedOnly;
       if (this.backRouteName.params) return this.backRouteName;
       if (this.backRouteName.name) return ROUTES[this.backRouteName.name].path;
-      if (this.$route.meta.adminOnly) return ROUTES.adminPanel.path;
+      if (adminOnly && unlimitedOnly) return ROUTES.adminPanel.path;
+      if (adminOnly) return ROUTES.spectatorPanel.path;
       if (this.isLogin) return ROUTES.start.path;
       else return ROUTES.welcome.path;
     },

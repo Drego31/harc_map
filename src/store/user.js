@@ -12,6 +12,7 @@ export default {
     userTeam: '',
     accountType: '',
     firstLogin: false,
+    limitedPermissions: false,
     collectedPointsIds: [],
   },
   getters: {
@@ -21,6 +22,7 @@ export default {
     isLogin: state => state.user !== '',
     firstLogin: state => state.firstLogin,
     collectedPointsIds: state => state.collectedPointsIds,
+    limitedPermissions: state => state.limitedPermissions,
     collectedPoints (state, getters, rootState, rootGetters) {
       const collectedPoints = [];
 
@@ -46,6 +48,7 @@ export default {
     setFirstLogin: (state, payload) => (state.firstLogin = payload),
     setCollectedPointsIds: (state, payload) => (state.collectedPointsIds = payload || []),
     addCollectedPointId: (state, payload) => (state.collectedPointsIds.push(payload)),
+    setLimitedPermissions: (state, payload) => (state.limitedPermissions = payload),
     signOut: state => {
       state.user = '';
       state.userTeam = '';
@@ -55,7 +58,7 @@ export default {
   },
   actions: {
     signIn (context, data) {
-      const { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common } = data;
+      const { eventId, user, collectedPointsIds, userTeam, accountType = ACCOUNT_TYPES.common, limitedPermissions } = data;
       return new Promise((resolve, reject) => {
         context.commit('event/setId', eventId, { root: true });
         context.commit('setUser', user);
@@ -63,6 +66,7 @@ export default {
         context.commit('setAccountType', accountType);
         context.commit('setFirstLogin', firstLogin.state);
         firstLogin.setCookie();
+        context.commit('setLimitedPermissions', limitedPermissions);
         context.commit('setCollectedPointsIds', collectedPointsIds);
         context.dispatch('event/download', undefined, { root: true })
           .then(() => {

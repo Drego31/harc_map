@@ -6,7 +6,7 @@
     :loading="loading"
     :disabled="disabled"
   >
-    <slot/>
+    <slot/> {{ text }}
   </a-button-primary>
 </template>
 
@@ -27,6 +27,10 @@ export default {
     },
     addClass: {
       type: [Array, String],
+      default: '',
+    },
+    text: {
+      type: String,
       default: '',
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <t-page>
+  <t-page class="f-flex f-flex-col">
     <div>
       <m-field-text
         :label="$t('page.admin.searchPoint.search')"
@@ -7,9 +7,9 @@
         v-model="phrase"
       />
     </div>
-    <div>
+    <div class="f-flex-1 f-scroll-default f-mr--2">
       <div
-        class="m-grid f-search-point"
+        class="m-grid f-search-point f-mr-2"
         v-for="[key, point] of filteredPoints.entries()"
         :key="key"
       >

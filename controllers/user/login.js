@@ -17,7 +17,7 @@ const errorsCodes = require('../../lib/validateCodes');
  * @private
  */
 function __getUserDataForResponse (userStructure = {}, collectedPointsIds) {
-  const { user, userTeam, userEvents, accountType } = userStructure;
+  const { user, userTeam, userEvents, accountType, limitedPermissions } = userStructure;
 
   // user object schema that's sending to frontend
   return {
@@ -26,6 +26,7 @@ function __getUserDataForResponse (userStructure = {}, collectedPointsIds) {
     collectedPointsIds: collectedPointsIds,
     eventId: userEvents[0],
     accountType,
+    limitedPermissions,
     error: null,
   };
 }

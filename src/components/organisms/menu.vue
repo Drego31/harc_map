@@ -6,11 +6,14 @@
   >
     <div class="a-text f-title f-menu">{{ $t('general.hello') }}, {{ $store.getters['user/userTeam'] }}</div>
 
-    <div class="a-text f-subtitle f-menu">
+    <div v-if="checkIsCommon()" class="a-text f-subtitle f-menu">
       {{ $t('general.alreadyCollectedShort') }}
       <span class="f-text-primary-contrast">
         {{ $store.getters['user/sumOfCollectedPoints'] }} {{ $t('general.pointUnit') }}
       </span>
+    </div>
+    <div v-else class="a-text f-subtitle f-menu">
+      {{ checkIsNotLimited() ? $t('general.fullAdmin') : $t('general.limitedAdmin') }}
     </div>
 
     <router-link
@@ -29,6 +32,7 @@
     </router-link>
 
     <a-link-menu
+      v-if="checkIsCommon()"
       @click="openGuide()"
       :icon="ICONS.help"
       :text="$t('features.guide.howAppWorks')"
@@ -74,13 +78,17 @@ export default {
     ]),
     links () {
       const isAdmin = this.checkIsAdmin();
+      const isUnlimited = isAdmin && this.checkIsNotLimited();
+      const isCommon = this.checkIsCommon();
       const links = [
         ROUTES.start,
         ROUTES.temporaryPoints,
-        isAdmin ? undefined : ROUTES.collectPoint,
+        isCommon ? ROUTES.collectPoint : undefined,
         isAdmin ? ROUTES.scoreboard : ROUTES.collectedPoints,
+        isUnlimited ? ROUTES.editEvent : undefined,
+        isUnlimited ? ROUTES.newPoint : undefined,
         ROUTES.map,
-        ROUTES.about,
+        isCommon ? ROUTES.about : undefined,
       ];
       return links.filter(route => uCheck.isUndefined(route) === false);
     },

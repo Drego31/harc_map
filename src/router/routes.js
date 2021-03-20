@@ -110,6 +110,17 @@ export const routes = [
       onlyBeforeLogin: false,
       requiredAuth: true,
       adminOnly: true,
+      unlimitedOnly: true,
+    },
+  },
+  {
+    path: ROUTES.spectatorPanel.path,
+    name: ROUTES.spectatorPanel.name,
+    component: () => import('pages/admin/panel.vue'),
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
     },
   },
   {
@@ -120,6 +131,7 @@ export const routes = [
       onlyBeforeLogin: false,
       requiredAuth: true,
       adminOnly: true,
+      unlimitedOnly: true,
     },
   },
   {
@@ -140,6 +152,7 @@ export const routes = [
       onlyBeforeLogin: false,
       requiredAuth: true,
       adminOnly: true,
+      unlimitedOnly: true,
     },
   },
   {
@@ -150,6 +163,7 @@ export const routes = [
       onlyBeforeLogin: false,
       requiredAuth: true,
       adminOnly: true,
+      unlimitedOnly: true,
     },
   },
   {
