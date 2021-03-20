@@ -35,6 +35,7 @@ export const pl = {
     pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
     alreadyCollectedShort: 'Zebraliście',
+    goodDay: 'Miłego dnia! :)',
     hide: 'Ukryj',
     edit: 'Edytuj',
     logout: 'Wyloguj',
