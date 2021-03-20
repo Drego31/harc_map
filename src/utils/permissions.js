@@ -33,6 +33,9 @@ export const permissions = {
   checkIsAdmin () {
     return this.checkPermissions(ACCOUNT_TYPES.admin);
   },
+  checkIsLimited () {
+    return store.getters['user/limitedPermissions'];
+  },
   checkIsCommon () {
     return this.checkPermissions(ACCOUNT_TYPES.common);
   },

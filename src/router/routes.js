@@ -120,6 +120,7 @@ export const routes = [
       onlyBeforeLogin: false,
       requiredAuth: true,
       adminOnly: true,
+      unlimitedOnly: true,
     },
   },
   {
@@ -140,6 +141,7 @@ export const routes = [
       onlyBeforeLogin: false,
       requiredAuth: true,
       adminOnly: true,
+      unlimitedOnly: true,
     },
   },
   {
@@ -150,6 +152,7 @@ export const routes = [
       onlyBeforeLogin: false,
       requiredAuth: true,
       adminOnly: true,
+      unlimitedOnly: true,
     },
   },
   {
