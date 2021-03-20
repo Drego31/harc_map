@@ -2,21 +2,31 @@
   <t-start>
     <template slot="buttons">
       <template v-if="checkIsAdmin()">
-        <a-button-fill-primary @click="$router.push(ROUTES.scoreboard.path)">
-          {{ $t('page.admin.start.checkScoreboard') }}
-        </a-button-fill-primary>
-        <a-button-fill-secondary @click="$router.push(ROUTES.editEvent.path)">
-          {{ $t('page.admin.start.editEvent') }}
-        </a-button-fill-secondary>
+        <a-button-fill-primary
+          @click="$router.push(ROUTES.scoreboard.path)"
+          :text="$t('page.admin.start.checkScoreboard')"
+        />
+        <a-button-fill-secondary
+          v-if="checkIsNotLimited()"
+          @click="$router.push(ROUTES.editEvent.path)"
+          :text="$t('page.admin.start.editEvent')"
+        />
+        <a-button-fill-secondary
+          v-else
+          @click="$router.push(ROUTES.searchPoint.path)"
+          :text="ROUTES.searchPoint.label"
+        />
       </template>
 
       <template v-else>
-        <a-button-fill-primary @click="$router.push(ROUTES.map.path)">
-          {{ $t('page.start.search') }}
-        </a-button-fill-primary>
-        <a-button-fill-secondary @click="$router.push(ROUTES.collectedPoints.path)">
-          {{ $t('page.start.checkResults') }}
-        </a-button-fill-secondary>
+        <a-button-fill-primary
+          @click="$router.push(ROUTES.map.path)"
+          :text="$t('page.start.search')"
+        />
+        <a-button-fill-secondary
+          @click="$router.push(ROUTES.collectedPoints.path)"
+          :text="$t('page.start.checkResults')"
+        />
       </template>
 
     </template>
