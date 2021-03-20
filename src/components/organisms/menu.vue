@@ -13,7 +13,7 @@
       </span>
     </div>
     <div v-else class="a-text f-subtitle f-menu">
-      {{ $t('general.goodDay') }}
+      {{ checkIsNotLimited() ? $t('general.fullAdmin') : $t('general.limitedAdmin') }}
     </div>
 
     <router-link
