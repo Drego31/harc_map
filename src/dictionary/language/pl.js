@@ -34,7 +34,7 @@ export const pl = {
     pointTemporary: 'Czasowy',
     pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
-    alreadyCollectedShort: 'Zebraliście',
+    alreadyCollectedShort: 'Zdobyliście',
     fullAdmin: 'Pełne uprawnienia administratora',
     limitedAdmin: 'Ograniczony administrator',
     hide: 'Ukryj',
