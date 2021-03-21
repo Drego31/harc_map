@@ -40,6 +40,24 @@ export const routes = [
     },
   },
   {
+    path: ROUTES.activationDone.path,
+    name: ROUTES.activationDone.name,
+    component: () => import('pages/activation-done.vue'),
+    meta: {
+      onlyBeforeLogin: true,
+      requiredAuth: false,
+    },
+  },
+  {
+    path: ROUTES.activationWrong.path,
+    name: ROUTES.activationWrong.name,
+    component: () => import('pages/activation-wrong.vue'),
+    meta: {
+      onlyBeforeLogin: true,
+      requiredAuth: false,
+    },
+  },
+  {
     path: ROUTES.remindPassword.path,
     name: ROUTES.remindPassword.name,
     component: () => import('pages/remind-password.vue'),

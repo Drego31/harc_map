@@ -30,6 +30,20 @@ export const ROUTES = {
     shortLabel: translator.t('title.signUp'),
     icon: ICONS.how_to_reg,
   },
+  activationDone: {
+    path: '/activation-done',
+    name: 'activationDone',
+    label: translator.t('title.activationDone'),
+    shortLabel: translator.t('title.activationDone'),
+    icon: ICONS.how_to_reg,
+  },
+  activationWrong: {
+    path: '/activation-wrong',
+    name: 'activationWrong',
+    label: translator.t('title.activationWrong'),
+    shortLabel: translator.t('title.activationWrong'),
+    icon: ICONS.how_to_reg,
+  },
   remindPassword: {
     path: '/remind-password',
     name: 'remindPassword',

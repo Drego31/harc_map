@@ -4,6 +4,8 @@ export const pl = {
     about: 'O nas',
     signIn: 'Logowanie',
     signUp: 'Rejestracja',
+    activationDone: 'Poprawna aktywacja',
+    activationWrong: 'Niepoprawna aktywacja',
     remindPassword: 'Przypomnij hasło',
     changePassword: 'Zmień hasło',
     start: 'Start',
@@ -36,6 +38,7 @@ export const pl = {
     pointTemporary: 'Czasowy',
     pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
+    backToWelcome: 'Przejdź do początkowej',
     alreadyCollectedShort: 'Zdobyliście',
     fullAdmin: 'Uprawnienia administratora',
     limitedAdmin: 'Uprawnienia obserwatora',
@@ -157,6 +160,12 @@ export const pl = {
     signUp: {
       registrationDone: 'Rejestracja przebiegła pomyślnie!',
       linkHasBeenSent: 'Link aktywacyjny został wysłany na wskazany adres e-mail:',
+    },
+    activationDone: {
+      main: 'Aktywacja przebiegła pomyślnie!',
+    },
+    activationWrong: {
+      main: 'Link aktywacyjny jest niepoprawny! Skontaktuj się z administratorem wydarzenia.',
     },
     admin: {
       setMapPosition: {
