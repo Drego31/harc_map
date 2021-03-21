@@ -78,6 +78,7 @@ export const pl = {
       pointId: 'Kod punktu jest generowany automatycznie',
       eventId: 'Kod wydarzenia jest generowany automatycznie',
       fieldNotRequired: 'Pole jest nieobowiązkowe',
+      userTeam: 'Nazwa patrolu musi być unikatowa',
     },
     validation: {
       required: 'Pole jest wymagane.',
