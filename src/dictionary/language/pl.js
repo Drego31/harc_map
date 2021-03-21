@@ -1,9 +1,12 @@
 export const pl = {
   title: {
+    error: 'Błąd 404',
     welcome: 'Strona powitalna',
     about: 'O nas',
     signIn: 'Logowanie',
     signUp: 'Rejestracja',
+    activationDone: 'Poprawna aktywacja',
+    activationWrong: 'Niepoprawna aktywacja',
     remindPassword: 'Przypomnij hasło',
     changePassword: 'Zmień hasło',
     start: 'Start',
@@ -11,7 +14,7 @@ export const pl = {
     collectPoint: 'Zbierz punkt',
     collectedPoints: 'Zebrane punkty',
     map: 'Mapa',
-    adminPanel: 'Panel admina',
+    adminPanel: 'Panel administratora',
     spectatorPanel: 'Panel obserwatora',
     editEvent: 'Edycja wydarzenia',
     scoreboard: 'Tabela wyników',
@@ -19,6 +22,7 @@ export const pl = {
     editPoint: 'Edycja punktu',
     searchPoint: 'Szukaj punktów',
     short: {
+      error: 'Błąd',
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
       collectedPoints: 'Zebrane',
@@ -36,6 +40,7 @@ export const pl = {
     pointTemporary: 'Czasowy',
     pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
+    backToWelcome: 'Przejdź do początkowej',
     alreadyCollectedShort: 'Zdobyliście',
     fullAdmin: 'Uprawnienia administratora',
     limitedAdmin: 'Uprawnienia obserwatora',
@@ -73,6 +78,7 @@ export const pl = {
       pointId: 'Kod punktu jest generowany automatycznie',
       eventId: 'Kod wydarzenia jest generowany automatycznie',
       fieldNotRequired: 'Pole jest nieobowiązkowe',
+      userTeam: 'Nazwa patrolu musi być unikatowa',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -158,6 +164,12 @@ export const pl = {
       registrationDone: 'Rejestracja przebiegła pomyślnie!',
       linkHasBeenSent: 'Link aktywacyjny został wysłany na wskazany adres e-mail:',
     },
+    activationDone: {
+      main: 'Aktywacja przebiegła pomyślnie!',
+    },
+    activationWrong: {
+      main: 'Link aktywacyjny jest niepoprawny! Skontaktuj się z administratorem wydarzenia.',
+    },
     admin: {
       setMapPosition: {
         content: 'Wybierz pozycję mapy dla wydarzenia.',
@@ -211,7 +223,7 @@ export const pl = {
     checkYourLoginSession: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
     signUp: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
     eventIdNotExist: 'Podany kod wydarzenia jest niepoprawny.',
-    userExist: 'Użytkownik o podanym e-mail już istnieje.',
+    userExist: 'Użytkownik o podanym e-mail lub nazwie patrolu już istnieje.',
     remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się ze względu na błąd serwera.',
     signOut: 'Wylogowanie po stronie serwera nie powiodło. Zostałeś wylogowany lokalnie.',
     changePassword: 'Zmiana hasła się nie powiodła ze względu na błąd serwera.',

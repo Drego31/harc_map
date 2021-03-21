@@ -33,7 +33,7 @@ const errorsCodes = require('../../lib/validateCodes');
  *                error:
  *                  $ref: '#/components/responses/200/Error'
  *      302:
- *        description: Redirection to sign-in form(/sign-in) or error page(/404)
+ *        description: Redirection to activation-done page(/activation-done) or error page(/activation-wrong)
  */
 router.route('/:key')
   .get((req, res) => {
@@ -53,11 +53,11 @@ router.route('/:key')
       // successful updated
       .then(utils.throwIfEmpty)
       .then(() => {
-        res.redirect(302, '/sign-in');
+        res.redirect(302, '/activation-done');
       })
       .catch(errorCode => {
         if (errorCode === errorsCodes.DATABASE_NO_RESULT_ERROR) {
-          res.redirect(302, '/404');
+          res.redirect(302, '/activation-wrong');
         } else {
           utils.responseUserError(res, 200, errorCode, errorCode);
         }

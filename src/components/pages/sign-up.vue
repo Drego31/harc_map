@@ -18,6 +18,7 @@
           :rules="rules.userTeam"
           v-model="values.userTeam"
           :disabled="blockForm"
+          :assist="$t('form.assist.userTeam')"
         />
         <m-field-text
           :label="$t('form.field.eventId')"
