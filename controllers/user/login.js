@@ -13,11 +13,17 @@ const errorsCodes = require('../../lib/validateCodes');
  * This is not only session information!
  * @param userStructure {object} - Object of user from mongo collection or each user session store
  * @param collectedPointsIds {array} - array of collected ids
+ * @param warnCode {number|null} - warn codes
  * @return {{eventId: *, userTeam: *, accountType: *, error: null, user: *, collectedPointsIds: *}}
  * @private
  */
-function __getUserDataForResponse (userStructure = {}, collectedPointsIds) {
-  const { user, userTeam, userEvents, accountType } = userStructure;
+function __getUserDataForResponse (userStructure = {}, collectedPointsIds, warnCode) {
+  const {
+    user,
+    userTeam,
+    userEvents,
+    accountType,
+  } = userStructure;
 
   // user object schema that's sending to frontend
   return {
@@ -27,6 +33,7 @@ function __getUserDataForResponse (userStructure = {}, collectedPointsIds) {
     eventId: userEvents[0],
     accountType,
     error: null,
+    warn: warnCode,
   };
 }
 
@@ -119,7 +126,7 @@ router.route('/')
             // failed login
             utils.responseUserError(res, 401, error, error);
           } else {
-            req.login(userData, error => {
+            req.login(userData, (error) => {
               // error with setting session
               if (error) {
                 utils.responseUserError(res, 200, errorsCodes.SESSION_ERROR, error);
@@ -128,7 +135,17 @@ router.route('/')
                 database.read('users', { user })
                   .then(utils.throwIfEmpty)
                   .then(result => {
-                    res.send(__getUserDataForResponse(userData, result.collectedPointsIds));
+                    const {
+                      collectedPointsIds,
+                      loginHistory,
+                    } = result;
+                    let warnCode;
+
+                    if (loginHistory) {
+                      ({ warnCode } = loginHistory);
+                    }
+
+                    res.send(__getUserDataForResponse(userData, collectedPointsIds, warnCode));
                   })
                   .catch(errorMsg => {
                     utils.responseUserError(res, 401, errorsCodes.SESSION_ERROR, errorMsg);
@@ -170,7 +187,7 @@ router.route('/')
 
     if (req.isAuthenticated()) {
       // Data from client
-      user = req.user.user;
+      ({ user } = req.user);
       // Logout from session
       req.logout();
     } else {
