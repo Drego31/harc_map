@@ -211,7 +211,7 @@ export const pl = {
     checkYourLoginSession: 'Twoja sesja jest pusta — nie jesteś zalogowany.',
     signUp: 'Rejestracja nie powiodła się ze względu na błąd serwera.',
     eventIdNotExist: 'Podany kod wydarzenia jest niepoprawny.',
-    userExist: 'Użytkownik o podanym e-mail już istnieje.',
+    userExist: 'Użytkownik o podanym e-mail lub nazwie patrolu już istnieje.',
     remindPassword: 'Wysyłanie przypomnienia hasła nie powiodło się ze względu na błąd serwera.',
     signOut: 'Wylogowanie po stronie serwera nie powiodło. Zostałeś wylogowany lokalnie.',
     changePassword: 'Zmiana hasła się nie powiodła ze względu na błąd serwera.',
