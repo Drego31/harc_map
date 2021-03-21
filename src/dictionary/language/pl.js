@@ -14,7 +14,7 @@ export const pl = {
     collectPoint: 'Zbierz punkt',
     collectedPoints: 'Zebrane punkty',
     map: 'Mapa',
-    adminPanel: 'Panel admina',
+    adminPanel: 'Panel administratora',
     spectatorPanel: 'Panel obserwatora',
     editEvent: 'Edycja wydarzenia',
     scoreboard: 'Tabela wyników',
