@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <o-header/>
-    <div class="f-relative f-flex-1" v-touch:swipe.left="openMenu">
+    <div class="f-relative f-flex-1" v-touch:swipe.left="openMenuIfLogin">
       <router-view :key="routerId"/>
     </div>
     <o-footer
-      v-touch:swipe.left="openMenu"
+      v-touch:swipe.left="openMenuIfLogin"
       v-touch:swipe.right="closeMenu"
     />
     <o-menu/>
@@ -57,6 +57,9 @@ export default {
       openMenu: 'open',
       closeMenu: 'close',
     }),
+    openMenuIfLogin () {
+      this.$store.getters['user/isLogin'] && this.openMenu();
+    },
   },
 };
 </script>
