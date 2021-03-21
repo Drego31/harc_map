@@ -1,5 +1,6 @@
 export const pl = {
   title: {
+    error: 'Błąd 404',
     welcome: 'Strona powitalna',
     about: 'O nas',
     signIn: 'Logowanie',
@@ -21,6 +22,7 @@ export const pl = {
     editPoint: 'Edycja punktu',
     searchPoint: 'Szukaj punktów',
     short: {
+      error: 'Błąd',
       temporaryPoints: 'Czasowe',
       collectPoint: 'Zbierz pkt',
       collectedPoints: 'Zebrane',
