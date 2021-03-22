@@ -3,6 +3,10 @@ import { API_ERRORS, API_WARNS } from 'utils/macros/errors';
 import { logical } from 'vendors/logical';
 import { WarnMessage } from 'utils/warn-message';
 import { translator } from 'src/dictionary';
+import { store } from 'store';
+import router from 'src/router';
+import { ROUTES } from 'utils/macros/routes';
+import validateCodes from '../../lib/validateCodes';
 
 /**
  * @param errors - example:
@@ -48,6 +52,8 @@ export const apiResponseService = {
   },
   catchConnectionError (reject) {
     return function () {
+      store.commit('user/signOut');
+      router.push(ROUTES.welcome.path);
       reject(translator.t('apiError.notOnline'));
     };
   },
@@ -87,6 +93,11 @@ function catchError ({ data, errors = [], onError, defaultError }) {
         break;
       }
     }
+  }
+  if (data.error === validateCodes.UNAUTHORIZED_ACCESS) {
+    store.commit('user/signOut');
+    router.push(ROUTES.welcome.path);
+    errorMessage = translator.t('apiError.unauthorizedAccess');
   }
   onError(new ErrorMessage(errorMessage));
 }

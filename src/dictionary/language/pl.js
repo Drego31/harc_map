@@ -200,7 +200,7 @@ export const pl = {
   },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
-    unauthorizedAccess: 'Brak uprawnień do wykonania tej akcji.',
+    unauthorizedAccess: 'Brak uprawnień! Zostałeś automatycznie wylogowany.',
     notOnline: 'Brak połączenia z serwerem.',
 
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
