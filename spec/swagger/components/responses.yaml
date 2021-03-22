@@ -21,6 +21,9 @@ components:
       Error:
         type: number
         nullable: true
+      Warn:
+        type: number
+        nullable: true  
     400:
       User:
         nullable: true

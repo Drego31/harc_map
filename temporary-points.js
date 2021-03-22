@@ -60,6 +60,13 @@ module.exports =
           pointLatitude: 54.5520957142546,
           pointLongitude: 18.508919801436623,
         },
+        {
+          pointName: 'Tajne informacje od jeńca',
+          pointLatitude: 54.506007176534936,
+          pointLongitude: 18.554254982579444,
+          pointAppearanceTime: (new Date('2021-03-27T10:00')).getTime(),
+          pointExpirationTime: (new Date('2021-03-27T13:00')).getTime(),
+        },
       ];
       return points.map(point => ({
         ...defaultData,

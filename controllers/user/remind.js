@@ -118,6 +118,7 @@ router.route('/')
           res.send({
             user,
             error: null,
+            warn: null,
           });
         })
         .catch(errorCode => {
@@ -252,6 +253,7 @@ router.route('/:key')
           res.send({
             user: null,
             error: null,
+            warn: null,
           });
         })
         .catch(errorCode => {

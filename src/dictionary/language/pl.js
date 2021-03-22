@@ -194,10 +194,17 @@ export const pl = {
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
     dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
   },
+  apiWarn: {
+    undefined: 'Wystąpiło niezdefiniowane ostrzeżenie. Skontaktuj się z twórcą aplikacji.',
+    firstWarnFromCrossdeviceVisit: 'Nie loguj się tak często na różnych urządzeniach. W innym wypadku na taką możliwość zostanie nałożona czasowa blokada.',
+    lastWarnFromCrossdeviceVisit: 'Zbyt często logujesz się na różnych urządzeniach. Możesz to zrobić ostatni raz potem zablokujemy Ci taką możliwość na 1 godzinę.',
+    lastCrossdevice_visit: 'Zbyt często logujesz się na różnych urządzeniach. Od teraz przez 1 godzinę nie możesz zalogować się na innym urządzeniu.',
+  },
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
-    unauthorizedAccess: 'Brak uprawnień do wykonania tej akcji.',
+    unauthorizedAccess: 'Brak uprawnień! Zostałeś automatycznie wylogowany.',
     notOnline: 'Brak połączenia z serwerem.',
+    toManyCrossdeviceVisits: 'Na te konto nałożona jest czasowa blokada na możliwość logowania się na różnych urządzeniach. Zaloguj się na ostatnio zalogowanym urządzeniu.',
 
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
     getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',

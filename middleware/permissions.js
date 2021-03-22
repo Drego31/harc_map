@@ -131,6 +131,7 @@ function middlewareCall (request, response, next) {
 
   const responseObject = {
     error: validateCodes.UNAUTHORIZED_ACCESS,
+    warn: null,
   };
 
   response.status(200).send(responseObject);
