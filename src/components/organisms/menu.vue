@@ -71,6 +71,7 @@ export default {
   data: () => ({
     THEMES,
     VERSION: VERSION,
+    canToggleTheme: true,
   }),
   computed: {
     ...mapGetters('menu', [
@@ -109,9 +110,17 @@ export default {
       return this.$route.path === path;
     },
     toggleTheme () {
-      this.$store.commit('theme/toggle');
-      router.hardReload();
-      this.close();
+      if (this.canToggleTheme) {
+        this.canToggleTheme = false;
+        this.$store.commit('theme/toggle');
+        router.hardReload();
+        this.close();
+        setTimeout(() => {
+          this.canToggleTheme = true;
+        }, 500);
+
+      }
+
     },
     signOut () {
       this.$store.dispatch('user/signOut')
