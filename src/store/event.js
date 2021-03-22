@@ -33,6 +33,7 @@ export default {
     eventName: state => state.eventName,
     eventStartDate: state => state.eventStartDate,
     eventEndDate: state => state.eventEndDate,
+    mapRefreshTime: state => state.mapRefreshTime,
     eventId: state => state.eventId,
     mapPosition: state => ({
       mapLongitude: state.mapLongitude,

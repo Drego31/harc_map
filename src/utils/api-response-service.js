@@ -2,6 +2,7 @@ import { ErrorMessage } from 'utils/error-message';
 import { API_ERRORS, API_WARNS } from 'utils/macros/errors';
 import { logical } from 'vendors/logical';
 import { WarnMessage } from 'utils/warn-message';
+import { translator } from 'src/dictionary';
 
 /**
  * @param errors - example:
@@ -46,8 +47,8 @@ export const apiResponseService = {
     });
   },
   catchConnectionError (reject) {
-    return function (fetchError) {
-      reject(new ErrorMessage(fetchError));
+    return function () {
+      reject(translator.t('apiError.notOnline'));
     };
   },
   hasNoError (data) {

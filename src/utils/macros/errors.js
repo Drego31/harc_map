@@ -110,6 +110,7 @@ export const API_ERRORS = {
           validateCodes.PASSWORD_HAS_NOT_NUMBER,
           validateCodes.LOGIN_INVALID_PASSWORD,
           validateCodes.LOGIN_INVALID_USER,
+          validateCodes.DATABASE_NO_RESULT_ERROR,
         ],
         translator.t('apiError.signInData'),
       ],

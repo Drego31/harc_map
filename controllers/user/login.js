@@ -23,6 +23,7 @@ function __getUserDataForResponse (userStructure = {}, collectedPointsIds, warnC
     userTeam,
     userEvents,
     accountType,
+    limitedPermissions,
   } = userStructure;
 
   // user object schema that's sending to frontend
@@ -32,6 +33,7 @@ function __getUserDataForResponse (userStructure = {}, collectedPointsIds, warnC
     collectedPointsIds: collectedPointsIds,
     eventId: userEvents[0],
     accountType,
+    limitedPermissions,
     error: null,
     warn: warnCode,
   };
@@ -135,6 +137,7 @@ router.route('/')
               } else {
                 const { user } = userData;
                 database.read('users', { user })
+                  // successful updated
                   .then(utils.throwIfEmpty)
                   .then(result => {
                     const {

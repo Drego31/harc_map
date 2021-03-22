@@ -60,11 +60,9 @@ export default {
     popup: null,
   }),
   computed: {
-    ...mapGetters('mapPopup', [
-      'data',
-    ]),
+    ...mapGetters('mapPopup', ['data']),
     buttons () {
-      return [
+      const buttons = [
         {
           icon: this.ICONS.edit,
           label: this.$t('general.edit'),
@@ -89,6 +87,7 @@ export default {
           },
         },
       ];
+      return this.checkIsNotLimited() ? buttons : [];
     },
   },
   methods: {

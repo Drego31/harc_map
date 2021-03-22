@@ -14,6 +14,7 @@
 import TPage from 'templates/page';
 import AButtonPrimary from 'atoms/button/primary';
 import { ROUTES } from 'utils/macros/routes';
+import { uCheck } from '@dbetka/utils';
 
 export default {
   name: 'p-admin-panel',
@@ -28,7 +29,13 @@ export default {
         { route: ROUTES.editEvent },
         { route: ROUTES.newPoint },
         { url: '/point/all', label: 'Pobierz listę punktów' },
-      ];
+        { route: ROUTES.searchPoint },
+      ]
+        .filter(link => {
+          const routeIsDefined = uCheck.isDefined(link.route);
+          const routeIsUndefined = uCheck.isUndefined(link.route);
+          return routeIsUndefined || (routeIsDefined && this.checkLimitingForRoute(link.route));
+        });
     },
   },
   methods: {

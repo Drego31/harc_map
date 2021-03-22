@@ -67,7 +67,7 @@ export class Popup {
     return [
       {
         icon: ICONS.place,
-        value: point.pointLongitude + ',' + point.pointLatitude,
+        value: point.pointLatitude.toFixed(5) + ',' + point.pointLongitude.toFixed(5),
       },
       {
         icon: ICONS.title,
@@ -88,7 +88,7 @@ export class Popup {
     const detailsList = [];
     detailsList.push({
       icon: ICONS.place,
-      value: point.pointLongitude + ',' + point.pointLatitude,
+      value: point.pointLatitude.toFixed(5) + ',' + point.pointLongitude.toFixed(5),
     });
     point.pointName && detailsList.push({
       icon: ICONS.title,
