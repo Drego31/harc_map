@@ -29,6 +29,11 @@ function __createNewUserObject (information) {
     forgotTimestamp: null,
     accountCreated: Date.now(),
     collectedPointsIds: [],
+    loginHistory: {
+      loginCount: null,
+      lastLoginTime: null,
+      lastLoginUUID: null,
+    },
   };
 }
 

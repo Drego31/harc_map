@@ -87,6 +87,8 @@ router.route('/')
    *                  $ref: '#/components/responses/200/EventId'
    *                error:
    *                  $ref: '#/components/responses/200/Error'
+   *                warn:
+   *                  $ref: '#/components/responses/200/Warn'
    *      401:
    *        description: User is not logged, have no access
    *        content:
