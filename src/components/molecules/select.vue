@@ -127,6 +127,7 @@ export default {
         'f-filled': this.label !== '',
         'f-error': this.error,
         'f-correct': this.correct,
+        'f-disabled': this.disabled,
       };
     },
   },
@@ -166,6 +167,8 @@ export default {
       });
     },
     toggleOptions (newState) {
+      if (this.disabled) return;
+
       const oppositeState = this.optionsAreOpen === false;
       this.optionsAreOpen = newState !== undefined ? newState : oppositeState;
       this.resetPointedOption();
@@ -187,6 +190,8 @@ export default {
       value,
       index,
     }) {
+      if (this.disabled) return;
+
       if (logical.isDefined(index)) {
         value = this.options[index].value;
       }
@@ -221,6 +226,8 @@ export default {
       this.optionSwitch(this.pointedOption);
     },
     optionDown () {
+      if (this.disabled) return;
+
       if (this.pointedOption + 1 > this.options.length - 1) {
         this.pointedOption = 0;
       } else {

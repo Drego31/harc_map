@@ -130,16 +130,6 @@ export const routes = [
     },
   },
   {
-    path: ROUTES.setMapPosition.path,
-    name: ROUTES.setMapPosition.name,
-    component: () => import('pages/admin/set-map-position.vue'),
-    meta: {
-      onlyBeforeLogin: false,
-      requiredAuth: true,
-      adminOnly: true,
-    },
-  },
-  {
     path: ROUTES.scoreboard.path,
     name: ROUTES.scoreboard.name,
     component: () => import('pages/admin/scoreboard.vue'),
@@ -150,19 +140,9 @@ export const routes = [
     },
   },
   {
-    path: ROUTES.setPointPosition.path,
-    name: ROUTES.setPointPosition.name,
-    component: () => import('pages/admin/set-point-position.vue'),
-    meta: {
-      onlyBeforeLogin: false,
-      requiredAuth: true,
-      adminOnly: true,
-    },
-  },
-  {
     path: ROUTES.editPoint.path,
     name: ROUTES.editPoint.name,
-    component: () => import('pages/admin/add-new-point.vue'),
+    component: () => import('pages/admin/edit-point.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,
@@ -170,9 +150,9 @@ export const routes = [
     },
   },
   {
-    path: ROUTES.addNewPoint.path,
-    name: ROUTES.addNewPoint.name,
-    component: () => import('pages/admin/add-new-point.vue'),
+    path: ROUTES.newPoint.path,
+    name: ROUTES.newPoint.name,
+    component: () => import('pages/admin/new-point.vue'),
     meta: {
       onlyBeforeLogin: false,
       requiredAuth: true,

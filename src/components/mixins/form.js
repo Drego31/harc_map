@@ -1,4 +1,5 @@
 import { translator } from 'src/dictionary';
+import { communicates } from 'utils/communicates';
 
 export const formMixin = {
   data: () => ({
@@ -15,10 +16,7 @@ export const formMixin = {
       this.showSuccessMessage(message);
     },
     showSuccessMessage (message = translator.t('general.saved')) {
-      this.$store.dispatch('snackbar/openTemporary', {
-        message: message,
-        success: true,
-      });
+      communicates.showSuccessTemporary(message);
     },
     onErrorOccurs (errorMessage) {
       this.isServerError = true;

@@ -1,8 +1,12 @@
 <template>
-  <o-map ref="oMap">
-    <m-banner-map ref="banner" @actionTriggered="onSavePosition">
+  <o-map ref="oMap" :point-options="false">
+    <m-banner-map
+      ref="banner"
+      @actionTriggered="onSavePosition"
+      @cancel="$emit('cancel')"
+    >
       <template slot="text">{{ $t('page.admin.setMapPosition.content') }}</template>
-      <template slot="button-name">{{ $t('form.button.save') }}</template>
+      <template slot="button-name">{{ $t('form.button.choose') }}</template>
     </m-banner-map>
   </o-map>
 </template>
@@ -18,14 +22,26 @@ export default {
     MBannerMap,
     OMap,
   },
+  props: {
+    event: {
+      type: Object,
+      required: true,
+    },
+  },
   mounted () {
-    map.panToDefault();
+    map.panTo({
+      latitude: this.event.mapLatitude,
+      longitude: this.event.mapLongitude,
+      zoom: this.event.mapZoom,
+    });
   },
   methods: {
     onSavePosition () {
-      this.$refs.oMap.saveLastMapPositionToDatabase();
-      this.$store.dispatch('event/updateEvent')
-        .then(() => this.$refs.banner.emitSuccessMessage(this.ROUTES.editEvent.path));
+      this.$refs.banner.emitSuccessMessage()
+        .then(() => this.$emit('save', this.getNewMapPosition()));
+    },
+    getNewMapPosition () {
+      return map.getMapPosition();
     },
   },
 };
