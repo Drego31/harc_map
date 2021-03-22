@@ -17,7 +17,7 @@ const errorsCodes = require('../../lib/validateCodes');
  * @return {{eventId: *, userTeam: *, accountType: *, error: null, user: *, collectedPointsIds: *}}
  * @private
  */
-function __getUserDataForResponse (userStructure = {}, collectedPointsIds, warnCode) {
+function __getUserDataForResponse (userStructure = {}, collectedPointsIds, warnCode = null) {
   const {
     user,
     userTeam,
