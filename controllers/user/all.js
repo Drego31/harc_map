@@ -62,12 +62,14 @@ router.route('/')
         res.send({
           users: filteredUsersList,
           error: null,
+          warn: null,
         });
       })
       .catch(errorCode => {
         res.status(400).send({
           users: null,
           error: errorsCodes.DATABASE_DATA_ERROR,
+          warn: null,
         });
       });
   });

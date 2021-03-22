@@ -24,11 +24,17 @@ function __createNewUserObject (information) {
     userEvents: [userEvent],
     accountType: 'common',
     accountIsActive: false,
+    limitedPermissions: false,
     activationKey: utils.generateAccessKey(),
     forgotKey: null,
     forgotTimestamp: null,
     accountCreated: Date.now(),
     collectedPointsIds: [],
+    loginHistory: {
+      loginCount: null,
+      lastLoginTime: null,
+      lastLoginUUID: null,
+    },
   };
 }
 
@@ -119,6 +125,7 @@ router.route('/')
           res.send({
             user,
             error: null,
+            warn: null,
           });
         })
         .catch(errorCode => {

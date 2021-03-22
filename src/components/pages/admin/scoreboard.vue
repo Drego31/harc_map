@@ -34,7 +34,8 @@
       />
       <m-row-score
         v-for="[key, {user, userScore}] of sortedUsers.entries()"
-        :class="{ 'f-text-bold': key < 3 }"
+        class="f-text-subtext"
+        :class="{ 'f-text-standard': key < 3 }"
         :key="user.pointId"
         :user="user"
         :user-score="userScore"

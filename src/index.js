@@ -11,6 +11,7 @@ import { ICONS } from './__jscash__/icons-names-list';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
 import VueEllipseProgress from 'vue-ellipse-progress';
+import Vue2TouchEvents from 'vue2-touch-events';
 
 styleManager.init();
 uuidInit();
@@ -31,9 +32,13 @@ Vue.mixin({
     checkPermissions: permissions.checkPermissions,
     checkIsAdmin: permissions.checkIsAdmin,
     checkIsCommon: permissions.checkIsCommon,
+    checkIsLimited: permissions.checkIsLimited,
+    checkIsNotLimited: permissions.checkIsNotLimited,
+    checkLimitingForRoute: permissions.checkLimitingForRoute,
   },
 });
 
+Vue.use(Vue2TouchEvents);
 Vue.use(VueEllipseProgress);
 
 new Vue({

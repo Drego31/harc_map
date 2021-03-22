@@ -1,5 +1,5 @@
 import { makeRequest, request } from 'utils/request';
-import { API_ERRORS } from 'utils/macros/errors';
+import { API_ERRORS, API_WARNS } from 'utils/macros/errors';
 
 export const userController = {
   allUsers () {
@@ -18,6 +18,7 @@ export const userController = {
         password,
       },
       ...API_ERRORS.signIn,
+      ...API_WARNS.signIn,
     });
   },
   checkYourLoginSession () {

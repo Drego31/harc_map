@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2] - 2021-03-22
+### Added
+- Create warn field in request responses
+- Menu open on slide before login
+- Add limited permissions field for admin
+- Add points searcher for admin
+- Update list of points and fix little bugs
+- Add instruction how to release version
+- Show welcome message on first login
+
+### Fixed
+- Little bugs from tests
+- Error 404 after click on activation link
+- Move firstLogin field to cookies
+- Catch server connection error
+- Safe icons script against name change
+- Menu should handle slide event
+- Correct scoreboard appearance
+- Wrong start page after change account type
+
 ## [1.2.1] - 2021-03-15
 ### Added
 - Add functionality to remove points
@@ -93,18 +113,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2020-06-08
 ### Added
-- Database in MongoDB.
-- REST API for events, points, points categories, users.
-- User management (E-mail and session service).
-- Example data for first production event.
-- SSL.
-
-- Display OpenLayers map with points to collect by users.
-- Possibility to collect points.
-- Temporary points.
-- Dark mode.
-- Auto update.
-- About view.
-- Fancy text fields.
-- EsLint.
-- Vue routing.
+- Database in MongoDB
+- REST API for events, points, points categories, users
+- User management (E-mail and session service)
+- Example data for first production event
+- SSL
+- Display OpenLayers map with points to collect by users
+- Possibility to collect points
+- Temporary points
+- Dark mode
+- Auto update
+- About view
+- Fancy text fields
+- EsLint
+- Vue routing

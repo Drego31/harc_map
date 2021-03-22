@@ -9,6 +9,28 @@ export const ERRORS = {
   signOut: translator.t('apiError.signOut'),
 };
 
+export const API_WARNS = {
+  undefined: {
+    defaultWarn: translator.t('apiWarn.undefined'),
+  },
+  signIn: {
+    warns: [
+      [
+        [validateCodes.FIRST_WARN_FROM_CROSSDEVICE_VISIT],
+        translator.t('apiWarn.firstWarnFromCrossdeviceVisit'),
+      ],
+      [
+        [validateCodes.LAST_WARN_FROM_CROSSDEVICE_VISIT],
+        translator.t('apiWarn.lastWarnFromCrossdeviceVisit'),
+      ],
+      [
+        [validateCodes.LAST_CROSSDEVICE_VISIT],
+        translator.t('apiWarn.lastCrossdevice_visit'),
+      ],
+    ],
+  },
+};
+
 export const API_ERRORS = {
   undefined: {
     defaultError: translator.t('apiError.undefined'),
@@ -96,6 +118,7 @@ export const API_ERRORS = {
           validateCodes.PASSWORD_HAS_NOT_NUMBER,
           validateCodes.LOGIN_INVALID_PASSWORD,
           validateCodes.LOGIN_INVALID_USER,
+          validateCodes.DATABASE_NO_RESULT_ERROR,
         ],
         translator.t('apiError.signInData'),
       ],
@@ -106,6 +129,10 @@ export const API_ERRORS = {
       [
         [validateCodes.ACCOUNT_IS_INACTIVE],
         translator.t('apiError.inactiveAccount'),
+      ],
+      [
+        [validateCodes.TO_MANY_CROSSDEVICE_VISITS],
+        translator.t('apiError.toManyCrossdeviceVisits'),
       ],
     ],
   },

@@ -1,15 +1,19 @@
 <template>
-  <div class="f-mb-2 f-text-center f-text-32 f-text-bold ">
-    {{ hours }}:{{ minutes }}:{{ seconds }}
+  <div class="f-flex f-flex-just-center">
+    <a-icon :size="32" :name=ICONS.schedule class="m-clock"></a-icon>
+    <div class="f-mb-2 f-text-center f-text-32 f-text-bold ">
+      {{ hours }}:{{ minutes }}:{{ seconds }}
+    </div>
   </div>
+
 </template>
 
 <script>
 import { getMinutesAsString, getSecondsAsString } from 'utils/date';
-
+import AIcon from 'atoms/icon';
 export default {
   name: 'm-clock',
-
+  components: { AIcon },
   data: () => ({
     hours: 0,
     minutes: 0,

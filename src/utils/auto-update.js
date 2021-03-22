@@ -19,7 +19,13 @@ export const autoUpdate = {
   },
   once () {
     map.updateMapFeatures()
-      .catch((error) => (new ErrorMessage(error)).showMessage());
+      .catch(error => {
+        if (error instanceof ErrorMessage) {
+          error.showMessage();
+        } else {
+          (new ErrorMessage(error)).showMessage();
+        }
+      });
   },
   stop () {
     clearTimeout(timeoutID);

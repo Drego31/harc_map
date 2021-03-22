@@ -64,6 +64,7 @@ router.route('/')
 
             res.status(400).send({
               error: errorsCodes.DATABASE_DATA_ERROR,
+              warn: null,
             });
           });
       })

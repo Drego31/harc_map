@@ -1,6 +1,7 @@
 import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 import { ErrorMessage } from 'utils/error-message';
+import { routes } from 'src/router/routes';
 
 // ACCOUNT_TYPES is available in vue templates
 export const ACCOUNT_TYPES = {
@@ -32,6 +33,18 @@ export const permissions = {
   },
   checkIsAdmin () {
     return this.checkPermissions(ACCOUNT_TYPES.admin);
+  },
+  checkIsLimited () {
+    return store.getters['user/limitedPermissions'];
+  },
+  checkIsNotLimited () {
+    return this.checkIsLimited() === false;
+  },
+  checkLimitingForRoute ({ name }) {
+    const route = routes.find(route => route.name === name) || {};
+    const unlimitedOnly = route.meta.unlimitedOnly === true;
+    const isNotLimited = this.checkIsNotLimited();
+    return (unlimitedOnly && isNotLimited) || unlimitedOnly === false;
   },
   checkIsCommon () {
     return this.checkPermissions(ACCOUNT_TYPES.common);
