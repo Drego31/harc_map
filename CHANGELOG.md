@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2021-03-15
+### Added
+- Add functionality to remove points
+- Show user when new position of map and point is chosen
+### Fixed
+- Change collected points appearance
+- Bug on edit point position
+- Wrong position on init set point position
+- Bug - admin cannot see points before start event
+- Fix datetime fields width
+
 ## [1.2.0] - 2021-03-12
 ### Added
 - Start event date
