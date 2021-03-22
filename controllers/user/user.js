@@ -3,7 +3,7 @@ const router = express.Router();
 const validator = require('../../lib/validator');
 const database = require('../../lib/mongodb');
 const utils = require('../../lib/utils');
-const mail = require('../../lib/mail');
+const mail = require('../../lib/mail/mail');
 
 // Codes for errorsCodes
 const errorsCodes = require('../../lib/validateCodes');
