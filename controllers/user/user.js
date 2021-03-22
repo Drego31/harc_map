@@ -125,6 +125,7 @@ router.route('/')
           res.send({
             user,
             error: null,
+            warn: null,
           });
         })
         .catch(errorCode => {
