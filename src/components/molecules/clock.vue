@@ -1,8 +1,8 @@
 <template>
-  <div class="f-flex f-flex-just-center">
-    <a-icon :size="32" :name=ICONS.schedule class="m-clock"></a-icon>
-    <div class="f-mb-2 f-text-center f-text-32 f-text-bold ">
-      {{ hours }}:{{ minutes }}:{{ seconds }}
+  <div class="m-clock">
+    <a-icon :size="32" :name=ICONS.schedule class="f-clock"></a-icon>
+    <div class="f-mb-2 f-text-center f-text-32 f-text-bold">
+      {{ hours }}<span :class="separatorClass">{{ separator }}</span>{{ minutes }}
     </div>
   </div>
 
@@ -18,6 +18,9 @@ export default {
     hours: 0,
     minutes: 0,
     seconds: 0,
+    separator: ':',
+    separatorClass: '',
+    blinkTime: 500,
   }),
   mounted () {
     this.updateDateTime();
@@ -25,6 +28,14 @@ export default {
   },
   beforeDestroy () {
     clearInterval(this.$options.interval);
+  },
+  watch: {
+    seconds () {
+      this.separatorClass = 'f-hidden';
+      setTimeout(() => {
+        this.separatorClass = '';
+      }, this.blinkTime);
+    },
   },
   methods: {
     updateDateTime () {
