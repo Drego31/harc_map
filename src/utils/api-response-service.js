@@ -84,8 +84,8 @@ function catchWarn ({ data, warns = [], defaultWarn }) {
   (new WarnMessage(warnMessage)).showMessage();
 }
 
-function catchError ({ data, errors = [], onError, defaultError }) {
-  let errorMessage = defaultError;
+function catchError ({ data, errors = [], onError, defaultErrorMessage }) {
+  let errorMessage = defaultErrorMessage;
   for (const [codes, message] of errors) {
     for (const singleCode of codes) {
       if (data.error === singleCode) {
@@ -99,5 +99,5 @@ function catchError ({ data, errors = [], onError, defaultError }) {
     router.push(ROUTES.welcome.path);
     errorMessage = translator.t('apiError.unauthorizedAccess');
   }
-  onError(new ErrorMessage(errorMessage));
+  onError(new ErrorMessage(errorMessage, { code: data.error }));
 }
