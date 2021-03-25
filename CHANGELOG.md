@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Separate vendors from main bundle
 - Add covid info to guide
+- Hide wrong email error in remind password
 
 ### Fixed
 - All emails go to spam
