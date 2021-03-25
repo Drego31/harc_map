@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Little bugs from tests on iPhone
 - Cross device login for admin
 - Fix footer appearance on android
+- After click on reset password link server give 404
 
 ## [1.2.2] - 2021-03-22
 ### Added
