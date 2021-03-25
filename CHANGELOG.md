@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.3] - 2021-03-25
+### Fixed
+- All emails go to spam
+- Correct clock appearance on timeout point page
+- Little bugs from tests on iPhone
+- Cross device login for admin
+
 ## [1.2.2] - 2021-03-22
 ### Added
 - Create warn field in request responses
