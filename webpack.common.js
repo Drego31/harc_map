@@ -14,6 +14,11 @@ webpackUtils.removeOldBundleFiles('public/*app.js');
 module.exports = {
   mode: 'development',
   entry: 'src/index.js',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   output: {
     // filename in dev and prod configs
     path: resolve('public'),
