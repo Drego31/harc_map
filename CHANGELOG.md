@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [1.2.3] - 2021-03-25
+### Added
+- Separate vendors from main bundle
+
 ### Fixed
 - All emails go to spam
 - Correct clock appearance on timeout point page
