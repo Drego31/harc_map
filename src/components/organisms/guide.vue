@@ -84,6 +84,12 @@
         </slider-item>
 
         <slider-item>
+          <m-slide :title="this.$t('features.guide.covidInfo.title')" :icon="ICONS.coronavirus">
+            <div class="f-mb-1">{{ $t('features.guide.covidInfo.description') }}</div>
+          </m-slide>
+        </slider-item>
+
+        <slider-item>
         </slider-item>
 
       </slider>

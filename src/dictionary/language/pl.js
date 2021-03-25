@@ -328,6 +328,14 @@ export const pl = {
         add4: 'kategoria',
         add5: 'wartość',
       },
+      covidInfo: {
+        title: 'Jak przeciwdziałać covid?',
+        description: `Najlepszym sposobem uniknięcia zakażenia koronawirusem jest stosowanie zasady DDM 
+          (dystans społeczny, dezynfekcja rąk oraz noszenie maseczki) (w Polsce DDMA + W, czyli włączając 
+          jeszcze zainstalowanie aplikacji STOP COVID i wietrzenie pomieszczeń). Zachowanie dystansu 
+          (przynajmniej 1 metra, w Polsce zalecany dystans do 1,5 metra) pomaga w zmniejszeniu ryzyka 
+          zakażenia ze względu na sposób przenoszenia wirusa.`,
+      },
     },
   },
 };
