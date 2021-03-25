@@ -98,8 +98,8 @@ export const ROUTES = {
     },
   },
   changePassword: {
-    path: '/user/remind/',
-    pathWithParam: '/user/remind/:key',
+    path: '/user/remind/:key',
+    pathWithoutParam: '/user/remind/',
     name: 'changePassword',
     label: translator.t('title.changePassword'),
     shortLabel: translator.t('title.changePassword'),
