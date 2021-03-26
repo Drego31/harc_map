@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.4] - 2021-03-26
+### Added
+- Redirect to map after collecting point
+
+### Fixed
+- Server always give activation wrong
+
 ## [1.2.3] - 2021-03-25
 ### Added
 - Separate vendors from main bundle
