@@ -12,8 +12,8 @@ export class MapPoint {
   }) {
     this.pointId = pointId;
     this.pointName = pointName;
-    this.pointLongitude = pointLongitude;
-    this.pointLatitude = pointLatitude;
+    this.pointLongitude = Number(pointLongitude);
+    this.pointLatitude = Number(pointLatitude);
     this.pointType = pointType;
     this.pointCategory = pointCategory;
     this.pointCollectionTime = pointCollectionTime;

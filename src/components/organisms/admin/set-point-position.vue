@@ -47,8 +47,8 @@ export default {
     getNewPointPosition () {
       const mapPosition = map.getMapPosition();
       return {
-        pointLongitude: mapPosition.mapLongitude.toFixed(5),
-        pointLatitude: mapPosition.mapLatitude.toFixed(5),
+        pointLongitude: mapPosition.mapLongitude,
+        pointLatitude: mapPosition.mapLatitude,
       };
     },
   },
