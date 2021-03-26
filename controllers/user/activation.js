@@ -36,9 +36,6 @@ const errorsCodes = require('../../lib/validateCodes');
  *        description: Redirection to activation-done page(/activation-done) or error page(/activation-wrong)
  */
 router.route('/:key')
-  .head((req, res) => {
-    res.send('ok');
-  })
   .get((req, res) => {
     const activationUpdateData = {
       accountIsActive: true,
