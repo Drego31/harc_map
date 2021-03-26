@@ -1,5 +1,5 @@
 <template>
-  <div class="f-relative f-height-100" v-touch:swipe.left.stop>
+  <div class="f-relative f-height-100" v-touch:swipe.stop>
     <slot/>
     <div class="o-map" id="o-map"></div>
     <o-popup-map

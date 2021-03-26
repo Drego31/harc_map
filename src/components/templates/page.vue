@@ -1,11 +1,12 @@
 <template>
-  <div class="t-page">
+  <div class="t-page" v-touch:swipe.left="openMenu">
     <slot/>
   </div>
 </template>
 
 <script>
 import { ROUTES } from 'utils/macros/routes';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 't-page',
@@ -13,6 +14,10 @@ export default {
     backRoute: {
       type: Object,
       default: () => ({ name: '' }),
+    },
+    letSwipeMenu: {
+      type: Boolean,
+      default: true,
     },
   },
   mounted () {
@@ -25,6 +30,14 @@ export default {
     } else {
       document.title = APP_NAME;
     }
+  },
+  methods: {
+    ...mapMutations('menu', {
+      openMenu: 'open',
+    }),
+    openMenu () {
+      this.letSwipeMenu && this.$store.getters['user/isLogin'] && this.openMenu();
+    },
   },
 };
 </script>

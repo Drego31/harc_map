@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <o-header/>
-    <div class="f-relative f-flex-1" v-touch:swipe.left="openMenuIfLogin">
+    <div class="f-relative f-flex-1">
       <router-view :key="routerId"/>
     </div>
     <o-footer
