@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <o-header/>
-    <div class="f-relative f-flex-1" v-touch:swipe.left="openMenuIfLogin">
+    <div class="f-relative f-flex-1">
       <router-view :key="routerId"/>
     </div>
     <o-footer
@@ -13,6 +13,7 @@
       class="a-cover f-menu"
       :class="isOpen ? 'f-show' : ''"
       @click="closeMenu"
+      v-touch:swipe.right="closeMenu"
     />
     <o-popup/>
     <m-snackbar/>
