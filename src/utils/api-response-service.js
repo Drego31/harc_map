@@ -52,8 +52,6 @@ export const apiResponseService = {
   },
   catchConnectionError (reject) {
     return function () {
-      store.commit('user/signOut');
-      router.push(ROUTES.welcome.path);
       reject(translator.t('apiError.notOnline'));
     };
   },
