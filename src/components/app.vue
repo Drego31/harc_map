@@ -13,6 +13,7 @@
       class="a-cover f-menu"
       :class="isOpen ? 'f-show' : ''"
       @click="closeMenu"
+      v-touch:swipe.right="closeMenu"
     />
     <o-popup/>
     <m-snackbar/>

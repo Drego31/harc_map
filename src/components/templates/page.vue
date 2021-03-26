@@ -6,7 +6,7 @@
 
 <script>
 import { ROUTES } from 'utils/macros/routes';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 't-page',
@@ -31,12 +31,15 @@ export default {
       document.title = APP_NAME;
     }
   },
+  computed: {
+    ...mapGetters('user', ['isLogin']),
+  },
   methods: {
-    ...mapMutations('menu', {
-      openMenu: 'open',
-    }),
+    ...mapMutations('menu', ['open']),
     openMenu () {
-      this.letSwipeMenu && this.$store.getters['user/isLogin'] && this.openMenu();
+      if (this.letSwipeMenu && this.isLogin) {
+        this.open();
+      }
     },
   },
 };
