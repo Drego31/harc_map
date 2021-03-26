@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Menu should handle slide event
 - Correct scoreboard appearance
 - Wrong start page after change account type
+- Open popup map after edit point position
 
 ## [1.2.1] - 2021-03-15
 ### Added
