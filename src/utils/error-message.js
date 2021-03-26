@@ -1,7 +1,7 @@
 import { communicates } from 'utils/communicates';
 
 export class ErrorMessage extends Error {
-  constructor (message, details = { code, hard: false }) {
+  constructor (message, details = { code: undefined, hard: false }) {
     super(message);
     this.humanMessage = '';
     this.hard = details.hard;

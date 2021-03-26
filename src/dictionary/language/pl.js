@@ -203,7 +203,7 @@ export const pl = {
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
     unauthorizedAccess: 'Brak uprawnień! Zostałeś automatycznie wylogowany.',
-    notOnline: 'Brak połączenia z serwerem.',
+    notOnline: 'Utrata połączenia z serwerem. Za chwilę nastąpi ponowna próba połączenia.',
     toManyCrossdeviceVisits: 'Na te konto nałożona jest czasowa blokada na możliwość logowania się na różnych urządzeniach. Zaloguj się na ostatnio zalogowanym urządzeniu.',
 
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
