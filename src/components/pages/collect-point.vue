@@ -54,7 +54,7 @@ export default {
         .then(() => {
           this.isSending = false;
           this.blockForm = false;
-          this.$router.push(ROUTES.start.path);
+          this.$router.push(ROUTES.map.path);
         });
     },
     collectPoint () {
