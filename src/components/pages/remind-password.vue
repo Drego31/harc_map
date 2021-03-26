@@ -38,6 +38,7 @@ import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldEmail from 'molecules/field/email';
 import AButtonPrimary from 'atoms/button/primary';
+import validateCodes from '../../../lib/validateCodes';
 
 export default {
   name: 'p-remind-password',
@@ -61,7 +62,13 @@ export default {
       this.blockForm = true;
       api.remindPassword({ user: this.user })
         .then(this.onRemindPassword)
-        .catch(this.onErrorOccurs);
+        .catch(error => {
+          if (error.code !== validateCodes.DATABASE_NO_RESULT_ERROR) {
+            this.onErrorOccurs(error);
+          } else {
+            this.onRemindPassword();
+          }
+        });
     },
     onRemindPassword () {
       this.formSend = true;

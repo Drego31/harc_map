@@ -91,13 +91,13 @@ const getFinalPoints = (shape, fill, stroke) => {
     fill,
     stroke,
     points: 20,
-    radius: 7,
+    radius: 10,
     angle: 20,
   };
   if (shape === starShape) {
     Object.assign(pointValues, {
       points: 5,
-      radius: 10,
+      radius: 12,
       radius2: 4,
       angle: 0,
     });

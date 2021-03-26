@@ -203,7 +203,7 @@ export const pl = {
   apiError: {
     undefined: 'Wystąpił niezdefiniowany błąd. Skontaktuj się z twórcą aplikacji.',
     unauthorizedAccess: 'Brak uprawnień! Zostałeś automatycznie wylogowany.',
-    notOnline: 'Brak połączenia z serwerem.',
+    notOnline: 'Utrata połączenia z serwerem. Za chwilę nastąpi ponowna próba połączenia.',
     toManyCrossdeviceVisits: 'Na te konto nałożona jest czasowa blokada na możliwość logowania się na różnych urządzeniach. Zaloguj się na ostatnio zalogowanym urządzeniu.',
 
     getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
@@ -327,6 +327,14 @@ export const pl = {
         add3: 'lokalizacja',
         add4: 'kategoria',
         add5: 'wartość',
+      },
+      covidInfo: {
+        title: 'Jak przeciwdziałać covid?',
+        description: `Najlepszym sposobem uniknięcia zakażenia koronawirusem jest stosowanie zasady DDM 
+          (dystans społeczny, dezynfekcja rąk oraz noszenie maseczki) (w Polsce DDMA + W, czyli włączając 
+          jeszcze zainstalowanie aplikacji STOP COVID i wietrzenie pomieszczeń). Zachowanie dystansu 
+          (przynajmniej 1 metra, w Polsce zalecany dystans do 1,5 metra) pomaga w zmniejszeniu ryzyka 
+          zakażenia ze względu na sposób przenoszenia wirusa.`,
       },
     },
   },

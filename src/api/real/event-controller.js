@@ -49,10 +49,7 @@ export const eventController = {
       ...API_ERRORS.removePoint,
     });
   },
-  addPoint ({
-    point,
-    eventId,
-  }) {
+  addPoint ({ point, eventId }) {
     return makeRequest({
       method: request.post,
       url: '/event/point',
@@ -63,10 +60,7 @@ export const eventController = {
       ...API_ERRORS.addPoint,
     });
   },
-  editPoint ({
-    point,
-    eventId,
-  }) {
+  editPoint ({ point, eventId }) {
     return makeRequest({
       method: request.put,
       url: '/event/point',

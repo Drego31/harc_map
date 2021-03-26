@@ -18,6 +18,7 @@ import MBannerMap from 'molecules/banner-map';
 import MPointerMap from 'molecules/map-pointer';
 import { map } from 'map';
 import { uCheck } from '@dbetka/utils';
+import { mapConfig } from 'map/config';
 
 export default {
   name: 'o-admin-set-new-point-position',
@@ -36,7 +37,7 @@ export default {
     this.$store.commit('event/setHidePoint', this.point);
     map.updateMapFeatures();
     if (uCheck.isNotNull(this.point.pointLatitude) && uCheck.isNotNull(this.point.pointLongitude)) {
-      map.panToPointLocationOnMap(this.point, { goToMap: false, zoom: 14 });
+      map.panToPointLocationOnMap(this.point, { goToMap: false, zoom: mapConfig.settings.maxZoom });
     }
   },
   methods: {
@@ -47,8 +48,8 @@ export default {
     getNewPointPosition () {
       const mapPosition = map.getMapPosition();
       return {
-        pointLongitude: mapPosition.mapLongitude.toFixed(5),
-        pointLatitude: mapPosition.mapLatitude.toFixed(5),
+        pointLongitude: mapPosition.mapLongitude,
+        pointLatitude: mapPosition.mapLatitude,
       };
     },
   },
