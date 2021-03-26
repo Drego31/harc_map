@@ -91,3 +91,5 @@ To do list:
 - Update CHANGELOG.md
 - Update version in package.json
 - Merge to master
+- Create version tag
+- Release on serwer
