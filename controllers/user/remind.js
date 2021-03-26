@@ -154,6 +154,9 @@ router.route('/')
  *        description: Redirection to error page(/404)
  */
 router.route('/:key')
+  .head((req, res) => {
+    res.send('ok');
+  })
   .get((req, res) => {
     // Data from client
     const { key } = req.params;
