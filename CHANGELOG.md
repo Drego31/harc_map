@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.3] - 2021-03-25
+### Added
+- Separate vendors from main bundle
+- Add covid info to guide
+- Hide wrong email error in remind password
+
+### Fixed
+- All emails go to spam
+- Correct clock appearance on timeout point page
+- Little bugs from tests on iPhone
+- Cross device login for admin
+- Fix footer appearance on android
+- After click on reset password link server give 404
+- Remove logout on lost connection
+
 ## [1.2.2] - 2021-03-22
 ### Added
 - Create warn field in request responses
@@ -25,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Menu should handle slide event
 - Correct scoreboard appearance
 - Wrong start page after change account type
+- Open popup map after edit point position
 
 ## [1.2.1] - 2021-03-15
 ### Added
