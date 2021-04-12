@@ -9,6 +9,7 @@ const options = {
     './controllers/user/*',
     './controllers/point/*',
     './controllers/eventPoint.js',
+    './controllers/information.js',
   ],
   definition: {
     openapi: '3.0.0',
@@ -31,6 +32,9 @@ const options = {
     }, {
       name: 'Event',
       description: 'Event endpoint',
+    }, {
+      name: 'Information',
+      description: 'Information about app/system',
     }],
     // List of servers environments
     // DOC: https://swagger.io/specification/#server-object

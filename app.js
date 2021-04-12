@@ -35,6 +35,7 @@ const eventPointsController = require('./controllers/eventPoints');
 const pointCollectController = require('./controllers/pointCollect');
 const pointCategoriesController = require('./controllers/pointCategories');
 const statsOfCollectedController = require('./controllers/statsOfCollected');
+const informationController = require('./controllers/information');
 
 // Create express app instance
 const app = express();
@@ -97,6 +98,7 @@ app.use(express.static('vendors', {
 
 // user controller
 app.use('/user', userController);
+app.use('/information', informationController);
 app.use('/point', pointController);
 app.use('/event', eventController);
 app.use('/event/point', eventPointController);
