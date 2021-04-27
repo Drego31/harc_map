@@ -20,11 +20,19 @@ const pjson = require('../package.json');
  *              properties:
  *                appVersion:
  *                  type: string
+ *                error:
+ *                  type: string
+ *                  nullable: true
+ *                warn:
+ *                  type: string
+ *                  nullable: true
  */
 router.route('/')
   .get((req, res) => {
     res.send({
       appVersion: pjson.version,
+      error: null,
+      null: null,
     });
   });
 
