@@ -35,6 +35,10 @@ export const API_ERRORS = {
   undefined: {
     defaultError: translator.t('apiError.undefined'),
   },
+  information: {
+    defaultError: translator.t('apiError.undefined'),
+  },
+
   // EVENT
   getEventById: {
     defaultError: translator.t('apiError.getEventById'),
