@@ -17,6 +17,10 @@ export default {
       });
       return (listOfPoints || []).length;
     },
+    percentageProgressByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
+      return rootGetters['event/numberOfCollectedPointsByCategoryId'](categoryId) /
+        rootGetters['event/numberOfPointsByCategoryId'](categoryId) * 100;
+    },
     pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategory => {
       const category = rootGetters['event/getCategoryById'](pointCategory);
       return (category || {}).pointValue;
