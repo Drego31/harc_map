@@ -20,7 +20,7 @@ export const mockApi = {
   ...eventController,
   ...userController,
   information () {
-    const appVersion = '1.2.5';
+    const appVersion = VERSION;
     // console.log(`request: 'information', response: '${appVersion}'`);
     return makeDelayFakeAnswer(() => ({
       appVersion,
