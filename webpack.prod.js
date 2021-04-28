@@ -15,6 +15,8 @@ module.exports = merge(common, {
       PRODUCTION: JSON.stringify(true),
       USER: JSON.stringify(''),
       PASSWORD: JSON.stringify(''),
+      ADMIN_USER: JSON.stringify(''),
+      ADMIN_PASSWORD: JSON.stringify(''),
     }),
   ],
 });
