@@ -32,7 +32,7 @@ router.route('/')
     res.send({
       appVersion: pjson.version,
       error: null,
-      null: null,
+      warn: null,
     });
   });
 

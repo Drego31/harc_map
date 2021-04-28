@@ -189,6 +189,7 @@ export const pl = {
     },
   },
   error: {
+    incompatibleAppVersion: 'Serwer jest niekompatybilny z aplikacją. Skontaktuj się z twórcą aplikacji',
     eventIdIsRequired: 'Kod wydarzenia jest wymagany',
     elementIdIsRequiredForMap: 'Kod wydarzenia jest wymagany, by uruchomić mapę',
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',

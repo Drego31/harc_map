@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { map } from 'map';
 import { ErrorMessage } from 'utils/error-message';
+import { versionCompatibility } from 'utils/version-compatibility';
 
 const oneSecond = 1000;
 const intervalTime = 60 * oneSecond;
@@ -18,7 +19,9 @@ export const autoUpdate = {
     }, secondsToFullMinute * oneSecond);
   },
   once () {
-    map.updateMapFeatures()
+    api.information()
+      .then(versionCompatibility.check)
+      .then(map.updateMapFeatures)
       .catch(error => {
         if (error instanceof ErrorMessage) {
           error.showMessage();
