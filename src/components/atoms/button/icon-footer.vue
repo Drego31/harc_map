@@ -16,12 +16,10 @@
 
 <script>
 import AButtonIcon from 'atoms/button/icon';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'a-button-icon-footer',
   components: {
-    AIcon,
     AButtonIcon,
   },
   props: {

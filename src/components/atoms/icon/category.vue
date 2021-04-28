@@ -3,12 +3,10 @@
 </template>
 
 <script>
-import AIcon from 'atoms/icon';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'a-icon-category',
-  components: { AIcon },
   props: {
     categoryId: {
       type: [Number, String],

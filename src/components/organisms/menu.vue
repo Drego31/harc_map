@@ -61,13 +61,12 @@ import { mapGetters, mapMutations } from 'vuex';
 import { THEMES } from 'utils/style-manager';
 import { ROUTES } from 'utils/macros/routes';
 import router from 'src/router';
-import AIcon from 'atoms/icon';
 import { uCheck } from '@dbetka/utils';
 import ALinkMenu from 'atoms/link-menu';
 
 export default {
   name: 'o-menu',
-  components: { ALinkMenu, AIcon },
+  components: { ALinkMenu },
   data: () => ({
     THEMES,
     VERSION: VERSION,

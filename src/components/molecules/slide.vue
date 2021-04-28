@@ -15,11 +15,9 @@
 </template>
 
 <script>
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-slide',
-  components: { AIcon },
   props: {
     title: { type: String, required: true },
     icon: { type: String, required: true },

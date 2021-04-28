@@ -12,10 +12,8 @@
 </template>
 
 <script>
-import AIcon from 'atoms/icon';
 export default {
   name: 'a-link-menu',
-  components: { AIcon },
   props: {
     text: { type: String, default: '' },
     icon: { type: String, default: '' },
