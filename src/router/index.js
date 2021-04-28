@@ -7,6 +7,7 @@ import { promise } from 'utils/promise';
 import { routes } from './routes';
 import { versionCompatibility } from 'utils/version-compatibility';
 import { ErrorMessage } from 'utils/error-message';
+import { session } from 'utils/session';
 
 let firstRun = true;
 
@@ -48,9 +49,8 @@ function makeFirstRun () {
   return new Promise((resolve, reject) => {
     api.information()
       .then(versionCompatibility.check)
-      .then(api.checkYourLoginSession)
-      .then(data => store.dispatch('user/signIn', data))
-      .then(() => resolve())
+      .then(session.tryLogin)
+      .then(resolve)
       .catch(reject)
       .finally(() => promise.timeout(1000))
       .finally(() => store.commit('setIsLoading', false));
