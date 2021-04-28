@@ -13,7 +13,7 @@ module.exports = merge(common, {
       PRODUCTION: JSON.stringify(false),
       USER: JSON.stringify('demo@demo.com'),
       PASSWORD: JSON.stringify('HarcMap1'),
-      ADMIN_USER: JSON.stringify('dominik.betka@gmail.com'),
+      ADMIN_USER: JSON.stringify('admin@demo.com'),
       ADMIN_PASSWORD: JSON.stringify('HarcMap1'),
     }),
   ],
