@@ -1,27 +1,29 @@
 # HarcMap
-Content:
-1. [Installation](#installation)
-    1. Requirements
-    2. How to prepare Intellij IDE (Webstorm / Phpstorm) for front-end development
-2. [Development](#development)
-    1. Devel environment
-    2. Production environment:
-3. [Local Database](#local-database)
-    1. Database installation
-    2. Default data in local database
-    3. Adding "RTL Gdynia" points to database
-4. [Swagger API documentation](#swagger-documentation)
-5. [Version release](#version-release)
+
+- [Installation](#installation)
+   - [Requirements](#requirements)
+   - [How to prepare Intellij IDE](#how-to-prepare-intellij-ide-webstorm--phpstorm-for-front-end-development)
+- [Development](#development)
+   - [Devel environment](#devel-environment)
+   - [Production environment](#production-environment)
+   - [Development kit](#development-kit)
+      - [Auto login](#auto-login)
+- [Local Database](#local-database)
+   - [Database installation](#database-installation)
+   - [Default data in local database](#default-data-in-local-database)
+   - [Adding "RTL Gdynia" points to database](#adding-rtl-gdynia-points-to-database)
+- [Swagger API documentation](#swagger-documentation)
+- [Version release](#version-release)
 
 
 
 ## Installation
 
-#### Requirements
+### Requirements
 - node v10.15.3 or higher
 - npm v6.13.7 or higher
 
-#### How to prepare Intellij IDE (Webstorm / Phpstorm) for front-end development
+### How to prepare Intellij IDE (Webstorm / Phpstorm) for front-end development
 1. You have to get into `Settings/Languages & Frameworks/JavaScript/Webpack` and set `webpack.common.js` as a config file.
 2. Open `Project Files` click by right button on `.eslintrc` file and click `Apply ESLint Code Style Rules` option.
 3. You have to get into `Settings/Editor/Code Style/HTML`, find `Do not indent children of` option and add `script` tag there.
@@ -31,7 +33,7 @@ Content:
 
 ## Development
 
-#### Devel environment
+### Devel environment
 1. Install packages: `npm i`
 2. Run the local database ([read more](#local-database))
 3. Fill the database ([read more](#adding-rtl-gdynia-points-to-database))
@@ -41,18 +43,24 @@ Content:
 7. If you get into https://localhost:3030/sign-in, the application log you in automatically on 
    the demo account (to edit demo user's data go to `config/mongodb/local.js`).
 
-#### Production environment:
+### Production environment:
 1. Install packages: `npm i`
 2. Build front-end package: `npm run build:prod`
 2. Run server: `npm run run:prod`
 3. App is ready!
 
+### Development kit
 
+#### Auto login
+Write below commands to browser console:
+- `autoLogin.switch()` will log out current user and login on opposite `accountType`
+- `autoLogin.common()` will log out current user and login to common user
+- `autoLogin.admin()` will log out current user and login to admin user
 
 
 ## Local database
 
-#### Database installation
+### Database installation
 1. To run the local database be sure that you already installed [Docker](https://www.docker.com/products/docker-desktop)
 2. Next step is running npm script: 
 ```
@@ -60,7 +68,7 @@ Content:
 npm run run:mongodb
 ``` 
 
-#### Default data in local database
+### Default data in local database
 For default, the local database is filling example data to run all basic functionality.
 It means one user(zhp@harcmap.henouser.pl), one event(ab12) with 3 categories and 4 points.
 
@@ -70,7 +78,7 @@ Default data are the smallest content to run basic functionality!
 
 All initialized data are setting from `/config/mongodb/local.js` script!
 
-#### Adding "RTL Gdynia" points to database:
+### Adding "RTL Gdynia" points to database:
 1. To add points, necessary categories and events you have to run local database first ([read more](#local-database))
 2. When local DB completely load, run command `npm run fill-database`.
 3. That's all!
