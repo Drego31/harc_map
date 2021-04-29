@@ -23,14 +23,10 @@
 
 <script>
 import { getHoursAndMinutesAsString } from 'utils/date';
-import AIcon from 'atoms/icon';
 import moment from 'moment';
 
 export default {
   name: 'm-table-row-temporary-points',
-  components: {
-    AIcon,
-  },
   data: () => ({
     pointAppearanceTime: null,
     pointExpirationTime: null,

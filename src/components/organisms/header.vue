@@ -40,13 +40,9 @@
 <script>
 import { mapGetters } from 'vuex';
 import { ROUTES } from 'utils/macros/routes';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'o-header',
-  components: {
-    AIcon,
-  },
   computed: {
     ...mapGetters('user', [
       'isLogin',

@@ -10,10 +10,8 @@
 
 <script>
 import { getMinutesAsString, getSecondsAsString } from 'utils/date';
-import AIcon from 'atoms/icon';
 export default {
   name: 'm-clock',
-  components: { AIcon },
   data: () => ({
     hours: 0,
     minutes: 0,

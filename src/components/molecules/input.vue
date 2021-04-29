@@ -48,14 +48,10 @@
 
 <script>
 import { mixins } from 'mixins/base';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-input',
   mixins: [mixins.vModel],
-  components: {
-    AIcon,
-  },
   props: {
     disabled: {
       type: Boolean,

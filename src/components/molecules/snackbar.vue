@@ -16,11 +16,9 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-snackbar',
-  components: { AIcon },
   computed: {
     ...mapGetters('snackbar', [
       'isOpen',
