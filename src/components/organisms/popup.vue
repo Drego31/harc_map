@@ -21,12 +21,10 @@
 </template>
 
 <script>
-import AIcon from 'atoms/icon';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'o-popup',
-  components: { AIcon },
   computed: {
     ...mapGetters('popup', [
       'isOpen',

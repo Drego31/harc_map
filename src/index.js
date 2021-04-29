@@ -13,6 +13,7 @@ import App from './components/app.vue';
 import VueEllipseProgress from 'vue-ellipse-progress';
 import Vue2TouchEvents from 'vue2-touch-events';
 import 'utils/dev-mode/auto-login';
+import VueMaterialIcons from '@dbetka/vue-material-icons';
 
 styleManager.init();
 uuidInit();
@@ -41,6 +42,7 @@ Vue.mixin({
 
 Vue.use(Vue2TouchEvents);
 Vue.use(VueEllipseProgress);
+Vue.use(VueMaterialIcons);
 
 new Vue({
   router,
