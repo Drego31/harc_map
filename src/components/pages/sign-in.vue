@@ -38,6 +38,7 @@ import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
 import { ERRORS } from 'utils/macros/errors';
 import { ErrorMessage } from 'utils/error-message';
+import { DEV_USERS_LIST } from 'utils/dev-mode/auto-login';
 
 export default {
   name: 'p-sign-in',
@@ -83,8 +84,8 @@ export default {
     signInAutomatically () {
       this.isSending = true;
       this.blockForm = true;
-      this.values.user = USER;
-      this.values.password = PASSWORD;
+      this.values.user = DEV_USERS_LIST.common.user;
+      this.values.password = DEV_USERS_LIST.common.password;
       uPromise.timeout(500)
         .then(() => this.signIn());
     },
