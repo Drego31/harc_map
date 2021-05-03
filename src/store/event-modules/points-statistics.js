@@ -1,7 +1,7 @@
 import { uCheck } from '@dbetka/utils';
-import { map } from 'map';
 
 export default {
+  state: {},
   getters: {
     numberOfCollectedPointsByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
       const listOfPoints = rootGetters['event/points'].filter(point => {
@@ -11,33 +11,21 @@ export default {
       });
       return (listOfPoints || []).length;
     },
+    percentageProgressByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
+      return rootGetters['event/numberOfCollectedPointsByCategoryId'](categoryId) /
+        rootGetters['event/numberOfPointsByCategoryId'](categoryId) * 100;
+    },
     numberOfPointsByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
       const listOfPoints = rootGetters['event/points'].filter(point => {
         return point.pointCategory === categoryId;
       });
       return (listOfPoints || []).length;
     },
-    percentageProgressByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
-      return rootGetters['event/numberOfCollectedPointsByCategoryId'](categoryId) /
-        rootGetters['event/numberOfPointsByCategoryId'](categoryId) * 100;
-    },
     pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategory => {
       const category = rootGetters['event/getCategoryById'](pointCategory);
       return (category || {}).pointValue;
     },
-    checkTemporaryPointIsVisible: () => ({ pointAppearanceTime, pointExpirationTime }) => {
-      const now = (new Date()).getTime();
-      return pointAppearanceTime < now && now < pointExpirationTime;
-    },
   },
-  actions: {
-    removePoint (context, pointId) {
-      return new Promise((resolve, reject) => {
-        api.removePoint({ pointId, eventId: context.rootGetters['event/eventId'] })
-          .then(() => map.updateMapFeatures())
-          .then(() => resolve())
-          .catch(reject);
-      });
-    },
-  },
+  mutations: {},
+  actions: {},
 };
