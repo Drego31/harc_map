@@ -10,8 +10,7 @@
     "run:dev": "NODE_ENV=development node app.js",
     "run:prod": "NODE_ENV=production node app.js",
     "run:pm2": "pm2 start app.js",
-    "run:mongodb": "npm run run:remove-mongodb && docker run -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d --name harcmap_mongo mongo",
-    "run:remove-mongodb": "docker rm -f harcmap_mongo",
+    "run:mongodb": "docker run --name harcmap_mongo --rm -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
     "fill-database": "NODE_ENV=development node bin/prepareEvent.js",
     "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
   },
