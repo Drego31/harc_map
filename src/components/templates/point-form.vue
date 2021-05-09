@@ -109,7 +109,7 @@ export default {
           label: this.$t('general.pointPermanent'),
           value: MACROS.pointType.permanent,
         }, {
-          label: this.$t('general.pointTemporary'),
+          label: this.$t('general.pointTimeout'),
           value: MACROS.pointType.timeout,
         },
       ],

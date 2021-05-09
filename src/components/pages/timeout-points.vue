@@ -1,7 +1,7 @@
 <template>
   <t-page>
     <m-clock/>
-    <m-table-row-temporary-points
+    <m-table-row-timeout-points
       v-for="point in points"
       :point="point"
       :key="point.pointId"
@@ -15,7 +15,7 @@
 
 <script>
 import TPage from 'templates/page';
-import MTableRowTemporaryPoints from 'molecules/table-row/temporary-points';
+import MTableRowTimeoutPoints from 'molecules/table-row/timeout-points';
 import MClock from 'molecules/clock';
 import { mapGetters } from 'vuex';
 import { map } from 'map';
@@ -25,17 +25,17 @@ export default {
   name: 'p-timeout-points',
   components: {
     TPage,
-    MTableRowTemporaryPoints,
+    MTableRowTimeoutPoints,
     MClock,
   },
   computed: {
     ...mapGetters('event', [
-      'getTemporaryPoints',
+      'getTimeoutPoints',
     ]),
     points () {
-      if (this.checkIsAdmin()) return this.getTemporaryPoints;
+      if (this.checkIsAdmin()) return this.getTimeoutPoints;
       else {
-        return this.getTemporaryPoints.filter(point => {
+        return this.getTimeoutPoints.filter(point => {
           const appearanceTime = moment(new Date(point.pointAppearanceTime));
           const now = moment();
           return now.diff(appearanceTime, 'days') === 0;

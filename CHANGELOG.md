@@ -143,7 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SSL
 - Display OpenLayers map with points to collect by users
 - Possibility to collect points
-- Temporary points
+- Timeout points
 - Dark mode
 - Auto update
 - About view

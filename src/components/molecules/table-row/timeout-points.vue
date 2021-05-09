@@ -1,5 +1,5 @@
 <template>
-  <div class="m-grid f-temporary-points">
+  <div class="m-grid f-timeout-points">
     <a-icon
       :name="timerIcon"
       :size="24"
@@ -26,7 +26,7 @@ import { getHoursAndMinutesAsString } from 'utils/date';
 import moment from 'moment';
 
 export default {
-  name: 'm-table-row-temporary-points',
+  name: 'm-table-row-timeout-points',
   data: () => ({
     pointAppearanceTime: null,
     pointExpirationTime: null,
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     checkIfPointIsActive () {
-      return this.$store.getters['event/checkTemporaryPointIsVisible'](this.point);
+      return this.$store.getters['event/checkTimeoutPointIsVisible'](this.point);
     },
     checkIfPointIsFuture () {
       const now = (new Date()).getTime();
