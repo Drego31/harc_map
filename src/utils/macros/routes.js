@@ -120,11 +120,11 @@ export const ROUTES = {
       requiredAuth: true,
     },
   },
-  temporaryPoints: {
-    path: '/temporary-points',
-    name: 'temporaryPoints',
-    label: translator.t('title.temporaryPoints'),
-    shortLabel: translator.t('title.short.temporaryPoints'),
+  timeoutPoints: {
+    path: '/timeout-points',
+    name: 'timeoutPoints',
+    label: translator.t('title.timeoutPoints'),
+    shortLabel: translator.t('title.short.timeoutPoints'),
     icon: ICONS.watch_later,
     meta: {
       onlyBeforeLogin: false,

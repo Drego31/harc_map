@@ -60,7 +60,7 @@ export default {
           const isBeforeLastGapEndTime = moment(pointCollectionTime).isBefore(lastGapEndTime);
           return isBeforeLastGapEndTime === false;
         }
-        return rootGetters['event/checkTemporaryPointIsVisible']({
+        return rootGetters['event/checkTimeoutPointIsVisible']({
           pointAppearanceTime,
           pointExpirationTime,
         });

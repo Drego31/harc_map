@@ -2,7 +2,7 @@ export function getPointsByEventIdMock (eventId) {
   return {
     'error': null,
     'eventId': eventId,
-    'points': permanentPointsMock.concat(temporaryPointsMock()),
+    'points': permanentPointsMock.concat(timeoutPointsMock()),
   };
 }
 
@@ -120,7 +120,7 @@ const permanentPointsMock = [
 
 ];
 
-const temporaryPointsMock = () => {
+const timeoutPointsMock = () => {
   const now = new Date().toLocaleString();
   const twoHoursBefore = new Date();
   const twoHoursAfter = new Date();
@@ -132,7 +132,7 @@ const temporaryPointsMock = () => {
       'pointLongitude': 18.5393,
       'pointCategory': 0,
       'pointId': 'P50c',
-      'pointType': 'temporary',
+      'pointType': 'timeout',
       'pointName': 'Event 1',
       'pointExpirationTime': now,
       'pointCollectionTime': null,
@@ -142,7 +142,7 @@ const temporaryPointsMock = () => {
       'pointLongitude': 18.5486,
       'pointCategory': 0,
       'pointId': 'A1vB',
-      'pointType': 'temporary',
+      'pointType': 'timeout',
       'pointName': 'Event 2',
       'pointExpirationTime': twoHoursBefore,
       'pointCollectionTime': null,
@@ -152,7 +152,7 @@ const temporaryPointsMock = () => {
       'pointLongitude': 18.5074,
       'pointCategory': 0,
       'pointId': 'UQoh',
-      'pointType': 'temporary',
+      'pointType': 'timeout',
       'pointName': 'Event 3',
       'pointExpirationTime': twoHoursAfter,
       'pointCollectionTime': null,

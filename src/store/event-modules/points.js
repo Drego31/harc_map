@@ -28,14 +28,14 @@ export default {
       return state.points.find(point => point.olUid === pointOlUid);
 
     },
-    getTemporaryPoints: state => state.points
+    getTimeoutPoints: state => state.points
       .filter(point => point.pointType === MACROS.pointType.timeout)
       .sort((pA, pB) => pA.pointExpirationTime - pB.pointExpirationTime),
 
     allCollectedPoints: state => state.points
       .filter(point => point.pointCollectionTime !== null),
 
-    checkTemporaryPointIsVisible: () => ({ pointAppearanceTime, pointExpirationTime }) => {
+    checkTimeoutPointIsVisible: () => ({ pointAppearanceTime, pointExpirationTime }) => {
       const now = (new Date()).getTime();
       return pointAppearanceTime < now && now < pointExpirationTime;
     },

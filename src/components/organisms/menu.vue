@@ -82,7 +82,7 @@ export default {
       const isCommon = this.checkIsCommon();
       const links = [
         ROUTES.start,
-        ROUTES.temporaryPoints,
+        ROUTES.timeoutPoints,
         isCommon ? ROUTES.collectPoint : undefined,
         isAdmin ? ROUTES.scoreboard : ROUTES.collectedPoints,
         isUnlimited ? ROUTES.editEvent : undefined,

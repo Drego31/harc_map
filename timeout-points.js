@@ -1,5 +1,5 @@
 /**
- * 0: category for temporary points
+ * 0: category for timeout points
  *
  * @returns {({pointLatitude: number, pointCategory: number, pointLongitude: number})[]}
  */
@@ -13,7 +13,7 @@ const defaultData = {
 
 module.exports =
   {
-    temporaryPointsForDatabase: function () {
+    timeoutPointsForDatabase: function () {
       const points = [
         {
           pointName: 'Bunkier Dalmierza',

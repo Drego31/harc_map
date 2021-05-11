@@ -62,7 +62,7 @@ export default {
       };
       return [
         ROUTES.start,
-        ROUTES.temporaryPoints,
+        ROUTES.timeoutPoints,
         centralButton,
         ROUTES.map,
         {
