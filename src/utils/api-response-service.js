@@ -52,7 +52,7 @@ export const apiResponseService = {
   },
   catchConnectionError (reject) {
     return function () {
-      reject(translator.t('apiError.notOnline'));
+      reject(translator.t('apiError.general.notOnline'));
     };
   },
   hasNoError (data) {
@@ -95,7 +95,7 @@ function catchError ({ data, errors = [], onError, defaultErrorMessage }) {
   if (data.error === validateCodes.UNAUTHORIZED_ACCESS) {
     store.commit('user/signOut');
     router.push(ROUTES.welcome.path);
-    errorMessage = translator.t('apiError.unauthorizedAccess');
+    errorMessage = translator.t('apiError.general.unauthorizedAccess');
   }
   onError(new ErrorMessage(errorMessage, { code: data.error }));
 }

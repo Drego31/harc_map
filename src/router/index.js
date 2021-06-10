@@ -31,7 +31,7 @@ router.beforeEach((to, from, next) => {
   promise
     .catch((error) => {
       if (error instanceof ErrorMessage) error.showMessage();
-      else console.error(e);
+      else console.error(error);
     })
     .finally(() => {
       redirectIfNotAuth(to, from, next);
