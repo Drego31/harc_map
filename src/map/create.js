@@ -20,7 +20,7 @@ export function createMap (map, config) {
 
   if (!elementId) {
     const errorMessage = new ErrorMessage(ERRORS.elementIdIsRequiredForMap);
-    errorMessage.showMessage('Mapa przestała działać. Proszę zgłosić usterkę do animistratora.');
+    errorMessage.showMessage('Mapa przestała działać. Proszę zgłosić usterkę do administratora.');
   }
 
   map.realMap = new Map({
