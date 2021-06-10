@@ -10,6 +10,7 @@ import { ROUTES } from 'utils/macros/routes';
 import { ICONS } from './__jscash__/icons-names-list';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
+import { App as NativeApp } from '@capacitor/app';
 import VueEllipseProgress from 'vue-ellipse-progress';
 import Vue2TouchEvents from 'vue2-touch-events';
 import 'utils/dev-mode/auto-login';
@@ -63,6 +64,11 @@ LocalNotifications.addListener(
   'localNotificationActionPerformed',
   some => alert('ok ' + JSON.stringify(some)),
 );
+
+NativeApp.addListener('backButton', ({ canGoBack }) => {
+  if (canGoBack) router.back();
+  else NativeApp.exitApp();
+});
 
 new Vue({
   router,

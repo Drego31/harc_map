@@ -1,5 +1,6 @@
 import { translator } from 'src/dictionary';
 import { communicates } from 'utils/communicates';
+import { ErrorMessage } from 'utils/error-message';
 
 export const formMixin = {
   data: () => ({
@@ -22,7 +23,8 @@ export const formMixin = {
       this.isServerError = true;
       this.isSending = false;
       this.blockForm = false;
-      errorMessage.showMessageTemporary();
+      if (errorMessage instanceof ErrorMessage) errorMessage.showMessageTemporary();
+      else communicates.showErrorTemporary(errorMessage);
     },
   },
 };
