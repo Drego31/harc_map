@@ -49,7 +49,7 @@ function addBodyToConfig (config, data) {
 }
 
 export const request = {
-  host: PRODUCTION ? '' : 'https://localhost:3030',
+  host: PRODUCTION ? 'https://harcmap.henouser.pl' : 'https://10.0.2.2:3030',
   dataToPathVariables (data) {
     let pathData = '';
 

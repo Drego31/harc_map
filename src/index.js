@@ -14,6 +14,7 @@ import VueEllipseProgress from 'vue-ellipse-progress';
 import Vue2TouchEvents from 'vue2-touch-events';
 import 'utils/dev-mode/auto-login';
 import VueMaterialIcons from '@dbetka/vue-material-icons';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 styleManager.init();
 uuidInit();
@@ -43,6 +44,25 @@ Vue.mixin({
 Vue.use(Vue2TouchEvents);
 Vue.use(VueEllipseProgress);
 Vue.use(VueMaterialIcons);
+
+// LocalNotifications.schedule({
+//   notifications: [
+//     {
+//       title: 'On sale',
+//       body: 'Widgets are 10% off. Act fast!',
+//       id: 1,
+//       schedule: { at: new Date(Date.now() + 1000 * 5) },
+//       sound: null,
+//       attachments: null,
+//       actionTypeId: '',
+//       extra: null,
+//     },
+//   ],
+// });
+LocalNotifications.addListener(
+  'localNotificationActionPerformed',
+  some => alert('ok ' + JSON.stringify(some)),
+);
 
 new Vue({
   router,
