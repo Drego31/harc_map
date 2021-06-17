@@ -23,8 +23,8 @@
 - node v10.15.3 or higher
 - npm v6.13.7 or higher
 
-### How to prepare Intellij IDE (Webstorm / Phpstorm) for front-end development
-1. You have to get into `Settings/Languages & Frameworks/JavaScript/Webpack` and set `webpack.common.js` as a config file.
+### How to prepare Intellij IDE (Webstorm) for front-end development
+1. You have to get into `Settings/Languages & Frameworks/JavaScript/Webpack` and set `client/webpack.common.js` as a config file.
 2. Open `Project Files` click by right button on `.eslintrc` file and click `Apply ESLint Code Style Rules` option.
 3. You have to get into `Settings/Editor/Code Style/HTML`, find `Do not indent children of` option and add `script` tag there.
 4. Restart IDE
@@ -34,20 +34,37 @@
 ## Development
 
 ### Devel environment
-1. Install packages: `npm i`
+
+#### Client
+1. Go to client dir `cd client`
+2. Install client packages: `npm i`
+3. Run the front-end builder: `npm run build:dev:watch`
+4. Build client files destination is in `public/`
+   
+#### Server
+1. Go to main project dir
 2. Run the local database ([read more](#local-database))
 3. Fill the database ([read more](#adding-rtl-gdynia-points-to-database))
-4. Run the local server: `npm run run:dev`
-5. Run the front-end builder: `npm run build:dev`
+4. Install server packages: `npm i`
+5. Run the local server: `npm run run:dev`
 6. App is ready on https://localhost:3030/
 7. If you get into https://localhost:3030/sign-in, the application log you in automatically on 
    the demo account (to edit demo user's data go to `config/mongodb/local.js`).
 
-### Production environment:
-1. Install packages: `npm i`
-2. Build front-end package: `npm run build:prod`
-2. Run server: `npm run run:prod`
-3. App is ready!
+
+### Production environment
+
+#### Client
+1. Go to client dir `cd client`
+2. Install client packages: `npm i`
+3. Run the front-end builder: `npm run build:prod`
+4. Build client files destination is in `public/`
+
+#### Server
+1. Go to main project dir
+2. Install packages: `npm i`
+3. Run server: `npm run run:prod`
+4. Server is ready!
 
 ### Development kit
 
@@ -97,7 +114,7 @@ View of swagger documentation are group by main endpoint categories like: User, 
 ## Version release
 To do list:
 - Update CHANGELOG.md
-- Update version in package.json
+- Update version in `client/package.json` and `package.json`
 - Merge to master
 - Create version tag
 - Release on serwer
