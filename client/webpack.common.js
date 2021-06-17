@@ -7,9 +7,10 @@ const resolve = webpackUtils.resolve;
 
 const AppName = 'HarcMap';
 const AppVersion = webpackUtils.getAppVersionFromPackageJSON();
+const publicPath = '../public';
 
-webpackUtils.removeOldBundleFiles('public/*app.*.js');
-webpackUtils.removeOldBundleFiles('public/*app.js');
+webpackUtils.removeOldBundleFiles(publicPath + '/*app.*.js');
+webpackUtils.removeOldBundleFiles(publicPath + '/*app.js');
 
 module.exports = {
   mode: 'development',
@@ -21,22 +22,8 @@ module.exports = {
   },
   output: {
     // filename in dev and prod configs
-    path: resolve('public'),
+    path: resolve(publicPath),
     publicPath: '/',
-  },
-  devServer: {
-    historyApiFallback: {
-      rewrites: [
-        {
-          from: /.*/,
-          to: '/index.html',
-        },
-      ],
-    },
-    contentBase: resolve('public'),
-    compress: true,
-    port: 8000,
-    https: true,
   },
   module: {
     rules: webpackRules,
@@ -49,7 +36,8 @@ module.exports = {
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
-      vendors: resolve('vendors'),
+      vendors: resolve('../vendors'),
+      validateCodes: resolve('../lib/validateCodes.js'),
 
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),
@@ -59,7 +47,7 @@ module.exports = {
       pages: resolve('src/components/pages'),
       templates: resolve('src/components/templates'),
     },
-    extensions: ['.vue', '.sass', '.js', '.css'],
+    extensions: ['.js', '.vue', '.sass', '.css'],
   },
   plugins: [
     new VueLoaderPlugin(),

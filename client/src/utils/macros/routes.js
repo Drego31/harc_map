@@ -1,4 +1,4 @@
-import { ICONS } from 'src/__jscash__/icons-names-list';
+import { ICONS } from '@dbetka/vue-material-icons';
 import { translator } from 'src/dictionary';
 
 export function getDataForRouter (route) {

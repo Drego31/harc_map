@@ -2,7 +2,7 @@ import Overlay from 'ol/Overlay';
 import { store } from 'store';
 import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
-import { ICONS } from 'src/__jscash__/icons-names-list';
+import { ICONS } from '@dbetka/vue-material-icons';
 import { MACROS } from 'utils/macros';
 import moment from 'moment';
 

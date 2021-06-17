@@ -38,7 +38,7 @@ import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldEmail from 'molecules/field/email';
 import AButtonPrimary from 'atoms/button/primary';
-import validateCodes from '../../../lib/validateCodes';
+import validateCodes from 'validateCodes';
 
 export default {
   name: 'p-remind-password',

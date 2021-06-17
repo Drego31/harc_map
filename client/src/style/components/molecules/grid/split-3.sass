@@ -1,0 +1,6 @@
+@use "sass:math"
+
+$number: 3
+
+.m-grid.f-split-3
+  grid-template-columns: repeat($number, math.div(100%, $number))

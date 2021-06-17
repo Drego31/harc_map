@@ -6,7 +6,7 @@ import { translator } from 'src/dictionary';
 import { store } from 'store';
 import router from 'src/router';
 import { ROUTES } from 'utils/macros/routes';
-import validateCodes from '../../lib/validateCodes';
+import validateCodes from 'validateCodes';
 
 /**
  * @param errors - example:
