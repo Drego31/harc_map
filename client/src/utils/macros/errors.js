@@ -1,4 +1,4 @@
-import validateCodes from '../../../lib/validateCodes';
+import validateCodes from 'validateCodes';
 import { translator } from 'src/dictionary';
 import { apiErrorTranslationFactory } from 'utils/translations';
 

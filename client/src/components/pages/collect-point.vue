@@ -25,7 +25,7 @@ import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldText from 'molecules/field/text';
 import AButtonSubmit from 'atoms/button/submit';
-import { ICONS } from 'src/__jscash__/icons-names-list';
+import { ICONS } from '@dbetka/vue-material-icons';
 import { translator } from 'src/dictionary';
 
 export default {
