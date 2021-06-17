@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">HarcMap</string>
+    <string name="title_activity_main">HarcMap</string>
+    <string name="package_name">com.harcmap.app</string>
+    <string name="custom_url_scheme">com.harcmap.app</string>
+</resources>
