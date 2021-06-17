@@ -47,8 +47,8 @@ Vue.use(VueMaterialIcons);
 // LocalNotifications.schedule({
 //   notifications: [
 //     {
-//       title: 'On sale',
-//       body: 'Widgets are 10% off. Act fast!',
+//       title: 'Witaj w HarcMap!',
+//       body: 'Stwórz okazję do przygody dla swoich przyjaciół!',
 //       id: 1,
 //       schedule: { at: new Date(Date.now() + 1000 * 5) },
 //       sound: null,
