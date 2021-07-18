@@ -100,4 +100,4 @@ To do list:
 - Update version in package.json
 - Merge to master
 - Create version tag
-- Release on serwer
+- Release on server
