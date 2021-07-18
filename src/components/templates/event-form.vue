@@ -74,13 +74,11 @@ import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetMapPosition from 'organisms/admin/set-map-position';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 't-event-form',
   mixins: [mixins.form, mixins.validation],
   components: {
-    AIcon,
     OAdminSetMapPosition,
     OFloatContainer,
     MFieldText,

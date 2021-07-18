@@ -54,13 +54,11 @@
 
 <script>
 import TPage from 'templates/page';
-import AIcon from 'atoms/icon';
 import { translator } from 'src/dictionary';
 
 export default {
   name: 'p-about',
   components: {
-    AIcon,
     TPage,
   },
   data: () => ({

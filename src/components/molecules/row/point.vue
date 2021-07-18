@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import AIcon from 'atoms/icon';
 import AIconCategory from 'atoms/icon/category';
 import { mapGetters } from 'vuex';
 import moment from 'moment';
@@ -34,7 +33,6 @@ export default {
   name: 'm-row-point',
   components: {
     AIconCategory,
-    AIcon,
   },
   data: () => ({
     detailsAreOpen: false,

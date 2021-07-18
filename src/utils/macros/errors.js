@@ -1,12 +1,22 @@
 import validateCodes from '../../../lib/validateCodes';
 import { translator } from 'src/dictionary';
+import { apiErrorTranslationFactory } from 'utils/translations';
+
+const T = {
+  general: apiErrorTranslationFactory('general'),
+  event: apiErrorTranslationFactory('event'),
+  point: apiErrorTranslationFactory('point'),
+  users: apiErrorTranslationFactory('users'),
+  auth: apiErrorTranslationFactory('auth'),
+  registerAndAccount: apiErrorTranslationFactory('registerAndAccount'),
+};
 
 export const ERRORS = {
   eventIdIsRequired: translator.t('error.eventIdIsRequired'),
   elementIdIsRequiredForMap: translator.t('error.elementIdIsRequiredForMap'),
   fakeErrorInMockApi: translator.t('error.fakeErrorInMockApi'),
   dataAfterSignIn: translator.t('error.dataAfterSignIn'),
-  signOut: translator.t('apiError.signOut'),
+  signOut: T.auth('signOut'),
 };
 
 export const API_WARNS = {
@@ -31,85 +41,85 @@ export const API_WARNS = {
   },
 };
 
-export const API_ERRORS = {
-  undefined: {
-    defaultError: translator.t('apiError.undefined'),
-  },
-  // EVENT
+const EVENT_API_ERRORS = {
   getEventById: {
-    defaultError: translator.t('apiError.getEventById'),
+    defaultError: T.event('getEventById'),
   },
   getPointsByEventId: {
-    defaultError: translator.t('apiError.getPointsByEventId'),
+    defaultError: T.event('getPointsByEventId'),
   },
   getCategoriesByEventId: {
-    defaultError: translator.t('apiError.getCategoriesByEventId'),
+    defaultError: T.event('getCategoriesByEventId'),
   },
   updateEvent: {
-    defaultError: translator.t('apiError.updateEvent'),
+    defaultError: T.event('updateEvent'),
     errors: [
       [
         [validateCodes.EVENT_END_DATE_IS_EMPTY],
-        translator.t('apiError.eventEndDateIsEmpty'),
+        T.event('eventEndDateIsEmpty'),
       ],
       [
         [validateCodes.EVENT_START_DATE_IS_EMPTY],
-        translator.t('apiError.eventStartDateIsEmpty'),
+        T.event('eventStartDateIsEmpty'),
       ],
     ],
   },
+};
+const POINT_API_ERRORS = {
   collectPoint: {
-    defaultError: translator.t('apiError.collectPoint'),
+    defaultError: T.point('collectPoint'),
     errors: [
       [
         [
           validateCodes.DATABASE_DATA_CONFLICT_ERROR,
           validateCodes.POINT_ALREADY_COLLECTED,
         ],
-        translator.t('apiError.pointCollectedEarlier'),
+        T.point('pointCollectedEarlier'),
       ],
       [
         [validateCodes.DATABASE_NO_RESULT_ERROR],
-        translator.t('apiError.pointNoExist'),
+        T.point('pointNoExist'),
       ],
       [
         [validateCodes.EVENT_IS_OUT_OF_DATE],
-        translator.t('apiError.eventIsOutOfDate'),
+        T.event('eventIsOutOfDate'),
       ],
       [
         [validateCodes.EVENT_BEFORE_START_DATE],
-        translator.t('apiError.eventBeforeStart'),
+        T.event('eventBeforeStart'),
       ],
     ],
   },
   addPoint: {
-    defaultError: translator.t('apiError.addPoint'),
+    defaultError: T.point('addPoint'),
   },
   editPoint: {
-    defaultError: translator.t('apiError.editPoint'),
+    defaultError: T.point('editPoint'),
   },
   removePoint: {
-    defaultError: translator.t('apiError.removePoint'),
+    defaultError: T.point('removePoint'),
     errors: [
       [
         [validateCodes.POINT_ID_OR_EVENT_ID_NOT_EXIST],
-        translator.t('apiError.pointIdOrEventIdNotExist'),
+        T.point('pointIdOrEventIdNotExist'),
       ],
     ],
   },
-
-  // USER
+};
+const USERS_API_ERRORS = {
   all: {
-    defaultError: translator.t('apiError.all'),
+    defaultError: T.users('all'),
     errors: [
       [
         [validateCodes.UNAUTHORIZED_ACCESS],
-        translator.t('apiError.unauthorizedAccess'),
+        T.general('unauthorizedAccess'),
       ],
     ],
   },
+};
+const AUTH_API_ERRORS = {
   signIn: {
-    defaultError: translator.t('apiError.signIn'),
+    defaultError: T.auth('signIn'),
     errors: [
       [
         [
@@ -120,45 +130,62 @@ export const API_ERRORS = {
           validateCodes.LOGIN_INVALID_USER,
           validateCodes.DATABASE_NO_RESULT_ERROR,
         ],
-        translator.t('apiError.signInData'),
+        T.auth('signInData'),
       ],
       [
         [validateCodes.USER_IS_LOGGED_ON_ANOTHER_DEVICE],
-        translator.t('apiError.signInOnOtherDevice'),
+        T.auth('signInOnOtherDevice'),
       ],
       [
         [validateCodes.ACCOUNT_IS_INACTIVE],
-        translator.t('apiError.inactiveAccount'),
+        T.auth('inactiveAccount'),
       ],
       [
         [validateCodes.TO_MANY_CROSSDEVICE_VISITS],
-        translator.t('apiError.toManyCrossdeviceVisits'),
+        T.general('toManyCrossdeviceVisits'),
       ],
     ],
   },
   checkYourLoginSession: {
-    defaultError: translator.t('apiError.checkYourLoginSession'),
+    defaultError: T.auth('checkYourLoginSession'),
   },
+  signOut: {
+    defaultError: T.auth('signOut'),
+  },
+};
+const REGISTER_AND_ACCOUNT_API_ERRORS = {
   signUp: {
-    defaultError: translator.t('apiError.signUp'),
+    defaultError: T.registerAndAccount('signUp'),
     errors: [
       [
         [validateCodes.EVENT_ID_NOT_EXIST],
-        translator.t('apiError.eventIdNotExist'),
+        T.registerAndAccount('eventIdNotExist'),
       ],
       [
         [validateCodes.USER_EXIST],
-        translator.t('apiError.userExist'),
+        T.registerAndAccount('userExist'),
       ],
     ],
   },
   remindPassword: {
-    defaultError: translator.t('apiError.remindPassword'),
+    defaultError: T.registerAndAccount('remindPassword'),
   },
-  signOut: {
-    defaultError: translator.t('apiError.signOut'),
-  },
+
   changePassword: {
-    defaultError: translator.t('apiError.changePassword'),
+    defaultError: T.registerAndAccount('changePassword'),
   },
+};
+
+export const API_ERRORS = {
+  undefined: {
+    defaultError: T.general('undefined'),
+  },
+  information: {
+    defaultError: T.general('undefined'),
+  },
+  ...EVENT_API_ERRORS,
+  ...POINT_API_ERRORS,
+  ...USERS_API_ERRORS,
+  ...AUTH_API_ERRORS,
+  ...REGISTER_AND_ACCOUNT_API_ERRORS,
 };

@@ -31,7 +31,6 @@ import * as JsSearch from 'js-search';
 import { mapGetters } from 'vuex';
 import TPage from 'templates/page';
 import MFieldText from 'molecules/field/text';
-import AIcon from 'atoms/icon';
 import { map } from 'map';
 import AButtonIcon from 'atoms/button/icon';
 import AIconCategory from 'atoms/icon/category';
@@ -41,7 +40,6 @@ export default {
   components: {
     AIconCategory,
     AButtonIcon,
-    AIcon,
     MFieldText,
     TPage,
   },

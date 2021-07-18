@@ -36,11 +36,10 @@
 <script>
 import { translator } from 'src/dictionary';
 import AButtonIcon from 'atoms/button/icon';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-banner-map',
-  components: { AIcon, AButtonIcon },
+  components: { AButtonIcon },
   data: () => ({
     showSuccessMessage: false,
     defaultSuccessMessage: translator.t('features.bannerMap.defaultSuccessMessage'),

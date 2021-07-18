@@ -10,6 +10,7 @@
     emptyThickness="12%"
     animation="reverse 1000 700"
     :legend="true"
+    :legendValue="numberOfCompleted"
     :noData="false"
     :loading="false"
     :half="false"
@@ -24,6 +25,10 @@ export default {
   name: 'm-circle-progress',
   props: {
     progress: {
+      type: Number,
+      required: true,
+    },
+    numberOfCompleted: {
       type: Number,
       required: true,
     },

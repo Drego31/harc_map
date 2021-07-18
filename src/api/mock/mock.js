@@ -1,4 +1,3 @@
-// import { getCollectedPointsByMock } from 'api/mockMethods/get-collected-points';
 import { eventController } from 'api/mock/event-controller';
 import { userController } from 'api/mock/user-controller';
 
@@ -20,4 +19,11 @@ export function makeDelayFakeAnswer (method = () => undefined, timeout = 500) {
 export const mockApi = {
   ...eventController,
   ...userController,
+  information () {
+    const appVersion = VERSION;
+    // console.log(`request: 'information', response: '${appVersion}'`);
+    return makeDelayFakeAnswer(() => ({
+      appVersion,
+    }));
+  },
 };

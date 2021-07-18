@@ -18,11 +18,9 @@
 </template>
 
 <script>
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-table-row',
-  components: { AIcon },
   props: {
     addClass: {
       type: String,

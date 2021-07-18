@@ -7,7 +7,8 @@
         :key="`circle-progress${key}`"
         class="f-mr-1"
         :class="{'f-ml-1': key === 0}"
-        :progress="numberOfCollectedPointsByCategoryId(categoryId)"
+        :number-of-completed="numberOfCollectedPointsByCategoryId(categoryId)"
+        :progress="percentageProgressByCategoryId(categoryId)"
         :max-range="numberOfPointsByCategoryId(categoryId)"
         :color="categoryColorById(categoryId)"
       />
@@ -78,6 +79,7 @@ export default {
       'permanentCategories',
       'numberOfCollectedPointsByCategoryId',
       'numberOfPointsByCategoryId',
+      'percentageProgressByCategoryId',
     ]),
     ...mapGetters('theme', [
       'categoryColorById',

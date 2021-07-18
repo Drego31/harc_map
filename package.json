@@ -1,6 +1,6 @@
 {
   "name": "harcmap",
-  "version": "1.2.4",
+  "version": "1.3.0",
   "description": "HarcMap",
   "main": "src/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "run:dev": "NODE_ENV=development node app.js",
     "run:prod": "NODE_ENV=production node app.js",
     "run:pm2": "pm2 start app.js",
-    "run:mongodb": "docker run -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
+    "run:mongodb": "docker run --name harcmap_mongo --rm -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
     "fill-database": "NODE_ENV=development node bin/prepareEvent.js",
     "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
   },
@@ -52,6 +52,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@dbetka/utils": "^0.1.3",
+    "@dbetka/vue-material-icons": "^0.2.5",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-builtin-extend": "^1.1.2",
     "css-loader": "^3.4.2",

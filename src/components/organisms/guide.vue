@@ -105,12 +105,10 @@ import MSlide from 'molecules/slide';
 import AIconClosePopup from 'atoms/icon/close-popup';
 import { mapGetters, mapMutations } from 'vuex';
 import moment from 'moment';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'o-guide',
   components: {
-    AIcon,
     AIconClosePopup,
     Slider,
     SliderItem,

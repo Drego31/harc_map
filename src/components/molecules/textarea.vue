@@ -41,13 +41,11 @@
 <script>
 import { mixins } from 'mixins/base';
 import MResizeAuto from 'molecules/resize-auto';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-textarea',
   mixins: [mixins.vModel],
   components: {
-    AIcon,
     MResizeAuto,
   },
   props: {

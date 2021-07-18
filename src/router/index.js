@@ -5,6 +5,9 @@ import { ROUTES } from 'utils/macros/routes';
 import { api } from 'api';
 import { promise } from 'utils/promise';
 import { routes } from './routes';
+import { versionCompatibility } from 'utils/version-compatibility';
+import { ErrorMessage } from 'utils/error-message';
+import { session } from 'utils/session';
 
 let firstRun = true;
 
@@ -26,7 +29,10 @@ router.beforeEach((to, from, next) => {
   }
 
   promise
-    .catch((e) => console.error(e))
+    .catch((error) => {
+      if (error instanceof ErrorMessage) error.showMessage();
+      else console.error(error);
+    })
     .finally(() => {
       redirectIfNotAuth(to, from, next);
       store.commit('menu/close');
@@ -41,9 +47,10 @@ export default router;
 
 function makeFirstRun () {
   return new Promise((resolve, reject) => {
-    api.checkYourLoginSession()
-      .then(data => store.dispatch('user/signIn', data))
-      .then(() => resolve())
+    api.information()
+      .then(versionCompatibility.check)
+      .then(session.tryLogin)
+      .then(resolve)
       .catch(reject)
       .finally(() => promise.timeout(1000))
       .finally(() => store.commit('setIsLoading', false));

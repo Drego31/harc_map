@@ -9,11 +9,9 @@
 </template>
 
 <script>
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'a-icon-close-popup',
-  components: { AIcon },
   props: {
     size: {
       type: [Number, String],

@@ -69,13 +69,9 @@
 <script>
 import { mixins } from 'mixins/base';
 import { logical } from 'vendors/logical';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 'm-select',
-  components: {
-    AIcon,
-  },
   mixins: [mixins.vModel],
   props: {
     /**

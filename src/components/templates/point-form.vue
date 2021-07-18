@@ -86,13 +86,11 @@ import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
 import { idUtils } from 'utils/id';
-import AIcon from 'atoms/icon';
 
 export default {
   name: 't-point-form',
   mixins: [mixins.form, mixins.validation],
   components: {
-    AIcon,
     OAdminSetNewPointPosition,
     OFloatContainer,
     MFieldText,
@@ -111,7 +109,7 @@ export default {
           label: this.$t('general.pointPermanent'),
           value: MACROS.pointType.permanent,
         }, {
-          label: this.$t('general.pointTemporary'),
+          label: this.$t('general.pointTimeout'),
           value: MACROS.pointType.timeout,
         },
       ],

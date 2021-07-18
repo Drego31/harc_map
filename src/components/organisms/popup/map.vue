@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import AIcon from 'atoms/icon';
 import { Popup } from 'map/popup';
 import { mapGetters } from 'vuex';
 import { actionUtils } from 'utils/action';
@@ -54,7 +53,6 @@ export default {
   name: 'o-popup-map',
   components: {
     AIconClosePopup,
-    AIcon,
   },
   data: () => ({
     popup: null,

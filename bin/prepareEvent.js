@@ -107,9 +107,9 @@ function generateUniqueId (storeArray, length) {
 
 function createEventPoints () {
   const permanentPoints = require('../points').pointsForDatabase();
-  const temporaryPoints = require('../temporary-points').temporaryPointsForDatabase();
+  const timeoutPoints = require('../timeout-points').timeoutPointsForDatabase();
   const readyPoints = [];
-  const points = permanentPoints.concat(temporaryPoints);
+  const points = permanentPoints.concat(timeoutPoints);
   const pointsIds = [];
 
   Object.keys(points).forEach(index => {
