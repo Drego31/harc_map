@@ -4,7 +4,7 @@ $line-width: 2px
 
 .m-pointer
   position: relative
-  top: calc(50vh - #{$diameter} / 2)
+  top: calc(var(--vh, 1vh) * 50 - #{$diameter} / 2)
   left: calc(50% - #{$diameter} / 2)
 
   width: $diameter
@@ -30,7 +30,7 @@ $line-width: 2px
     content: ''
     position: absolute
     left: calc((#{$diameter} - #{2 * $border} - #{$line-width}) / 2)
-    top: calc(-50vh + #{2 * $border} + #{$line-width})
+    top: calc(var(--vh, 1vh) * -50 + #{2 * $border} + #{$line-width})
     z-index: -1
 
     display: block

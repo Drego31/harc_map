@@ -53,6 +53,15 @@ export default {
       'isOpen',
     ]),
   },
+  mounted () {
+    const VH = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${VH}px`);
+
+    window.addEventListener('resize', () => {
+      const newVH = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${newVH}px`);
+    });
+  },
   methods: {
     ...mapMutations('menu', {
       openMenu: 'open',
